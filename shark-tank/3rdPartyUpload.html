@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Upload</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <!-- Bulma Version 0.7.x-->
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.7.5/css/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/device.css">
+    </head>
+    <script>
+
+        $(document).ready(function() {
+
+            $("#submitBtn").click(function(){
+                $("#progressDiv").show();
+                $("#progress").width("40%");
+                setTimeout("$('#progress').width('60%');", 500);
+                setTimeout("$('#progress').width('100%');", 600);
+                $("#progressDiv").delay(1200).hide(0);
+                $("#device").delay(1200).show(0);
+            });
+        });
+
+    </script>
+
+    <body>
+        <section class="hero is-info is-medium is-bold" style="background-image:url(image/bg.jpeg)">
+            <div class="hero-head">
+                <nav class="navbar">
+                    <div class="container">
+                        <div class="navbar-brand">
+                            <a class="navbar-item" href="../">
+                                <img src="image/vm-logo.png" alt="Logo">
+                            </a>
+                        </div>
+                        <div id="navbarMenu" class="navbar-menu">
+                            <div class="navbar-end">
+                                <div class="tabs is-right">
+                                    <ul>
+                                        <li class="is-active"><a href="Nuance.html">Home</a></li>
+                                        <li><a href="SelfPreCheck.html">SelfCheck</a></li>
+                                        <li><a href="3rdPartyUpload.html">3rdPartyUpload</a></li>
+                                        <li><a href="">Help</a></li>
+                                    </ul>
+                                    <span class="navbar-item">
+                                        <a class="button is-white is-outlined" href="https://www.vmware.com/">
+                                            <span class="icon">
+                                                <i class="fa fa-globe"></i>
+                                            </span>
+                                            <span title="Hello from the other side">Vist VMware</span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title">
+                            Peripheral devices Cloud Doctor
+                    </h1>
+                    <h2 class="subtitle">
+                            Online self diagnosis for Peripheral devices usages in Horizon environment.
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <div class="row columns" style="margin-top: 20px">
+                <div class="column ">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                    Device Supported Platforms
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                            <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                  <select>
+                                    <option>Dell ThinOS</option>
+                                    <option>Windows</option>
+                                    <option>Linux</option>
+                                    <option>Mac</option>
+                                    <option>Dell ThinLinux</option>
+                                    <option>HP SmartOS</option>
+                                    <option>HTML Access</option>
+                                    <option>iOS</option>
+                                    <option>Android</option>
+                                    <option>Chrome</option>
+                                  </select>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Device VID</p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content" style="text-align: center">
+                            <div class="control">
+                                <input class="input" type="text" value="vid-03f0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Manufacturer</p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content" style="text-align: center">
+                            <div class="control">
+                                <input class="input" type="text" value="HP">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Device Driver Link</p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content" style="text-align: center">
+                            <div class="control">
+                                <input class="input" type="text" value="https://support.hp.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                    Device Category
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                            <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select>
+                                        <option>HP LaserJet P2055dn Printer</option>
+                                        <option>SpeechMics</option>
+                                        <option>Printer</option>
+                                        <option>USB Storage</option>
+                                        <option>SmartCard Reader</option>
+                                        <option>Scanner</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Device PID</p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content" style="text-align: center">
+                            <div class="control">
+                                <input class="input" type="text" value="pid-5c17">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Device Usage Video Link</p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content" style="text-align: center">
+                            <div class="control">
+                                <input class="input" type="text" value="https://support.hp.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Device Picture Link</p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content" style="text-align: center">
+                            <div class="control">
+                                <input class="input" type="text" value="https://support.hp.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>                 
+            </div>
+            <div class="card" style="margin: auto; margin-top: -30px; margin-bottom:30px;width:600px;">
+                <header class="card-header">
+                    <p class="card-header-title">Submit Information</p>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </header>
+                <div class="card-content" style="text-align: center">
+                    <a id="submitBtn"  href="javascript:void(0);"  class="button is-primary is-rounded" >
+                        <span class="icon is-large is-centered">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        <span>Submit Information</span></a>
+                </div>
+            </div>
+            <div id="progressDiv"class="progress" style=" display: none"> 
+                <div id="progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+            </div>
+        </div>
+
+
+        <div id="device" class="container" style="display: none">
+            <div class="row columns" style="margin-top: 20px">
+                <div class="column is-one-third">
+                    <div class="card medium">
+                        <div class="card-image" style="margin:auto;margin-top:20px; width: 50%" >
+                            <figure class="image">
+                                <img src="image/printer.png" alt="Image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                    <figure class="image is-96x96">
+                                        <img src="image/hp.png" alt="Image">
+                                    </figure>
+                                </div>
+                                <div class="media-content" style="margin-top: 25px">
+                                    <p class="title is-5 no-padding">HP LaserJet P2055dn </p>
+                                    <p><span class="title is-6"><a href="https://support.hp.com/us-en/drivers/selfservice/hp-laserjet-p2055-printer-series/3662052/model/3662058">https://support.hp.com</a></span></p>
+                                </div>
+                            </div>
+                            <div class="content" style="margin-top: -20px">
+                                    Designed to enhance productivity and provide ergonomic control of both standard dictation and speech recognition functions. 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <!--device info-->
+                    <div class="card events-card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Device Information
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                            <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </span>
+                            </a>
+                        </header>
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Device Name:</span>HP LaserJet P2055dn Printer</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Vendor Name:</span>HP</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">VID:</span>vid-03f0</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">PID:</span>pid-5c17</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Supported Platforms:</span>Dell ThinOS</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Device Usage Video Link:</span>https://support.hp.com</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Device Driver Link:</span>https://support.hp.com</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Device Picture Link:</span>https://support.hp.com</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+                    <!--End device info-->
+                </div>
+                    
+        </div>
+         <!-- End Developers -->
+
+        <!-- <section class="info-tiles">
+            <div class="tile is-ancestor has-text-centered">
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">439k</p>
+                        <p class="subtitle">Users</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">59k</p>
+                        <p class="subtitle">Products</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">3.4k</p>
+                        <p class="subtitle">Open Orders</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">19</p>
+                        <p class="subtitle">Exceptions</p>
+                    </article>
+                </div>
+            </div>
+        </section> -->
+
+
+
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-3 is-offset-2">
+                    <h2><strong>Products</strong></h2>
+                    <ul>
+                        <li><a href="#">VMware Enterprise PKS</a></li>
+                        <li><a href="#">vCloud Availability for vCloud Director</a></li>
+                        <li><a href="#">vCenter Server</a></li>
+                        <!-- <li><a href="#">vSphere Integrated Containers</a></li>
+                        <li><a href="#">vCloud Director</a></li>
+                        <li><a href="#">Cloud Provider Pod</a></li> -->
+                    </ul>
+                </div>
+                <div class="column is-3">
+                    <h2><strong>Support</strong></h2>
+                    <ul>
+                        <li><a href="#">Support Offerings</a></li>
+                        <li><a href="#">Compare Support Offerings</a></li>
+                        <li><a href="#">Renew or Upgrade Support</a></li>
+                        <!-- <li><a href="#">Support Policies</a></li>
+                        <li><a href="#">Products Reaching End of Support</a></li>
+                        <li><a href="#">Lifecycle Policies</a></li> -->
+                    </ul>
+                </div>
+                <div class="column is-4">
+                    <h2><strong>About us</strong></h2>
+                    <ul>
+                        <li><a href="#">VMware on VMware</a></li>
+                        <li><a href="#">Office Locations</a></li>
+                        <li><a href="#">Contact VMware</a></li>
+                        <!-- <li><a href="#">VMware Innovation</a></li>
+                        <li><a href="#">Diversity & Merchandise</a></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="content has-text-centered">
+                <div class="control level-item">
+                    <a href="https://github.com/dansup/bulma-templates">
+                        <div class="tags has-addons">
+                            <span class="tag is-dark">© 2019 VMware, Inc</span>
+                            <span class="tag is-info">                       
+                                <i class="fa fa-twitter"></i>
+                                <i class="fa fa-github"></i>
+                                <i class="fa fa-facebook"></i>
+                                <i class="fa fa-linkedin"></i>
+                            </span>
+                                
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script src="../js/bulma.js"></script>
+    </footer>
+
+</body>
+
+</html>

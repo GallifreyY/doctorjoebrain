@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuance</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- Bulma Version 0.7.x-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.7.5/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/device.css">
+</head>
+<script>
+
+    $(document).ready(function() {
+        $("#checkBtn").click(function(){
+            $(".progress").show();
+            $("#progress").width("40%");
+            setTimeout("$('#progress').width('60%');", 500);
+            setTimeout("$('#progress').width('100%');", 600);
+            $(".progress").delay(1200).hide(0);
+            $("#2ndCol").delay(1200).show(0);
+            $("#video").delay(1200).show(0);
+            $("#suggestion").delay(1200).show(0);
+        });
+    });
+
+</script>
+
+<body>
+        <section class="hero is-info is-medium is-bold" style="background-image:url(image/bg.jpeg)">
+                <div class="hero-head">
+                    <nav class="navbar">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a class="navbar-item" href="../">
+                                    <img src="image/vm-logo.png" alt="Logo">
+                                </a>
+                                <span class="navbar-burger burger" data-target="navbarMenu">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </div>
+                            <div id="navbarMenu" class="navbar-menu">
+                                <div class="navbar-end">
+                                    <div class="tabs is-right">
+                                        <ul>
+                                            <li class="is-active"><a href="Nuance.html">Home</a></li>
+                                            <li><a href="SelfPreCheck.html">SelfCheck</a></li>
+                                            <li><a href="3rdPartyUpload.html">3rdPartyUpload</a></li>
+                                            <li><a href="">Help</a></li>
+                                        </ul>
+                                        <span class="navbar-item">
+                                            <a class="button is-white is-outlined" href="https://www.vmware.com/">
+                                                <span class="icon">
+                                                    <i class="fa fa-globe"></i>
+                                                </span>
+                                                <span title="Hello from the other side">Vist VMware</span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="hero-body">
+                    <div class="container has-text-centered">
+                        <h1 class="title">
+                                Peripheral devices Cloud Doctor
+                        </h1>
+                        <h2 class="subtitle">
+                                Online self diagnosis for Peripheral devices usages in Horizon environment.
+                    </div>
+                </div>
+            </section>
+    <div class="container">
+        <div class="row columns" style="margin-top: 20px">
+                <div class="column is-one-third">
+                    <div class="card large">
+                        <div class="card-image" style="margin:auto; width: 80%" >
+                            <figure class="image">
+                                <img src="image/mic.jpg" alt="Image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                    <figure class="image is-96x96">
+                                        <img src="image/nuance.jpg" alt="Image">
+                                    </figure>
+                                </div>
+                                <div class="media-content" style="margin-top: 25px">
+                                    <p class="title is-5 no-padding">Nuance Power MIC III</p>
+                                    <p><span class="title is-6"><a href="https://www.nuance.com">https://www.nuance.com</a></span></p>
+                                </div>
+                            </div>
+                            <div class="content" style="margin-top: -20px">
+                                    Designed to enhance productivity and provide ergonomic control of both standard dictation and speech recognition functions. 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <!--device info-->
+                    <div class="card events-card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Device Information
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                            <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </span>
+                            </a>
+                        </header>
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Device Name:</span>Nuance Power MIC III</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Vendor Name:</span>Nuance</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">VID:</span>vid-0554</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">PID:</span>pid-1001</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+                    <!--End device info-->
+                    <!--Client info-->
+                    <div class="card events-card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Client Information
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                            <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </span>
+                            </a>
+                        </header>
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Client OS:</span>Windows 10 64bits 1903</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="5%"><i class="setting"></i></td>
+                                            <td width="90%"><span class="name">Client Hardware:</span>Dell Optiplex 7060</td>
+                                            <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+                    <!--End client info-->
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Compatibility Check</p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content" style="text-align: center">
+                            <a id="checkBtn"  href="javascript:void(0);"  class="button is-primary is-rounded" >
+                                <span class="icon is-large is-centered">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <span>Compatibility Check</span></a>
+                        </div>
+                    </div>
+                </div>
+                    
+        </div>
+         <!-- End Developers -->
+
+        <!-- <section class="info-tiles">
+            <div class="tile is-ancestor has-text-centered">
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">439k</p>
+                        <p class="subtitle">Users</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">59k</p>
+                        <p class="subtitle">Products</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">3.4k</p>
+                        <p class="subtitle">Open Orders</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">19</p>
+                        <p class="subtitle">Exceptions</p>
+                    </article>
+                </div>
+            </div>
+        </section> -->
+
+        <!--2nd columns-->
+        <div class="progress" style=" display: none"> 
+            <div id="progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+        </div>
+        <div id="2ndCol" class="columns" style="display: none">
+            <div class="column is-6">
+                <!--Client info-->
+                <div class="card events-card">
+                    <header class="card-header">
+                        <p class="card-header-title">Client Compatibility Check</p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </span>
+                        </a>
+                    </header>
+                    <div class="card-table">
+                        <div class="content">
+                            <table class="table is-fullwidth is-striped">
+                                <tbody>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Client OS:</span>Windows 10 64bits 1903</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Client Hardware:</span>Dell Optiplex 7060</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">PowerMic Firmware:</span>1.41</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Setting:</span>USB split GPO setting in Client side</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-danger">
+                                                <span class="icon is-small">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <span>Failed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Setting:</span>USB split registy setting in Client side</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-danger">
+                                                <span class="icon is-small">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <span>Failed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Horizon client version:</span>5.2</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Horizon client USB arbitrator Service status:</span>Runing</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Horizon client log level:</span>Information</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Nuance solution:</span>Nuance PowerMic VMware Client Extension</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-danger">
+                                                <span class="icon is-small">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <span>Failed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> 
+                <!--End client info-->
+            </div>
+            <div class="column is-6">
+                <!--Agent info-->
+                <div class="card events-card">
+                    <header class="card-header">
+                        <p class="card-header-title">Agent Compatibility Check</p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </span>
+                        </a>
+                    </header>
+                    <div class="card-table">
+                        <div class="content">
+                            <table class="table is-fullwidth is-striped">
+                                <tbody>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Agent OS:</span>Windows 10 64bits 1903</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Agent Hardware:</span>vSphere VM</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">PowerMic Firmware:</span>1.41</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Setting:</span>USB split GPO setting in agent side</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-danger">
+                                                <span class="icon is-small">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <span>Failed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Setting:</span>USB split registy setting in agent side</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-danger">
+                                                <span class="icon is-small">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <span>Failed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Horizon agent version:</span>7.10</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Horizon agent USB arbitrator Service status:</span>Runing</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Horizon agent log level:</span>Information</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-success">
+                                                <span class="icon is-small">
+                                                  <i class="fa fa-check"></i>
+                                                </span>
+                                                <span>Passed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                                                        <tr>
+                                        <td width="5%"><i class="setting"></i></td>
+                                        <td width="90%"><span class="name">Nuance solution:</span>Nuance PowerMic VMware Agent Extension</td>
+                                        <td width="5%">  
+                                            <a class="button is-small is-danger">
+                                                <span class="icon is-small">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <span>Failed</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> 
+                <!--End Agent info-->
+            </div>
+        </div>
+        <!--End 2nd columns-->
+        <!--Suggestion info-->
+        <div id="suggestion"class="card events-card"style="display:none">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Suggestion
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </span>
+                </a>
+            </header>
+            <div class="card-table">
+                <div class="content">
+                    <table class="table is-fullwidth is-striped">
+                        <tbody>
+                            <tr>
+                                <td width="5%"><i class="fa fa-info-circle"></i></td>
+                                <td width="90%">PowerMic is a USB composite device. It is recommended to use Nuance extension solution to redirect this device instead of USB redirection.				</td>
+                                <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                            </tr>
+                            <tr>
+                                <td width="5%"><i class="fa fa-info-circle"></i></td>
+                                <td width="90%">Please follow the <a href="http://dragonmedicalone.nuance.com/StandAlone/">guide</a> of Nuance to configure the extensions on client and agent side. </td>
+                                <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                            </tr>
+                            <tr>
+                                <td width="5%"><i class="fa fa-info-circle"></i></td>
+                                <td width="90%">If you don’t use the extension solution, you can follow the <a href=" https://kb.vmware.com/s/article/2068447">KB</a> to configure the GPO for USB split on Horizon agent machine. </td>
+                                <td width="5%"><a class="button is-small is-primary" href="#">Edit</a></td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+        <!--End Suggestion info-->
+        <div id="video" class="card" style="display: none">
+            <header class="card-header">
+                <p class="card-header-title">
+                        Reference Video
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                    <span class="icon">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </header>
+            <div class="card-content">
+                    <video controls src="image/PowerMic.mp4" type="video/mp4"></video></div>
+        </div>
+
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-3 is-offset-2">
+                    <h2><strong>Products</strong></h2>
+                    <ul>
+                        <li><a href="#">VMware Enterprise PKS</a></li>
+                        <li><a href="#">vCloud Availability for vCloud Director</a></li>
+                        <li><a href="#">vCenter Server</a></li>
+                        <!-- <li><a href="#">vSphere Integrated Containers</a></li>
+                        <li><a href="#">vCloud Director</a></li>
+                        <li><a href="#">Cloud Provider Pod</a></li> -->
+                    </ul>
+                </div>
+                <div class="column is-3">
+                    <h2><strong>Support</strong></h2>
+                    <ul>
+                        <li><a href="#">Support Offerings</a></li>
+                        <li><a href="#">Compare Support Offerings</a></li>
+                        <li><a href="#">Renew or Upgrade Support</a></li>
+                        <!-- <li><a href="#">Support Policies</a></li>
+                        <li><a href="#">Products Reaching End of Support</a></li>
+                        <li><a href="#">Lifecycle Policies</a></li> -->
+                    </ul>
+                </div>
+                <div class="column is-4">
+                    <h2><strong>About us</strong></h2>
+                    <ul>
+                        <li><a href="#">VMware on VMware</a></li>
+                        <li><a href="#">Office Locations</a></li>
+                        <li><a href="#">Contact VMware</a></li>
+                        <!-- <li><a href="#">VMware Innovation</a></li>
+                        <li><a href="#">Diversity & Merchandise</a></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="content has-text-centered">
+                <div class="control level-item">
+                    <a href="https://github.com/dansup/bulma-templates">
+                        <div class="tags has-addons">
+                            <span class="tag is-dark">© 2019 VMware, Inc</span>
+                            <span class="tag is-info">                       
+                                <i class="fa fa-twitter"></i>
+                                <i class="fa fa-github"></i>
+                                <i class="fa fa-facebook"></i>
+                                <i class="fa fa-linkedin"></i>
+                            </span>
+                                
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script src="../js/bulma.js"></script>
+    </footer>
+
+</body>
+
+</html>
