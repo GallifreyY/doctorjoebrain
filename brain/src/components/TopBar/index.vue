@@ -50,8 +50,8 @@ export default {
   padding-top: 9rem;
 }
 .brand{
-  /* margin-left: 1.5rem; */
-  padding-left: 1.5rem;
+  margin-left: 1.5rem;
+  /* padding-left: 1.5rem; */
   margin-top :1rem;
 }
 
