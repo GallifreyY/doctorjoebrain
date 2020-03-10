@@ -10,7 +10,7 @@
           </div>
         </Col>
         <Col span="18">
-          <p>future nav bar</p>
+          <p hidden>future nav bar</p>
         </Col>
       </Row>
     </div>
