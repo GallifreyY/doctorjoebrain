@@ -1,40 +1,4 @@
 <template>
-  <!-- <div class="container">
-    <Row style="margin-top:20px">
-        <Col :sm="12" :lg="8">
-        <div class = "product">
-           <div class = "card">
-               <img :src="'/static/'+ productPic" :alt="productName">
-                <Row type = "flex" justify="center" align="middle">
-                    <Col :span = "8">
-                        <img :src="'/static/'+ productLogo">
-                    </Col>
-                    <Col :span="16">
-                        <div class="name-and-link">
-                            <p>{{productName}}</p>
-                            <a :href="productLink">{{productLink}}</a>
-                        </div>
-                    </Col>
-                </Row>
-                <div class="content">
-                    <p>{{productDescription}}</p>
-                </div>
-
-           </div>
-        </div>
-        </Col>
-        <Col :sm="12" :lg="16">
-        <div class = "info">
-            <div class="card">
-                <Table stripe :show-header="showHeader" :columns="deviceInfo.columns" :data="deviceInfo.data"></Table>
-            </div>
-            <div class="card">
-                <Table stripe :show-header="showHeader" :columns="clientInfo.columns" :data="clientInfo.data"></Table> 
-            </div>
-        </div>
-        </Col>
-    </Row>
-  </div>-->
   <div class="container">
     <Row :gutter="16" style="background:inherit;padding:20px" type="flex" justify="space-around">
       <Col :sm="12" :lg="8">
@@ -154,8 +118,7 @@ export default {
 
 <style scoped>
 .container {
-  padding-left: 35px;
-  padding-right: 35px;
+  padding:35px;
   background-color: #eee;
   font-family: 'Open Sans', serif;
 }

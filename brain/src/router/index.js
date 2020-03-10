@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/test1',
       name: 'testComponent',
-      component: () => import('@/components/Info')
+      component: () => import('@/components/RearBar')
     },
     {
       path: '/test2',
