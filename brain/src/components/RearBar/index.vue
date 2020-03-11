@@ -2,7 +2,7 @@
   <div class = "container">
       <Row type = "flex" justify="center" :gutter="40" style="padding:30px" >
           <Col :span="4">
-            <h2>Prodict</h2>
+            <h2>Product</h2>
             <p>111111</p>
              <p>111111</p>
               <p>111111</p>
@@ -28,6 +28,7 @@
                <Icon type="md-cloudy" />
                <Icon type="logo-facebook" />
                <Icon type="logo-google" />
+               <Icon type="close-round" color="red"/>
            </Tag>
 
         

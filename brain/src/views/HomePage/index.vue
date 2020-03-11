@@ -21,6 +21,5 @@ export default {
   // 数据入口
 };
 </script>
-
 <style>
 </style>
