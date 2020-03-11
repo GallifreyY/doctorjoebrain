@@ -311,6 +311,7 @@ export default {
   padding: 30px 60px;
   background-color: #eee;
   /* font-family: 'Open Sans', serif; */
+  font-weight:700;
 }
 
 .row {
@@ -321,7 +322,6 @@ img {
 
 .name-and-link {
   text-align: center;
-
   font-weight: 600;
   font-size: 1.25rem;
 }

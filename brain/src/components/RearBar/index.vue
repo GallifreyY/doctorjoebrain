@@ -28,7 +28,7 @@
                <Icon type="md-cloudy" />
                <Icon type="logo-facebook" />
                <Icon type="logo-google" />
-               <Icon type="close-round" color="red"/>
+               
            </Tag>
 
         
