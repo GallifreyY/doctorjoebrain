@@ -12,10 +12,7 @@ video {
   object-fit: cover;
 }
 
->>> .row{ // `/deep/`这个是穿透符，当普通的设置子组件样式不管用时，可以使用这个符号，相当于`>>>`
-	border: solid 1px rgb(221, 65, 65);
 
-}
 a{ text-decoration:none} 
 a:link,
 a:visited {

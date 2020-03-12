@@ -1,19 +1,6 @@
 <template>
   <div class="topBar">
-    <div class="header">
-      <Row>
-        <Col span="6">
-        <div class = "brand">
-          <a href="https://www.vmware.com/cn.html">
-            <img src="@/assets/vm-logo.png" alt="VMware" />
-          </a>
-          </div>
-        </Col>
-        <Col span="18">
-          <p hidden>future nav bar</p>
-        </Col>
-      </Row>
-    </div>
+    <nav-bar></nav-bar>
     <div class="content">
       <div class="titles">
         <h1 class="title">{{title}}</h1>
@@ -24,8 +11,11 @@
 </template>
 
 <script>
+import NavBar from "@/components/NavBar";
+
 export default {
   name: "TopBar",
+  components: {NavBar},
   data() {
     return {
       title: "Peripheral devices Cloud Doctor",
@@ -49,11 +39,7 @@ export default {
   padding-bottom: 9rem;
   padding-top: 9rem;
 }
-.brand{
-  margin-left: 1.5rem;
-  /* padding-left: 1.5rem; */
-  margin-top :1rem;
-}
+
 
 .title {
   font-size: 2rem;
