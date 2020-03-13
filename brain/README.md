@@ -1,4 +1,4 @@
-# brain
+# DoctorJoe Intelligence
 
 > A Vue.js project
 

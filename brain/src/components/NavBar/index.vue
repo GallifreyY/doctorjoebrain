@@ -8,30 +8,28 @@
           </a>
         </div>
       </Col>
-      <Col span="5">
+      <Col span="6">
         <div class="link-bar">
-          <a href>
+          <router-link to="/" class="link">
             <Icon type="ios-home" color="white" size="20" />
             <p>Home</p>
-          </a>
-
-          <a href>
+          </router-link>
+          <router-link to="/Device-Matrix" class="link">
             <Icon type="md-analytics" color="white" size="20" />
             <p>Device Matrix</p>
-          </a>
-           <a href>
+          </router-link>
+          <router-link to="/Log-in" class="link">
             <Icon type="md-log-in" color="white" size="20" />
             <p>Log in</p>
-          </a>
-          <a href>
+          </router-link>
+          <router-link to="/test1" class="link">
             <Icon type="md-globe" color="white" size="20" />
             <p>Visit us</p>
-          </a>
-
-          <a href>
+          </router-link>
+          <router-link to="/help" class="link">
             <Icon type="md-help-circle" color="white" size="20" />
             <p>Help</p>
-          </a>
+          </router-link>
         </div>
       </Col>
     </Row>
@@ -49,23 +47,33 @@ export default {
 
 <style lang="" scoped>
 .brand {
-  margin: 1rem 1.5rem;
+  /* margin: 1rem 1.5rem; */
+  padding: 10px;
 }
 .nav-bar {
   padding: 0px 10px;
   background-image: url(../../assets/background.jpeg);
+  border-bottom: 1px solid rgb(200, 241, 241);
 }
 .link-bar {
   color: white;
   display: flex;
   justify-content: space-around;
+  /* border: 1px solid red; */
 }
-a {
+.link-bar .link {
   /* display: inline; */
   color: white;
   font-size: 4px;
   text-align: center;
+  height: 100%;
+  /* merge border*/
+  border-bottom: 1px solid rgb(218, 241, 241);
+  margin-bottom: -1px;
+  padding: 5px;
 }
 
-
+.link-bar .link:hover {
+  border-bottom: 1px solid rgb(0, 174, 255);
+}
 </style>

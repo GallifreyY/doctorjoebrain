@@ -18,6 +18,12 @@ export default new Router({
       path: '/',
       component: () => import('@/views/HomePage')
     },
+    {
+      path: '/Device-Matrix',
+      component: () => import('@/views/DeviceMatrix')
+    }
+    
+
 
   ]
 })
