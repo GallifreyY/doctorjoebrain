@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-    <Row type="flex" justify="space-between" align="middle">
+    <Row type="flex" align="middle">
       <Col span="8">
         <div class="brand">
           <a href="https://www.vmware.com/cn.html">
@@ -8,7 +8,7 @@
           </a>
         </div>
       </Col>
-      <Col span="6">
+      <Col span="16">
         <div class="link-bar">
           <router-link to="/" class="link">
             <Icon type="ios-home" color="white" size="20" />
@@ -53,13 +53,18 @@ export default {
 .nav-bar {
   padding: 0px 10px;
   background-image: url(../../assets/background.jpeg);
-  border-bottom: 1px solid rgb(200, 241, 241);
+  border-bottom: 2px solid rgb(200, 241, 241);
+  position: fixed; 
+  width:100%;
+  z-index:1;
+  top:0;
+  /* height:50px; */
 }
 .link-bar {
   color: white;
   display: flex;
-  justify-content: space-around;
-  /* border: 1px solid red; */
+  justify-content: flex-end;
+   
 }
 .link-bar .link {
   /* display: inline; */
@@ -67,13 +72,13 @@ export default {
   font-size: 4px;
   text-align: center;
   height: 100%;
-  /* merge border*/
-  border-bottom: 1px solid rgb(218, 241, 241);
-  margin-bottom: -1px;
-  padding: 5px;
+  /* merge border */
+  border-bottom: 2px solid rgb(218, 241, 241);
+  margin-bottom: -2px;
+  padding: 1vw;
 }
 
 .link-bar .link:hover {
-  border-bottom: 1px solid rgb(0, 174, 255);
+  border-bottom: 2px solid rgb(0, 174, 255);
 }
 </style>

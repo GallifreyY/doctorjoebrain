@@ -6,9 +6,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/test1',
+      path: '/test',
       name: 'testComponent',
-      component: () => import('@/components/NavBar')
+      component: () => import('@/components/DeviceTable')
     },
     {
       path: '/test2',
