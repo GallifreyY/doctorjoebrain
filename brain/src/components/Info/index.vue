@@ -4,20 +4,20 @@
     <Row :gutter="16" style="background:inherit;" type="flex">
       <Col :sm="12" :lg="8">
         <Card :bordered="false" shadow>
-          <img :src="'/static/'+ productPic" :alt="productName" />
+          <img :src="'/static/'+ deviceInfo.pic" alt="No Picture" />
           <Row type="flex" justify="center" align="middle">
             <Col :span="8">
-              <img :src="'/static/'+ productLogo" />
+              <img :src="'/static/'+ deviceInfo.logo" />
             </Col>
             <Col :span="16">
               <div class="name-and-link">
-                <p>{{productName}}</p>
-                <a :href="productLink">{{productLink}}</a>
+                <p>{{deviceInfo.name}}</p>
+                <a :href="deviceInfo.link">{{deviceInfo.link}}</a>
               </div>
             </Col>
           </Row>
           <Col class="content">
-            <p>{{productDescription}}</p>
+            <p>{{deviceInfo.description}}</p>
           </Col>
         </Card>
       </Col>
@@ -28,7 +28,7 @@
           <Table
             stripe
             :show-header="showHeader"
-            :columns="deviceInfo.columns"
+            :columns="columns"
             :data="deviceInfo.data"
             :size="tableSize"
           ></Table>
@@ -38,7 +38,7 @@
           <Table
             stripe
             :show-header="showHeader"
-            :columns="clientInfo.columns"
+            :columns="columns"
             :data="clientInfo.data"
             :size="tableSize"
           ></Table>
@@ -112,7 +112,6 @@
         <video controls :src="'/static/'+ compatilityCheck.referenceVedio" type="video/mp4"></video>
       </Card>
     </Row>
-    
   </div>
 </template>
 
@@ -120,33 +119,15 @@
 export default {
   name: "Info",
   props: {
-    productPic: {
-      type: String,
-      default: "mic.jpg"
-    },
-    productName: {
-      type: String,
-      default: "Nuance Power MIC III"
-    },
-    productLink: {
-      type: String,
-      default: "https://www.nuance.com"
-    },
-    productLogo: {
-      type: String,
-      default: "nuance.jpg"
-    },
-    productDescription: {
-      type: String,
-      default:
-        "Designed to enhance productivity and provide ergonomic control of both standard dictation and speech recognition functions."
-    },
+
+
     deviceInfo: {
       default: {
-        columns: [
-          { title: "Features", key: "feature" },
-          { title: "Information", key: "info" }
-        ],
+        name:"Nuance Power MIC III",
+        pic:"mic.jpg",
+        link:"https://www.nuance.com",
+        logo:"nuance.jpg",
+        description:"Designed to enhance productivity and provide ergonomic control of both standard dictation and speech recognition functions.",
         data: [
           { feature: "Device Name", info: "Nuance Power MIC III" },
           { feature: "Vendor Name", info: "Nuance" },
@@ -157,10 +138,6 @@ export default {
     },
     clientInfo: {
       default: {
-        columns: [
-          { title: "Features", key: "feature" },
-          { title: "Information", key: "info" }
-        ],
         data: [
           { feature: "Client OS", info: "Windows 10 64bits 1903" },
           { feature: "Client Hardware", info: "Dell Optiplex 7060" }
@@ -272,6 +249,10 @@ export default {
 
   data() {
     return {
+      columns: [
+        { title: "Features", key: "feature" },
+        { title: "Information", key: "info" }
+      ],
       showHeader: false, //tableHeader
       showProgressBar: false,
       showCheckingResult: false,
@@ -311,7 +292,7 @@ export default {
   padding: 30px 60px;
   background-color: #eee;
   /* font-family: 'Open Sans', serif; */
-  font-weight:700;
+  font-weight: 700;
 }
 
 .row {

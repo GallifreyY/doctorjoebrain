@@ -46,6 +46,7 @@ export default {
   props: {
     deviceCategory: {
       default: [
+        "All Devices",
         "Printers",
         "Scanners",
         "SppechMics",
