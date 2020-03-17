@@ -33,7 +33,9 @@ later..
 ## back-end
 
 ### temporary design
-![avatar](./doc_assets/djInteklligence-design.png)
+![avatar](./doc_assets/djflow.png)
+
+![avatar](./doc_assets/db-demo.png)
 
 Solution(temp): Flask + sql(mysql?)
 ### database design
