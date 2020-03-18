@@ -8,11 +8,7 @@ export default new Router({
     {
       path: '/test',
       name: 'testComponent',
-      component: () => import('@/components/DeviceTable')
-    },
-    {
-      path: '/test2',
-      component: () => import('@/components/TopBar')
+      component: () => import('@/components/Test')
     },
     {
       path: '/',

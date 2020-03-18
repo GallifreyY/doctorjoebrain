@@ -8,13 +8,14 @@ db = SQLAlchemy(app)
 
 from models import *
 
-@app.route('/')
+@app.route('/matrix', methods=['GET'])
 def hello_world():
     item = Matrix.query.all()
-    item = map(lambda x: x.to_json(), item)
+    item = list(map(lambda x: x.to_json(), item))
+    demo = 'from sever'
     return {
-        'code':'2000',
-        'data': item
+        'code': 20022,
+        'data': demo
     }
 
 
