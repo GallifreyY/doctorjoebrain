@@ -1,6 +1,6 @@
 <template>
   <Layout class="device-layout">
-    <Sider style="position:fixed;height:100%;background-color:#eee;">
+    <Sider style="position:fixed;height:100%;background-color:rgb(229, 235, 238);">
       <!-- search bar -->
       <div style="padding:5%">
         <Input search enter-button placeholder="Search Products..." />

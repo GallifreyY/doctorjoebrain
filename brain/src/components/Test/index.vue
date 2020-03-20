@@ -20,13 +20,23 @@
                     this.matrix = response.data;
                     //console.log('working');
                 })
-            } 
+            } ,
+            trydebug(){
+                for(let i = 5;i<10;i++){
+                    debugger
+                    let j = i+3
+                    debugger
+                }
+
+            }
         },
         created(){
-            this.fetchData();
+            //this.fetchData();
             // console.log(process.env.NODE_ENV);
             // console.log(_TRY_);
             // console.log(process.env.PORT)
+            this.trydebug();
+
         }
     }
 </script>
