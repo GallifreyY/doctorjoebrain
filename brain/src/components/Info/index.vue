@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <!--basic info-->
+    <!--basic value-->
     <Row :gutter="16" style="background:inherit;" type="flex">
       <Col :sm="12" :lg="8">
         <Card :bordered="false" shadow>
-          <img :src="'/static/'+ deviceInfo.pic" alt="No Picture" />
+          <img :src="'/static/device/'+ deviceInfo.pic" alt="No Picture" />
           <Row type="flex" justify="center" align="middle">
             <Col :span="8">
-              <img :src="'/static/'+ deviceInfo.logo" />
+              <img :src="'/static/device/'+ deviceInfo.logo" />
             </Col>
             <Col :span="16">
               <div class="name-and-link">
@@ -57,7 +57,7 @@
       <Progress v-if="showProgressBar" :percent="percent"></Progress>
     </Row>
 
-    <!--client and agent info-->
+    <!--client and agent value-->
     <Row v-if="showCheckingResult" :gutter="16" style="padding:20px 0px;">
       <Col span="12">
         <Card shadow>
@@ -109,149 +109,34 @@
     <Row v-if="showCheckingResult" style="padding:20px 0px">
       <Card>
         <p slot="title">Referece Video</p>
-        <video controls :src="'/static/'+ compatilityCheck.referenceVedio" type="video/mp4"></video>
+        <video controls :src="'/static/diagnosis/'+ compatilityCheck.referenceVedio" type="video/mp4"></video>
       </Card>
     </Row>
   </div>
 </template>
 
 <script>
+
+const df = require("./default")
+console.log(df)
+
 export default {
   name: "Info",
   props: {
-
-
-    deviceInfo: {
-      default: {
-        name:"Nuance Power MIC III",
-        pic:"mic.jpg",
-        link:"https://www.nuance.com",
-        logo:"nuance.jpg",
-        description:"Designed to enhance productivity and provide ergonomic control of both standard dictation and speech recognition functions.",
-        data: [
-          { feature: "Device Name", info: "Nuance Power MIC III" },
-          { feature: "Vendor Name", info: "Nuance" },
-          { feature: "VID", info: "vid-0554" },
-          { feature: "PID", info: "pid-1001" }
-        ]
-      }
-    },
-    clientInfo: {
-      default: {
-        data: [
-          { feature: "Client OS", info: "Windows 10 64bits 1903" },
-          { feature: "Client Hardware", info: "Dell Optiplex 7060" }
-        ]
-      }
-    },
-    compatilityCheck: {
-      default: {
-        columns: [
-          { title: "Features", key: "feature" },
-          { title: "Info", key: "info" },
-          {
-            title: "Check",
-            key: "check",
-            width: 100,
-            render: (h, params) => {
-              let _string = "Pass";
-              let _color = "success";
-              console.log(params);
-              if (params.row.check == false) {
-                _string = "Failed";
-                _color = "error";
-              }
-              return h(
-                "Tag",
-                {
-                  props: { color: _color, size: "small", type: "border" }
-                },
-                _string
-              );
-            }
-          }
-        ],
-        client: [
-          { feature: "Client OS", info: "Windows 10 64bits 1903", check: true },
-          {
-            feature: "Client Hardware",
-            info: "Dell Optiplex 7060",
-            check: true
-          },
-          { feature: "PowerMic Firmware", info: "1.4.1", check: true },
-          {
-            feature: "Setting",
-            info: "USB split GPO setting in Client side",
-            check: false
-          },
-          {
-            feature: "Setting",
-            info: "USB split registy setting in Client side",
-            check: false
-          },
-          { feature: "Horizon client version", info: "5.2", check: true },
-          {
-            feature: "Horizon client USB arbitrator Service status",
-            info: "Runing",
-            check: true
-          },
-          {
-            feature: "Horizon client log level",
-            info: "Information",
-            check: true
-          },
-          {
-            feature: "Nuance solution",
-            info: "Nuance PowerMic VMware Client Extension",
-            check: false
-          }
-        ],
-        agent: [
-          { feature: "Agent OS", info: "Windows 10 64bits 1903", check: false },
-          { feature: "Agent Hardware", info: "vSphere VM", check: false },
-          { feature: "PowerMic Firmware", info: "1.41", check: false },
-          {
-            feature: "Setting",
-            info: "USB split GPO setting in agent side",
-            check: false
-          },
-          {
-            feature: "Setting",
-            info: "USB split registy setting in agent side",
-            check: false
-          },
-          { feature: "Horizon agent version", info: "7.10", check: true },
-          {
-            feature: "Horizon agent USB arbitrator Service status",
-            info: "Runing",
-            check: true
-          },
-          {
-            feature: "Horizon agent log level",
-            info: "Information",
-            check: true
-          },
-          {
-            feature: "Nuance solution",
-            info: "Nuance PowerMic VMware Agent Extension",
-            check: false
-          }
-        ],
-        suggestions: [
-          "PowerMic is a USB composite device. It is recommended to use Nuance extension solution to redirect this device instead of USB redirection.",
-          "Please follow the guide of Nuance to configure the extensions on client and agent side.",
-          "If you don’t use the extension solution, you can follow the KB to configure the GPO for USB split on Horizon agent machine."
-        ],
-        referenceVedio: "PowerMic.mp4"
-      }
-    }
   },
 
   data() {
     return {
+      //Data
+      deviceInfo: df.deviceInfo,
+      clientInfo: df.clientInfo,
+      compatilityCheck : df.compatilityCheck,
+
+
+      //UI
       columns: [
-        { title: "Features", key: "feature" },
-        { title: "Information", key: "info" }
+        { title: "Key", key: "key" },
+        { title: "Value", key: "value" }
       ],
       showHeader: false, //tableHeader
       showProgressBar: false,
@@ -277,6 +162,15 @@ export default {
           this.showCheckingResult = true;
         });
       }
+    },
+    fetchDeviceInfo(){
+
+    },
+    fetchClientInfo(){
+
+    },
+    fetchDiagnosisInfo(){
+      
     }
   }
 };
