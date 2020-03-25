@@ -21,26 +21,21 @@
     </Sider>
 
     <!--table-->
-    
-    <Content class ="table-container" style="margin-left:200px;padding:15px;">
-      <div class="table-menu">
 
-      </div>
+    <Content class="table-container" style="margin-left:200px;padding:15px;">
+      <div class="table-menu"></div>
 
       <div class="table-main">
-        <Table border  size = "small" :columns="mainColumn" :data="data"></Table>
+        <Table border size="small" :columns="mainColumn" :data="matrixData"></Table>
       </div>
-
-
-
     </Content>
-    
 
     <!-- <Card></Card> -->
   </Layout>
 </template>
 
 <script>
+import { getMatrix } from "@/api/matrix";
 export default {
   name: "DeviceTable",
   props: {
@@ -57,27 +52,66 @@ export default {
   },
   data() {
     return {
-      mainColumn:[
-          {title:'Name' , key:'name',width:100,fixed:'left'},
-          {title:'Version' , key:'version',width:100},
-          {title:'Picture', key:'picture',width:150},
-          {title:'Client OS', key:'client-os',width :100},
-          {title:'Client Versions', key:'client-versions',width :100},
-          {title:'Agent OS', key:'agent-os',width :100},
-          {title:'Driver Versions', key:'driver-versions',width :100},
-          {title:'Suggetions', key:'suggestions',width:300},
-          {title:'Status', key:'status',width:100},
-      ]
-
-      
+      mainColumn: [
+        { title: "Name", key: "device_name", width: 200, fixed: "left" },
+        { title: "Version", key: "device_version", width: 100 },
+        {
+          title: "Picture",
+          key: "picture",
+          width: 150,
+          render: (h, params) => {
+            let _path = params.row.picture;
+            console.log("/static/device/" + _path);
+            return h(
+              "div",
+              [
+                h("img", {
+                  attrs: {
+                    src: "/static/device/" + _path,
+                    style: "width:100px;height:100px;"
+                  }
+                })
+              ],
+              {
+                attrs: {
+                  //style:"display:flex; justify-content:center"
+                }
+              }
+            );
+          }
+        },
+        { title: "Client OS", key: "client_os_name", width: 200 },
+        {
+          title: "Horizon Client Versions",
+          key: "Horizon_client_version",
+          width: 200
+        },
+        { title: "Agent OS", key: "agent_os_name", width: 200 },
+        { title: "Client Driver", key: "agent_driver", width: 150 },
+        { title: "Agent Driver", key: "client_driver", width: 150 }
+      ],
+      matrixData: undefined
     };
+  },
+  methods: {
+    fetchMatrix() {
+      getMatrix()
+        .then(response => {
+          this.matrixData = response.data;
+        })
+        .catch(() => {
+          this.$Message.error("'Sorry, could not get Data Matrix..'");
+        });
+    }
+  },
+  created() {
+    this.fetchMatrix();
   }
 };
 </script>
 
 <style lang="" scoped>
 .device-layout {
-  
   margin-top: 70px;
 }
 .select-category {
@@ -96,27 +130,17 @@ span {
 .radio {
   padding: 5% 0% 5% 15%;
 }
-.table-container{
-  width:100%;
-  border: 2px solid red;
-  margin-left:200px;
-  padding:15px;
-  background-color:white;
-
-}
-
-.table-main{
-  padding: 5%;
-  width:100%;
-  border: 2px solid red;
-}
-
-
-
-.test{
-  border: 2px solid red;
+.table-container {
   width: 100%;
-  height:100%;
+  /* border: 2px solid red; */
+  margin-left: 200px;
+  padding: 15px;
+  background-color: white;
+}
 
+.table-main {
+  padding: 5%;
+  width: 100%;
+  /* border: 2px solid red; */
 }
 </style>

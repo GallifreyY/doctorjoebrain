@@ -54,7 +54,7 @@
 
     <!--progress bar-->
     <Row style="padding:20px 0px">
-      <Progress v-if="showProgressBar" :percent="percent"></Progress>
+      <Progress v-if="showProgressBar" :percent="percent" :status="progressStatus"></Progress>
     </Row>
 
     <!--client and agent value-->
@@ -65,7 +65,7 @@
           <Table
             stripe
             :show-header="showHeader"
-            :columns="compatilityCheck.columns"
+            :columns="checkColumns"
             :data="compatilityCheck.client"
             :size="tableSize"
           ></Table>
@@ -77,7 +77,7 @@
           <Table
             stripe
             :show-header="showHeader"
-            :columns="compatilityCheck.columns"
+            :columns="checkColumns"
             :data="compatilityCheck.agent"
             :size="tableSize"
           ></Table>
@@ -109,7 +109,7 @@
     <Row v-if="showCheckingResult" style="padding:20px 0px">
       <Card>
         <p slot="title">Referece Video</p>
-        <video controls :src="'/static/diagnosis/'+ compatilityCheck.referenceVedio" type="video/mp4"></video>
+        <video controls :src="'/static/diagnosis/'+ compatilityCheck.referenceVideo" type="video/mp4"></video>
       </Card>
     </Row>
   </div>
@@ -117,32 +117,53 @@
 
 <script>
 
-const df = require("./default")
-console.log(df)
-
+const df = require("./default/")
+import {getDeviceInfo, getClientInfo, getDiagnosisInfo} from '@/api/diagnosis'
 export default {
   name: "Info",
-  props: {
-  },
+  
 
   data() {
     return {
       //Data
       deviceInfo: df.deviceInfo,
       clientInfo: df.clientInfo,
-      compatilityCheck : df.compatilityCheck,
-
-
+      compatilityCheck: undefined,
       //UI
       columns: [
         { title: "Key", key: "key" },
         { title: "Value", key: "value" }
       ],
+      checkColumns: [
+      { title: "Key", key: "key" },
+      { title: "Value", key: "value" },
+      {
+        title: "Check",
+        key: "check",
+        width: 100,
+        render: (h, params) => {
+          let _string = "Pass";
+          let _color = "success";
+          if (params.row.check == false) {
+            _string = "Failed";
+            _color = "error";
+          }
+          return h(
+            "Tag",
+            {
+              props: { color: _color, size: "small", type: "border" }
+            },
+            _string
+          );
+        }
+      }
+    ],
       showHeader: false, //tableHeader
       showProgressBar: false,
       showCheckingResult: false,
       tableSize: "small",
-      percent: 0
+      percent: 0,
+      progressStatus: "active"
     };
   },
   methods: {
@@ -159,19 +180,50 @@ export default {
             }
           }, 200);
         }).then(() => {
-          this.showCheckingResult = true;
+          this.fetchDiagnosisInfo();
+          // this.showCheckingResult = true;
         });
       }
     },
     fetchDeviceInfo(){
+       getDeviceInfo().then( response =>{
+            this.deviceInfo = response.data;
+            this.$Message.success('Successfully get your device information..')
+       }).catch(()=>{
+            this.$Message.error('Sorry, could not get your device information..')
+       });
 
     },
     fetchClientInfo(){
+        getClientInfo().then(response => {
+          this.clientInfo = response.data;
+          this.$Message.success('Successfully get your client information..')
+        }).catch(()=>{
+            this.$Message.error('Sorry, could not get your client information..')
+       });
+
 
     },
     fetchDiagnosisInfo(){
-      
+      getDiagnosisInfo().then(response => {
+          
+          this.compatilityCheck = response.data;
+          console.log(this.compatilityCheck)
+          console.log(df.compatilityCheck)
+          this.progressStatus = "success" 
+          this.showCheckingResult = true
+          this.$Message.success('Successfully get your diagnosis information..')
+      }).catch((err) =>{
+          this.progressStatus = "wrong"
+          this.showCheckingResult = false
+          this.$Message.error('Sorry, could not get the diagnosis information..')
+        
+      })
     }
+  },
+  created() {
+    this.fetchDeviceInfo()
+    this.fetchClientInfo()
   }
 };
 </script>

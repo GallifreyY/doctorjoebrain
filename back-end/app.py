@@ -94,22 +94,134 @@ def device_info():
 
     }
 
-
-
-
-
-
-
 ######## api: client_info
+@app.route('/client_info', methods=['GET'])
+@cross_origin()
+def client_info():
+    # get_client_info()
+    client_info = {
+        'data':[
+            {'key': "Client OS", 'value': "Windows 10 64bits 1903"},
+            {'key': "Client Hardware", 'value': "Dell Optiplex 7060"}
+        ]
+    }
 
-
-
-
-
+    return{
+        'code': 20022,
+        'data': client_info
+    }
 
 
 ######### api: diagnosis_info
+@app.route('/diagnosis_info', methods=['GET'])
+@cross_origin()
+def diagnosis_info():
+    # diagnosis()
+    # return suggestions & videos
+    suggestions = [
+      "PowerMic is a USB composite device. It is recommended to use Nuance extension solution to redirect this device instead of USB redirection.",
+      "Please follow the guide of Nuance to configure the extensions on client and agent side.",
+      "If you don’t use the extension solution, you can follow the KB to configure the GPO for USB split on Horizon agent machine."
+    ]
+    video = "PowerMic.mp4"
 
+    # client & agent check
+    # 可以此处再加个函数做格式转换
+    client =  [
+      { 'key': "Client OS", 'value': "Windows 10 64bits 1903", 'check': True },
+      {
+        'key': "Client Hardware",
+        'value': "Dell Optiplex 7060",
+        'check': True
+      },
+      { 'key': "PowerMic Firmware", 'value': "1.4.1", 'check': True },
+      {
+        'key': "Setting",
+        'value': "USB split GPO setting in Client side",
+        'check': False
+      },
+      {
+        'key': "Setting",
+        'value': "USB split registy setting in Client side",
+        'check': False
+      },
+      { 'key': "Horizon client version", 'value': "5.2", 'check': True },
+      {
+        'key': "Horizon client USB arbitrator Service status",
+        'value': "Running",
+        'check': True
+      },
+      {
+        'key': "Horizon client log level",
+        'value': "Information",
+        'check': True
+      },
+      {
+        'key': "Nuance solution",
+        'value': "Nuance PowerMic VMware Client Extension",
+        'check': False
+      }
+    ]
+    agent  =[
+      { 'key': "Agent OS", 'value': "Windows 10 64bits 1903", 'check': False },
+      { 'key': "Agent Hardware", 'value': "vSphere VM", 'check': False },
+      { 'key': "PowerMic Firmware", 'value': "1.41", 'check': False },
+      {
+        'key': "Setting",
+        'value': "USB split GPO setting in agent side",
+        'check': False
+      },
+      {
+        'key': "Setting",
+        'value': "USB split registy setting in agent side",
+        'check': False
+      },
+      { 'key': "Horizon agent version", 'value': "7.10", 'check': True },
+      {
+        'key': "Horizon agent USB arbitrator Service status",
+        'value': "Runing",
+        'check': True
+      },
+      {
+        'key': "Horizon agent log level",
+        'value': "Information",
+        'check': True
+      },
+      {
+        'key': "Nuance solution",
+        'value': "Nuance PowerMic VMware Agent Extension",
+        'check': False
+      }
+    ]
+
+    return{
+        'code':20022,
+        'data':{
+            'client':client,
+            'agent':agent,
+            'suggestions': suggestions,
+            'referenceVideo' : video
+        }
+    }
+
+
+###########api：matrix
+@app.route('/matrix', methods=['GET'])
+@cross_origin()
+def matrix():
+
+    # query from db
+    matrix = Matrix.query.join(Driver, Driver.device_id == Matrix.device_id) \
+        .join(Device, Device.device_id == Matrix.device_id) \
+        .with_entities(Device.device_name, Device.device_version, Device.picture,
+                       Matrix.client_os_name, Matrix.Horizon_client_version,
+                       Matrix.agent_os_name, Matrix.Horizon_agent_version,
+                       Driver.agent_driver, Driver.client_driver).all()
+    matrix= to_json_join(matrix)
+    return {
+        'code':20022,
+        'data': matrix
+    }
 
 
 
