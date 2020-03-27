@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function fetchMatrix(){
+export function getMatrix(){
     return request({
         url: '/matrix',
         method: 'get',

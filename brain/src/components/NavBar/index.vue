@@ -18,14 +18,34 @@
             <Icon type="md-analytics" color="white" size="20" />
             <p>Device Matrix</p>
           </router-link>
-          <router-link to="/Log-in" class="link">
+
+          <router-link v-if="token == 'false'" to="/Log-in" class="link">
             <Icon type="md-log-in" color="white" size="20" />
             <p>Log in</p>
           </router-link>
-          <router-link to="/test1" class="link">
+          <div v-else @click="personal=true" class="link">
+            <Icon type="md-contact" color="white" size="20" />
+            <p>{{name}}</p>
+          </div>
+          <!-- personal info -->
+          <Modal v-model="personal" width="360">
+            <p slot="header" style="color:rgb(0, 174, 255);text-align:center">
+              <Icon type="ios-information-circle"></Icon>
+              <span>Your Information</span>
+            </p>
+            <div style="text-align:center">
+              <p>Username: {{name}}</p>
+              <p>Permission: {{roles}}</p>
+            </div>
+            <div slot="footer">
+              <Button type="error" size="large" long @click="handleLogout">Log out</Button>
+            </div>
+          </Modal>
+
+          <a a href="https://www.vmware.com/cn.html" class="link">
             <Icon type="md-globe" color="white" size="20" />
             <p>Visit us</p>
-          </router-link>
+          </a>
           <router-link to="/help" class="link">
             <Icon type="md-help-circle" color="white" size="20" />
             <p>Help</p>
@@ -37,11 +57,33 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "NavBar",
   data() {
-    return {};
+    return {
+      personal:false,
+      personalLoading:false
+    };
+  },
+  computed: {
+    ...mapGetters(["token", "name", "roles"])
+  },
+  methods:{
+    handleLogout(){
+      this.personalLoading = true
+      this.$store.dispatch("user/logout").then(() =>{
+        this.personal = false
+        this.personalLoading = false
+        this.$Message.success('Successfully Log out')
+      }).catch(()=>{
+        this.personalLoading = false
+        this.$Message.error('Something going wrong..')
+
+      }) 
+    }
   }
+
 };
 </script>
 
@@ -54,17 +96,16 @@ export default {
   padding: 0px 10px;
   background-image: url(../../assets/background.jpeg);
   border-bottom: 2px solid rgb(200, 241, 241);
-  position: fixed; 
-  width:100%;
-  z-index:3;
-  top:0;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
+  top: 0;
   /* height:50px; */
 }
 .link-bar {
   color: white;
   display: flex;
   justify-content: flex-end;
-   
 }
 .link-bar .link {
   /* display: inline; */

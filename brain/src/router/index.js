@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/test',
       name: 'testComponent',
-      component: () => import('@/components/Test')
+      component: () => import('@/components/LoginBox')
     },
     {
       path: '/',
@@ -17,10 +17,12 @@ export default new Router({
     {
       path: '/Device-Matrix',
       component: () => import('@/views/DeviceMatrix')
+    },
+    {
+      path: '/Log-in',
+      component: () => import('@/views/Login')
     }
     
-
-
   ]
 })
 
