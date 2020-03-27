@@ -42,10 +42,10 @@
             </div>
           </Modal>
 
-          <router-link to="/test1" class="link">
+          <a a href="https://www.vmware.com/cn.html" class="link">
             <Icon type="md-globe" color="white" size="20" />
             <p>Visit us</p>
-          </router-link>
+          </a>
           <router-link to="/help" class="link">
             <Icon type="md-help-circle" color="white" size="20" />
             <p>Help</p>
