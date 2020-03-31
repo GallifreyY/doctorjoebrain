@@ -110,7 +110,7 @@ export default {
 .link-bar .link {
   /* display: inline; */
   color: white;
-  font-size: 4px;
+  font-size: 0.8rem;
   text-align: center;
   height: 100%;
   /* merge border */
