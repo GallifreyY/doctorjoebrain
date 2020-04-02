@@ -25,6 +25,18 @@ from util import *
 #     }
 
 
+####### protocal to collector
+app.route('/protocols/data_collector', methods = ['GET','POST'])
+@cross_origin()
+def add_to_log_file():
+    if(request.json['code'] != 20022):
+        return{'code':444}
+
+
+
+
+
+
 ####### api: user
 @app.route('/user/login', methods = ['GET','POST'])
 @cross_origin()
@@ -61,7 +73,8 @@ def log_out():
 @app.route('/device_info', methods=['GET'])
 @cross_origin()
 def device_info():
-    # get_device_id()
+    # uuid = request.json['uuid'] #识别用户
+    # get_device_id(uuid)
     device_id = 0  # demo
 
     # query from db

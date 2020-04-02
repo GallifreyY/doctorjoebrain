@@ -11,7 +11,12 @@ export default new Router({
       component: () => import('@/components/LoginBox')
     },
     {
-      path: '/',
+      path: '/', 
+      component: () => import('@/views/HomePage')
+    },
+
+    {
+      path: '/diagnosis/:id', //path:'/:id'  后面再组件中可以由 this.$route.params.id 取到
       component: () => import('@/views/HomePage')
     },
     {

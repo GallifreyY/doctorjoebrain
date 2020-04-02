@@ -22,3 +22,4 @@ def validate(user_name, password):
 
 def validate_roles(user_name):
     return ['admin']
+
