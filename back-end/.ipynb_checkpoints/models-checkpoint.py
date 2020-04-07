@@ -1,5 +1,6 @@
-from app import db
-import util
+from src.app import db
+from src import util
+
 
 class Matrix(db.Model):
         __tablename__ = 'matrix'

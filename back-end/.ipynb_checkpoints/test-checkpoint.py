@@ -1,5 +1,5 @@
-from models import *
-from util import *
+from src.models import *
+from src.util import *
 
 item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == 0)\
     .with_entities(Device.device_id, Device.device_name,Device.description,

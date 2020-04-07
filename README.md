@@ -61,7 +61,7 @@ def diagnosis():
 ### Data interface
 
 #### New design
-![avatar](./doc_assets/design2.png)
+![avatar](./doc_assets/design3.png)
 
 #### expected collector.json:
 ```json

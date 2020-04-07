@@ -1,3 +1,10 @@
+import uuid
+import sys
+sys.path.append('../data/user/') # 进入user文件夹
+import os
+import datetime
+import json
+
 def to_json(inst, cls):
     d = dict()
     '''
@@ -23,3 +30,17 @@ def validate(user_name, password):
 def validate_roles(user_name):
     return ['admin']
 
+def parse_collected_data(data):
+
+    uuid = _generate_uuid()
+    today = str(datetime.date.today())
+    path = '../data/user/' + today + '/'
+    if not os.path.exists(path):
+        os.mkdir(path)
+    with open(path+ uuid + '.json',"w") as f:
+        f.write(json.dumps(data))
+
+    return uuid
+
+def _generate_uuid():
+    return str(uuid.uuid1())
