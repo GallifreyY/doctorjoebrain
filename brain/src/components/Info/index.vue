@@ -4,10 +4,10 @@
     <Row :gutter="16" style="background:inherit;" type="flex">
       <Col :sm="12" :lg="8">
         <Card :bordered="false" shadow>
-          <img :src="'/static/device/'+ deviceInfo.pic" alt="No Picture" />
+          <img :src="'/static/device/'+ deviceInfo.pic" alt="device" />
           <Row type="flex" justify="center" align="middle">
             <Col :span="8">
-              <img :src="'/static/device/'+ deviceInfo.logo" />
+              <img :src="'/static/device/'+ deviceInfo.logo" alt = "vendor" />
             </Col>
             <Col :span="16">
               <div class="name-and-link">
@@ -29,7 +29,7 @@
             stripe
             :show-header="showHeader"
             :columns="columns"
-            :data="deviceInfo.data"
+            :data="deviceInfo.device_column_data"
             :size="tableSize"
           ></Table>
         </Card>
@@ -39,7 +39,7 @@
             stripe
             :show-header="showHeader"
             :columns="columns"
-            :data="clientInfo.data"
+            :data="clientInfo.client_column_data"
             :size="tableSize"
           ></Table>
         </Card>
@@ -118,7 +118,8 @@
 <script>
 
 const df = require("./default/")
-import {getDeviceInfo, getClientInfo, getDiagnosisInfo} from '@/api/diagnosis'
+import {getBasicInfo, getDiagnosisInfo} from '@/api/diagnosis'
+import { mapGetters } from "vuex";
 export default {
   name: "Info",
   
@@ -180,32 +181,29 @@ export default {
             }
           }, 200);
         }).then(() => {
-          this.fetchDiagnosisInfo();
+          this.fetchDiagnosisInfo(this.uuid);
           // this.showCheckingResult = true;
         });
       }
     },
-    fetchDeviceInfo(){
-       getDeviceInfo().then( response =>{
-            this.deviceInfo = response.data;
+    fetchBasicInfo(uuid){
+       getBasicInfo(uuid).then( response =>{
+            this.deviceInfo = response.data.device;
+            this.clientInfo = response.data.client;
+
+            // todo： 查询目录里是否有图片 没有的话用default图片代替
+            // if(this.deviceInfo.pic == null){this.deviceInfo.pic = "devices.jpg"}
+            // if(this.deviceInfo.logo == null){this.deviceInfo.logo = "vendor.png"}
+            
             this.$Message.success('Successfully get your device information..')
        }).catch(()=>{
-            this.$Message.error('Sorry, could not get your device information..')
+            this.$Message.error('Sorry, could not get your device information..Please diagnosis again')
        });
 
     },
-    fetchClientInfo(){
-        getClientInfo().then(response => {
-          this.clientInfo = response.data;
-          this.$Message.success('Successfully get your client information..')
-        }).catch(()=>{
-            this.$Message.error('Sorry, could not get your client information..')
-       });
 
-
-    },
-    fetchDiagnosisInfo(){
-      getDiagnosisInfo().then(response => {
+    fetchDiagnosisInfo(uuid){
+      getDiagnosisInfo(uuid).then(response => {
           
           this.compatilityCheck = response.data;
           console.log(this.compatilityCheck)
@@ -221,9 +219,12 @@ export default {
       })
     }
   },
+  computed: {
+    ...mapGetters(["uuid"])
+  },
   created() {
-    this.fetchDeviceInfo()
-    this.fetchClientInfo()
+    this.$store.commit("uuid/SET_UUID",this.$route.params.id)
+    this.fetchBasicInfo(this.uuid)
   }
 };
 </script>

@@ -1,5 +1,5 @@
-from .app import db
-from . import util
+from app import db
+import util
 
 
 class Matrix(db.Model):

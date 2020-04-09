@@ -8,19 +8,8 @@ data = json.dumps({
         'client': {
             "OSname": "Windows 10",
             "OSver": "1909",
-            "clientver": "8.0.0.11085",
-            "usbdisk": {
-                "VID": "090C",
-                "PID": "1000",
-                "manufacturer": "Compatible USB storage device",
-                "name": "USB Mass Storage Device",
-                "driverprovider": "Microsoft",
-                "driverver": "10.0.18362.1",
-                "isRebootNeeded": False,
-                "isPresent": True,
-                "hasProblem": False
+            "clientver": "8.0.0.11085"
 
-            }
         },
         'agent': {
             "OSname": "Windows 10",
@@ -35,7 +24,7 @@ data = json.dumps({
                 "SmartCard": 1,
                 "TSMMR": 1,
                 "ThinPrint": 1,
-                "USB": 1,
+                "USB": 0,
                 "V4V": 1,
                 "VPA": 1,
                 "VmwVaudio": 1,

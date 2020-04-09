@@ -1,21 +1,21 @@
 const df = {
   deviceInfo: {
-    name: "No product",
-    pic: "wrong.jpg",
-    link: "ccc",
-    logo: "ccc",
-    description: "Please report this error to us. Thanks!",
-    data: [
-      { key: "Device Name", value: "None" },
-      { key: "Vendor Name", value: "None" },
-      { key: "VID", value: "None" },
-      { key: "PID", value: "None" }
+    name: "No information",
+    pic: "wait",
+    link: "",
+    logo: "",
+    description: "",
+    device_column_data: [
+      { key: "Device Name", value: "No information"},
+      { key: "Vendor Name", value: "No information" },
+      { key: "VID", value: "No information" },
+      { key: "PID", value: "No information" }
     ]
   },
   clientInfo: {
-    data: [
-      { key: "Client OS", value: "None" },
-      { key: "Client Hardware", value: "None" }
+    client_column_data: [
+      { key: "Client OS", value: "No information" },
+      { key: "Horizon Version(Client)", value: "No information" }
     ]
   }
 

@@ -7,9 +7,9 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
-from .models import *
-from .util import *
-from .diagnosis import *
+from models import *
+from util import *
+from diagnosis import diagnosis
 import json
 
 
@@ -30,15 +30,19 @@ import json
 @cross_origin()
 def add_to_log_file():
     # print(request.json)
+    code = 20022
     state = 'failed'
     url = ''
     collected_data = json.loads(request.json)
-    if collected_data['code'] == 20022:
+    if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        url = 'http://10.117.43.99:8088/api/' + uuid
+        # dev vm:
+        url = 'http://10.117.43.99:8088/api/diagnosis/' + uuid
+        # local:
+        url = 'http://127.0.0.1:8080/#/diagnosis/' + uuid
 
-    return {'code': 20022,
+    return {'code': code,
             'state': state,
             'url': url
             }
@@ -48,7 +52,6 @@ def add_to_log_file():
 @app.route('/user/login', methods=['GET', 'POST'])
 @cross_origin()
 def log_in():
-    print(request.json)
     user_name = request.json['userName']
     password = request.json['password']
     token = 'false'
@@ -77,60 +80,67 @@ def log_out():
     }
 
 
+#
 ######## api: device_info
-@app.route('/device_info', methods=['GET'])
+@app.route('/device_and_client_info', methods=['GET'])
 @cross_origin()
-def device_info():
-    # uuid = request.json['uuid'] #识别用户
-    # get_device_id(uuid)
-    device_id = 0  # demo
+def device_and_client_info():
+    uuid = request.args.get('id')
+    collected_data = locate_json(uuid)
+    if collected_data == None:
+        return {'code': 20044}
+    devices = recognize_devices(collected_data)
+    # todo walk all devices
+    device = devices[0]
+    # todo: directly get info from collected_data
+    static_info = get_static_info(collected_data, device)
+    # todo: add info to devices
+    add_info_to_db(collected_data)
 
-    # query from db
+    vid = static_info['vid']
+    pid = static_info['pid']
+
+    # todo: query
+    device_id = vid + '-' + pid  # demo
     item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
         .with_entities(Device.device_id, Device.device_name, Device.description,
                        Device.picture, Vendor.vendor_id, Vendor.vendor_name,
                        Vendor.vendor_link, Vendor.vendor_logo).all()
+
     item = to_json_join(item)
     if (len(item) != 1):
-        return {'code': 444}
+        return {'code': 20044}
     item = item[0]
 
     # be strictly consistent with the front
     device_column_data = [
-        {'key': "Device Name", 'value': item['device_name']},
+        {'key': "Device Name", 'value': static_info['device_name']},
         {'key': "Vendor Name", 'value': item['vendor_name']},
-        {'key': "VID", 'value': "vid-" + str(item['vendor_id'])},
-        {'key': "PID", 'value': "pid" + str(item['device_id'])}
+        {'key': "VID", 'value': vid},
+        {'key': "PID", 'value': pid}
+    ]
+    client_column_data = [
+        {'key': "Client OS", 'value': static_info['client_os']},
+        {'key': "Horizon Version(Client)", 'value': static_info['Horizon_version_client']}
+
     ]
     return {
         'code': 20022,
         'data': {
-            'name': item['device_name'],
-            'pic': item['picture'],
-            'link': item['vendor_link'],
-            'logo': item['vendor_logo'],
-            'description': item['description'],
-            'data': device_column_data
+            'device': {
+                'name': item['device_name'],  # 数据库里的
+                'pic': item['picture'],
+                'link': item['vendor_link'],
+                'logo': item['vendor_logo'],
+                'description': item['description'],
+                'device_column_data': device_column_data,
+
+            },
+            'client': {
+                'client_column_data': client_column_data
+            }
         }
 
-    }
-
-
-######## api: client_info
-@app.route('/client_info', methods=['GET'])
-@cross_origin()
-def client_info():
-    # get_client_info()
-    client_info = {
-        'data': [
-            {'key': "Client OS", 'value': "Windows 10 64bits 1903"},
-            {'key': "Client Hardware", 'value': "Dell Optiplex 7060"}
-        ]
-    }
-
-    return {
-        'code': 20022,
-        'data': client_info
     }
 
 
@@ -138,17 +148,26 @@ def client_info():
 @app.route('/diagnosis_info', methods=['GET'])
 @cross_origin()
 def diagnosis_info():
-    # diagnosis()
-    # return suggestions & videos
-    suggestions = [
-        "PowerMic is a USB composite device. It is recommended to use Nuance extension solution to redirect this device instead of USB redirection.",
-        "Please follow the guide of Nuance to configure the extensions on client and agent side.",
-        "If you don’t use the extension solution, you can follow the KB to configure the GPO for USB split on Horizon agent machine."
-    ]
-    video = "PowerMic.mp4"
+    uuid = request.args.get('id')
+    collected_data = locate_json(uuid)
+    if collected_data == None:
+        return {'code': 20044}
+    devices = recognize_devices(collected_data)
+    # todo: walk all devices
+    device = devices[0]
+    # todo: compatibility check
+    # check_compatibility (collected_data)
+    # todo: diagnosis
+    suggestions = diagnosis(collected_data, device)
 
-    # client & agent check
-    # 可以此处再加个函数做格式转换
+    # suggestions = [
+    #     "PowerMic is a USB composite device. It is recommended to use Nuance extension solution to redirect this device instead of USB redirection.",
+    #     "Please follow the guide of Nuance to configure the extensions on client and agent side.",
+    #     "If you don’t use the extension solution, you can follow the KB to configure the GPO for USB split on Horizon agent machine."
+    # ]
+
+
+    # fake data
     client = [
         {'key': "Client OS", 'value': "Windows 10 64bits 1903", 'check': True},
         {
@@ -215,6 +234,7 @@ def diagnosis_info():
             'check': False
         }
     ]
+    video = "PowerMic.mp4"
 
     return {
         'code': 20022,
@@ -238,6 +258,7 @@ def matrix():
                        Matrix.client_os_name, Matrix.Horizon_client_version,
                        Matrix.agent_os_name, Matrix.Horizon_agent_version,
                        Driver.agent_driver, Driver.client_driver).all()
+
     matrix = to_json_join(matrix)
     return {
         'code': 20022,
