@@ -2,10 +2,10 @@ import requests
 import json
 
 # 本地
-# url = 'http://127.0.0.1:5000/protocols/data_collector'
+url = 'http://127.0.0.1:5000/protocols/data_collector'
 
 # dev
-url = 'http://10.117.43.99:8088/api/protocols/data_collector'
+# url = 'http://10.117.43.99:8088/api/protocols/data_collector'
 data = json.dumps({
     'code': 20022,
     'data': {
