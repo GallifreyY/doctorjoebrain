@@ -86,56 +86,52 @@ def log_out():
 @cross_origin()
 def device_and_client_info():
     uuid = request.args.get('id')
-    collected_data = locate_json(uuid)
+    collected_data = read_data(uuid, 'user', 'json')
     if collected_data == None:
         return {'code': 20044}
     devices = recognize_devices(collected_data)
-    # todo walk all devices
-    device = devices[0]
+    save_data(devices, uuid, 'devices', 'pickle')
     # todo: directly get info from collected_data
-    static_info = get_static_info(collected_data, device)
+    client_info = get_client_info(collected_data)
     # todo: add info to devices
     add_info_to_db(collected_data)
 
-    vid = static_info['vid']
-    pid = static_info['pid']
+    devices_info = []
+    # todo walk all devices
+    for index,device in enumerate(devices):
+        device_info = {
+            "index": index,
+            "device_name": device.name,
+            "vid": device.vid,
+            "pid": device.pid
+        }
 
-    # todo: query
-    device_id = vid + '-' + pid  # demo
-    item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
-        .with_entities(Device.device_id, Device.device_name, Device.description,
-                       Device.picture, Vendor.vendor_id, Vendor.vendor_name,
-                       Vendor.vendor_link, Vendor.vendor_logo).all()
+        # todo: query
+        device_id = device.vid + '-' + device.pid  # demo
+        item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
+            .with_entities(Device.description,
+                           Device.picture, Vendor.vendor_name,
+                           Vendor.vendor_link, Vendor.vendor_logo).all()
 
-    item = to_json_join(item)
-    if (len(item) != 1):
-        return {'code': 20044}
-    item = item[0]
+        item = to_json_join(item)
 
-    # be strictly consistent with the front
-    device_column_data = [
-        {'key': "Device Name", 'value': static_info['device_name']},
-        {'key': "Vendor Name", 'value': item['vendor_name']},
-        {'key': "VID", 'value': vid},
-        {'key': "PID", 'value': pid}
-    ]
+        if len(item) == 1:
+            item = item[0]
+            device_info["details"] = item
+
+        # if query multiple or no data in db - no detail info
+
+        devices_info.append(device_info)
+    print(devices_info)
+
     client_column_data = [
-        {'key': "Client OS", 'value': static_info['client_os']},
-        {'key': "Horizon Version(Client)", 'value': static_info['Horizon_version_client']}
-
+        {'key': "Client OS", 'value': client_info['client_os']},
+        {'key': "Horizon Version(Client)", 'value': client_info['Horizon_version_client']}
     ]
     return {
         'code': 20022,
         'data': {
-            'device': {
-                'name': item['device_name'],  # 数据库里的
-                'pic': item['picture'],
-                'link': item['vendor_link'],
-                'logo': item['vendor_logo'],
-                'description': item['description'],
-                'device_column_data': device_column_data,
-
-            },
+            'device': devices_info,
             'client': {
                 'client_column_data': client_column_data
             }
@@ -149,23 +145,17 @@ def device_and_client_info():
 @cross_origin()
 def diagnosis_info():
     uuid = request.args.get('id')
-    collected_data = locate_json(uuid)
-    if collected_data == None:
+    collected_data = read_data(uuid, 'user', 'json')
+    if collected_data is None:
         return {'code': 20044}
-    devices = recognize_devices(collected_data)
-    # todo: walk all devices
+    # todo：直接读取保证顺序
+    devices = read_data(uuid,'devices','pickle')
+    # todo :find index
     device = devices[0]
     # todo: compatibility check
     # check_compatibility (collected_data)
     # todo: diagnosis
     suggestions = diagnosis(collected_data, device)
-
-    # suggestions = [
-    #     "PowerMic is a USB composite device. It is recommended to use Nuance extension solution to redirect this device instead of USB redirection.",
-    #     "Please follow the guide of Nuance to configure the extensions on client and agent side.",
-    #     "If you don’t use the extension solution, you can follow the KB to configure the GPO for USB split on Horizon agent machine."
-    # ]
-
 
     # fake data
     client = [

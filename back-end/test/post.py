@@ -48,17 +48,43 @@ data = json.dumps({
                 "NGVC": 0,
                 "PrintRedir": 0
             },
-            "usbdisk": {
-                "VID": "090C",
-                "PID": "1000",
-                "manufacturer": "Compatible USB storage device",
-                "name": "USB Mass Storage Device",
-                "driverprovider": "Microsoft",
-                "driverver": "10.0.18362.1",
-                "isRebootNeeded": False,
-                "isPresent": True,
-                "hasProblem": False
-            },
+            "usbdisk": [
+                {
+                    "VID": "090C",
+                    "PID": "1000",
+                    "manufacturer": "Compatible USB storage device",
+                    "name": "USB Mass Storage Device",
+                    "driverprovider": "Microsoft",
+                    "driverver": "10.0.18362.1",
+                    "isRebootNeeded": False,
+                    "isPresent": True,
+                    "hasProblem": False
+                },
+                {
+                    "VID": "1E3D",
+                    "PID": "2096",
+                    "manufacturer": "Compatible USB storage device",
+                    "name": "USB Mass Storage Device",
+                    "driverprovider": "Microsoft",
+                    "driverver": "10.0.18362.1",
+                    "isRebootNeeded": False,
+                    "isPresent": True,
+                    "hasProblem": False
+                }
+            ],
+
+            # "usbdisk": {
+            #     "VID": "090C",
+            #     "PID": "1000",
+            #     "manufacturer": "Compatible USB storage device",
+            #     "name": "USB Mass Storage Device",
+            #     "driverprovider": "Microsoft",
+            #     "driverver": "10.0.18362.1",
+            #     "isRebootNeeded": False,
+            #     "isPresent": True,
+            #     "hasProblem": False
+            # },
+
             "CDRservice": "Running"
         }
 

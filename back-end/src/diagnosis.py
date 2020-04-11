@@ -17,9 +17,8 @@ suggestions = {
 
 def diagnosis(collected_data, device):
     results = []
-    end = recognize_end(collected_data, device)
-    comp = components.get(device, None)
-    print(comp)
+    end = device.end
+    comp = components.get(device.type, None)
     # todo: general
     if comp is not None and collected_data['agent']['Horizoncomp'][comp] == 0:
         results.append("Please install the {} component in Horizon client".format(comp))
@@ -28,7 +27,7 @@ def diagnosis(collected_data, device):
         results.append(suggestions['general']['redirect'])
 
     # todo: for different devices
-    if device == 'usbdisk':
+    if device.type == 'usbdisk':
         results = _usb(collected_data, results)
 
     return results
