@@ -85,6 +85,14 @@ def log_out():
 @app.route('/device_and_client_info', methods=['GET'])
 @cross_origin()
 def device_and_client_info():
+    default_details = {
+                'picture': 'devices.jpg',
+                'vendor_name': 'unrecorded',
+                'vendor_link': 'unrecorded',
+                'vendor_logo': 'vendor.png',
+                'description': 'This device is not recorded in our database'
+            }
+
     uuid = request.args.get('id')
     collected_data = read_data(uuid, 'user', 'json')
     if collected_data == None:
@@ -98,12 +106,12 @@ def device_and_client_info():
 
     devices_info = []
     # todo walk all devices
-    for index,device in enumerate(devices):
+    for index, device in enumerate(devices):
         device_info = {
-            "index": index,
-            "device_name": device.name,
+            "deviceName": device.name,
             "vid": device.vid,
-            "pid": device.pid
+            "pid": device.pid,
+            "hasProblem": device.has_problem
         }
 
         # todo: query
@@ -117,9 +125,14 @@ def device_and_client_info():
 
         if len(item) == 1:
             item = item[0]
+            # todo: if value is None, fill with default
+            for key in item.keys():
+                if item[key] is None or len(item[key]) == 0:
+                    item[key] = default_details[key]
             device_info["details"] = item
-
-        # if query multiple or no data in db - no detail info
+        else:
+            # if query multiple or no data in db - no detail info
+            device_info["details"] = default_details
 
         devices_info.append(device_info)
     print(devices_info)
@@ -145,92 +158,28 @@ def device_and_client_info():
 @cross_origin()
 def diagnosis_info():
     uuid = request.args.get('id')
+    index = int(request.args.get('index'))
     collected_data = read_data(uuid, 'user', 'json')
     if collected_data is None:
         return {'code': 20044}
     # todo：直接读取保证顺序
-    devices = read_data(uuid,'devices','pickle')
+    devices = read_data(uuid, 'devices', 'pickle')
     # todo :find index
-    device = devices[0]
+    device = devices[index]
     # todo: compatibility check
-    # check_compatibility (collected_data)
+    check_res = check_compatibility(collected_data, device)
     # todo: diagnosis
     suggestions = diagnosis(collected_data, device)
 
     # fake data
-    client = [
-        {'key': "Client OS", 'value': "Windows 10 64bits 1903", 'check': True},
-        {
-            'key': "Client Hardware",
-            'value': "Dell Optiplex 7060",
-            'check': True
-        },
-        {'key': "PowerMic Firmware", 'value': "1.4.1", 'check': True},
-        {
-            'key': "Setting",
-            'value': "USB split GPO setting in Client side",
-            'check': False
-        },
-        {
-            'key': "Setting",
-            'value': "USB split registy setting in Client side",
-            'check': False
-        },
-        {'key': "Horizon client version", 'value': "5.2", 'check': True},
-        {
-            'key': "Horizon client USB arbitrator Service status",
-            'value': "Running",
-            'check': True
-        },
-        {
-            'key': "Horizon client log level",
-            'value': "Information",
-            'check': True
-        },
-        {
-            'key': "Nuance solution",
-            'value': "Nuance PowerMic VMware Client Extension",
-            'check': False
-        }
-    ]
-    agent = [
-        {'key': "Agent OS", 'value': "Windows 10 64bits 1903", 'check': False},
-        {'key': "Agent Hardware", 'value': "vSphere VM", 'check': False},
-        {'key': "PowerMic Firmware", 'value': "1.41", 'check': False},
-        {
-            'key': "Setting",
-            'value': "USB split GPO setting in agent side",
-            'check': False
-        },
-        {
-            'key': "Setting",
-            'value': "USB split registy setting in agent side",
-            'check': False
-        },
-        {'key': "Horizon agent version", 'value': "7.10", 'check': True},
-        {
-            'key': "Horizon agent USB arbitrator Service status",
-            'value': "Runing",
-            'check': True
-        },
-        {
-            'key': "Horizon agent log level",
-            'value': "Information",
-            'check': True
-        },
-        {
-            'key': "Nuance solution",
-            'value': "Nuance PowerMic VMware Agent Extension",
-            'check': False
-        }
-    ]
+
     video = "PowerMic.mp4"
 
     return {
         'code': 20022,
         'data': {
-            'client': client,
-            'agent': agent,
+            'client': check_res['client'],
+            'agent': check_res['agent'],
             'suggestions': suggestions,
             'referenceVideo': video
         }

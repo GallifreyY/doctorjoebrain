@@ -20,6 +20,9 @@ def diagnosis(collected_data, device):
     end = device.end
     comp = components.get(device.type, None)
     # todo: general
+    if device.has_problem:
+        results.append("This device has some problems, please check.")
+
     if comp is not None and collected_data['agent']['Horizoncomp'][comp] == 0:
         results.append("Please install the {} component in Horizon client".format(comp))
 
@@ -28,12 +31,13 @@ def diagnosis(collected_data, device):
 
     # todo: for different devices
     if device.type == 'usbdisk':
-        results = _usb(collected_data, results)
+        results = _usb(collected_data, end, results)
 
     return results
 
 
-def _usb(collected_data, results):
+def _usb(collected_data, device, results):
+    # todo: 设备本身有问题
     if 'CDRservice' in collected_data['agent'].keys():
         if collected_data['agent']['CDRservice'] == 'Running':
             results.append('Please use CDR Service to redirect the device')

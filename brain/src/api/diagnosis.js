@@ -1,18 +1,21 @@
 import request from '@/utils/request'
 
-export function getBasicInfo(id){
+export function getBasicInfo(id) {
     return request({
-        url :'/device_and_client_info',
+        url: '/device_and_client_info',
         method: 'get',
-        params:{id:id}
-    }) 
+        params: { id: id }
+    })
 }
 
-export function getDiagnosisInfo(id){  
+export function getDiagnosisInfo(id, index) {
     return request({
-        url : '/diagnosis_info',
-        method:'get',
-        params:{id:id}
+        url: '/diagnosis_info',
+        method: 'get',
+        params: {
+            id: id,
+            index: index
+        }
     })
 
 }

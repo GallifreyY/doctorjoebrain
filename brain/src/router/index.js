@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/test',
       name: 'testComponent',
-      component: () => import('@/components/LoginBox')
+      component: () => import('@/components/DeviceCard')
     },
     {
       path: '/', 

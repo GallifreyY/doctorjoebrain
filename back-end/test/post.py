@@ -6,6 +6,7 @@ url = 'http://127.0.0.1:5000/protocols/data_collector'
 
 # dev
 # url = 'http://10.117.43.99:8088/api/protocols/data_collector'
+
 data = json.dumps({
     'code': 20022,
     'data': {
@@ -70,20 +71,17 @@ data = json.dumps({
                     "isRebootNeeded": False,
                     "isPresent": True,
                     "hasProblem": False
+                },
+                {
+                    "VID": "0554",
+                    "PID": "1001",
+                    "name": "Nuance Power MIC III",
+                    "hasProblem" : True
+
                 }
+
             ],
 
-            # "usbdisk": {
-            #     "VID": "090C",
-            #     "PID": "1000",
-            #     "manufacturer": "Compatible USB storage device",
-            #     "name": "USB Mass Storage Device",
-            #     "driverprovider": "Microsoft",
-            #     "driverver": "10.0.18362.1",
-            #     "isRebootNeeded": False,
-            #     "isPresent": True,
-            #     "hasProblem": False
-            # },
 
             "CDRservice": "Running"
         }

@@ -36,22 +36,17 @@ def validate_roles(user_name):
 
 
 class _Device:
-    def __init__(self, type, end, vid, pid, name):
+    def __init__(self, type, end, vid, pid, name, has_p):
         self.type = type
         self.end = end  # agent or client
         self.vid = vid
         self.pid = pid
         self.name = name
+        self.has_problem = has_p
 
 
 def parse_collected_data(data):
     uuid = _generate_uuid()
-    # today = str(datetime.date.today())
-    # path = '../data/user/' + today + '/'
-    # if not os.path.exists(path):
-    #     os.mkdir(path)
-    # with open(path + uuid + '.json', "w") as f:
-    #     f.write(json.dumps(data))
     save_data(data, uuid, 'user', 'json')
     return uuid
 
@@ -77,7 +72,8 @@ def recognize_devices(collected_data):
                                            end,
                                            device["VID"],
                                            device["PID"],
-                                           device['name']))
+                                           device['name'],
+                                           device['hasProblem']))
 
     # todo: 存取device信息避免二次计算
     return devices
@@ -142,3 +138,94 @@ def get_client_info(collected_data):
         'client_os': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver'],
         'Horizon_version_client': collected_data['client']['clientver'],
     }
+
+
+def check_compatibility(collected_data,device):
+    client = [
+        {'key': "Client OS Name", 'value': collected_data['client']['OSname'], 'check': True},
+        {
+            'key': "Client OS Version",
+            'value': collected_data['client']['OSver'],
+            'check': True
+        },
+        {
+            'key': "Client Hardware",
+            'value': None,
+            'check': False
+        },
+
+        {'key': "Horizon Version", 'value': collected_data['client']['clientver'], 'check': True},
+        # {
+        #     'key': "Setting",
+        #     'value': "USB split GPO setting in Client side",
+        #     'check': False
+        # },
+        # {
+        #     'key': "Setting",
+        #     'value': "USB split registy setting in Client side",
+        #     'check': False
+        # },
+        # {'key': "Horizon client version", 'value': "5.2", 'check': True},
+        # {
+        #     'key': "Horizon client USB arbitrator Service status",
+        #     'value': "Running",
+        #     'check': True
+        # },
+        # {
+        #     'key': "Horizon client log level",
+        #     'value': "Information",
+        #     'check': True
+        # },
+        # {
+        #     'key': "Nuance solution",
+        #     'value': "Nuance PowerMic VMware Client Extension",
+        #     'check': False
+        # }
+    ]
+    agent = [
+        {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
+        {
+            'key': "Agent OS Version",
+            'value': collected_data['agent']['OSver'],
+            'check': True
+        },
+        {
+            'key': "Agent Hardware",
+            'value': None,
+            'check': False
+        },
+
+        {'key': "Horizon Version", 'value': collected_data['agent']['agentver'], 'check': True}
+        # {'key': "PowerMic Firmware", 'value': "1.41", 'check': False},
+        # {
+        #     'key': "Setting",
+        #     'value': "USB split GPO setting in agent side",
+        #     'check': False
+        # },
+        # {
+        #     'key': "Setting",
+        #     'value': "USB split registy setting in agent side",
+        #     'check': False
+        # },
+        # {'key': "Horizon agent version", 'value': "7.10", 'check': True},
+        # {
+        #     'key': "Horizon agent USB arbitrator Service status",
+        #     'value': "Runing",
+        #     'check': True
+        # },
+        # {
+        #     'key': "Horizon agent log level",
+        #     'value': "Information",
+        #     'check': True
+        # },
+        # {
+        #     'key': "Nuance solution",
+        #     'value': "Nuance PowerMic VMware Agent Extension",
+        #     'check': False
+        # }
+    ]
+    res = {
+        'client': client,
+        'agent': agent
+    }
+    return res
