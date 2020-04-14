@@ -1,5 +1,5 @@
-from src.app import db
-from src import util
+from app import db
+import util
 
 
 class Matrix(db.Model):
