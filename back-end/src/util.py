@@ -63,11 +63,11 @@ def recognize_devices(collected_data):
     """
     devices = []
     recorded_devices = ['usbdisk']
-    for end in collected_data.values():  # agent or client
-        for key in end.keys():
+    for end in collected_data.keys():  # agent or client
+        for key in collected_data[end].keys():
             if key in recorded_devices:
                 device_type = key
-                for device in end[device_type]:
+                for device in collected_data[end][device_type]:
                     devices.append(_Device(device_type,
                                            end,
                                            device["VID"],

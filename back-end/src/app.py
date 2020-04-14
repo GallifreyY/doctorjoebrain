@@ -111,7 +111,8 @@ def device_and_client_info():
             "deviceName": device.name,
             "vid": device.vid,
             "pid": device.pid,
-            "hasProblem": device.has_problem
+            "hasProblem": device.has_problem,
+            "end": device.end
         }
 
         # todo: query

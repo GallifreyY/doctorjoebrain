@@ -255,7 +255,9 @@ export default {
             value: this.deviceInfo[this.index].deviceName
           },
           { key: "VID", value: this.deviceInfo[this.index].vid },
-          { key: "PID", value: this.deviceInfo[this.index].pid }
+          { key: "PID", value: this.deviceInfo[this.index].pid },
+          { key: "Detecting in", value: this.deviceInfo[this.index].end },
+          
         ];
       }
     }
