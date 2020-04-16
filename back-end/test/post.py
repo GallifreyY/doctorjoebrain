@@ -1,7 +1,6 @@
 import requests
 import json
 
-# 本地
 url = 'http://127.0.0.1:5000/protocols/data_collector'
 
 # dev

@@ -79,7 +79,7 @@ def recognize_devices(collected_data):
     return devices
 
 
-def save_data(data, file_name, dir, mode):
+def save_data(data, file_name, dir='user', mode='json'):
     """
     :param dir: 目录
     :param file_name:
@@ -101,7 +101,7 @@ def save_data(data, file_name, dir, mode):
             pass
 
 
-def read_data(file_name, dir, mode):
+def read_data(file_name, dir='user', mode='json'):
     path = '../data/' + dir + '/'
     file_mode = 'rb' if mode == 'pickle' else 'r'
     for dir in os.listdir(path):

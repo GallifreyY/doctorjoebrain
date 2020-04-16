@@ -38,7 +38,7 @@ def add_to_log_file():
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
         # dev vm:
-        url = 'http://10.117.43.99:8088/api/diagnosis/' + uuid
+        # url = 'http://10.117.43.99:8088/api/diagnosis/' + uuid
         # local:
         url = 'http://127.0.0.1:8080/#/diagnosis/' + uuid
 
@@ -136,7 +136,7 @@ def device_and_client_info():
             device_info["details"] = default_details
 
         devices_info.append(device_info)
-    print(devices_info)
+    # print(devices_info)
 
     client_column_data = [
         {'key': "Client OS", 'value': client_info['client_os']},
@@ -172,6 +172,7 @@ def diagnosis_info():
     # todo: diagnosis
     suggestions = diagnosis(collected_data, device)
 
+    #print(suggestions)
     # fake data
 
     video = "PowerMic.mp4"

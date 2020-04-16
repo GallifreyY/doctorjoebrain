@@ -89,19 +89,24 @@
       <Card shawdow>
         <p slot="title">Suggesions</p>
         <List size="small">
-          <ListItem v-for="suggestion in compatilityCheck.suggestions" :key="suggestion">
-            <ListItemMeta :title="suggestion" />
+          <ListItem v-for="suggestion in suggestions" :key="suggestion">
+            <ListItemMeta :title="suggestion.context" />
             <template slot="action">
-              <li>
-                <Button type="success" size="small">Effect</Button>
+              <li v-if="suggestion.hasDetail">
+                <a :href="suggestion.detail">
+                  More Detail
+                  <Icon type="ios-search" size="16"/>
+                </a>
               </li>
-              <li>
+              <!-- TODO: 做成出提示标志 -->
+              <!-- <li>
                 <Button type="error" size="small">No Effect</Button>
-              </li>
+              </li> -->
             </template>
           </ListItem>
         </List>
       </Card>
+
     </Row>
 
     <!--reference video-->
@@ -136,6 +141,7 @@ export default {
       compatilityCheck: undefined,
       index: 0,
       numOfDevices: 0,
+      suggestions:undefined,
       //UI
       columns: [
         { title: "Key", key: "key" },
@@ -178,6 +184,23 @@ export default {
     initProgress() {
       this.percent = 0;
     },
+    parseSuggestions(suggestions){
+      let res = []
+      suggestions.forEach(item => {
+        let suggestion = {};
+        if(item instanceof Array){
+          suggestion['context'] = item[0]
+          suggestion['hasDetail'] = true
+          suggestion['detail'] = item[1]
+        }else{
+          suggestion['context'] = item
+          suggestion['hasDetail'] = false
+        }
+        res.push(suggestion)
+      });
+      return res;
+    },
+
     progress() {
       this.initProgress();
       this.showProgressBar = true;
@@ -223,6 +246,11 @@ export default {
       getDiagnosisInfo(uuid, index)
         .then(response => {
           this.compatilityCheck = response.data;
+          //this.parseSuggestions(this.compatilityCheck.suggestions);
+          //console.log(this.compatilityCheck.suggestions)
+
+          //todo : render suggestions
+          this.suggestions = this.parseSuggestions(response.data.suggestions)
           this.progressStatus = "success";
           this.showCheckingResult = true;
           this.$Message.success(
