@@ -13,27 +13,25 @@ from diagnosis import diagnosis
 import json
 
 
-####### just for testing..
-# @app.route('/matrix', methods=['GET'])
-# def hello_world():
-#     item = Matrix.query.all()
-#     item = list(map(lambda x: x.to_json(), item))
-#     demo = 'from sever'
-#     return {
-#         'code': 20022,
-#         'data': demo
-#     }
 
 
 # protocols to collector
 @app.route('/protocols/data_collector', methods=['GET', 'POST'])
 @cross_origin()
 def add_to_log_file():
-    # print(request.json)
+
     code = 20022
     state = 'failed'
     url = ''
-    collected_data = json.loads(request.json)
+
+    if not request.is_json:
+        form = request.form.to_dict()
+        for item in form.items():
+            s = item[0].replace("\n","").replace("\'","\"").replace(" ","")
+            collected_data = json.loads(s)
+    else:
+        collected_data = json.loads(request.json)
+
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
