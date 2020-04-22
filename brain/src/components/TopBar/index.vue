@@ -20,7 +20,7 @@ export default {
     return {
       title: "Peripheral devices Cloud Doctor",
       subtitle:
-        "Online self diagnosis for Peripheral devices usages in Horizon environment."
+        "Test:Online self diagnosis for Peripheral devices usages in Horizon environment."
     };
   }
 };

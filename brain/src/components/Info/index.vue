@@ -90,19 +90,28 @@
         <p slot="title">Suggesions</p>
         <List size="small">
           <ListItem v-for="suggestion in suggestions" :key="suggestion">
-            <ListItemMeta :title="suggestion.context" />
-            <template slot="action">
+            <!-- <ListItemMeta :title="suggestion.context" /> -->
+            <div>
+              {{suggestion.context}}
+               <span v-if="suggestion.hasDetail">
+                Follow
+                <a :href="suggestion.detail">
+                  this link
+                  <Icon type="ios-search" size="16"/>
+                </a>
+                to find more guidence.
+              </span>
+            </div>
+
+            <!-- <template slot="action">
               <li v-if="suggestion.hasDetail">
                 <a :href="suggestion.detail">
                   More Detail
                   <Icon type="ios-search" size="16"/>
                 </a>
               </li>
-              <!-- TODO: 做成出提示标志 -->
-              <!-- <li>
-                <Button type="error" size="small">No Effect</Button>
-              </li> -->
-            </template>
+    
+            </template> -->
           </ListItem>
         </List>
       </Card>
