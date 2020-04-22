@@ -2,7 +2,8 @@ from util import *
 import json
 
 components = {
-    "usbdisk": "USB"
+    "usbdisk": "USB",
+    "printers": "ThinPrint"
 }
 
 link = {
@@ -22,35 +23,47 @@ def diagnosis(collected_data, device):
         results.append("This device has some problems, please check.")
 
     if comp is not None and collected_data['agent']['Horizoncomp'][comp] == 0:
-        results.append("Please install the {} component in Horizon client".format(comp))
+        results.append("Please install the {} component in Horizon client.".format(comp))
 
     if end == 'agent':
-        results.append(["The redirection is not recommended for the {} device".format(device.type),
+        results.append(["The redirection is not recommended for the {} device.".format(device.type),
                        link[device.type][0]+_get_Horizon_agent_version(collected_data)+link[device.type][1]])
 
     # todo: for different devices
     if device.type == 'usbdisk':
         results = _usb(collected_data, device, results)
+    if device.type == 'printers':
+        results = _printer(collected_data, device, results)
 
     return results
 
 
 def _usb(collected_data, device, results):
-    # todo: 设备本身有问题
 
     # todo: CDR Service
     if 'CDRservice' in collected_data['agent'].keys():
         cdr = []
         if collected_data['agent']['CDRservice'] == 'Running':
-            cdr.append('Please use CDR Service to redirect the device')
+            cdr.append('Please use CDR Service to redirect the device.')
         else:
-            cdr.append('Please restart your CDR Service')
+            cdr.append('Please restart your CDR Service.')
         cdr.append(link['CDR'][0] + _get_Horizon_agent_version(collected_data) + link['CDR'][1])
         results.append(cdr)
     else:
         pass  # add CDR?
     return results
 
+def _printer(collected_data, device, results):
+
+    # todo: PrinterService (agent or client?)
+    if collected_data['client'].get('PrinterService',None) != 'Running':
+        results.append("Please start your Printer Service.")
+
+    # todo: real printer or neetwork printer
+    if device.vid is None and device.pid is None:
+        results.append("Please use printer redirection.")
+
+    return results
 
 # questions：
 # 如果检测到设备在client端运行 还需要要说  Please use CDR Service to redirect 么？

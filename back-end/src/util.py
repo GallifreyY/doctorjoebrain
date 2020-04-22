@@ -59,24 +59,26 @@ def recognize_devices(collected_data):
     """
     :param collected_data:
     :return: devices(on duplicated item)
-    :bug: 无序的读取 -- 目前选择将device数据存起来 保证书序
     """
-    devices = []
-    recorded_devices = ['usbdisk']
+    res = []
+    recorded_devices = ['usbdisk', 'printers']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             if key in recorded_devices:
                 device_type = key
-                for device in collected_data[end][device_type]:
-                    devices.append(_Device(device_type,
+                devices = collected_data[end][device_type]
+                if devices is None:
+                    continue
+                for device in devices:
+                    res.append(_Device(device_type,
                                            end,
-                                           device["VID"],
-                                           device["PID"],
-                                           device['name'],
-                                           device['hasProblem']))
+                                           device.get("VID",None),
+                                           device.get("PID",None),
+                                           device.get('name',None) or device.get('Name',None),
+                                           device.get('hasProblem',None)))
 
     # todo: 存取device信息避免二次计算
-    return devices
+    return res
 
 
 def save_data(data, file_name, dir='user', mode='json'):

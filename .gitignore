@@ -19,5 +19,6 @@ selenium-debug.log
 __pycache__/
 .ipynb_checkpoints
 
-/back-end/data/user/
+/back-end/data/
 /lab/
+/brain/test/

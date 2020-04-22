@@ -24,11 +24,12 @@ def add_to_log_file():
     state = 'failed'
     url = ''
 
+
     if not request.is_json:
         form = request.form.to_dict()
         for item in form.items():
-            s = item[0].replace("\n","").replace("\'","\"").replace(" ","")
-            collected_data = json.loads(s)
+            collected_json = item[0].replace("\n","").replace("\'","\"")
+            collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
 
@@ -106,23 +107,26 @@ def device_and_client_info():
     # todo walk all devices
     for index, device in enumerate(devices):
         device_info = {
-            "deviceName": device.name,
-            "vid": device.vid,
-            "pid": device.pid,
-            "hasProblem": device.has_problem,
+            "deviceName": device.name ,
+            "vid": device.vid ,
+            "pid": device.pid ,
+            "hasProblem": device.has_problem or False,
             "end": device.end
         }
 
         # todo: query
-        device_id = device.vid + '-' + device.pid  # demo
-        item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
-            .with_entities(Device.description,
-                           Device.picture, Vendor.vendor_name,
-                           Vendor.vendor_link, Vendor.vendor_logo).all()
+        item = None
+        if not (device.vid is None or device.pid is None):
+            device_id = device.vid + '-' + device.pid  # demo
+            item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
+                .with_entities(Device.description,
+                               Device.picture, Vendor.vendor_name,
+                               Vendor.vendor_link, Vendor.vendor_logo).all()
 
-        item = to_json_join(item)
+            item = to_json_join(item)
 
-        if len(item) == 1:
+
+        if item is not None and len(item) == 1:
             item = item[0]
             # todo: if value is None, fill with default
             for key in item.keys():
