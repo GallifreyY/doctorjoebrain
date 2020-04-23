@@ -16,8 +16,8 @@ link = {
 
 def diagnosis(collected_data, device):
     results = []
-    end = device.end
     comp = components.get(device.type, None)
+
     # todo: general
     if device.has_problem:
         results.append("This device has some problems, please check.")
@@ -25,9 +25,6 @@ def diagnosis(collected_data, device):
     if comp is not None and collected_data['agent']['Horizoncomp'][comp] == 0:
         results.append("Please install the {} component in Horizon client.".format(comp))
 
-    if end == 'agent':
-        results.append(["The redirection is not recommended for the {} device.".format(device.type),
-                       link[device.type][0]+_get_Horizon_agent_version(collected_data)+link[device.type][1]])
 
     # todo: for different devices
     if device.type == 'usbdisk':
@@ -39,6 +36,11 @@ def diagnosis(collected_data, device):
 
 
 def _usb(collected_data, device, results):
+
+    # todo: Redirection
+    if device.end == 'agent':
+        results.append(["The redirection is not recommended for the {} device.".format(device.type),
+                       link[device.type][0]+_get_Horizon_agent_version(collected_data)+link[device.type][1]])
 
     # todo: CDR Service
     if 'CDRservice' in collected_data['agent'].keys():
@@ -54,12 +56,21 @@ def _usb(collected_data, device, results):
     return results
 
 def _printer(collected_data, device, results):
+    # todo：installed driver
 
-    # todo: PrinterService (agent or client?)
+    # todo： USB direction （vid & pid）or in _Device Class
+         # todo : in agent?
+
+    # todo: type 3 ror type 4
+
+    # todo: PrinterService
     if collected_data['client'].get('PrinterService',None) != 'Running':
-        results.append("Please start your Printer Service.")
+        results.append("Please start your Printer Service at localhost.")
 
-    # todo: real printer or neetwork printer
+    if collected_data['agent'].get('PrinterService',None) != 'Running':
+        results.append("Please start your Printer Service at Horizon Agent.")
+
+    # todo: real printer or network printer
     if device.vid is None and device.pid is None:
         results.append("Please use printer redirection.")
 

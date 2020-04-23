@@ -3,50 +3,46 @@
     <!--basic value-->
     <Row :gutter="16" style="background:inherit;" type="flex">
       <Col :sm="12" :lg="8">
-        <div v-for="(dInfo,index) in deviceInfo">
-          <!-- 暂缓之策 -->
-          <a @click.stop="handleDeviceClick(index)">
-            <device-card :deviceInfo="dInfo" :index = index :showDetails="deviveDetails[index]"></device-card>
-          </a>
-        </div>
+        <!-- Device display -->
+        <device-display :deviceInfo="deviceInfo" :deviceType="deviceType" :index.sync="index"></device-display>
       </Col>
 
       <Col :sm="12" :lg="16" class="col-tables">
         <!-- <div style="display:flex;flex-direction:column;justify-content:center"> -->
-          <div style="margin:20px">
-            <Card shadow>
-              <p slot="title">Device Information</p>
-              <Table
-                stripe
-                :show-header="showHeader"
-                :columns="columns"
-                :data="device_column_data"
-                :size="tableSize"
-              ></Table>
-            </Card>
-          </div>
+        <div style="margin:20px">
+          <Card shadow>
+            <p slot="title">Device Information</p>
+            <Table
+              stripe
+              :show-header="showHeader"
+              :columns="columns"
+              :data="device_column_data"
+              :size="tableSize"
+            ></Table>
+          </Card>
+        </div>
 
-          <div style="margin:20px">
-            <Card shadow>
-              <p slot="title">Client Information</p>
-              <Table
-                stripe
-                :show-header="showHeader"
-                :columns="columns"
-                :data="clientInfo.client_column_data"
-                :size="tableSize"
-              ></Table>
-            </Card>
-          </div>
+        <div style="margin:20px">
+          <Card shadow>
+            <p slot="title">Client Information</p>
+            <Table
+              stripe
+              :show-header="showHeader"
+              :columns="columns"
+              :data="clientInfo.client_column_data"
+              :size="tableSize"
+            ></Table>
+          </Card>
+        </div>
 
-          <div style="margin:20px">
-            <Card shadow>
-              <p slot="title">Diagnosis</p>
-              <Row type="flex" justify="center">
-                <Button type="primary" shape="circle" long @click="progress">Diagnosis</Button>
-              </Row>
-            </Card>
-          </div>
+        <div style="margin:20px">
+          <Card shadow>
+            <p slot="title">Diagnosis</p>
+            <Row type="flex" justify="center">
+              <Button type="primary" shape="circle" long @click="progress">Diagnosis</Button>
+            </Row>
+          </Card>
+        </div>
         <!-- </div> -->
       </Col>
     </Row>
@@ -93,11 +89,11 @@
             <!-- <ListItemMeta :title="suggestion.context" /> -->
             <div>
               {{suggestion.context}}
-               <span v-if="suggestion.hasDetail">
+              <span v-if="suggestion.hasDetail">
                 Follow
                 <a :href="suggestion.detail">
                   this link
-                  <Icon type="ios-search" size="16"/>
+                  <Icon type="ios-search" size="16" />
                 </a>
                 to find more guidence.
               </span>
@@ -111,11 +107,10 @@
                 </a>
               </li>
     
-            </template> -->
+            </template>-->
           </ListItem>
         </List>
       </Card>
-
     </Row>
 
     <!--reference video-->
@@ -135,11 +130,11 @@
 <script>
 const df = require("./default/");
 import { getBasicInfo, getDiagnosisInfo } from "@/api/diagnosis";
-import DeviceCard from "@/components/DeviceCard";
+import DeviceDisplay from "@/components/DeviceDisplay";
 import { mapGetters } from "vuex";
 export default {
   name: "Info",
-  components: { DeviceCard },
+  components: { DeviceDisplay },
   data() {
     return {
       //Data
@@ -147,10 +142,11 @@ export default {
       // clientInfo: df.clientInfo,
       deviceInfo: undefined,
       clientInfo: undefined,
+      deviceType: undefined,
       compatilityCheck: undefined,
       index: 0,
       numOfDevices: 0,
-      suggestions:undefined,
+      suggestions: undefined,
       //UI
       columns: [
         { title: "Key", key: "key" },
@@ -193,19 +189,19 @@ export default {
     initProgress() {
       this.percent = 0;
     },
-    parseSuggestions(suggestions){
-      let res = []
+    parseSuggestions(suggestions) {
+      let res = [];
       suggestions.forEach(item => {
         let suggestion = {};
-        if(item instanceof Array){
-          suggestion['context'] = item[0]
-          suggestion['hasDetail'] = true
-          suggestion['detail'] = item[1]
-        }else{
-          suggestion['context'] = item
-          suggestion['hasDetail'] = false
+        if (item instanceof Array) {
+          suggestion["context"] = item[0];
+          suggestion["hasDetail"] = true;
+          suggestion["detail"] = item[1];
+        } else {
+          suggestion["context"] = item;
+          suggestion["hasDetail"] = false;
         }
-        res.push(suggestion)
+        res.push(suggestion);
       });
       return res;
     },
@@ -228,14 +224,13 @@ export default {
         });
       }
     },
-    handleDeviceClick(index) {
-      this.index = index;
-    },
+
     fetchBasicInfo(uuid) {
       getBasicInfo(uuid)
         .then(response => {
           this.deviceInfo = response.data.device; //array
           this.clientInfo = response.data.client;
+          this.deviceType = response.data.device_type;
           this.numOfDevices = this.deviceInfo.length;
 
           // todo： 查询目录里是否有图片 没有的话用default图片代替
@@ -259,7 +254,7 @@ export default {
           //console.log(this.compatilityCheck.suggestions)
 
           //todo : render suggestions
-          this.suggestions = this.parseSuggestions(response.data.suggestions)
+          this.suggestions = this.parseSuggestions(response.data.suggestions);
           this.progressStatus = "success";
           this.showCheckingResult = true;
           this.$Message.success(
@@ -277,13 +272,13 @@ export default {
   },
   computed: {
     ...mapGetters(["uuid"]),
-    deviveDetails: {
-      get: function() {
-        let res = Array(this.numOfDevices).fill(false);
-        res[this.index] = true;
-        return res;
-      }
-    },
+    // deviveDetails: {
+    //   get: function() {
+    //     let res = Array(this.numOfDevices).fill(false);
+    //     res[this.index] = true;
+    //     return res;
+    //   }
+    // },
     device_column_data: {
       get: function() {
         return [
@@ -293,8 +288,9 @@ export default {
           },
           { key: "VID", value: this.deviceInfo[this.index].vid },
           { key: "PID", value: this.deviceInfo[this.index].pid },
-          { key: "Detecting in", value: this.deviceInfo[this.index].end },
-          
+          { key: "Device Type", value: this.deviceInfo[this.index].type },
+          { key: "Detecting in", value: this.deviceInfo[this.index].end }
+
         ];
       }
     }

@@ -110,6 +110,7 @@ def device_and_client_info():
             "deviceName": device.name ,
             "vid": device.vid ,
             "pid": device.pid ,
+            "type": device.type,
             "hasProblem": device.has_problem or False,
             "end": device.end
         }
@@ -142,7 +143,8 @@ def device_and_client_info():
 
     client_column_data = [
         {'key': "Client OS", 'value': client_info['client_os']},
-        {'key': "Horizon Version(Client)", 'value': client_info['Horizon_version_client']}
+        {'key': "Horizon Version(Client)", 'value': client_info['Horizon_version_client']},
+        {'key': "Hardware", 'value': client_info['hardware']}
     ]
     return {
         'code': 20022,

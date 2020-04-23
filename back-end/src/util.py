@@ -2,11 +2,13 @@ import uuid
 import sys
 import pickle
 
-sys.path.append('../data/user/')  # 进入user文件夹
+sys.path.append('../data/user/')
 import os
 import datetime
 import json
 from collections import OrderedDict
+
+
 
 
 def to_json(inst, cls):
@@ -18,10 +20,6 @@ def to_json(inst, cls):
 
 
 def to_json_join(items):
-    """
-    :param items: 联表查询的结果
-    :return: 字典
-    """
     return [dict(zip(item.keys(), item)) for item in items]
 
 
@@ -37,7 +35,7 @@ def validate_roles(user_name):
 
 class _Device:
     def __init__(self, type, end, vid, pid, name, has_p):
-        self.type = type
+        self.type = type # transfer
         self.end = end  # agent or client
         self.vid = vid
         self.pid = pid
@@ -83,9 +81,9 @@ def recognize_devices(collected_data):
 
 def save_data(data, file_name, dir='user', mode='json'):
     """
-    :param dir: 目录
-    :param file_name:
-    :param data:
+    :param dir
+    :param file_name
+    :param data
     :return:
     # todo: 存数据 避免二次计算
     """
@@ -139,6 +137,7 @@ def get_client_info(collected_data):
     return {
         'client_os': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver'],
         'Horizon_version_client': collected_data['client']['clientver'],
+        'hardware' : None
     }
 
 
