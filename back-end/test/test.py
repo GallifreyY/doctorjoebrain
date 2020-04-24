@@ -9,3 +9,5 @@ for dir in os.listdir(path):
 
     for file in os.listdir(dir_path):
         print(file)
+
+from collections.abc import Iterable

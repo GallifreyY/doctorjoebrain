@@ -1,5 +1,5 @@
 <template>
-  <div style="margin:10px">
+  <div style="margin:20px">
     <Card :bordered="false" shadow>
       <!-- heading -->
       <Row type="flex" justify="space-between">

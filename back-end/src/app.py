@@ -13,32 +13,31 @@ from diagnosis import diagnosis
 import json
 
 
-####### just for testing..
-# @app.route('/matrix', methods=['GET'])
-# def hello_world():
-#     item = Matrix.query.all()
-#     item = list(map(lambda x: x.to_json(), item))
-#     demo = 'from sever'
-#     return {
-#         'code': 20022,
-#         'data': demo
-#     }
 
 
 # protocols to collector
 @app.route('/protocols/data_collector', methods=['GET', 'POST'])
 @cross_origin()
 def add_to_log_file():
-    # print(request.json)
+
     code = 20022
     state = 'failed'
     url = ''
-    collected_data = json.loads(request.json)
+
+
+    if not request.is_json:
+        form = request.form.to_dict()
+        for item in form.items():
+            collected_json = item[0].replace("\n","").replace("\'","\"")
+            collected_data = json.loads(collected_json)
+    else:
+        collected_data = json.loads(request.json)
+
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
         # dev vm:
-        url = 'http://10.117.43.99:8088/api/diagnosis/' + uuid
+        # url = 'http://10.117.43.99:8088/api/diagnosis/' + uuid
         # local:
         url = 'http://127.0.0.1:8080/#/diagnosis/' + uuid
 
@@ -98,6 +97,7 @@ def device_and_client_info():
     if collected_data == None:
         return {'code': 20044}
     devices = recognize_devices(collected_data)
+
     save_data(devices, uuid, 'devices', 'pickle')
     # todo: directly get info from collected_data
     client_info = get_client_info(collected_data)
@@ -108,23 +108,27 @@ def device_and_client_info():
     # todo walk all devices
     for index, device in enumerate(devices):
         device_info = {
-            "deviceName": device.name,
-            "vid": device.vid,
-            "pid": device.pid,
-            "hasProblem": device.has_problem,
+            "deviceName": device.name ,
+            "vid": device.vid ,
+            "pid": device.pid ,
+            "type": device.type,
+            "hasProblem": device.has_problem or False,
             "end": device.end
         }
 
         # todo: query
-        device_id = device.vid + '-' + device.pid  # demo
-        item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
-            .with_entities(Device.description,
-                           Device.picture, Vendor.vendor_name,
-                           Vendor.vendor_link, Vendor.vendor_logo).all()
+        item = None
+        if not (device.vid is None or device.pid is None):
+            device_id = device.vid + '-' + device.pid  # demo
+            item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
+                .with_entities(Device.description,
+                               Device.picture, Vendor.vendor_name,
+                               Vendor.vendor_link, Vendor.vendor_logo).all()
 
-        item = to_json_join(item)
+            item = to_json_join(item)
 
-        if len(item) == 1:
+
+        if item is not None and len(item) == 1:
             item = item[0]
             # todo: if value is None, fill with default
             for key in item.keys():
@@ -136,11 +140,12 @@ def device_and_client_info():
             device_info["details"] = default_details
 
         devices_info.append(device_info)
-    print(devices_info)
+    # print(devices_info)
 
     client_column_data = [
         {'key': "Client OS", 'value': client_info['client_os']},
-        {'key': "Horizon Version(Client)", 'value': client_info['Horizon_version_client']}
+        {'key': "Horizon Version(Client)", 'value': client_info['Horizon_version_client']},
+        {'key': "Hardware", 'value': client_info['hardware']}
     ]
     return {
         'code': 20022,
@@ -162,7 +167,7 @@ def diagnosis_info():
     index = int(request.args.get('index'))
     collected_data = read_data(uuid, 'user', 'json')
     if collected_data is None:
-        return {'code': 20044}
+        return {'code': 20022, 'data':{}}
     # todo：直接读取保证顺序
     devices = read_data(uuid, 'devices', 'pickle')
     # todo :find index
@@ -172,6 +177,7 @@ def diagnosis_info():
     # todo: diagnosis
     suggestions = diagnosis(collected_data, device)
 
+    #print(suggestions)
     # fake data
 
     video = "PowerMic.mp4"
