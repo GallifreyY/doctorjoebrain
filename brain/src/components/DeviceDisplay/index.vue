@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="margin:10px">
+    <div style="margin:20px">
       <Card :bordered="false" shadow id="selector">
         <Row class="title">Detecting following devices:</Row>
         <Collapse simple>
@@ -19,8 +19,8 @@
           </Panel>
         </Collapse>
         <!-- selector -->
-        <div class="title">Please select a device</div>
-        <Cascader :data="cascaderData" v-model="selectedData"></Cascader>
+        <div class="title">Which device you want to diagnosis?</div>
+        <Cascader placeholder="Please select a device" :data="cascaderData" v-model="selectedData"></Cascader>
       </Card>
     </div>
 
@@ -37,7 +37,7 @@ export default {
     deviceInfo: {
       type: Array
     },
-    deviceType: {
+    labelDict: {
       type: Object
     },
     index: {
@@ -49,10 +49,10 @@ export default {
       sortedTag: undefined,
       cascaderData: undefined,
       selectedData: [" ", 0],
-      labelDict: {
-        printers: "Printers",
-        usbdisk: "USB Devices"
-      }
+      // labelDict: {
+      //   printers: "Printers",
+      //   usbdisk: "USB Devices"
+      // }
     };
   },
   methods: {

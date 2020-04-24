@@ -97,6 +97,7 @@ def device_and_client_info():
     if collected_data == None:
         return {'code': 20044}
     devices = recognize_devices(collected_data)
+
     save_data(devices, uuid, 'devices', 'pickle')
     # todo: directly get info from collected_data
     client_info = get_client_info(collected_data)
@@ -166,7 +167,7 @@ def diagnosis_info():
     index = int(request.args.get('index'))
     collected_data = read_data(uuid, 'user', 'json')
     if collected_data is None:
-        return {'code': 20044}
+        return {'code': 20022, 'data':{}}
     # todo：直接读取保证顺序
     devices = read_data(uuid, 'devices', 'pickle')
     # todo :find index

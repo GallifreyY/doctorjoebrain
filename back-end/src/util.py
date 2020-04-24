@@ -1,14 +1,13 @@
 import uuid
 import sys
 import pickle
+from Device import Device as _Device
 
 sys.path.append('../data/user/')
 import os
 import datetime
 import json
 from collections import OrderedDict
-
-
 
 
 def to_json(inst, cls):
@@ -33,14 +32,7 @@ def validate_roles(user_name):
     return ['admin']
 
 
-class _Device:
-    def __init__(self, type, end, vid, pid, name, has_p):
-        self.type = type # transfer
-        self.end = end  # agent or client
-        self.vid = vid
-        self.pid = pid
-        self.name = name
-        self.has_problem = has_p
+
 
 
 def parse_collected_data(data):
@@ -62,20 +54,25 @@ def recognize_devices(collected_data):
     recorded_devices = ['usbdisk', 'printers']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
+            # todo: dimiss pritners check at agent end
+            if key == 'printers' and end == 'agent':
+                continue
+            if collected_data[end][key] is None:
+                continue
             if key in recorded_devices:
                 device_type = key
                 devices = collected_data[end][device_type]
                 if devices is None:
                     continue
-                for device in devices:
-                    res.append(_Device(device_type,
-                                           end,
-                                           device.get("VID",None),
-                                           device.get("PID",None),
-                                           device.get('name',None) or device.get('Name',None),
-                                           device.get('hasProblem',None)))
+                for index, device in enumerate(devices):
+                    res.append(_Device(index,
+                                       device_type,
+                                       end,
+                                       device.get("VID", None),
+                                       device.get("PID", None),
+                                       device.get('name', None) or device.get('Name', None),
+                                       device.get('hasProblem', None)))
 
-    # todo: 存取device信息避免二次计算
     return res
 
 
@@ -85,7 +82,6 @@ def save_data(data, file_name, dir='user', mode='json'):
     :param file_name
     :param data
     :return:
-    # todo: 存数据 避免二次计算
     """
     today = str(datetime.date.today())
     path = '../data/' + dir + '/' + today + '/'
@@ -137,11 +133,11 @@ def get_client_info(collected_data):
     return {
         'client_os': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver'],
         'Horizon_version_client': collected_data['client']['clientver'],
-        'hardware' : None
+        'hardware': None
     }
 
 
-def check_compatibility(collected_data,device):
+def check_compatibility(collected_data, device):
     client = [
         {'key': "Client OS Name", 'value': collected_data['client']['OSname'], 'check': True},
         {

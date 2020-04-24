@@ -156,7 +156,7 @@
         "SerialPortRedirection": 1,
         "SmartCard": 1,
         "TSMMR": 1,
-        "ThinPrint": 1,
+        "ThinPrint": 0,
         "USB": 0,
         "V4V": 1,
         "VPA": 1,

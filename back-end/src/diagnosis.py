@@ -3,7 +3,7 @@ import json
 
 components = {
     "usbdisk": "USB",
-    "printers": "ThinPrint"
+    "printers": ["ThinPrint","PrintRedir"]
 }
 
 link = {
@@ -16,20 +16,26 @@ link = {
 
 def diagnosis(collected_data, device):
     results = []
-    comp = components.get(device.type, None)
+
 
     # todo: general
     if device.has_problem:
         results.append("This device has some problems, please check.")
 
-    if comp is not None and collected_data['agent']['Horizoncomp'][comp] == 0:
-        results.append("Please install the {} component in Horizon client.".format(comp))
-
+    # todo: detect components in Horizon
+    comp = components.get(device.type, None)
+    if comp is not None:
+        if isinstance(comp,list) :
+            if _judge_comp([collected_data['agent']['Horizoncomp'][_comp] for _comp in comp]):
+                comp_string = " or ".join(comp)
+                results.append("Please install {} component in Horizon client.".format(comp_string))
+        elif collected_data['agent']['Horizoncomp'][comp] == 0:
+            results.append("Please install {} component in Horizon client.".format(comp))
 
     # todo: for different devices
     if device.type == 'usbdisk':
         results = _usb(collected_data, device, results)
-    if device.type == 'printers':
+    elif device.type == 'printers':
         results = _printer(collected_data, device, results)
 
     return results
@@ -56,12 +62,35 @@ def _usb(collected_data, device, results):
     return results
 
 def _printer(collected_data, device, results):
+
+    device_details = device.find_details_in(collected_data)
+
     # todo：installed driver
+    if 'DriverName' not in device_details.keys():
+        results.append("Please install according printer drivers")
+
+    else:
+        # todo: check type 3 or type 4
+        major_version= device_details['DriverName'].get('MajorVersion',None)
+        if major_version == 3: # NPD
+            agent_redirect =  device.find_redirection_in_agent(collected_data)
+            if agent_redirect is not None and agent_redirect['DriverName']['Name'] == 'Vmware.. ':
+                results.append("Only can conduct UDP Service")
+                # todo: update!
+                #  It must has driver?
+
+        elif major_version == 4: # UDP
+            pass
 
     # todo： USB direction （vid & pid）or in _Device Class
-         # todo : in agent?
+    if device.is_usb_redirect():
+        results.append("Not recommending using USB redirect in this printer device, please use printer redirection.")
+        # todo : detect in agent
+        if  device.find_redirection_in_agent(collected_data) is not None:
+            results.append("The USB redirection could not be found in Horizon end.")
+    else:
+        results.append("It is a virtual printer.")
 
-    # todo: type 3 ror type 4
 
     # todo: PrinterService
     if collected_data['client'].get('PrinterService',None) != 'Running':
@@ -70,19 +99,20 @@ def _printer(collected_data, device, results):
     if collected_data['agent'].get('PrinterService',None) != 'Running':
         results.append("Please start your Printer Service at Horizon Agent.")
 
-    # todo: real printer or network printer
-    if device.vid is None and device.pid is None:
-        results.append("Please use printer redirection.")
-
     return results
 
-# questions：
-# 如果检测到设备在client端运行 还需要要说  Please use CDR Service to redirect 么？
+
 
 def _get_Horizon_agent_version(collected_data):
     version = collected_data['agent']['agentver']
     # todo: seconding version
     return '.'.join(version.split('.')[:-1])
+
+def _judge_comp(comp_list):
+    for comp in comp_list:
+        if comp == 1:
+            return False
+    return True
 
 # todo：test
 #

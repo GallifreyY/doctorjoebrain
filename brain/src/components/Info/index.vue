@@ -4,7 +4,7 @@
     <Row :gutter="16" style="background:inherit;" type="flex">
       <Col :sm="12" :lg="8">
         <!-- Device display -->
-        <device-display :deviceInfo="deviceInfo" :deviceType="deviceType" :index.sync="index"></device-display>
+        <device-display :deviceInfo="deviceInfo" :labelDict="labelDict" :index.sync="index"></device-display>
       </Col>
 
       <Col :sm="12" :lg="16" class="col-tables">
@@ -114,7 +114,7 @@
     </Row>
 
     <!--reference video-->
-    <Row v-if="showCheckingResult" style="padding:20px 0px">
+    <!-- <Row v-if="showCheckingResult" style="padding:20px 0px">
       <Card>
         <p slot="title">Referece Video</p>
         <video
@@ -123,7 +123,7 @@
           type="video/mp4"
         ></video>
       </Card>
-    </Row>
+    </Row> -->
   </div>
 </template>
 
@@ -147,6 +147,10 @@ export default {
       index: 0,
       numOfDevices: 0,
       suggestions: undefined,
+      labelDict: {
+        printers: "Printers",
+        usbdisk: "USB Devices"
+      },
       //UI
       columns: [
         { title: "Key", key: "key" },
@@ -288,9 +292,8 @@ export default {
           },
           { key: "VID", value: this.deviceInfo[this.index].vid },
           { key: "PID", value: this.deviceInfo[this.index].pid },
-          { key: "Device Type", value: this.deviceInfo[this.index].type },
+          { key: "Device Type", value: this.labelDict[this.deviceInfo[this.index].type] },
           { key: "Detecting in", value: this.deviceInfo[this.index].end }
-
         ];
       }
     }
