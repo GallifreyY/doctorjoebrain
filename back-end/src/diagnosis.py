@@ -10,13 +10,15 @@ link = {
     "CDR": ["https://docs.vmware.com/en/VMware-Horizon-7/",
             "/horizon-remote-desktop-features/GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html"],
     "usbdisk": ["https://docs.vmware.com/en/VMware-Horizon-7/",
-                "/horizon-remote-desktop-features/GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html"]
+                "/horizon-remote-desktop-features/GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html"],
+    "printers":["https://docs.vmware.com/en/VMware-Horizon-7/",
+                "/horizon-remote-desktop-features/GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"]
 }
 
 
 def diagnosis(collected_data, device):
     results = []
-
+    collected_data = collected_data
 
     # todo: general
     if device.has_problem:
@@ -28,46 +30,55 @@ def diagnosis(collected_data, device):
         if isinstance(comp,list) :
             if _judge_comp([collected_data['agent']['Horizoncomp'][_comp] for _comp in comp]):
                 comp_string = " or ".join(comp)
-                results.append("Please install {} component in Horizon client.".format(comp_string))
+                s = "The {} component is not installed on the Horizon agent desktop. " \
+                               "Please install it on your remote desktop".format(comp_string)
+                results.append(_add_refers(s,device.type,collected_data))
         elif collected_data['agent']['Horizoncomp'][comp] == 0:
-            results.append("Please install {} component in Horizon client.".format(comp))
+            s = "The {} component is not installed on the Horizon agent desktop. " \
+                               "Please install it on your remote desktop".format(comp)
+            results.append(_add_refers(s,device.type,collected_data))
 
     # todo: for different devices
     if device.type == 'usbdisk':
-        results = _usb(collected_data, device, results)
+        results = _usb_diagnose(collected_data, device, results)
     elif device.type == 'printers':
-        results = _printer(collected_data, device, results)
+        results = _printer_diagnose(collected_data, device, results)
+
+    # todo: final check
+    results = list(filter(None, results))
 
     return results
 
 
-def _usb(collected_data, device, results):
+def _usb_diagnose(collected_data, device, results):
 
     # todo: Redirection
     if device.end == 'agent':
-        results.append(["The redirection is not recommended for the {} device.".format(device.type),
-                       link[device.type][0]+_get_Horizon_agent_version(collected_data)+link[device.type][1]])
+        s = "The USB device  is redirected to the remote agent desktop by USB redirection way which is not recommended for the USB disk devices."
+        results.append(_add_refers(s,device.type,collected_data))
 
     # todo: CDR Service
     if 'CDRservice' in collected_data['agent'].keys():
-        cdr = []
         if collected_data['agent']['CDRservice'] == 'Running':
-            cdr.append('Please use CDR Service to redirect the device.')
+            s = "Please use the CDR (client drive redirection) service to redirect the file systems on USB disk devices."
         else:
-            cdr.append('Please restart your CDR Service.')
-        cdr.append(link['CDR'][0] + _get_Horizon_agent_version(collected_data) + link['CDR'][1])
-        results.append(cdr)
+            s = "The CDR service was not running properly on your agent machine. Please check it with your IT administrator to restart the service."
     else:
-        pass  # add CDR?
+        s = "The CDR component was not installed on your remote agent desktop correctly. Please check it with your IT administrator."
+    results.append(_add_refers(s,'CDR',collected_data))
+
     return results
 
-def _printer(collected_data, device, results):
+def _printer_diagnose(collected_data, device, results):
 
     device_details = device.find_details_in(collected_data)
 
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
-        results.append("Please install according printer drivers")
+        s = "This printer  is connected to your machine via USB connection. " \
+            "However, the appropriate driver of this device was not found in your client system. " \
+            "Please contact your IT administrator to install the specific driver of the printer on your machine."
+        results.append(s)
 
     else:
         # todo: check type 3 or type 4
@@ -101,6 +112,12 @@ def _printer(collected_data, device, results):
 
     return results
 
+
+def _add_refers(suggestion,key,collected_data):
+    if key not in link.keys():
+        return None
+    return [suggestion,
+            link[key][0] + _get_Horizon_agent_version(collected_data) + link[key][1]]
 
 
 def _get_Horizon_agent_version(collected_data):

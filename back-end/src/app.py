@@ -4,13 +4,14 @@ from flask_cors import cross_origin
 from flask import request
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object('db_info')
 db = SQLAlchemy(app)
 
 from models import *
 from util import *
 from diagnosis import diagnosis
 import json
+import Config
 
 
 
@@ -36,10 +37,7 @@ def add_to_log_file():
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        # dev vm:
-        # url = 'http://10.117.43.99:8088/api/diagnosis/' + uuid
-        # local:
-        url = 'http://127.0.0.1:8080/#/diagnosis/' + uuid
+        url = Config.GET_URL() + uuid
 
     return {'code': code,
             'state': state,
