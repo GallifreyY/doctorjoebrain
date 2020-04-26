@@ -84,9 +84,11 @@ def save_data(data, file_name, dir='user', mode='json'):
     :return:
     """
     today = str(datetime.date.today())
-    path = '../data/' + dir + '/' + today + '/'
+    path = './data/' + dir + '/' + today + '/'
     if not os.path.exists(path):
+        print(os.getcwd())
         os.mkdir(path)
+
     file_mode = 'wb' if mode == 'pickle' else 'w'
     with open(path + file_name + '.' + mode, file_mode) as f:
         if mode == 'pickle':
@@ -98,7 +100,7 @@ def save_data(data, file_name, dir='user', mode='json'):
 
 
 def read_data(file_name, dir='user', mode='json'):
-    path = '../data/' + dir + '/'
+    path = './data/' + dir + '/'
     file_mode = 'rb' if mode == 'pickle' else 'r'
     for dir in os.listdir(path):
         if os.path.isfile(dir):

@@ -4,7 +4,7 @@
       <Card :bordered="false" shadow id="selector">
         <Row class="title">Detecting following devices:</Row>
         <Collapse simple>
-          <Panel v-for="(tags,index) in sortedTag">
+          <Panel v-for="(tags,index) in sortedTag" :key = "index">
               <span><Badge :count="tags.length" class-name="badge"></Badge></span>
               <span style="margin:0 2%">{{parseTypeName(index)}}</span>
               
