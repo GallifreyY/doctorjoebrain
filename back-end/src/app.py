@@ -97,8 +97,7 @@ def device_and_client_info():
     devices = recognize_devices(collected_data)
 
     save_data(devices, uuid, 'devices', 'pickle')
-    # todo: directly get info from collected_data
-    client_info = get_client_info(collected_data)
+
     # todo: add info to devices
     add_info_to_db(collected_data)
 
@@ -140,11 +139,9 @@ def device_and_client_info():
         devices_info.append(device_info)
     # print(devices_info)
 
-    client_column_data = [
-        {'key': "Client OS", 'value': client_info['client_os']},
-        {'key': "Horizon Version(Client)", 'value': client_info['Horizon_version_client']},
-        {'key': "Hardware", 'value': client_info['hardware']}
-    ]
+    # todo: directly get info from collected_data
+    client_column_data = get_client_info(collected_data)
+
     return {
         'code': 20022,
         'data': {

@@ -132,11 +132,16 @@ def get_client_info(collected_data):
     :param collected_data:
     :return: dict:
     """
-    return {
-        'client_os': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver'],
-        'Horizon_version_client': collected_data['client']['clientver'],
-        'hardware': None
-    }
+
+    if collected_data['client'] is None:
+        return None
+
+    res = [
+        {'key': "Client OS", 'value': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver']},
+        {'key': "Horizon Version(Client)", 'value': collected_data['client']['clientver']},
+        {'key': "Hardware", 'value': None}
+    ]
+    return res
 
 
 def check_compatibility(collected_data, device):
