@@ -1,8 +1,14 @@
 import sys
 import os
 sys.path.insert(0,os.getcwd()+'/src')
-# src path always in back-end..
 
+import json
+import Config
 from app import app
-app.run(debug = True)
-# 不可用于生产环境
+
+
+env = Config.info().ENV
+debug = True if env == 'dev' else False
+
+
+app.run(debug = debug)

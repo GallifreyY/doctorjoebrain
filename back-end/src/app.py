@@ -12,6 +12,8 @@ from util import *
 from diagnosis import diagnosis
 import json
 import Config
+import re
+import copy
 
 
 
@@ -24,7 +26,6 @@ def add_to_log_file():
     code = 20022
     state = 'failed'
     url = ''
-
 
     if not request.is_json:
         form = request.form.to_dict()
@@ -82,19 +83,11 @@ def log_out():
 @app.route('/device_and_client_info', methods=['GET'])
 @cross_origin()
 def device_and_client_info():
-    default_details = {
-                'picture': 'devices.jpg',
-                'vendor_name': 'unrecorded',
-                'vendor_link': 'unrecorded',
-                'vendor_logo': 'vendor.png',
-                'description': 'This device is not recorded in our database'
-            }
-
     uuid = request.args.get('id')
     collected_data = read_data(uuid, 'user', 'json')
     if collected_data == None:
         return {'code': 20044}
-    devices = recognize_devices(collected_data)
+    devices = recognize_devices(collected_data,uuid)
 
     save_data(devices, uuid, 'devices', 'pickle')
 
@@ -104,40 +97,36 @@ def device_and_client_info():
     devices_info = []
     # todo walk all devices
     for index, device in enumerate(devices):
-        device_info = {
-            "deviceName": device.name ,
-            "vid": device.vid ,
-            "pid": device.pid ,
-            "type": device.type,
-            "hasProblem": device.has_problem or False,
-            "end": device.end
-        }
+
+        device_info = device.default_info()
 
         # todo: query
-        item = None
         if not (device.vid is None or device.pid is None):
-            device_id = device.vid + '-' + device.pid  # demo
+            device_id = device.vid + '-' + device.pid
             item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
-                .with_entities(Device.description,
+                .with_entities(Device.device_name,
+                               Device.description,
                                Device.picture, Vendor.vendor_name,
                                Vendor.vendor_link, Vendor.vendor_logo).all()
 
             item = to_json_join(item)
 
-
-        if item is not None and len(item) == 1:
-            item = item[0]
-            # todo: if value is None, fill with default
-            for key in item.keys():
-                if item[key] is None or len(item[key]) == 0:
-                    item[key] = default_details[key]
-            device_info["details"] = item
-        else:
-            # if query multiple or no data in db - no detail info
-            device_info["details"] = default_details
+            if len(item) > 1:
+                print("warning: id-query has multiple results")
+            elif len(item) == 0:
+                print("tips: database are not recorded the device: {}".format(device_id))
+            else:
+                item = item[0]
+                # todo: if value is None, fill with default
+                for key in item.keys():
+                    if item[key] is None or len(item[key]) == 0:
+                        continue
+                    if key in device_info['details'].keys():
+                        device_info['details'][key] = item[key]
+                    device_info['deviceName'] = item['device_name']
 
         devices_info.append(device_info)
-    # print(devices_info)
+
 
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)

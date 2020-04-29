@@ -42,6 +42,12 @@ export default {
     },
     index: {
       type: Number
+    },
+    showCheckingResult:{
+      type: Boolean
+    },
+    showProgressBar:{
+      type:Boolean
     }
   },
   data() {
@@ -99,12 +105,13 @@ export default {
       get: function() {
         let index = this.selectedData[1];
         this.$emit("update:index", index); //父组件传递数据
+        this.$emit("update:showCheckingResult", false)
+        this.$emit("update:showProgressBar", false)
         return index;
       }
     }
   },
   created() {
-    this.$emit("update:index", 2); //父组件传递数据
     this.sortedTag = this.parseDeviceInfo(this.deviceInfo);
     this.cascaderData = this.parseCascaderData(this.sortedTag);
   }

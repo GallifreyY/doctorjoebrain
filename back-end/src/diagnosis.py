@@ -23,6 +23,10 @@ def diagnosis(collected_data, device):
     # todo: general
     if device.has_problem:
         results.append("This device has some problems, please check.")
+    if device.is_present == False:
+        results.append("Please make sure this device is connected to your client machine by USB physically.")
+    if device.is_reboot_needed:
+        results.append("Please reboot your client machine OS to make this device work properly.")
 
     # todo: detect components in Horizon
     comp = components.get(device.type, None)
@@ -52,6 +56,11 @@ def diagnosis(collected_data, device):
 
 def _usb_diagnose(collected_data, device, results):
 
+
+    # todo: USB Arbitrator
+    if collected_data['client'].get('USBArbitrator',None) == 'Stopped':
+        results.append("Please start your USB arbitrator service.")
+
     # todo: Redirection
     if device.end == 'agent':
         s = "The USB device  is redirected to the remote agent desktop by USB redirection way which is not recommended for the USB disk devices."
@@ -71,7 +80,7 @@ def _usb_diagnose(collected_data, device, results):
 
 def _printer_diagnose(collected_data, device, results):
 
-    device_details = device.find_details_in(collected_data)
+    device_details = device.find_details()
 
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
@@ -84,31 +93,33 @@ def _printer_diagnose(collected_data, device, results):
         # todo: check type 3 or type 4
         major_version= device_details['DriverName'].get('MajorVersion',None)
         if major_version == 3: # NPD
-            agent_redirect =  device.find_redirection_in_agent(collected_data)
-            if agent_redirect is not None and agent_redirect['DriverName']['Name'] == 'Vmware.. ':
-                results.append("Only can conduct UDP Service")
+            agent_redirect =  device.find_redirection_in_agent()
+            if agent_redirect is not None and agent_redirect['DriverName']['Name'] == 'VMware Universal EMF Driver':
+                results.append("VMware Universal printing driver(UPD) was used by this printer in remote desktop." \
+                               " If you want to utilize native printing driver(NPD), please install its native driver on the remote desktop.")
                 # todo: update!
-                #  It must has driver?
 
-        elif major_version == 4: # UDP
+
+        elif major_version == 4: # UDPmajo
             pass
 
     # todo： USB direction （vid & pid）or in _Device Class
-    if device.is_usb_redirect():
+    if device.is_usb_redirect:
         results.append("Not recommending using USB redirect in this printer device, please use printer redirection.")
         # todo : detect in agent
-        if  device.find_redirection_in_agent(collected_data) is not None:
+        if device.find_redirection_in_agent() is None:
             results.append("The USB redirection could not be found in Horizon end.")
-    else:
-        results.append("It is a virtual printer.")
+    # else:
+    #     results.append("It is a virtual printer.")
 
 
     # todo: PrinterService
-    if collected_data['client'].get('PrinterService',None) != 'Running':
-        results.append("Please start your Printer Service at localhost.")
+    if collected_data['client'].get('PrinterService',None) != 'Running'\
+            or collected_data['agent'].get('PrinterService',None) != 'Running':
+        results.append("The print service(spooler) was at stopped status on your client or agent desktop. "
+                       "Please check it out and ensure it is running before printer redirection..")
 
-    if collected_data['agent'].get('PrinterService',None) != 'Running':
-        results.append("Please start your Printer Service at Horizon Agent.")
+
 
     return results
 

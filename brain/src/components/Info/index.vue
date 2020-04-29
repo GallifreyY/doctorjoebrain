@@ -4,7 +4,13 @@
     <Row :gutter="16" style="background:inherit;" type="flex">
       <Col :sm="12" :lg="8">
         <!-- Device display -->
-        <device-display :deviceInfo="deviceInfo" :labelDict="labelDict" :index.sync="index"></device-display>
+        <device-display
+          :deviceInfo="deviceInfo"
+          :labelDict="labelDict"
+          :index.sync="index"
+          :showCheckingResult.sync="showCheckingResult"
+          :showProgressBar.sync="showProgressBar"
+        ></device-display>
       </Col>
 
       <Col :sm="12" :lg="16" class="col-tables">
@@ -20,6 +26,8 @@
               :size="tableSize"
             ></Table>
           </Card>
+
+          
         </div>
 
         <div style="margin:20px">
@@ -39,7 +47,13 @@
           <Card shadow>
             <p slot="title">Diagnosis</p>
             <Row type="flex" justify="center">
-              <Button type="primary" shape="circle" long @click="progress">Diagnosis</Button>
+              <Button
+                type="primary"
+                shape="circle"
+                :loading="buttonLoading"
+                long
+                @click="progress"
+              >Diagnosis</Button>
             </Row>
           </Card>
         </div>
@@ -66,6 +80,7 @@
           ></Table>
         </Card>
       </Col>
+
       <Col span="12">
         <Card shadow>
           <p slot="title">Agent Compatibility Check</p>
@@ -78,6 +93,9 @@
           ></Table>
         </Card>
       </Col>
+
+
+
     </Row>
 
     <!--suggestion-->
@@ -88,8 +106,9 @@
           <ListItem v-for="suggestion in suggestions" :key="suggestion">
             <!-- <ListItemMeta :title="suggestion.context" /> -->
             <div>
-              {{suggestion.context}}
-              <span v-if="suggestion.hasDetail">
+              <Icon type="ios-alert-outline"  color = "red"/>
+              <span class="suggestions">{{suggestion.context}}</span>
+              <span class = "suggestions" v-if="suggestion.hasDetail">
                 Follow
                 <a :href="suggestion.detail">
                   this link
@@ -123,7 +142,7 @@
           type="video/mp4"
         ></video>
       </Card>
-    </Row> -->
+    </Row>-->
   </div>
 </template>
 
@@ -137,9 +156,6 @@ export default {
   components: { DeviceDisplay },
   data() {
     return {
-      //Data
-      // deviceInfo: df.deviceInfo,
-      // clientInfo: df.clientInfo,
       deviceInfo: undefined,
       clientInfo: undefined,
       deviceType: undefined,
@@ -149,7 +165,7 @@ export default {
       suggestions: undefined,
       labelDict: {
         printers: "Printers",
-        usbdisk: "USB Devices"
+        usbdisk: "USB Disk Devices"
       },
       //UI
       columns: [
@@ -184,6 +200,7 @@ export default {
       showProgressBar: false,
       showCheckingResult: false,
       tableSize: "small",
+      buttonLoading : false,
       percent: 0,
       progressStatus: "active"
     };
@@ -192,6 +209,8 @@ export default {
   methods: {
     initProgress() {
       this.percent = 0;
+      this.showCheckingResult = false;
+      this.buttonLoading = false;
     },
     parseSuggestions(suggestions) {
       let res = [];
@@ -213,7 +232,7 @@ export default {
     progress() {
       this.initProgress();
       this.showProgressBar = true;
-      //暂时先这么写着 后续会根据数据是否到达设置进条
+      this.buttonLoading = true;
       if (this.percent == 0) {
         return new Promise((resolve, reject) => {
           let interval = setInterval(() => {
@@ -224,6 +243,7 @@ export default {
             }
           }, 200);
         }).then(() => {
+          this.buttonLoading = false;
           this.fetchDiagnosisInfo(this.uuid, this.index);
         });
       }
@@ -236,10 +256,6 @@ export default {
           this.clientInfo = response.data.client;
           this.deviceType = response.data.device_type;
           this.numOfDevices = this.deviceInfo.length;
-
-          // todo： 查询目录里是否有图片 没有的话用default图片代替
-          // if(this.deviceInfo.pic == null){this.deviceInfo.pic = "devices.jpg"}
-          // if(this.deviceInfo.logo == null){this.deviceInfo.logo = "vendor.png"}
 
           this.$Message.success("Successfully get your device information..");
         })
@@ -276,13 +292,6 @@ export default {
   },
   computed: {
     ...mapGetters(["uuid"]),
-    // deviveDetails: {
-    //   get: function() {
-    //     let res = Array(this.numOfDevices).fill(false);
-    //     res[this.index] = true;
-    //     return res;
-    //   }
-    // },
     device_column_data: {
       get: function() {
         return [
@@ -292,7 +301,10 @@ export default {
           },
           { key: "VID", value: this.deviceInfo[this.index].vid },
           { key: "PID", value: this.deviceInfo[this.index].pid },
-          { key: "Device Type", value: this.labelDict[this.deviceInfo[this.index].type] },
+          {
+            key: "Device Type",
+            value: this.labelDict[this.deviceInfo[this.index].type]
+          },
           { key: "Detecting in", value: this.deviceInfo[this.index].end }
         ];
       }
