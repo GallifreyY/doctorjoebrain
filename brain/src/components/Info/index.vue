@@ -18,6 +18,17 @@
         <div style="margin:20px">
           <Card shadow>
             <p slot="title">Device Information</p>
+            <span slot = "extra" style=" font-weight:400"> 
+              <Tag color="success" type="border">Detecting in {{deviceInfo[index].end.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              <Tag v-if = "deviceInfo[index].tag.isVirtualPrinter" color="warning" type="border">Virtual Printer</Tag>
+              <Tag v-else-if = "deviceInfo[index].tag.isPresent" color = "success" type="border">Connected</Tag>
+              <Tag v-else color = "error" type="border">Disconnected</Tag>
+              <Tag v-if = "deviceInfo[index].hasProblem"  color = "error" type="border">Has problem</Tag>
+              <Tag v-if = "deviceInfo[index].tag.isRebootNeed" color = "warning" type="border">Reboot Need</Tag>
+              <Tag v-if = "deviceInfo[index].tag.isUsbRedirect" color = "warning" type="border">Usb Redirect</Tag>
+
+
+            </span>
             <Table
               stripe
               :show-header="showHeader"
@@ -101,7 +112,7 @@
     <!--suggestion-->
     <Row v-if="showCheckingResult" style="padding:20px 0px;">
       <Card shawdow>
-        <p slot="title">Suggesions</p>
+        <p slot="title">Suggestions</p>
         <List size="small">
           <ListItem v-for="suggestion in suggestions" :key="suggestion">
             <!-- <ListItemMeta :title="suggestion.context" /> -->
@@ -305,7 +316,7 @@ export default {
             key: "Device Type",
             value: this.labelDict[this.deviceInfo[this.index].type]
           },
-          { key: "Detecting in", value: this.deviceInfo[this.index].end }
+          // { key: "Detecting in", value: this.deviceInfo[this.index].end }
         ];
       }
     }

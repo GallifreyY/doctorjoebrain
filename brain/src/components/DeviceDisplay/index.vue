@@ -68,7 +68,8 @@ export default {
         if (!(ele.type in res)) {
           res[ele.type] = [];
         }
-        let tagStyle = ele.hasProblem === true ? "error" : "success";
+        let tagStyle = (ele.hasProblem || (ele.tag.isPresent == false)) === true ? "error" : "success";
+
         res[ele.type].push({
           name: ele.deviceName,
           index: index,

@@ -11,6 +11,8 @@ def SET_ENV(env):
     Config.ENV = env
 
 def info():
+    print(Config.ENV)
+    print(GET_URL())
     return Config
 
 def GET_URL():
