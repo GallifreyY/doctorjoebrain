@@ -194,3 +194,8 @@ def matrix():
         'code': 20022,
         'data': matrix
     }
+
+if __name__ == 'main':
+    env = Config.info().ENV
+    debug = True if env == 'dev' else False
+    app.run(debug=debug)

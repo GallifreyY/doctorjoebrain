@@ -11,7 +11,7 @@ link = {
             "/horizon-remote-desktop-features/GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html"],
     "usbdisk": ["https://docs.vmware.com/en/VMware-Horizon-7/",
                 "/horizon-remote-desktop-features/GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html"],
-    "printers":["https://docs.vmware.com/en/VMware-Horizon-7/",
+    "printer_redirection":["https://docs.vmware.com/en/VMware-Horizon-7/",
                 "/horizon-remote-desktop-features/GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"]
 }
 
@@ -59,7 +59,7 @@ def _usb_diagnose(collected_data, device, results):
 
     # todo: USB Arbitrator
     if collected_data['client'].get('USBArbitrator',None) == 'Stopped':
-        results.append("Please start your USB arbitrator service.")
+        results.append("Please check and ensure the USB arbitrator service is in running status on your client machine.")
 
     # todo: Redirection
     if device.end == 'agent':
@@ -81,6 +81,17 @@ def _usb_diagnose(collected_data, device, results):
 def _printer_diagnose(collected_data, device, results):
 
     device_details = device.find_details()
+
+    # todo: PrinterService
+    s = "It is recommended to use Printer redirection solution for this device in Horizon environment."
+    results.append(_add_refers(s,"printer_redirection",collected_data))
+
+
+    if collected_data['client'].get('PrinterService',None) != 'Running'\
+            or collected_data['agent'].get('PrinterService',None) != 'Running':
+        results.append("The print service(spooler) was at stopped status on your client or agent desktop. "
+                       "Please check it out and ensure it is running before printer redirection..")
+        return results
 
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
@@ -105,7 +116,7 @@ def _printer_diagnose(collected_data, device, results):
 
     # todo： USB direction （vid & pid）or in _Device Class
     if device.is_usb_redirect:
-        results.append("Not recommending using USB redirect in this printer device, please use printer redirection.")
+        results.append("Not recommend using USB redirect in this printer device, please use printer redirection.")
         # todo : detect in agent
         if device.find_redirection_in_agent() is None:
             results.append("The USB redirection could not be found in Horizon end.")
@@ -113,11 +124,8 @@ def _printer_diagnose(collected_data, device, results):
     #     results.append("It is a virtual printer.")
 
 
-    # todo: PrinterService
-    if collected_data['client'].get('PrinterService',None) != 'Running'\
-            or collected_data['agent'].get('PrinterService',None) != 'Running':
-        results.append("The print service(spooler) was at stopped status on your client or agent desktop. "
-                       "Please check it out and ensure it is running before printer redirection..")
+
+
 
 
 

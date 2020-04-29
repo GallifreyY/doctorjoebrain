@@ -81,18 +81,13 @@ def recognize_devices(collected_data, uuid):
                                        device.get('name', None) or device.get('Name', None),
                                        device.get('hasProblem', None),
                                        device.get('isRebootNeeded', None),
-                                       device.get('isPresent')))
+                                       device.get('isPresent',None)))
 
     return res
 
 
 def save_data(data, file_name, dir='user', mode='json'):
-    """
-    :param dir
-    :param file_name
-    :param data
-    :return:
-    """
+
     today = str(datetime.date.today())
     path = './data/' + dir + '/' + today + '/'
     if not os.path.exists(path):
@@ -110,7 +105,9 @@ def save_data(data, file_name, dir='user', mode='json'):
 
 
 def read_data(file_name, dir='user', mode='json'):
+
     path = './data/' + dir + '/'
+
     file_mode = 'rb' if mode == 'pickle' else 'r'
     for dir in os.listdir(path):
         if os.path.isfile(dir):

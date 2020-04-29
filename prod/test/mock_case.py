@@ -155,17 +155,17 @@ if __name__ == '__main__':
     case = '1u10u'
 
     mock = Mock()
-    mock.generate_device('USB', 'client',is_id_fixed=False)
-
-    for i in range(10):
-        mock.generate_device('USB','agent')
+    mock.generate_device('USB', 'client',is_id_fixed= True, hasProblem = True)
 
 
-    # mock.insert_virtual_printers()
+    mock.generate_device('USB','agent',isRebootNeeded = True, isPresent = False)
+
+
+    mock.insert_virtual_printers()
     mock.info()
     mock.dump(case)
 
-    # url = 'http://127.0.0.1:5000/protocols/data_collector'
-    url = 'http://10.117.43.99:8088/api/protocols/data_collector'
+    url = 'http://127.0.0.1:5000/protocols/data_collector'
+    #url = 'http://10.117.43.99:8088/api/protocols/data_collector'
     r = requests.post(url, json=json.dumps(mock.data))
     print(r.text)

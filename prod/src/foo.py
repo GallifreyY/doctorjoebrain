@@ -3,6 +3,9 @@
 # Config.SET_ENV('prod')
 # print(Config.GET_URL())
 #
-a  = None
-if a :
-    print("xz")
+import os
+print(os.getcwd())
+print(str(os.getcwd())[-3:])
+
+import Config
+Config.info()
