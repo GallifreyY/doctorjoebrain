@@ -22,3 +22,5 @@ __pycache__/
 /back-end/data/
 /lab/
 /brain/test/
+/back-end/test/mocked/*
+/prod/data/*

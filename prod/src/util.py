@@ -32,11 +32,9 @@ def validate_roles(user_name):
     return ['admin']
 
 
-
-
-
 def parse_collected_data(data):
     uuid = _generate_uuid()
+
     save_data(data, uuid, 'user', 'json')
     return uuid
 
@@ -45,7 +43,7 @@ def _generate_uuid():
     return str(uuid.uuid4())
 
 
-def recognize_devices(collected_data):
+def recognize_devices(collected_data, uuid):
     """
     :param collected_data:
     :return: devices(on duplicated item)
@@ -57,6 +55,8 @@ def recognize_devices(collected_data):
             # todo: dimiss pritners check at agent end
             if key == 'printers' and end == 'agent':
                 continue
+
+
             if collected_data[end][key] is None:
                 continue
             if key in recorded_devices:
@@ -64,14 +64,24 @@ def recognize_devices(collected_data):
                 devices = collected_data[end][device_type]
                 if devices is None:
                     continue
+
+                # todo：detect device key and parse to list
+                if isinstance(devices, dict):
+                    devices = [devices]
+                    collected_data[end][device_type] = devices
+                    save_data(collected_data, uuid, 'user', 'json')
+
                 for index, device in enumerate(devices):
                     res.append(_Device(index,
                                        device_type,
                                        end,
+                                       uuid,
                                        device.get("VID", None),
                                        device.get("PID", None),
                                        device.get('name', None) or device.get('Name', None),
-                                       device.get('hasProblem', None)))
+                                       device.get('hasProblem', None),
+                                       device.get('isRebootNeeded', None),
+                                       device.get('isPresent')))
 
     return res
 
@@ -132,11 +142,15 @@ def get_client_info(collected_data):
     :param collected_data:
     :return: dict:
     """
-    return {
-        'client_os': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver'],
-        'Horizon_version_client': collected_data['client']['clientver'],
-        'hardware': None
-    }
+
+    if collected_data['client'] is None:
+        return None
+
+    res = [
+        {'key': "Client OS", 'value': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver']},
+        {'key': "Horizon Version(Client)", 'value': collected_data['client']['clientver']}
+    ]
+    return res
 
 
 def check_compatibility(collected_data, device):
@@ -147,39 +161,17 @@ def check_compatibility(collected_data, device):
             'value': collected_data['client']['OSver'],
             'check': True
         },
-        {
-            'key': "Client Hardware",
-            'value': None,
-            'check': False
-        },
 
         {'key': "Horizon Version", 'value': collected_data['client']['clientver'], 'check': True},
-        # {
-        #     'key': "Setting",
-        #     'value': "USB split GPO setting in Client side",
-        #     'check': False
-        # },
-        # {
-        #     'key': "Setting",
-        #     'value': "USB split registy setting in Client side",
-        #     'check': False
-        # },
-        # {'key': "Horizon client version", 'value': "5.2", 'check': True},
-        # {
-        #     'key': "Horizon client USB arbitrator Service status",
-        #     'value': "Running",
-        #     'check': True
-        # },
-        # {
-        #     'key': "Horizon client log level",
-        #     'value': "Information",
-        #     'check': True
-        # },
-        # {
-        #     'key': "Nuance solution",
-        #     'value': "Nuance PowerMic VMware Client Extension",
-        #     'check': False
-        # }
+        {
+            'key': "Printer Service",
+            'value': collected_data['client']['PrinterService'],
+            'check': collected_data['client'].get('PrinterService',None) == 'Running'
+        },{
+            'key': "USB Arbitrator Service",
+            'value': collected_data['client'].get('USBArbitrator', None),
+            'check': collected_data['client'].get('USBArbitrator', None) == 'Running'
+        }
     ]
     agent = [
         {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
@@ -188,41 +180,22 @@ def check_compatibility(collected_data, device):
             'value': collected_data['agent']['OSver'],
             'check': True
         },
+        {'key': "Horizon Version", 'value': collected_data['agent']['agentver'], 'check': True},
         {
-            'key': "Agent Hardware",
-            'value': None,
-            'check': False
+            'key': "Printer Service",
+            'value': collected_data['agent'].get('PrinterService', None),
+            'check': collected_data['agent'].get('PrinterService',None) == 'Running'
         },
-
-        {'key': "Horizon Version", 'value': collected_data['agent']['agentver'], 'check': True}
-        # {'key': "PowerMic Firmware", 'value': "1.41", 'check': False},
-        # {
-        #     'key': "Setting",
-        #     'value': "USB split GPO setting in agent side",
-        #     'check': False
-        # },
-        # {
-        #     'key': "Setting",
-        #     'value': "USB split registy setting in agent side",
-        #     'check': False
-        # },
-        # {'key': "Horizon agent version", 'value': "7.10", 'check': True},
-        # {
-        #     'key': "Horizon agent USB arbitrator Service status",
-        #     'value': "Runing",
-        #     'check': True
-        # },
-        # {
-        #     'key': "Horizon agent log level",
-        #     'value': "Information",
-        #     'check': True
-        # },
-        # {
-        #     'key': "Nuance solution",
-        #     'value': "Nuance PowerMic VMware Agent Extension",
-        #     'check': False
-        # }
+        {
+            'key': "CDR Service",
+            'value': collected_data['agent'].get('CDRservice', None),
+            'check': collected_data['agent'].get('CDRservice', None) == 'Running'
+        }
     ]
+
+    # todo: for different device, show custom results
+
+
     res = {
         'client': client,
         'agent': agent

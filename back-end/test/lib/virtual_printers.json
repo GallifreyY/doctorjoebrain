@@ -1,0 +1,230 @@
+{
+  "client": [
+    {
+      "Name": "VMware Global Print",
+      "DriverName": {
+        "Name": "Xerox GPD PS V5.675.6.0",
+        "MajorVersion": 3,
+        "Manufacturer": "Xerox",
+        "DriverVersion": "5675.600.0.0"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "VMware Global Print",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Send To OneNote 2016",
+      "DriverName": {
+        "Name": "Send to Microsoft OneNote 16 Driver",
+        "MajorVersion": 4,
+        "Manufacturer": "Microsoft",
+        "DriverVersion": "16.0.7629.4000"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Send To OneNote 2016",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "PDFCreator",
+      "DriverName": {
+        "Name": "PDFCreator",
+        "MajorVersion": 3,
+        "Manufacturer": null,
+        "DriverVersion": "0.0.0.0"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "PDFCreator",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Microsoft XPS Document Writer",
+      "DriverName": {
+        "Name": "Microsoft XPS Document Writer v4",
+        "MajorVersion": 4,
+        "Manufacturer": "Microsoft",
+        "DriverVersion": "10.0.18362.1"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Microsoft XPS Document Writer",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Microsoft Print to PDF",
+      "DriverName": {
+        "Name": "Microsoft Print To PDF",
+        "MajorVersion": 4,
+        "Manufacturer": "Microsoft",
+        "DriverVersion": "10.0.18362.1"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Microsoft Print to PDF",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Fax",
+      "DriverName": {
+        "Name": "Microsoft Shared Fax Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "Microsoft",
+        "DriverVersion": "10.0.18362.752"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Fax",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "ApeosPort-VI C3371_17West",
+      "DriverName": {
+        "Name": "Xerox Global Print Driver PS",
+        "MajorVersion": 3,
+        "Manufacturer": "Xerox",
+        "DriverVersion": "5675.600.0.0"
+      },
+      "Default": true,
+      "location": "http://10.112.115.183/ws/",
+      "Local": true,
+      "Network": false,
+      "DeviceID": "ApeosPort-VI C3371_17West",
+      "Printerstatus": 1,
+      "Printerstate": 128
+    }
+  ],
+  "agent": [
+    {
+      "Name": "ApeosPort-VI C3371_17West (vdi)",
+      "DriverName": {
+        "Name": "VMware Universal EMF Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "VMware, Inc.",
+        "DriverVersion": "1.0.0.1"
+      },
+      "Default": true,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "ApeosPort-VI C3371_17West (vdi)",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Microsoft Print to PDF (vdi)",
+      "DriverName": {
+        "Name": "VMware Universal EMF Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "VMware, Inc.",
+        "DriverVersion": "1.0.0.1"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Microsoft Print to PDF (vdi)",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Fax (vdi)",
+      "DriverName": {
+        "Name": "Microsoft Shared Fax Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "Microsoft",
+        "DriverVersion": "10.0.18362.145"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Fax (vdi)",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Microsoft XPS Document Writer (vdi)",
+      "DriverName": {
+        "Name": "VMware Universal EMF Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "VMware, Inc.",
+        "DriverVersion": "1.0.0.1"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Microsoft XPS Document Writer (vdi)",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "PDFCreator (vdi)",
+      "DriverName": {
+        "Name": "VMware Universal EMF Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "VMware, Inc.",
+        "DriverVersion": "1.0.0.1"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "PDFCreator (vdi)",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "Send To OneNote 2016 (vdi)",
+      "DriverName": {
+        "Name": "VMware Universal EMF Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "VMware, Inc.",
+        "DriverVersion": "1.0.0.1"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "Send To OneNote 2016 (vdi)",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    },
+    {
+      "Name": "VMware Global Print (vdi)",
+      "DriverName": {
+        "Name": "VMware Universal EMF Driver",
+        "MajorVersion": 3,
+        "Manufacturer": "VMware, Inc.",
+        "DriverVersion": "1.0.0.1"
+      },
+      "Default": false,
+      "location": null,
+      "Local": true,
+      "Network": false,
+      "DeviceID": "VMware Global Print (vdi)",
+      "Printerstatus": 3,
+      "Printerstate": 0
+    }
+  ]
+}
