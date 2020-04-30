@@ -1,5 +1,5 @@
 <template>
-  <div style="margin:20px">
+  <div style="margin:20px 20px 20px 0px" >
     <Card :bordered="false" shadow>
       <!-- heading -->
       <Row type="flex" justify="space-between">
@@ -54,7 +54,7 @@ export default {
     },
     showDetails: {
       type: Boolean,
-      default: false
+      default: true
     },
     index: {
       type: Number,

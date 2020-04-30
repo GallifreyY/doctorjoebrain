@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div style="margin:20px">
+    <div style="margin:20px 20px 20px 0px">
       <Card :bordered="false" shadow id="selector">
-        <Row class="title">Detecting following devices:</Row>
-        <Collapse simple>
+        <!-- <Row class="title">Detecting following devices:</Row> -->
+        <!-- <Collapse simple>
           <Panel v-for="(tags,index) in sortedTag" :key = "index">
               <span><Badge :count="tags.length" class-name="badge"></Badge></span>
               <span style="margin:0 2%">{{parseTypeName(index)}}</span>
@@ -17,7 +17,7 @@
               </span>
             </p>
           </Panel>
-        </Collapse>
+        </Collapse> -->
         <!-- selector -->
         <div class="title">Which device you want to diagnosis?</div>
         <Cascader placeholder="Please select a device" :data="cascaderData" v-model="selectedData"></Cascader>
@@ -126,6 +126,6 @@ export default {
   color: #17233d;
 }
 .title {
-  margin: 3% 0;
+  margin-bottom:  3%;
 }
 </style>
