@@ -55,10 +55,6 @@ export default {
       sortedTag: undefined,
       cascaderData: undefined,
       selectedData: [" ", 0],
-      // labelDict: {
-      //   printers: "Printers",
-      //   usbdisk: "USB Devices"
-      // }
     };
   },
   methods: {

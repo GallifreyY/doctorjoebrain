@@ -8,8 +8,6 @@
       </Col>
 
       <Col :sm="12" :lg="16" class="col-tables">
-        <!-- <div style="display:flex;flex-direction:column;justify-content:center"> -->
-
         <div style="margin:10px 0px">
           <Card shadow>
             <p slot="title">Device Information</p>
@@ -17,6 +15,7 @@
               <Tag
                 color="success"
                 type="border"
+                size="default"
               >Detecting in {{deviceInfo[index].end.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
               <Tag
                 v-if="deviceInfo[index].tag.isVirtualPrinter"
@@ -69,22 +68,6 @@
             <p slot="title">Service Information</p>
           </Card>
         </div>
-
-        <!-- <div style="margin:20px 0px">
-          <Card shadow>
-            <p slot="title">Diagnosis</p>
-            <Row type="flex" justify="center">
-              <Button
-                type="primary"
-                shape="circle"
-                :loading="buttonLoading"
-                long
-                @click="progress"
-              >Diagnosis</Button>
-            </Row>
-          </Card>
-        </div>
-        -->
       </Col>
     </Row>
 
@@ -145,16 +128,6 @@
                 to find more guidance.
               </span>
             </div>
-
-            <!-- <template slot="action">
-              <li v-if="suggestion.hasDetail">
-                <a :href="suggestion.detail">
-                  More Detail
-                  <Icon type="ios-search" size="16"/>
-                </a>
-              </li>
-    
-            </template>-->
           </ListItem>
         </List>
       </Card>
@@ -186,11 +159,10 @@ export default {
     return {
       deviceInfo: undefined,
       clientInfo: undefined,
-      deviceType: undefined,
-      compatilityCheck: undefined,
       index: 0,
       numOfDevices: 0,
-      suggestions: undefined,
+      diagnosisInfo: undefined,
+      //suggestions: undefined,
       labelDict: {
         printers: "Printers",
         usbdisk: "USB Disk Devices"
@@ -226,20 +198,11 @@ export default {
       ],
       showHeader: false, //tableHeader
       showProgressBar: false,
-      //showCheckingResult: false,
       tableSize: "small"
-      //buttonLoading : false,
-      //percent: 0,
-      //progressStatus: "active"
     };
   },
 
   methods: {
-    // initProgress() {
-    //   this.percent = 0;
-    //   this.showCheckingResult = false;
-    //   this.buttonLoading = false;
-    // },
     parseSuggestions(suggestions) {
       let res = [];
       suggestions.forEach(item => {
@@ -257,85 +220,39 @@ export default {
       return res;
     },
 
-    // progress() {
-    //   this.initProgress();
-    //   this.showProgressBar = true;
-    //   this.buttonLoading = true;
-    //   if (this.percent == 0) {
-    //     return new Promise((resolve, reject) => {
-    //       let interval = setInterval(() => {
-    //         this.percent = this.percent + 10;
-    //         if (this.percent === 100) {
-    //           clearInterval(interval);
-    //           resolve(true);
-    //         }
-    //       }, 200);
-    //     }).then(() => {
-    //       this.buttonLoading = false;
-    //       this.fetchDiagnosisInfo(this.uuid, this.index);
-    //     });
-    //   }
-    // },
-
     fetchBasicInfo(uuid) {
       getBasicInfo(uuid)
         .then(response => {
-          this.deviceInfo = response.data.device; //array
-          this.clientInfo = response.data.client;
-          this.deviceType = response.data.device_type;
+          this.deviceInfo = response.data.basicInfo.device; //array
+          this.clientInfo = response.data.basicInfo.client;
           this.numOfDevices = this.deviceInfo.length;
-
-          // this.$Message.success("Successfully get your device information..");
+          this.diagnosisInfo = response.data.diagnosisInfo;
+          this.$Message.success("Successfully get the report of this device");
         })
         .catch(() => {
           this.$Message.error(
-            "Sorry, could not get your device information..."
-          );
-        });
-    },
-
-    fetchDiagnosisInfo(uuid, index) {
-      getDiagnosisInfo(uuid, index)
-        .then(response => {
-          this.compatilityCheck = response.data;
-          //this.parseSuggestions(this.compatilityCheck.suggestions);
-          //console.log(this.compatilityCheck.suggestions)
-
-          //todo : render suggestions
-          this.suggestions = this.parseSuggestions(response.data.suggestions);
-          this.progressStatus = "success";
-          this.showCheckingResult = true;
-          this.$Message.success("Successfully get the report of this device");
-        })
-        .catch(err => {
-          this.progressStatus = "wrong";
-          this.showCheckingResult = false;
-          this.$Message.error(
-            "Sorry, could not get the diagnosis information.."
+            "Sorry, could not get your diagnosis information..."
           );
         });
     }
   },
-  watch: {
-    //update to watch index to get report
 
-    
-    index: {
-      deep: true,
-      handler(val) {
-        this.fetchDiagnosisInfo(this.uuid, this.index);
-      }
-    },
-    // device_column_data: {
-    //   deep: true,
-    //   handler(val) {
-    //     console.log("change");
-    //   }
-    // }
-
-  },
   computed: {
     ...mapGetters(["uuid"]),
+    compatilityCheck: {
+      get: function() {
+        return typeof this.diagnosisInfo == "undefined"
+          ? undefined
+          : this.diagnosisInfo[this.index].checkResult;
+      }
+    },
+    suggestions: {
+      get: function() {
+        return typeof this.diagnosisInfo == "undefined"
+          ? undefined
+          : this.parseSuggestions(this.diagnosisInfo[this.index].suggestions);
+      }
+    },
     device_column_data: {
       get: function() {
         return [
@@ -349,7 +266,6 @@ export default {
             key: "Device Type",
             value: this.labelDict[this.deviceInfo[this.index].type]
           }
-          // { key: "Detecting in", value: this.deviceInfo[this.index].end }
         ];
       }
     }
@@ -357,7 +273,6 @@ export default {
   created() {
     this.$store.commit("uuid/SET_UUID", this.$route.params.id);
     this.fetchBasicInfo(this.uuid);
-    this.fetchDiagnosisInfo(this.uuid, this.index);
   }
 };
 </script>
