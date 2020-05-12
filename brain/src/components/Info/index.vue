@@ -57,15 +57,22 @@
               stripe
               :show-header="showHeader"
               :columns="columns"
-              :data="clientInfo.client_column_data"
+              :data="clientInfo"
               :size="tableSize"
             ></Table>
           </Card>
         </div>
 
         <div style="margin: 10px 0px">
-          <Card shadow>
-            <p slot="title">Service Information</p>
+                  <Card shadow>
+            <p slot="title">Agent Information</p>
+            <Table
+              stripe
+              :show-header="showHeader"
+              :columns="columns"
+              :data="agentInfo"
+              :size="tableSize"
+            ></Table>
           </Card>
         </div>
       </Col>
@@ -159,6 +166,7 @@ export default {
     return {
       deviceInfo: undefined,
       clientInfo: undefined,
+      agentInfo: undefined,
       index: 0,
       numOfDevices: 0,
       diagnosisInfo: undefined,
@@ -225,15 +233,23 @@ export default {
         .then(response => {
           this.deviceInfo = response.data.basicInfo.device; //array
           this.clientInfo = response.data.basicInfo.client;
+          this.agentInfo = response.data.basicInfo.agent;
           this.numOfDevices = this.deviceInfo.length;
           this.diagnosisInfo = response.data.diagnosisInfo;
+          this.$Loading.finish()
           this.$Message.success("Successfully get the report of this device");
         })
         .catch(() => {
+          this.$Loading.error()
           this.$Message.error(
             "Sorry, could not get your diagnosis information..."
           );
         });
+    }
+  },
+  watch:{
+    index:function(){
+      this.$Message.success("Updated the diagnosis report for the device")
     }
   },
 
@@ -272,6 +288,7 @@ export default {
   },
   created() {
     this.$store.commit("uuid/SET_UUID", this.$route.params.id);
+    this.$Loading.start()
     this.fetchBasicInfo(this.uuid);
   }
 };

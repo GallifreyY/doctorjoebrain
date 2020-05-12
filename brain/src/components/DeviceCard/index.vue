@@ -19,8 +19,8 @@
 
       <!-- details -->
       <div v-show="showDetails">
-        <div>
-          <img :src="'/static/device/'+ deviceInfo.details.picture" />
+        <div class = "device-img-container">
+          <img class="device-img" :src="'/static/device/'+ deviceInfo.details.picture" />
         </div>
 
         <Row type="flex" justify="center" align="middle" style="padding:10px 5px">
@@ -68,10 +68,25 @@ export default {
 </script>
 
 <style lang="" scoped>
+.device-img-container{
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 45vh;
+
+}
+.device-img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 div img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+ 
 }
 /* 溢出 不出框 */
 div p {

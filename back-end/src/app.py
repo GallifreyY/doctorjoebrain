@@ -86,7 +86,7 @@ def device_and_client_info():
         return {'code': 20044}
     devices = recognize_devices(collected_data, uuid)
 
-    save_data(devices, uuid, 'devices', 'pickle')
+    # save_data(devices, uuid, 'devices', 'pickle')
 
     # todo: add info to devices
     add_info_to_db(collected_data)
@@ -126,12 +126,12 @@ def device_and_client_info():
 
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
+    agent_column_data = get_agent_info(collected_data)
 
     basic_info = {
         'device': devices_info,
-        'client': {
-            'client_column_data': client_column_data
-        }
+        'client': client_column_data,
+        'agent':agent_column_data
     }
 
     diagnosis_info = []

@@ -107,6 +107,8 @@ export default {
 .nav-bar {
   padding: 0px 10px;
   background-image: url(../../assets/background.jpeg);
+  background-size: 100%;
+  background-repeat:no-repeat;
   border-bottom: 2px solid rgb(200, 241, 241);
   position: fixed;
   width: 100%;

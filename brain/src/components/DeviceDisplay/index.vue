@@ -23,8 +23,22 @@
         <Cascader placeholder="Please select a device" :data="cascaderData" v-model="selectedData"></Cascader>
       </Card>
     </div>
+  <device-card :deviceInfo="deviceInfo[index]" :index="index" :showDetails="true"></device-card>
+<!-- 
+    <Carousel v-model = "index" loop>
+      <CarouselItem>
+            <device-card :deviceInfo="deviceInfo[0]" :index="0" :showDetails="true"></device-card>
+        </CarouselItem>
+        <CarouselItem>
+            <device-card :deviceInfo="deviceInfo[1]" :index="1" :showDetails="true"></device-card>
+        </CarouselItem>
+        <CarouselItem>
+<device-card :deviceInfo="deviceInfo[2]" :index="2" :showDetails="true"></device-card>
+        </CarouselItem>
+       
+    </Carousel> -->
 
-    <device-card :deviceInfo="deviceInfo[index]" :index="index" :showDetails="true"></device-card>
+
   </div>
 </template>
 
