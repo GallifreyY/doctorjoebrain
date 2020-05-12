@@ -1,5 +1,6 @@
 import re
 import util
+import models
 # usbdisk printers
 class Device:
     def __init__(self, index, type, end, uuid, vid, pid, name, has_p, irn, is_present):
@@ -31,16 +32,28 @@ class Device:
             else:
                 return False
 
-        if self.type == 'printers':
+        elif self.type == 'printers':
             # printer will be detected only in agent
             if self.vid is not None and self.pid is not None:
                 return False
 
             for device_r in self.raw_data['agent'][self.type]:
                 if 'VID' in device_r.keys() and 'PID' in device_r.keys():
-                    if device_r.get('vendor') == self.name.replace(" ", ""):
-                        self.vid, self.pid = device_r['VID'], device_r['PID']
-                        return True
+                    device_id = device_r['VID'] + '-' + device_r['PID']
+                    # todo: query in db
+                    item = models.Device.query.filter(models.Device.device_id == device_id).with_entities(
+                        models.Device.device_name).one()
+                    if len(item) == 1:
+                        if item[0] == self.name:
+                            self.vid, self.pid = device_r['VID'], device_r['PID']
+                            print(item[0])
+
+
+                            return True
+
+                    # elif device_r.get('vendor') == self.name.replace(" ", ""):
+                    #     self.vid, self.pid = device_r['VID'], device_r['PID']
+                    #     return True
 
         return False
 
