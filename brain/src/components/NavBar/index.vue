@@ -14,6 +14,10 @@
             <Icon type="ios-home" color="white" size="20" />
             <p>Home</p>
           </router-link>
+           <router-link :to="reportLink" class="link">
+            <Icon type="md-podium" color="white" size="20" />
+            <p>My report</p>
+          </router-link>
           <router-link to="/Device-Matrix" class="link">
             <Icon type="md-analytics" color="white" size="20" />
             <p>Device Matrix</p>
@@ -63,11 +67,18 @@ export default {
   data() {
     return {
       personal:false,
-      personalLoading:false
+      personalLoading:false,
+      //reportLink:""
+
     };
   },
   computed: {
-    ...mapGetters(["token", "name", "roles"])
+    ...mapGetters(["token", "name", "roles","uuid"]),
+    reportLink:{
+      get: function(){
+        return '/diagnosis/'+this.uuid;
+      }
+    }
   },
   methods:{
     handleLogout(){
@@ -82,7 +93,8 @@ export default {
 
       }) 
     }
-  }
+  },
+
 
 };
 </script>
@@ -95,6 +107,8 @@ export default {
 .nav-bar {
   padding: 0px 10px;
   background-image: url(../../assets/background.jpeg);
+  background-size: 100%;
+  background-repeat:no-repeat;
   border-bottom: 2px solid rgb(200, 241, 241);
   position: fixed;
   width: 100%;

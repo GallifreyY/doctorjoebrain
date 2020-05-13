@@ -31,6 +31,8 @@ export default {
 <style scoped>
 .topBar {
   background-image: url(../../assets/background.jpeg);
+   background-size: 100%;
+  background-repeat:no-repeat;
 }
 
 .titles {

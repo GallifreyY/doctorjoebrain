@@ -16,13 +16,10 @@ import re
 import copy
 
 
-
-
 # protocols to collector
 @app.route('/protocols/data_collector', methods=['GET', 'POST'])
 @cross_origin()
 def add_to_log_file():
-
     code = 20022
     state = 'failed'
     url = ''
@@ -30,7 +27,7 @@ def add_to_log_file():
     if not request.is_json:
         form = request.form.to_dict()
         for item in form.items():
-            collected_json = item[0].replace("\n","").replace("\'","\"")
+            collected_json = item[0].replace("\n", "").replace("\'", "\"")
             collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
@@ -87,9 +84,9 @@ def device_and_client_info():
     collected_data = read_data(uuid, 'user', 'json')
     if collected_data == None:
         return {'code': 20044}
-    devices = recognize_devices(collected_data,uuid)
+    devices = recognize_devices(collected_data, uuid)
 
-    save_data(devices, uuid, 'devices', 'pickle')
+    # save_data(devices, uuid, 'devices', 'pickle')
 
     # todo: add info to devices
     add_info_to_db(collected_data)
@@ -127,23 +124,39 @@ def device_and_client_info():
 
         devices_info.append(device_info)
 
-
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
+    agent_column_data = get_agent_info(collected_data)
+
+    basic_info = {
+        'device': devices_info,
+        'client': client_column_data,
+        'agent':agent_column_data
+    }
+
+    diagnosis_info = []
+    for device in devices:
+        check_res = check_compatibility(collected_data, device)
+        suggestions = diagnosis(collected_data, device)
+        video = "PowerMic.mp4"
+
+        diagnosis_info.append({
+            'checkResult': check_res,
+            'suggestions': suggestions,
+            'referenceVideo': video
+        })
 
     return {
         'code': 20022,
         'data': {
-            'device': devices_info,
-            'client': {
-                'client_column_data': client_column_data
-            }
+            'basicInfo': basic_info,
+            'diagnosisInfo': diagnosis_info
         }
 
     }
 
 
-######### api: diagnosis_info
+######### api: diagnosis_info(deprecated)
 @app.route('/diagnosis_info', methods=['GET'])
 @cross_origin()
 def diagnosis_info():
@@ -151,8 +164,7 @@ def diagnosis_info():
     index = int(request.args.get('index'))
     collected_data = read_data(uuid, 'user', 'json')
     if collected_data is None:
-        return {'code': 20022, 'data':{}}
-    # todo：直接读取保证顺序
+        return {'code': 20022, 'data': {}}
     devices = read_data(uuid, 'devices', 'pickle')
     # todo :find index
     device = devices[index]
@@ -161,7 +173,7 @@ def diagnosis_info():
     # todo: diagnosis
     suggestions = diagnosis(collected_data, device)
 
-    #print(suggestions)
+    # print(suggestions)
     # fake data
 
     video = "PowerMic.mp4"
@@ -169,8 +181,7 @@ def diagnosis_info():
     return {
         'code': 20022,
         'data': {
-            'client': check_res['client'],
-            'agent': check_res['agent'],
+            'checkResult': check_res,
             'suggestions': suggestions,
             'referenceVideo': video
         }
@@ -194,6 +205,7 @@ def matrix():
         'code': 20022,
         'data': matrix
     }
+
 
 if __name__ == 'main':
     env = Config.info().ENV

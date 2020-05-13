@@ -135,19 +135,24 @@ def add_info_to_db(collected_data):
 
 
 def get_client_info(collected_data):
-    """
-    :param collected_data:
-    :return: dict:
-    """
 
     if collected_data['client'] is None:
         return None
 
-    res = [
+
+    return      [
         {'key': "Client OS", 'value': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver']},
         {'key': "Horizon Version(Client)", 'value': collected_data['client']['clientver']}
     ]
-    return res
+
+def get_agent_info(collected_data):
+    if collected_data['agent'] is None:
+        return None
+
+    return [
+        {'key': "Agent OS", 'value': collected_data['agent']['OSname'] + ' ' + collected_data['agent']['OSver']},
+        {'key': "Horizon Version(Agent)", 'value': collected_data['agent']['agentver']}
+    ]
 
 
 def check_compatibility(collected_data, device):

@@ -1,5 +1,5 @@
 class Config:
-    SERVER = 'http://10.117.43.99:8088/#/diagnosis/'
+    SERVER = 'https://djdev2016:8090/#/diagnosis/'
     LOCAL = "http://127.0.0.1:8080/#/diagnosis/"
     ENV = 'dev' # dev or prod
 
