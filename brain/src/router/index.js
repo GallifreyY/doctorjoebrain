@@ -12,12 +12,12 @@ export default new Router({
     },
     {
       path: '/', 
-      component: () => import('@/components/TopBar')
+      component: () => import('@/views/HomePage')
     },
 
     {
       path: '/diagnosis/:id', //path:'/:id'  后面再组件中可以由 this.$route.params.id 取到
-      component: () => import('@/views/HomePage')
+      component: () => import('@/views/Report')
     },
     {
       path: '/Device-Matrix',
