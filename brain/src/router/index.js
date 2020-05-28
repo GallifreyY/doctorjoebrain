@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/test',
       name: 'testComponent',
-      component: () => import('@/components/DeviceCard')
+      component: () => import('@/components/DownloadButton')
     },
     {
       path: '/', 
