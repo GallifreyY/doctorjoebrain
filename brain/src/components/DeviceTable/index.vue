@@ -38,7 +38,7 @@
             <p>Are you sure to continue ?</p>
           </Modal>
       </span>
-      <matrix-form style="padding:1% 5% 1% 5%;" :showForm="showForm"></matrix-form>
+      <matrix-form class ="form" style="padding:1% 5% 1% 5%;" :showForm="showForm"></matrix-form>
       <div class="table-main">
         <Table border size="small" :columns="mainColumn" :data="matrixData"></Table>
       </div>
@@ -183,6 +183,10 @@ span {
   padding : 5%;
   padding-top: 1%;
 
+}
+
+.form{
+  width :60vw;
 }
 
 </style>
