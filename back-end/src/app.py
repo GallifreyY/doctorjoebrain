@@ -97,7 +97,17 @@ def device_and_client_info():
 
         device_info = device.default_info()
 
-        # todo: query
+        # todo: query vendor
+        if device.vid is not None:
+            item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
+                               Vendor.vendor_link, Vendor.vendor_logo).all()
+            if len(item) == 1:
+                item = item[0]
+                device_info['details']['vendor_name'],\
+                device_info['details']['vendor_link'],\
+                device_info['details']['vendor_logo'] = item
+
+        # todo: query device
         if not (device.vid is None or device.pid is None):
             device_id = device.vid + '-' + device.pid
             item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
@@ -127,11 +137,13 @@ def device_and_client_info():
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
     agent_column_data = get_agent_info(collected_data)
+    client_detail_data = get_client_details_from_agent(collected_data)
 
     basic_info = {
         'device': devices_info,
         'client': client_column_data,
-        'agent':agent_column_data
+        'agent':agent_column_data,
+        'clientDetail' : client_detail_data
     }
 
     diagnosis_info = []
@@ -157,35 +169,35 @@ def device_and_client_info():
 
 
 ######### api: diagnosis_info(deprecated)
-@app.route('/diagnosis_info', methods=['GET'])
-@cross_origin()
-def diagnosis_info():
-    uuid = request.args.get('id')
-    index = int(request.args.get('index'))
-    collected_data = read_data(uuid, 'user', 'json')
-    if collected_data is None:
-        return {'code': 20022, 'data': {}}
-    devices = read_data(uuid, 'devices', 'pickle')
-    # todo :find index
-    device = devices[index]
-    # todo: compatibility check
-    check_res = check_compatibility(collected_data, device)
-    # todo: diagnosis
-    suggestions = diagnosis(collected_data, device)
-
-    # print(suggestions)
-    # fake data
-
-    video = "PowerMic.mp4"
-
-    return {
-        'code': 20022,
-        'data': {
-            'checkResult': check_res,
-            'suggestions': suggestions,
-            'referenceVideo': video
-        }
-    }
+# @app.route('/diagnosis_info', methods=['GET'])
+# @cross_origin()
+# def diagnosis_info():
+#     uuid = request.args.get('id')
+#     index = int(request.args.get('index'))
+#     collected_data = read_data(uuid, 'user', 'json')
+#     if collected_data is None:
+#         return {'code': 20022, 'data': {}}
+#     devices = read_data(uuid, 'devices', 'pickle')
+#     # todo :find index
+#     device = devices[index]
+#     # todo: compatibility check
+#     check_res = check_compatibility(collected_data, device)
+#     # todo: diagnosis
+#     suggestions = diagnosis(collected_data, device)
+#
+#     # print(suggestions)
+#     # fake data
+#
+#     video = "PowerMic.mp4"
+#
+#     return {
+#         'code': 20022,
+#         'data': {
+#             'checkResult': check_res,
+#             'suggestions': suggestions,
+#             'referenceVideo': video
+#         }
+#     }
 
 
 ###########api：matrix

@@ -60,9 +60,9 @@ export default {
 <style lang="" scoped>
 .login-box {
   width: 30%;
-  height: 30%;
+  height: 35%;
   background-color: rgb(255, 255, 255);
-  font-family: "Open Sans", serif;
+  /* font-family: "Open Sans", serif; */
   /* display:flex; */
   /* align-items: space-between; */
   padding: 3% 1% 1% 1%;

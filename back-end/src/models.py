@@ -67,3 +67,12 @@ class Driver(db.Model):
 
         def __repr__(self):
                 return '<vendor:{}>'.format(self.vendor_id)
+
+# todo: unit test
+if __name__ == '__main__':
+        print('Unit Test')
+        item = Vendor.query.filter(Vendor.vendor_id == '04F9').with_entities(Vendor.vendor_name,
+                                                                                Vendor.vendor_link,
+                                                                                Vendor.vendor_logo).all()
+        a, b, c = item[0]
+        print(a,b,c)

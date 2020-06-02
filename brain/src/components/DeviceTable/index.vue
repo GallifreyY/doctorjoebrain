@@ -1,5 +1,5 @@
 <template>
-  <Layout class="device-layout">
+  <Layout class="device-layout" id="layer">
     <Sider style="position:fixed;height:100%;background-color:rgb(229, 235, 238);">
       <!-- search bar -->
       <div style="padding:5%">
@@ -184,9 +184,18 @@ span {
   padding-top: 1%;
 
 }
-
 .form{
   width :60vw;
+}
+
+#layer{
+  position:absolute;
+  /* display:none; */
+  left:0;
+  top:0;
+  z-index:10;
+  background: #532a53;
+  opacity: 80;
 }
 
 </style>

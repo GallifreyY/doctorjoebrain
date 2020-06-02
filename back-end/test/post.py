@@ -13,4 +13,4 @@ def post(file_name ,url = url):
     print(r.text)
 
 if __name__ == '__main__':
-    post('bug')
+    post('camera')

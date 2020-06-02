@@ -49,13 +49,12 @@ def recognize_devices(collected_data, uuid):
     :return: devices(on duplicated item)
     """
     res = []
-    recorded_devices = ['usbdisk', 'printers']
+    recorded_devices = ['usbdisk', 'printers', 'scanners', 'cameras']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             # todo: dimiss pritners check at agent end
             if key == 'printers' and end == 'agent':
                 continue
-
 
             if collected_data[end][key] is None:
                 continue
@@ -81,13 +80,12 @@ def recognize_devices(collected_data, uuid):
                                        device.get('name', None) or device.get('Name', None),
                                        device.get('hasProblem', None),
                                        device.get('isRebootNeeded', None),
-                                       device.get('isPresent',None)))
+                                       device.get('isPresent', None)))
 
     return res
 
 
 def save_data(data, file_name, dir='user', mode='json'):
-
     today = str(datetime.date.today())
     path = './data/' + dir + '/' + today + '/'
     if not os.path.exists(path):
@@ -105,7 +103,6 @@ def save_data(data, file_name, dir='user', mode='json'):
 
 
 def read_data(file_name, dir='user', mode='json'):
-
     path = './data/' + dir + '/'
 
     file_mode = 'rb' if mode == 'pickle' else 'r'
@@ -134,16 +131,19 @@ def add_info_to_db(collected_data):
     return None
 
 
-def get_client_info(collected_data):
+##########################################
+### todo: Analyze the collected data
+##########################################
 
+def get_client_info(collected_data):
     if collected_data['client'] is None:
         return None
 
-
-    return      [
+    return [
         {'key': "Client OS", 'value': collected_data['client']['OSname'] + ' ' + collected_data['client']['OSver']},
         {'key': "Horizon Version(Client)", 'value': collected_data['client']['clientver']}
     ]
+
 
 def get_agent_info(collected_data):
     if collected_data['agent'] is None:
@@ -153,6 +153,21 @@ def get_agent_info(collected_data):
         {'key': "Agent OS", 'value': collected_data['agent']['OSname'] + ' ' + collected_data['agent']['OSver']},
         {'key': "Horizon Version(Agent)", 'value': collected_data['agent']['agentver']}
     ]
+
+
+def get_client_details_from_agent(collected_data):
+    if collected_data['agent'] is None:
+        return None
+    details = collected_data['agent'].get('clientDetails', None)
+    if details is not None:
+        return [{'key': "IP Address", 'value': details['IP_Address']},
+                {'key': "Broker DNS Name", 'value': details['Broker_DNS_Name']},
+                {'key': "Broker User Name", 'value': details['Broker_UserName']},
+                {'key': "Broker ID", 'value': details['Broker_Farm_ID']},
+                {'key': "Broker IP Address", 'value': details['Broker_Gateway_IP_Address']},
+                ]
+
+    return None
 
 
 def check_compatibility(collected_data, device):
@@ -168,8 +183,8 @@ def check_compatibility(collected_data, device):
         {
             'key': "Printer Service",
             'value': collected_data['client']['PrinterService'],
-            'check': collected_data['client'].get('PrinterService',None) == 'Running'
-        },{
+            'check': collected_data['client'].get('PrinterService', None) == 'Running'
+        }, {
             'key': "USB Arbitrator Service",
             'value': collected_data['client'].get('USBArbitrator', None),
             'check': collected_data['client'].get('USBArbitrator', None) == 'Running'
@@ -186,7 +201,7 @@ def check_compatibility(collected_data, device):
         {
             'key': "Printer Service",
             'value': collected_data['agent'].get('PrinterService', None),
-            'check': collected_data['agent'].get('PrinterService',None) == 'Running'
+            'check': collected_data['agent'].get('PrinterService', None) == 'Running'
         },
         {
             'key': "CDR Service",
@@ -196,7 +211,6 @@ def check_compatibility(collected_data, device):
     ]
 
     # todo: for different device, show custom results
-
 
     res = {
         'client': client,
