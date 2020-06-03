@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_,or_
 from flask_cors import cross_origin
 from flask import request
 
@@ -109,8 +110,8 @@ def device_and_client_info():
 
         # todo: query device
         if not (device.vid is None or device.pid is None):
-            device_id = device.vid + '-' + device.pid
-            item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
+            # device_id = device.vid + '-' + device.pid
+            item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(and_(Device.vendor_id == device.vid, Device.product_id == device.pid)) \
                 .with_entities(Device.device_name,
                                Device.description,
                                Device.picture, Vendor.vendor_name,
@@ -121,7 +122,7 @@ def device_and_client_info():
             if len(item) > 1:
                 print("warning: id-query has multiple results")
             elif len(item) == 0:
-                print("tips: database are not recorded the device: {}".format(device_id))
+                print("tips: database are not recorded the device: {}".format(device.vid + "_" + device.pid))
             else:
                 item = item[0]
                 # todo: if value is None, fill with default
@@ -201,16 +202,19 @@ def device_and_client_info():
 
 
 ###########api：matrix
+# todo : need to update
 @app.route('/matrix', methods=['GET'])
 @cross_origin()
 def matrix():
     # query from db
-    matrix = Matrix.query.join(Driver, Driver.device_id == Matrix.device_id) \
-        .join(Device, Device.device_id == Matrix.device_id) \
-        .with_entities(Device.device_name, Device.device_version, Device.picture,
-                       Matrix.client_os_name, Matrix.Horizon_client_version,
-                       Matrix.agent_os_name, Matrix.Horizon_agent_version,
-                       Driver.agent_driver, Driver.client_driver).all()
+    matrix = Matrix.query.join(Device,
+                               and_(and_(Device.product_id == Matrix.product_id, Device.vendor_id == Matrix.vendor_id),
+                                    or_(Matrix.model == None, Matrix.model == Device.model)
+                                   )
+                               ).with_entities(Device.device_name,
+                                               Matrix.product_id, Matrix.vendor_id, Matrix.model,
+                                               Matrix.Horizon_client_version,Matrix.Horizon_agent_version,
+                                               Matrix.redirect_method).all()
 
     matrix = to_json_join(matrix)
     return {
