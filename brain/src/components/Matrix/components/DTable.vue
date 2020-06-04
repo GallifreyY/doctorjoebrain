@@ -6,25 +6,32 @@
       </Col>
       <Col span="5" offset="11">
         <ButtonGroup shape="circle">
-          <Button><Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px"/>Upload</Button>
-          <Button><Icon type="ios-cloud-download-outline" size="18" style="margin-right:5px"/>Download</Button>
+          <Button @click="handleUpload">
+            <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />Upload
+          </Button>
+          <Button @click="handleDownload">
+            <Icon type="ios-cloud-download-outline" size="18" style="margin-right:5px" />Download
+          </Button>
         </ButtonGroup>
       </Col>
     </Row>
     <Row class="table">
-      <Table :columns="columns1" :data="matrixAllData"></Table>
-      <!-- <Table></Table> -->
+      <Table :columns="columns1" :data="matrixAllData" ref="table"></Table>
     </Row>
   </div>
 </template>
 
 <script>
 import { getMatrix } from "@/api/matrix";
+import DForm from "./DForm.vue";
+
 export default {
   name: "DTable",
+  components: { DForm },
   data() {
     return {
       matrixAllData: undefined,
+     
       columns1: [
         {
           title: "Device Name",
@@ -32,7 +39,7 @@ export default {
           width: "200",
           align: "center"
         },
-        // { title: "Category", key: "category" },
+        { title: "Category", key: "category", width: "100", align: "center" },
         { title: "Vid", key: "vendor_id", width: "100", align: "center" },
         { title: "Pid", key: "product_id", width: "100", align: "center" },
         { title: "Model", key: "model", width: "100", align: "center" },
@@ -55,7 +62,7 @@ export default {
           ]
         },
 
-        { title: "Redirect Method", key: "redirect_method", align: "center" },
+        // { title: "Redirect Method", key: "redirect_method", align: "center" },
         {
           title: "Action",
           key: "action",
@@ -98,10 +105,35 @@ export default {
       getMatrix()
         .then(response => {
           this.matrixAllData = response.data;
+          this._parse_cate(this.matrixAllData);
         })
         .catch(() => {
           this.$Message.error("'Sorry, could not get Data Matrix..'");
         });
+    },
+    handleUpload() {
+      this.$Modal.confirm({
+        // title:"Update Device Matrix",
+        width: "1000",
+        okText: "Submit",
+        cancelText: "Cancel",
+        closable: true,
+
+        render: h => {
+          return h(DForm);
+        }
+      });
+    },
+    handleDownload() {
+      this.$refs.table.exportCsv({
+        filename: "Device Matrix Data"
+      });
+    },
+    _parse_cate(items) {
+      items.forEach((val, index, arr) => {
+        let map = ["USB Disks", "Printers", "Scanners", "Cameras", "Mics"];
+        arr[index].category = map[arr[index].category] || "Other Devices";
+      });
     }
   },
   created() {

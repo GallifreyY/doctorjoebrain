@@ -30,15 +30,17 @@
     </Sider>
     <div class="content">
       <d-table></d-table>
+      
     </div>
   </div>
 </template>
 
 <script>
 import DTable from './components/DTable.vue'
+import DForm from './components/DForm.vue'
 export default {
   name: "Matrix",
-  components:{DTable},
+  components:{DTable,DForm},
   data() {
     return {};
   }

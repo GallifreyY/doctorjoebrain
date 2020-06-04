@@ -211,7 +211,7 @@ def matrix():
                                and_(and_(Device.product_id == Matrix.product_id, Device.vendor_id == Matrix.vendor_id),
                                     or_(Matrix.model == None, Matrix.model == Device.model)
                                    )
-                               ).with_entities(Device.device_name,
+                               ).with_entities(Device.device_name,Device.category,
                                                Matrix.product_id, Matrix.vendor_id, Matrix.model,
                                                Matrix.Horizon_client_version,Matrix.Horizon_agent_version,
                                                Matrix.redirect_method).all()
