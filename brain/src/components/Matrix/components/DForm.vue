@@ -1,5 +1,13 @@
 <template>
-  <div style="padding:0 3%">
+  <Modal
+    width="1000"
+    okText="Submit"
+    cancelText="Cancel"
+    style="padding:0 3%"
+    v-model="modalForm"
+    @on-cancel="handleCancel"
+    @on-ok="handleSubmit"
+  >
     <Divider orientation="left" size="small" style="padding:2% 0 2% 0;">Device Information</Divider>
     <Form ref="formItem" :model="formItem" label-width="110" :rules="rulesV">
       <Row>
@@ -20,9 +28,24 @@
         </Col>
       </Row>
 
-      <FormItem label="Device Name" prop="name">
-        <Input v-model="formItem.deviceName" placeholder="Enter the Device Name.." />
-      </FormItem>
+      <Row>
+        <Col span="16">
+          <FormItem label="Device Name" prop="name">
+            <Input v-model="formItem.deviceName" placeholder="Enter the Device Name.." />
+          </FormItem>
+        </Col>
+        <Col span="8">
+          <FormItem label="Category">
+            <Select v-model="formItem.category">
+              <Option
+                v-for="cate in ['USB Disks','Printers','Scanners','Cameras','Mics','Other Devices']"
+                :key="cate"
+                :value="cate"
+              >{{cate}}</Option>
+            </Select>
+          </FormItem>
+        </Col>
+      </Row>
 
       <Divider
         orientation="left"
@@ -84,28 +107,25 @@
         </CheckboxGroup>
       </FormItem>
     </Form>
-  </div>
+  </Modal>
 </template>
 
 <script>
+import { submitData } from "@/api/matrix";
+
 export default {
   name: "DForm",
-  props: {},
+  inject:['reload'],
+  props: {
+    modalForm: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       index: 1,
-      formItem: {
-        vid: "",
-        pid: "",
-        model: null,
-        deviceName: "",
-        category: "",
-        OS: [],
-        driver: "",
-        HorizonVersionsRes: [{ client: "", agent: "", index: 1, status: 1 }],
-        clientDriverRes: [],
-        agentDriverRes: []
-      },
+      formItem: undefined,
       HorizonVersionsList: {
         client: [
           { label: "5.0.0", value: "5.0.0" },
@@ -153,16 +173,38 @@ export default {
       }
     };
   },
+  computed: {},
   methods: {
-    cancel() {
-      this.showForm = false;
+    init() {
       this.formItem = {
-        deviceName: ""
+        vid: "",
+        pid: "",
+        model: null,
+        deviceName: "",
+        category: "",
+        OS: [],
+        driver: "",
+        HorizonVersionsRes: [{ client: "", agent: "", index: 1, status: 1 }],
       };
     },
-    submit() {
-      this.showForm = false;
-      this.$Message.success("Submitted successfully!");
+    formatResult() {},
+    handleCancel() {
+      //  this.modalForm = false;
+      //  this.$emit('update:modalForm',this.modalForm)
+      this.init();
+      this.$emit("update:modalForm", false);
+    },
+    handleSubmit() {
+      submitData(this.formItem)
+        .then(() => {
+          this.$Message.success("Submitted Successfully!");
+          this.init();
+          this.reload()
+        })
+        .catch(() => {
+          this.$Message.error("Something going wrong... please try again");
+        });
+      this.$emit("update:modalForm", false);
     },
     handleAdd() {
       this.index++;
@@ -176,6 +218,9 @@ export default {
     handleRemove(index) {
       this.formItem.HorizonVersionsRes[index].status = 0;
     }
+  },
+  created() {
+    this.init();
   }
 };
 </script>

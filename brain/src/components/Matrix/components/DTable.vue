@@ -4,11 +4,15 @@
       <Col span="8">
         <Input search placeholder="Search device names..." />
       </Col>
-      <Col span="5" offset="11">
+      <Col span="3" >
+      <Button  shape = "circle" @click="reload" style="margin-left:5% "><Icon type="ios-refresh" size="18" /></Button>
+      </Col>
+      <Col span="5" offset="8">
         <ButtonGroup shape="circle">
           <Button @click="handleUpload">
             <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />Upload
           </Button>
+          <d-form :modalForm.sync = "modalForm"></d-form>
           <Button @click="handleDownload">
             <Icon type="ios-cloud-download-outline" size="18" style="margin-right:5px" />Download
           </Button>
@@ -27,11 +31,13 @@ import DForm from "./DForm.vue";
 
 export default {
   name: "DTable",
+  inject:['reload'],
   components: { DForm },
   data() {
     return {
       matrixAllData: undefined,
-     
+      submit: false,
+      modalForm : false,
       columns1: [
         {
           title: "Device Name",
@@ -112,17 +118,7 @@ export default {
         });
     },
     handleUpload() {
-      this.$Modal.confirm({
-        // title:"Update Device Matrix",
-        width: "1000",
-        okText: "Submit",
-        cancelText: "Cancel",
-        closable: true,
-
-        render: h => {
-          return h(DForm);
-        }
-      });
+      this.modalForm = true;
     },
     handleDownload() {
       this.$refs.table.exportCsv({

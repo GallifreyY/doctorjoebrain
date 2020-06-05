@@ -7,3 +7,11 @@ export function getMatrix(){
     })
 
 }
+
+export function submitData(data){
+    return request({
+        url: '/matrix/newData',
+        method: 'post',
+        data
+    })
+}

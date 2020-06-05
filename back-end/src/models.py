@@ -13,7 +13,6 @@ class Matrix(db.Model):
     model = db.Column(db.String(255))
     Horizon_client_version = db.Column(db.String(255))
     Horizon_agent_version = db.Column(db.String(255))
-    redirect_method = db.Column(db.String(255))
 
     def to_json(self):
         return util.to_json(self, self.__class__)
@@ -30,7 +29,7 @@ class Device(db.Model):
     vendor_id = db.Column(db.String(255), db.ForeignKey('vendor.vendor_id'), primary_key=True)
     description = db.Column(db.String(999))
     picture = db.Column(db.String(255))
-    model = db.Column(db.String(255), primary_key=True)
+    model = db.Column(db.String(255))
     category = db.Column(db.Integer)
 
     def to_json(self):
@@ -81,12 +80,13 @@ if __name__ == '__main__':
     #                                                                         Vendor.vendor_logo).all()
     item = Matrix.query.all()
 
-    matrix = Matrix.query.join(Device,
-                               and_(and_(Device.product_id == Matrix.product_id, Device.vendor_id == Matrix.vendor_id),
-                                    or_(Matrix.model == None, Matrix.model == Device.model)
-                                   )
-                               ).with_entities(Device.device_name, Device.category,
-                                               Matrix.product_id, Matrix.vendor_id, Matrix.model,
-                                               Matrix.Horizon_client_version,Matrix.Horizon_agent_version,
-                                               Matrix.redirect_method).all()
-    print(matrix)
+
+
+    # foo = Device.query.filter(and_(Device.vendor_id == '049',Device.product_id == '2044',Device.model == None)).all()
+    # device = Device(vendor_id="vxxx",product_id="pxxx")
+    # db.session.add(device)
+    # db.session.commit()
+
+    foo = {'vendor_id':"04F9", "product_id":"2044","model":None}
+    print(Device.query.filter(**foo).all())
+
