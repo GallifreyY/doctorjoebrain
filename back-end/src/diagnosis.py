@@ -1,5 +1,6 @@
 from util import *
 import json
+import re
 
 components = {
     "usbdisk": "USB",
@@ -47,6 +48,10 @@ def diagnosis(collected_data, device):
         results = _usb_diagnose(collected_data, device, results)
     elif device.type == 'printers':
         results = _printer_diagnose(collected_data, device, results)
+    elif device.type == 'scanners':
+        results = _scanner_diagnose(collected_data, device, results)
+    elif device.type == 'cameras':
+        results = _camera_diagnose(collected_data, device, results)
 
     # todo: final check
     results = list(filter(None, results))
@@ -123,14 +128,31 @@ def _printer_diagnose(collected_data, device, results):
     # else:
     #     results.append("It is a virtual printer.")
 
+    return results
 
-
-
-
-
+def _scanner_diagnose(collected_data, device, results):
+    if _judge_driver(device) is not None:
+        results.append(_judge_driver(device))
 
     return results
 
+
+def _camera_diagnose(collected_data, device, results):
+    if _judge_driver(device) is not None:
+        results.append(_judge_driver(device))
+
+    return results
+
+
+def _judge_driver(device):
+    if "driverprovider" not in device.find_details().keys():
+        return None
+    provider = device.find_details()['driverprovider']
+    if provider == 'Microsoft' \
+        and re.search(r'.crosoft*',device.name) is None \
+        and device.suspected_vendor is not 'Microsoft':
+        return 'The driver is probably provided by Microsoft. Recommend to install the driver from the vendor.'
+    return None
 
 def _add_refers(suggestion,key,collected_data):
     if key not in link.keys():

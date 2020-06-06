@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_, or_
 from flask_cors import cross_origin
 from flask import request
 
@@ -14,6 +15,16 @@ import json
 import Config
 import re
 import copy
+
+
+CATE_MAP = {
+    "Other Devices" : -1,
+    "USB Disks": 0,
+    "Printers": 1,
+    "Scanners" : 2,
+    "Cameras" : 3,
+    "Mics" : 4,
+}
 
 
 # protocols to collector
@@ -97,10 +108,22 @@ def device_and_client_info():
 
         device_info = device.default_info()
 
-        # todo: query
+        # todo: query vendor
+        if device.vid is not None:
+            item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
+                                                                                     Vendor.vendor_link,
+                                                                                     Vendor.vendor_logo).all()
+            if len(item) == 1:
+                item = item[0]
+                device_info['details']['vendor_name'], \
+                device_info['details']['vendor_link'], \
+                device_info['details']['vendor_logo'] = item
+
+        # todo: query device
         if not (device.vid is None or device.pid is None):
-            device_id = device.vid + '-' + device.pid
-            item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(Device.device_id == device_id) \
+            # device_id = device.vid + '-' + device.pid
+            item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(
+                and_(Device.vendor_id == device.vid, Device.product_id == device.pid)) \
                 .with_entities(Device.device_name,
                                Device.description,
                                Device.picture, Vendor.vendor_name,
@@ -111,7 +134,7 @@ def device_and_client_info():
             if len(item) > 1:
                 print("warning: id-query has multiple results")
             elif len(item) == 0:
-                print("tips: database are not recorded the device: {}".format(device_id))
+                print("tips: database are not recorded the device: {}".format(device.vid + "_" + device.pid))
             else:
                 item = item[0]
                 # todo: if value is None, fill with default
@@ -127,11 +150,13 @@ def device_and_client_info():
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
     agent_column_data = get_agent_info(collected_data)
+    client_detail_data = get_client_details_from_agent(collected_data)
 
     basic_info = {
         'device': devices_info,
         'client': client_column_data,
-        'agent':agent_column_data
+        'agent': agent_column_data,
+        'clientDetail': client_detail_data
     }
 
     diagnosis_info = []
@@ -157,35 +182,35 @@ def device_and_client_info():
 
 
 ######### api: diagnosis_info(deprecated)
-@app.route('/diagnosis_info', methods=['GET'])
-@cross_origin()
-def diagnosis_info():
-    uuid = request.args.get('id')
-    index = int(request.args.get('index'))
-    collected_data = read_data(uuid, 'user', 'json')
-    if collected_data is None:
-        return {'code': 20022, 'data': {}}
-    devices = read_data(uuid, 'devices', 'pickle')
-    # todo :find index
-    device = devices[index]
-    # todo: compatibility check
-    check_res = check_compatibility(collected_data, device)
-    # todo: diagnosis
-    suggestions = diagnosis(collected_data, device)
-
-    # print(suggestions)
-    # fake data
-
-    video = "PowerMic.mp4"
-
-    return {
-        'code': 20022,
-        'data': {
-            'checkResult': check_res,
-            'suggestions': suggestions,
-            'referenceVideo': video
-        }
-    }
+# @app.route('/diagnosis_info', methods=['GET'])
+# @cross_origin()
+# def diagnosis_info():
+#     uuid = request.args.get('id')
+#     index = int(request.args.get('index'))
+#     collected_data = read_data(uuid, 'user', 'json')
+#     if collected_data is None:
+#         return {'code': 20022, 'data': {}}
+#     devices = read_data(uuid, 'devices', 'pickle')
+#     # todo :find index
+#     device = devices[index]
+#     # todo: compatibility check
+#     check_res = check_compatibility(collected_data, device)
+#     # todo: diagnosis
+#     suggestions = diagnosis(collected_data, device)
+#
+#     # print(suggestions)
+#     # fake data
+#
+#     video = "PowerMic.mp4"
+#
+#     return {
+#         'code': 20022,
+#         'data': {
+#             'checkResult': check_res,
+#             'suggestions': suggestions,
+#             'referenceVideo': video
+#         }
+#     }
 
 
 ###########api：matrix
@@ -193,17 +218,81 @@ def diagnosis_info():
 @cross_origin()
 def matrix():
     # query from db
-    matrix = Matrix.query.join(Driver, Driver.device_id == Matrix.device_id) \
-        .join(Device, Device.device_id == Matrix.device_id) \
-        .with_entities(Device.device_name, Device.device_version, Device.picture,
-                       Matrix.client_os_name, Matrix.Horizon_client_version,
-                       Matrix.agent_os_name, Matrix.Horizon_agent_version,
-                       Driver.agent_driver, Driver.client_driver).all()
+    matrix = Matrix.query.join(Device,
+                               and_(and_(Device.product_id == Matrix.product_id, Device.vendor_id == Matrix.vendor_id),
+                                    or_(Matrix.model == None, Matrix.model == Device.model)
+                                    )
+                               ).with_entities(Device.device_name, Device.category,
+                                               Matrix.product_id, Matrix.vendor_id, Matrix.model,
+                                               Matrix.Horizon_client_version, Matrix.Horizon_agent_version,
+                                               ).all()
 
     matrix = to_json_join(matrix)
     return {
         'code': 20022,
         'data': matrix
+    }
+
+
+# reminder delete:
+# >>> db.session.delete(me)
+# >>> db.session.commit()
+
+@app.route('/matrix/newData', methods=['GET', 'POST'])
+@cross_origin()
+def matrix_new_data():
+    print(request.json)
+    res = request.json
+
+    # todo: extract device info
+    new_device = {'vendor_id': res['vid'], 'product_id': res['pid'], 'device_name': res['deviceName'],
+                  "category": CATE_MAP.get(res["category"],-1),
+                  "model": None if res["model"] is None or len(res["model"]) == 0 else res["model"]}
+    query_res = Device.query.filter(
+        and_(Device.vendor_id == res["vid"], Device.product_id == res["pid"], Device.model == new_device["model"] )).all()
+
+    if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid'])!=0  :
+        insert_item = Device(**new_device)
+        db.session.add(insert_item)
+        db.session.commit()
+        print("Inserted to the DB - Device table : {}".format(new_device))
+
+    # todo: spread items for Matrix DB
+    for versions in res["HorizonVersionsRes"]:
+        if len(versions['client']) == 0 or len(versions['agent']) == 0:
+            continue
+        new_matrix = {'vendor_id': res['vid'], 'product_id': res['pid'],
+                      "model": None if res["model"] is None or len(res["model"]) == 0 else res["model"],
+                      "Horizon_client_version" : versions['client'],
+                      "Horizon_agent_version": versions['agent'],
+                      }
+        query_res = Matrix.query.filter_by(**new_matrix).all()
+        if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid'])!=0:
+            insert_item = Matrix(**new_matrix)
+            db.session.add(insert_item)
+            db.session.commit()
+            print("Inserted to the DB - Matrix table : {}".format(new_matrix))
+
+
+    # todo:spread items for driver DB
+    for os in res["OS"]:
+        if len(os) == 0: continue
+        new_driver = {'vendor_id': res['vid'], 'product_id': res['pid'],
+                      "model": None if res["model"] is None or len(res["model"]) == 0 else res["model"],
+                      "driver": res['driver'],
+                      "os_name": os
+                      }
+        query_res = Driver.query.filter_by(**new_driver).all()
+        if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid'])!=0:
+            insert_item = Driver(**new_driver)
+            db.session.add(insert_item)
+            db.session.commit()
+            print("Inserted to the DB - Driver table : {}".format(new_driver))
+
+
+    return {
+        'code': 20022,
+        'data': 'success'
     }
 
 

@@ -53,6 +53,21 @@
         <div style="margin: 10px 0px">
           <Card shadow>
             <p slot="title">Client Information</p>
+            <span slot="extra">
+              <Poptip trigger="hover" placement="left" width="750">
+                <a>More Information</a>
+                <!-- <div slot="title">Detail Information about the Client</div> -->
+                <div slot="content">
+                  <Table
+                    stripe
+                    :show-header="showHeader"
+                    :columns="columns"
+                    :data="clientDetail"
+                    :size="tableSize"
+                  ></Table>
+                </div>
+              </Poptip>
+            </span>
             <Table
               stripe
               :show-header="showHeader"
@@ -64,7 +79,7 @@
         </div>
 
         <div style="margin: 10px 0px">
-                  <Card shadow>
+          <Card shadow>
             <p slot="title">Agent Information</p>
             <Table
               stripe
@@ -167,13 +182,16 @@ export default {
       deviceInfo: undefined,
       clientInfo: undefined,
       agentInfo: undefined,
+      clientDetail: undefined,
       index: 0,
       numOfDevices: 0,
       diagnosisInfo: undefined,
       //suggestions: undefined,
       labelDict: {
         printers: "Printers",
-        usbdisk: "USB Disk Devices"
+        usbdisk: "USB Disk Devices",
+        scanners: "Scanners",
+        cameras: "Cameras"
       },
       //UI
       columns: [
@@ -234,22 +252,23 @@ export default {
           this.deviceInfo = response.data.basicInfo.device; //array
           this.clientInfo = response.data.basicInfo.client;
           this.agentInfo = response.data.basicInfo.agent;
+          this.clientDetail = response.data.basicInfo.clientDetail;
           this.numOfDevices = this.deviceInfo.length;
           this.diagnosisInfo = response.data.diagnosisInfo;
-          this.$Loading.finish()
+          this.$Loading.finish();
           this.$Message.success("Successfully get the report of this device");
         })
         .catch(() => {
-          this.$Loading.error()
+          this.$Loading.error();
           this.$Message.error(
             "Sorry, could not get your diagnosis information..."
           );
         });
     }
   },
-  watch:{
-    index:function(){
-      this.$Message.success("Updated the diagnosis report for the device")
+  watch: {
+    index: function() {
+      this.$Message.success("Updated the diagnosis report for the device");
     }
   },
 
@@ -288,7 +307,7 @@ export default {
   },
   created() {
     this.$store.commit("uuid/SET_UUID", this.$route.params.id);
-    this.$Loading.start()
+    this.$Loading.start();
     this.fetchBasicInfo(this.uuid);
   }
 };
