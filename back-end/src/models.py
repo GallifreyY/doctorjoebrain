@@ -78,7 +78,7 @@ if __name__ == '__main__':
     #                                                                         Vendor.vendor_link,
     #
     #                                                                         Vendor.vendor_logo).all()
-    item = Matrix.query.all()
+    #item = Matrix.query.all()
 
 
 
@@ -87,6 +87,10 @@ if __name__ == '__main__':
     # db.session.add(device)
     # db.session.commit()
 
-    foo = {'vendor_id':"04F9", "product_id":"2044","model":None}
-    print(Device.query.filter(**foo).all())
+    # foo = {'vendor_id':"04F9", "product_id":"2044","model":None}
+    # print(Device.query.filter(**foo).all())
+
+    # matrix = Matrix(vendor_id='0222', product_id = '0222',Horizon_agent_version='7.10.0',Horizon_client_version='5.2.0',model=None)
+    # db.session.delete(matrix)
+    # db.session.commit()
 

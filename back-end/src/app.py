@@ -299,6 +299,22 @@ def matrix_new_data():
         'data': 'success'
     }
 
+@app.route('/matrix/deleteData', methods=['GET', 'POST'])
+@cross_origin()
+def matrix_delete_data():
+    # print(request.json)
+    Matrix.query.filter_by(**request.json).delete()
+    db.session.commit()
+    return {
+        'code': 20022,
+        'data': 'success'
+    }
+
+
+
+
+
+
 
 if __name__ == 'main':
     env = Config.info().ENV

@@ -15,3 +15,12 @@ export function submitData(data){
         data
     })
 }
+
+export function deleteData(data){
+    return request({
+        url: '/matrix/deleteData',
+        method:'post',
+        data
+
+    })
+}

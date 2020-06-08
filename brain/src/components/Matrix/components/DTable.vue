@@ -4,15 +4,17 @@
       <Col span="8">
         <Input search placeholder="Search device names..." />
       </Col>
-      <Col span="3" >
-      <Button  shape = "circle" @click="reload" style="margin-left:5% "><Icon type="ios-refresh" size="18" /></Button>
+      <Col span="3">
+        <Button shape="circle" @click="reload" style="margin-left:5% ">
+          <Icon type="ios-refresh" size="18" />
+        </Button>
       </Col>
       <Col span="5" offset="8">
         <ButtonGroup shape="circle">
           <Button @click="handleUpload">
             <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />Upload
           </Button>
-          <d-form :modalForm.sync = "modalForm"></d-form>
+          <d-form :modalForm.sync="modalForm"></d-form>
           <Button @click="handleDownload">
             <Icon type="ios-cloud-download-outline" size="18" style="margin-right:5px" />Download
           </Button>
@@ -20,24 +22,35 @@
       </Col>
     </Row>
     <Row class="table">
-      <Table :columns="columns1" :data="matrixAllData" ref="table"></Table>
+      <Table :columns="columns1" :data="matrixDisplayData" ref="table"></Table>
+      <d-item :modalItem.sync="modalItem" :data="modalItemDataProps"></d-item>
     </Row>
   </div>
 </template>
 
 <script>
-import { getMatrix } from "@/api/matrix";
+import { getMatrix, deleteData } from "@/api/matrix";
 import DForm from "./DForm.vue";
+import DItem from "./DItem.vue";
 
 export default {
   name: "DTable",
-  inject:['reload'],
-  components: { DForm },
+  inject: ["reload"],
+  components: { DForm, DItem },
+  props: {
+    filter: {
+      default: "all",
+      type: String,
+      required: false
+    }
+  },
   data() {
     return {
       matrixAllData: undefined,
+      modalItemData:undefined,
       submit: false,
-      modalForm : false,
+      modalForm: false,
+      modalItem: false,
       columns1: [
         {
           title: "Device Name",
@@ -45,7 +58,7 @@ export default {
           width: "200",
           align: "center"
         },
-        { title: "Category", key: "category", width: "100", align: "center" },
+        { title: "Category", key: "category", width: "130", align: "center" },
         { title: "Vid", key: "vendor_id", width: "100", align: "center" },
         { title: "Pid", key: "product_id", width: "100", align: "center" },
         { title: "Model", key: "model", width: "100", align: "center" },
@@ -85,9 +98,13 @@ export default {
                   style: {
                     marginRight: "5px"
                   },
-                  on: {}
+                  on: {
+                    click: () => {
+                      this.handleEdit(params.index);
+                    }
+                  }
                 },
-                "View"
+                "Edit"
               ),
               h(
                 "Button",
@@ -96,7 +113,11 @@ export default {
                     type: "error",
                     size: "small"
                   },
-                  on: {}
+                  on: {
+                    click: () => {
+                      this.handleDelete(params.index);
+                    }
+                  }
                 },
                 "Delete"
               )
@@ -112,9 +133,10 @@ export default {
         .then(response => {
           this.matrixAllData = response.data;
           this._parse_cate(this.matrixAllData);
+          //this.matrixDisplayData = this._filter(this.matrixAllData,this.filter)
         })
         .catch(() => {
-          this.$Message.error("'Sorry, could not get Data Matrix..'");
+          this.$Message.error("Sorry, could not get Data Matrix..");
         });
     },
     handleUpload() {
@@ -125,11 +147,44 @@ export default {
         filename: "Device Matrix Data"
       });
     },
+    handleDelete(index) {
+      let deleteItem = this.matrixDisplayData[index];
+      alert(this.matrixDisplayData[index].device_name);
+      delete deleteItem.category;
+      delete deleteItem.device_name;
+
+      deleteData(deleteItem)
+        .then(response => {
+          this.$Message.success("Successfully delete this item..");
+          this.reload();
+        })
+        .catch(error => {
+          this.$Message.error("Sorry, could not get Delete this item");
+          console.log(error);
+        });
+    },
+    handleEdit(index) {
+      this.modalItem = true;
+      this.modalItemData = this.matrixDisplayData[index];
+    },
+
     _parse_cate(items) {
       items.forEach((val, index, arr) => {
         let map = ["USB Disks", "Printers", "Scanners", "Cameras", "Mics"];
         arr[index].category = map[arr[index].category] || "Other Devices";
       });
+    },
+    _filter(items, filter) {
+      if (this.filter === "all") return items;
+      return items.filter(item => item.category === filter);
+    }
+  },
+  computed: {
+    matrixDisplayData: function() {
+      return this._filter(this.matrixAllData, this.filter);
+    },
+    modalItemDataProps:function(){
+      return this.modalItemData
     }
   },
   created() {

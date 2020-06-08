@@ -6,12 +6,12 @@
           <template slot="title">
             <Icon type="md-analytics" size="20" />Matrix
           </template>
-          <MenuItem name="1-1">All Devices</MenuItem>
-          <MenuItem name="1-2">USB Disks</MenuItem>
-          <MenuItem name="1-3">Printers</MenuItem>
-          <MenuItem name="1-4">Scanners</MenuItem>
-          <MenuItem name="1-5">Cameras</MenuItem>
-          <MenuItem name="1-6">Other Devices</MenuItem>
+          <MenuItem name="1-1" @click.native= "filter = 'all'" >All Devices</MenuItem>
+          <MenuItem name="1-2" @click.native= "filter = 'USB Disks'">USB Disks</MenuItem>
+          <MenuItem name="1-3" @click.native= "filter = 'Printers'">Printers</MenuItem>
+          <MenuItem name="1-4" @click.native= "filter = 'Scanners'">Scanners</MenuItem>
+          <MenuItem name="1-5" @click.native= "filter = 'Cameras'">Cameras</MenuItem>
+          <MenuItem name="1-6" @click.native= "filter = 'Other Devices'">Other Devices</MenuItem>
         </Submenu>
         <Submenu name="2">
           <template slot="title">
@@ -29,8 +29,7 @@
       </Menu>
     </Sider>
     <div class="content">
-      <d-table></d-table>
-      
+      <d-table :filter='filter'></d-table>  
     </div>
   </div>
 </template>
@@ -42,8 +41,10 @@ export default {
   name: "Matrix",
   components:{DTable,DForm},
   data() {
-    return {};
-  }
+    return {
+      filter:'all',
+    };
+  },
 };
 </script>
 
