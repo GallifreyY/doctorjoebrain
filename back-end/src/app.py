@@ -26,6 +26,10 @@ CATE_MAP = {
     "Mics" : 4,
 }
 
+@app.route('/test',methods=['GET'])
+@cross_origin()
+def test():
+    return 'Hello!'
 
 # protocols to collector
 @app.route('/protocols/data_collector', methods=['GET', 'POST'])
