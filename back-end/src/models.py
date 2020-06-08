@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
 
 
-    # foo = Device.query.filter(and_(Device.vendor_id == '049',Device.product_id == '2044',Device.model == None)).all()
+    # # foo = Device.query.filter(and_(Device.vendor_id == '049',Device.product_id == '2044',Device.model == None)).all()
     # device = Device(vendor_id="vxxx",product_id="pxxx")
     # db.session.add(device)
     # db.session.commit()
