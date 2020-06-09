@@ -2,7 +2,12 @@
   <div style="padding:2% 5% 2% 5% ">
     <Row class="buttons">
       <Col span="8">
-        <Input search placeholder="Search device names..." />
+        <Input
+          v-model="searchString"
+          search
+          placeholder="Search device names..."
+          @on-search="handleSearch"
+        />
       </Col>
       <Col span="3">
         <Button shape="circle" @click="reload" style="margin-left:5% ">
@@ -11,7 +16,7 @@
       </Col>
       <Col span="5" offset="8">
         <ButtonGroup shape="circle">
-          <Button @click="handleUpload">
+          <Button @click="handleUpload" :disabled="!admission">
             <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />Upload
           </Button>
           <d-form :modalForm.sync="modalForm"></d-form>
@@ -21,8 +26,23 @@
         </ButtonGroup>
       </Col>
     </Row>
+    <div v-if="showSearchResult">
+      <Divider>
+        Search Result
+        <Icon
+          type="ios-close-circle-outline"
+          color="red"
+          style="margin-left:10%;cursor:pointer"
+          @click.native="handleClose"
+        />
+      </Divider>
+      <Row class="search-result">
+        <Table :columns="columns1" :data="searchedData"></Table>
+      </Row>
+      <Divider>Matrix</Divider>
+    </div>
     <Row class="table">
-      <Table :columns="columns1" :data="matrixDisplayData" ref="table"></Table>
+      <Table stripe :columns="columns1" :data="matrixDisplayData" ref="table"></Table>
       <d-item :modalItem.sync="modalItem" :data="modalItemDataProps"></d-item>
     </Row>
   </div>
@@ -32,6 +52,7 @@
 import { getMatrix, deleteData } from "@/api/matrix";
 import DForm from "./DForm.vue";
 import DItem from "./DItem.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DTable",
@@ -46,21 +67,44 @@ export default {
   },
   data() {
     return {
+      searchString: "",
+      searchedData:undefined,
+      showSearchResult: false,
       matrixAllData: undefined,
-      modalItemData:undefined,
+      modalItemData: undefined,
       submit: false,
       modalForm: false,
       modalItem: false,
       columns1: [
+        { type: "index", width: 60, align: "center" },
         {
           title: "Device Name",
           key: "device_name",
           width: "200",
-          align: "center"
+          align: "center",
+          sortable: true
         },
-        { title: "Category", key: "category", width: "130", align: "center" },
-        { title: "Vid", key: "vendor_id", width: "100", align: "center" },
-        { title: "Pid", key: "product_id", width: "100", align: "center" },
+        {
+          title: "Category",
+          key: "category",
+          width: "130",
+          align: "center",
+          sortable: true
+        },
+        {
+          title: "Vid",
+          key: "vendor_id",
+          width: "100",
+          align: "center",
+          sortable: true
+        },
+        {
+          title: "Pid",
+          key: "product_id",
+          width: "100",
+          align: "center",
+          sortable: true
+        },
         { title: "Model", key: "model", width: "100", align: "center" },
         {
           title: "Horizon Version",
@@ -70,13 +114,15 @@ export default {
               title: "Client",
               key: "Horizon_client_version",
               width: "100",
-              align: "center"
+              align: "center",
+              sortable: true
             },
             {
               title: "Agent",
               key: "Horizon_agent_version",
               width: "100",
-              align: "center"
+              align: "center",
+              sortable: true
             }
           ]
         },
@@ -93,7 +139,8 @@ export default {
                 {
                   props: {
                     type: "primary",
-                    size: "small"
+                    size: "small",
+                    disabled: !this.admission
                   },
                   style: {
                     marginRight: "5px"
@@ -111,7 +158,8 @@ export default {
                 {
                   props: {
                     type: "error",
-                    size: "small"
+                    size: "small",
+                    disabled: !this.admission
                   },
                   on: {
                     click: () => {
@@ -133,11 +181,17 @@ export default {
         .then(response => {
           this.matrixAllData = response.data;
           this._parse_cate(this.matrixAllData);
-          //this.matrixDisplayData = this._filter(this.matrixAllData,this.filter)
         })
         .catch(() => {
           this.$Message.error("Sorry, could not get Data Matrix..");
         });
+    },
+    handleSearch() {
+      this.showSearchResult = true;
+      this.searchedData = this._search(this.searchString);
+    },
+    handleClose(){
+      this.showSearchResult = false;
     },
     handleUpload() {
       this.modalForm = true;
@@ -160,7 +214,6 @@ export default {
         })
         .catch(error => {
           this.$Message.error("Sorry, could not get Delete this item");
-          console.log(error);
         });
     },
     handleEdit(index) {
@@ -177,14 +230,38 @@ export default {
     _filter(items, filter) {
       if (this.filter === "all") return items;
       return items.filter(item => item.category === filter);
+    },
+    _search(searchString){
+      const res = []
+      if(!searchString) return []
+      for(let data of this.matrixDisplayData){
+        console.log(data);
+        if(data.device_name.slice(0,searchString.length) === searchString){
+          res.push(data)
+        }
+      }
+      if(res.length === 0 ){
+        this.$Notice.error({
+          title:"No Search Result"
+
+        })
+      }
+      return res
     }
   },
   computed: {
+    ...mapGetters(["token"]),
+    admission: function() {
+      return this.token === "true";
+    },
+    // searchedData: function() {
+    //   return this._search(this.searchString);
+    // },
     matrixDisplayData: function() {
       return this._filter(this.matrixAllData, this.filter);
     },
-    modalItemDataProps:function(){
-      return this.modalItemData
+    modalItemDataProps: function() {
+      return this.modalItemData;
     }
   },
   created() {
@@ -196,5 +273,8 @@ export default {
 <style lang="" scoped>
 .table {
   margin-top: 2%;
+}
+.search-result {
+  margin: 2% 0;
 }
 </style>

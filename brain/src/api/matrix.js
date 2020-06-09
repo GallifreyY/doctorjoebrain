@@ -18,9 +18,18 @@ export function submitData(data){
 
 export function deleteData(data){
     return request({
-        url: '/matrix/deleteData',
+        url: '/matrix/deletedData',
         method:'post',
         data
 
     })
+}
+
+export function editData(data){
+    return request({
+        url:'/matrix/editedData',
+        method:'post',
+        data
+    })
+
 }

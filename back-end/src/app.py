@@ -299,7 +299,7 @@ def matrix_new_data():
         'data': 'success'
     }
 
-@app.route('/matrix/deleteData', methods=['GET', 'POST'])
+@app.route('/matrix/deletedData', methods=['GET', 'POST'])
 @cross_origin()
 def matrix_delete_data():
     # print(request.json)
@@ -310,7 +310,18 @@ def matrix_delete_data():
         'data': 'success'
     }
 
+@app.route('/matrix/editedData', methods=['GET','POST'])
+@cross_origin()
+def matrix_edit_data():
+    # print(request.json)
+    edit_item = Matrix.query.filter_by(**request.json['query']).first()
+    edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], request.json["Horizon_agent_version"]
+    db.session.commit()
 
+    return {
+        'code': 20022,
+        'data': 'success'
+    }
 
 
 
