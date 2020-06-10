@@ -12,9 +12,23 @@ from models import *
 from util import *
 from diagnosis import diagnosis
 import json
-import Config
 import re
 import copy
+import configparser
+
+# todo: read data from config file
+cf = configparser.ConfigParser()
+cf.read("./config.ini")
+cf.get('PROD','HTTPS_AD')
+ENV = cf.get('ENV','ENV')
+
+if ENV == 'PROD':
+    URL = 'https://'+ cf.get('PROD','HTTPS_AD') + ':' + cf.get('PROD','PORT') + '/#/diagnosis/'
+else:
+    URL = 'http://'+ cf.get('DEV','LOCAL') + ':'+cf.get('DEV','PORT') + '/#/diagnosis/'
+
+print(ENV,URL)
+
 
 
 CATE_MAP = {
@@ -50,7 +64,7 @@ def add_to_log_file():
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        url = Config.GET_URL() + uuid
+        url = URL + uuid
 
     return {'code': code,
             'state': state,
@@ -185,37 +199,6 @@ def device_and_client_info():
     }
 
 
-######### api: diagnosis_info(deprecated)
-# @app.route('/diagnosis_info', methods=['GET'])
-# @cross_origin()
-# def diagnosis_info():
-#     uuid = request.args.get('id')
-#     index = int(request.args.get('index'))
-#     collected_data = read_data(uuid, 'user', 'json')
-#     if collected_data is None:
-#         return {'code': 20022, 'data': {}}
-#     devices = read_data(uuid, 'devices', 'pickle')
-#     # todo :find index
-#     device = devices[index]
-#     # todo: compatibility check
-#     check_res = check_compatibility(collected_data, device)
-#     # todo: diagnosis
-#     suggestions = diagnosis(collected_data, device)
-#
-#     # print(suggestions)
-#     # fake data
-#
-#     video = "PowerMic.mp4"
-#
-#     return {
-#         'code': 20022,
-#         'data': {
-#             'checkResult': check_res,
-#             'suggestions': suggestions,
-#             'referenceVideo': video
-#         }
-#     }
-
 
 ###########api：matrix
 @app.route('/matrix', methods=['GET'])
@@ -328,6 +311,5 @@ def matrix_edit_data():
 
 
 if __name__ == 'main':
-    env = Config.info().ENV
-    debug = True if env == 'dev' else False
-    app.run(debug=debug)
+
+    app.run(debug=(ENV == 'DEV'))

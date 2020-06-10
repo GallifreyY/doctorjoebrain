@@ -54,7 +54,7 @@ export default {
 .content {
   margin-left: 15vw;
   margin-top: 75px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   height:100vh;
 }
 #sider {

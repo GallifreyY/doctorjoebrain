@@ -16,12 +16,12 @@ class Device:
         self.is_present = is_present
 
         self.raw_data = self._read_raw_data()
+        self.details = self.find_details()
         self.is_usb_redirect = self._is_usb_redirect()
+        self.suspected_vendor = self._find_suspected_vendor()
 
     def _read_raw_data(self):
         return util.read_data(self.uuid)
-
-
 
     def _is_usb_redirect(self):
         # todo:details
@@ -78,6 +78,10 @@ class Device:
                 return printer_r
         return None
 
+    def _find_suspected_vendor(self):
+        if self.is_virtual_printer(): return None
+        return self.name.split(' ')[0] or None
+
     def default_info(self):
         default_info = {
             "deviceName": self.name,
@@ -88,7 +92,7 @@ class Device:
             "end": self.end,
             "details": {
                 'picture': 'devices.jpg',
-                'vendor_name': 'unrecorded',
+                'vendor_name':  self.suspected_vendor or 'unrecorded',
                 'vendor_link': 'unrecorded',
                 'vendor_logo': 'vendor.png',
                 'description': 'This device is not recorded in our database'
