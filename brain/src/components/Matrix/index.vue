@@ -7,11 +7,10 @@
             <Icon type="md-analytics" size="20" />Matrix
           </template>
           <MenuItem name="1-1" @click.native= "filter = 'all'" >All Devices</MenuItem>
-          <MenuItem name="1-2" @click.native= "filter = 'USB Disks'">USB Disks</MenuItem>
-          <MenuItem name="1-3" @click.native= "filter = 'Printers'">Printers</MenuItem>
-          <MenuItem name="1-4" @click.native= "filter = 'Scanners'">Scanners</MenuItem>
-          <MenuItem name="1-5" @click.native= "filter = 'Cameras'">Cameras</MenuItem>
-          <MenuItem name="1-6" @click.native= "filter = 'Other Devices'">Other Devices</MenuItem>
+          <MenuItem v-for = "(item,index) in categoryList" :key="index" :name="'1-'+index" @click.native="handleClick(item)" >
+          {{item}}
+          </MenuItem>
+          <MenuItem name="other" @click.native= "filter = 'other'" >Other Devices</MenuItem>
         </Submenu>
         <Submenu name="2">
           <template slot="title">
@@ -29,7 +28,7 @@
       </Menu>
     </Sider>
     <div class="content">
-      <d-table :filter='filter'></d-table>  
+      <d-table :filter='filter' :otherIndex='5' ></d-table>  
     </div>
   </div>
 </template>
@@ -37,14 +36,30 @@
 <script>
 import DTable from './components/DTable.vue'
 import DForm from './components/DForm.vue'
+import {getCategoryInfo} from "@/api/matrix";
 export default {
   name: "Matrix",
   components:{DTable,DForm},
   data() {
     return {
       filter:'all',
+      categoryList : [],
+      otherIndex :5
     };
   },
+  methods:{
+    handleClick(Category){
+      this.filter = Category
+    }
+  },
+  created(){
+    getCategoryInfo().then(response => {
+      this.categoryList = response.data.slice(0,this.otherIndex);
+    }).catch(() => {
+          this.$Message.error("Sorry, could not get Category Information..");
+        });
+
+  }
 };
 </script>
 

@@ -33,3 +33,10 @@ export function editData(data){
     })
 
 }
+
+export function getCategoryInfo(){
+    return request({
+        url:'/matrix/categoryInfo',
+        method:'get'
+    })
+}

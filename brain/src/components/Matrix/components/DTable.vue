@@ -14,12 +14,12 @@
           <Icon type="ios-refresh" size="18" />
         </Button>
       </Col>
-      <Col span="5" offset="8">
+      <Col span="7" offset="6">
         <ButtonGroup shape="circle">
           <Button @click="handleUpload" :disabled="!admission">
-            <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />Upload
+            <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />Add New Device
           </Button>
-          <d-form :modalForm.sync="modalForm"></d-form>
+          <d-form :modalForm.sync="modalForm" :categoryList="cateList"></d-form>
           <Button @click="handleDownload">
             <Icon type="ios-cloud-download-outline" size="18" style="margin-right:5px" />Download
           </Button>
@@ -63,10 +63,16 @@ export default {
       default: "all",
       type: String,
       required: false
+    },
+    otherIndex :{
+      default:'5',
+      type: String,
+      required:false
     }
   },
   data() {
     return {
+      cateList:[],
       searchString: "",
       searchedData:undefined,
       showSearchResult: false,
@@ -180,6 +186,7 @@ export default {
       getMatrix()
         .then(response => {
           this.matrixAllData = response.data;
+          this.cateList = response.cateList;
           this._parse_cate(this.matrixAllData);
         })
         .catch(() => {
@@ -223,12 +230,18 @@ export default {
 
     _parse_cate(items) {
       items.forEach((val, index, arr) => {
-        let map = ["USB Disks", "Printers", "Scanners", "Cameras", "Mics"];
-        arr[index].category = map[arr[index].category] || "Other Devices";
+        arr[index].category = this.cateList[arr[index].category] || "Other Devices";
       });
     },
-    _filter(items, filter) {
+    _other_filter(ele){
+      return this.cateList.indexOf(ele.category) > this.otherIndex
+    },
+    _filter(items, filter, otherIndex) {
       if (this.filter === "all") return items;
+      console.log(this.otherIndex)
+      if(this.filter === 'other'){
+        return items.filter(this._other_filter)
+      }
       return items.filter(item => item.category === filter);
     },
     _search(searchString){
@@ -254,9 +267,6 @@ export default {
     admission: function() {
       return this.token === "true";
     },
-    // searchedData: function() {
-    //   return this._search(this.searchString);
-    // },
     matrixDisplayData: function() {
       return this._filter(this.matrixAllData, this.filter);
     },

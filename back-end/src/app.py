@@ -29,16 +29,29 @@ else:
 
 print(ENV,URL)
 
-
-
 CATE_MAP = {
     "Other Devices" : -1,
     "USB Disks": 0,
     "Printers": 1,
     "Scanners" : 2,
     "Cameras" : 3,
-    "Mics" : 4,
+    "USB Speech Mics" : 4,
+    "Smart Cards":5,
+    "Key Boards" : 6,
+    "Mouses" : 7,
+    "Signature Pads" : 8,
+    "PIN Pads" : 9,
+    "Credit Cards" : 10,
+    "Fingerprint Readers": 11,
+    "Barcode Scanners" :12,
+    "Serial Port Devices" :13
 }
+
+CATE_LIST = []
+for key in CATE_MAP:
+    if CATE_MAP[key] == -1: continue
+    CATE_LIST.insert(CATE_MAP[key],key)
+
 
 @app.route('/test',methods=['GET'])
 @cross_origin()
@@ -217,8 +230,19 @@ def matrix():
     matrix = to_json_join(matrix)
     return {
         'code': 20022,
-        'data': matrix
+        'data': matrix,
+        'cateList': CATE_LIST
     }
+
+
+@app.route('/matrix/categoryInfo', methods=['GET'])
+@cross_origin()
+def get_category_info():
+    return {
+        'code': 20022,
+        'data': CATE_LIST
+    }
+
 
 
 # reminder delete:
@@ -285,7 +309,6 @@ def matrix_new_data():
 @app.route('/matrix/deletedData', methods=['GET', 'POST'])
 @cross_origin()
 def matrix_delete_data():
-    # print(request.json)
     Matrix.query.filter_by(**request.json).delete()
     db.session.commit()
     return {

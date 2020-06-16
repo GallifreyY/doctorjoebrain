@@ -13,4 +13,6 @@ def post(file_name ,url = url):
     print(r.text)
 
 if __name__ == '__main__':
-    post('camera')
+    # post('camera')
+    r = requests.get('http://127.0.0.1:5000/matrix')
+    print(r.text)
