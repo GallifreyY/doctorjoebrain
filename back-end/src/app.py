@@ -66,11 +66,16 @@ def add_to_log_file():
     state = 'failed'
     url = ''
 
+
     if not request.is_json:
+        # Fixme: please update a more strong method to pare String data from collector
         form = request.form.to_dict()
         for item in form.items():
-            collected_json = item[0].replace("\n", "").replace("\'", "\"")
-            collected_data = json.loads(collected_json)
+            collected_json = ''
+            for json_section in item:
+                json_section = json_section.replace("\n", "").replace("\'", "\"")
+                collected_json += json_section
+        collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
 
@@ -134,12 +139,11 @@ def device_and_client_info():
     add_info_to_db(collected_data)
 
     devices_info = []
-    # todo walk all devices
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
 
-        # todo: query vendor
+        # query vendor
         if device.vid is not None:
             item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
                                                                                      Vendor.vendor_link,
@@ -154,7 +158,7 @@ def device_and_client_info():
         if not (device.vid is None or device.pid is None):
             # device_id = device.vid + '-' + device.pid
             item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(
-                and_(Device.vendor_id == device.vid, Device.product_id == device.pid)) \
+                and_(Device.vendor_id== device.vid, Device.product_id== device.pid)) \
                 .with_entities(Device.device_name,
                                Device.description,
                                Device.picture, Vendor.vendor_name,

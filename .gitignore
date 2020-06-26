@@ -19,8 +19,12 @@ selenium-debug.log
 __pycache__/
 .ipynb_checkpoints
 
+/prod/
 /back-end/data/
 /lab/
 /brain/test/
+/brain/dist/
 /back-end/test/mocked/*
 /prod/data/*
+
+

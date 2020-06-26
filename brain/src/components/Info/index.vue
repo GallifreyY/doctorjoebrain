@@ -16,7 +16,7 @@
                 color="success"
                 type="border"
                 size="default"
-              >Detecting in {{deviceInfo[index].end.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              >Detected in {{deviceInfo[index].end.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
               <Tag
                 v-if="deviceInfo[index].tag.isVirtualPrinter"
                 color="warning"
@@ -38,7 +38,7 @@
                 v-if="deviceInfo[index].tag.isUsbRedirect"
                 color="warning"
                 type="border"
-              >Usb Redirect</Tag>
+              >Usb Redirected</Tag>
             </span>
             <Table
               stripe

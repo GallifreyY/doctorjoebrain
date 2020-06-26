@@ -1,6 +1,7 @@
 import re
 import util
 import models
+from sqlalchemy import and_, or_
 # usbdisk printers
 class Device:
     def __init__(self, index, type, end, uuid, vid, pid, name, has_p, irn, is_present):
@@ -39,10 +40,11 @@ class Device:
 
             for device_r in self.raw_data['agent'][self.type]:
                 if 'VID' in device_r.keys() and 'PID' in device_r.keys():
-                    device_id = device_r['VID'] + '-' + device_r['PID']
+                    # device_id = device_r['VID'] + '-' + device_r['PID']
                     # todo: query in db
-                    item = models.Device.query.filter(models.Device.device_id == device_id).with_entities(
-                        models.Device.device_name).one()
+                    item = models.Device.query.filter(and_(models.Device.vendor_id == device_r['VID'],
+                                                           models.Device.product_id == device_r['PID']))\
+                        .with_entities(models.Device.device_name).all()
                     if len(item) == 1:
                         if item[0] == self.name:
                             self.vid, self.pid = device_r['VID'], device_r['PID']

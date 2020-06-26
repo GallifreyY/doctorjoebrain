@@ -29,16 +29,29 @@ else:
 
 print(ENV,URL)
 
-
-
 CATE_MAP = {
     "Other Devices" : -1,
     "USB Disks": 0,
     "Printers": 1,
     "Scanners" : 2,
     "Cameras" : 3,
-    "Mics" : 4,
+    "USB Speech Mics" : 4,
+    "Smart Cards":5,
+    "Key Boards" : 6,
+    "Mouses" : 7,
+    "Signature Pads" : 8,
+    "PIN Pads" : 9,
+    "Credit Cards" : 10,
+    "Fingerprint Readers": 11,
+    "Barcode Scanners" :12,
+    "Serial Port Devices" :13
 }
+
+CATE_LIST = []
+for key in CATE_MAP:
+    if CATE_MAP[key] == -1: continue
+    CATE_LIST.insert(CATE_MAP[key],key)
+
 
 @app.route('/test',methods=['GET'])
 @cross_origin()
@@ -53,11 +66,16 @@ def add_to_log_file():
     state = 'failed'
     url = ''
 
+
     if not request.is_json:
+        # Fixme: please update a more strong method to pare String data from collector
         form = request.form.to_dict()
         for item in form.items():
-            collected_json = item[0].replace("\n", "").replace("\'", "\"")
-            collected_data = json.loads(collected_json)
+            collected_json = ''
+            for json_section in item:
+                json_section = json_section.replace("\n", "").replace("\'", "\"")
+                collected_json += json_section
+        collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
 
@@ -121,12 +139,11 @@ def device_and_client_info():
     add_info_to_db(collected_data)
 
     devices_info = []
-    # todo walk all devices
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
 
-        # todo: query vendor
+        # query vendor
         if device.vid is not None:
             item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
                                                                                      Vendor.vendor_link,
@@ -141,7 +158,7 @@ def device_and_client_info():
         if not (device.vid is None or device.pid is None):
             # device_id = device.vid + '-' + device.pid
             item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(
-                and_(Device.vendor_id == device.vid, Device.product_id == device.pid)) \
+                and_(Device.vendor_id== device.vid, Device.product_id== device.pid)) \
                 .with_entities(Device.device_name,
                                Device.description,
                                Device.picture, Vendor.vendor_name,
@@ -217,8 +234,19 @@ def matrix():
     matrix = to_json_join(matrix)
     return {
         'code': 20022,
-        'data': matrix
+        'data': matrix,
+        'cateList': CATE_LIST
     }
+
+
+@app.route('/matrix/categoryInfo', methods=['GET'])
+@cross_origin()
+def get_category_info():
+    return {
+        'code': 20022,
+        'data': CATE_LIST
+    }
+
 
 
 # reminder delete:
@@ -285,7 +313,6 @@ def matrix_new_data():
 @app.route('/matrix/deletedData', methods=['GET', 'POST'])
 @cross_origin()
 def matrix_delete_data():
-    # print(request.json)
     Matrix.query.filter_by(**request.json).delete()
     db.session.commit()
     return {
@@ -307,5 +334,9 @@ def matrix_edit_data():
     }
 
 
-if __name__ == '__main__':
+
+
+
+if __name__ == 'main':
+
     app.run(debug=(ENV == 'DEV'))

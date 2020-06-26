@@ -83,14 +83,14 @@ if __name__ == '__main__':
 
 
     # # foo = Device.query.filter(and_(Device.vendor_id == '049',Device.product_id == '2044',Device.model == None)).all()
-    # device = Device(vendor_id="vxxx",product_id="pxxx")
+    #device = Device(vendor_id="vxxx",product_id="pxxx")
     # db.session.add(device)
     # db.session.commit()
 
     # foo = {'vendor_id':"04F9", "product_id":"2044","model":None}
     # print(Device.query.filter(**foo).all())
 
-    # matrix = Matrix(vendor_id='0222', product_id = '0222',Horizon_agent_version='7.10.0',Horizon_client_version='5.2.0',model=None)
+    #matrix = Matrix(vendor_id='0222', product_id = '0222',Horizon_agent_version='7.10.0',Horizon_client_version='5.2.0',model=None)
     # db.session.delete(matrix)
     # db.session.commit()
 
