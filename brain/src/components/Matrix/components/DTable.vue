@@ -234,7 +234,7 @@ export default {
       });
     },
     _other_filter(ele){
-      return this.cateList.indexOf(ele.category) > this.otherIndex
+      return (this.cateList.indexOf(ele.category) > this.otherIndex) || ele.category === 'Other Devices'
     },
     _filter(items, filter, otherIndex) {
       if (this.filter === "all") return items;

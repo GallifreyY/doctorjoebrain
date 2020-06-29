@@ -1,402 +1,481 @@
 {
   "code": 20022,
   "data": {
-    "client": {
-      "OSname": "Windows 10",
-      "OSver": "1909",
-      "clientver": "5.4.2.11170",
-      "USBArbitrator": "Stopped",
-      "usbdisk": [
-        {
-          "VID": "090C",
-          "PID": "1000",
-          "manufacturer": "Compatible USB storage device",
-          "name": "USB Mass Storage Device",
-          "vendor": "Samsung",
-          "product": "Flash_Drive",
-          "driverprovider": "Microsoft",
-          "driverver": "10.0.18362.1",
-          "isRebootNeeded": false,
-          "isPresent": true,
-          "hasProblem": false
-        }
-      ],
-      "PrinterService": "Running",
-      "printers": [
-        {
-          "Name": "VMware Global Print",
-          "DriverName": {
-            "Name": "Xerox GPD PS V5.675.6.0",
-            "MajorVersion": 3,
-            "Manufacturer": "Xerox",
-            "DriverVersion": "5675.600.0.0"
-          },
-          "Default": true,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "VMware Global Print",
-          "Printerstatus": 3,
-          "Printerstate": 0
+  "client": {
+    "OSname": "Windows 10",
+    "OSver": "1909",
+    "clientver": "5.4.2.11170",
+    "USBArbitrator": "Running",
+    "usbdisk": [
+      {
+        "VID": "090C",
+        "PID": "1000",
+        "manufacturer": "Compatible USB storage device",
+        "name": "USB Mass Storage Device",
+        "vendor": "Samsung",
+        "product": "Flash_Drive",
+        "driverprovider": "Microsoft",
+        "driverver": "10.0.18362.1",
+        "isRebootNeeded": false,
+        "isPresent": true,
+        "hasProblem": false
+      }
+    ],
+    "PrinterService": "Running",
+    "printers": [
+      {
+        "Name": "Brother QL-720NW",
+        "DriverName": {
+          "Name": "Brother QL-720NW",
+          "MajorVersion": 3,
+          "Manufacturer": "Brother",
+          "DriverVersion": "6.5.0.7"
         },
-        {
-          "Name": "PDFCreator",
-          "DriverName": {
-            "Name": "PDFCreator",
-            "MajorVersion": 3,
-            "Manufacturer": null,
-            "DriverVersion": "0.0.0.0"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "PDFCreator",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        },
-        {
-          "Name": "OneNote (Desktop)",
-          "DriverName": {
-            "Name": "Send to Microsoft OneNote 16 Driver",
-            "MajorVersion": 4,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "16.0.7629.4000"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "OneNote (Desktop)",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        },
-        {
-          "Name": "Microsoft XPS Document Writer",
-          "DriverName": {
-            "Name": "Microsoft XPS Document Writer v4",
-            "MajorVersion": 4,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Microsoft XPS Document Writer",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        },
-        {
-          "Name": "Microsoft Print to PDF",
-          "DriverName": {
-            "Name": "Microsoft Print To PDF",
-            "MajorVersion": 4,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Microsoft Print to PDF",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        },
-        {
-          "Name": "Hewlett-Packard HP LaserJet P2055d",
-          "DriverName": {
-            "Name": "HP LaserJet P205X series PCL6 Class Driver",
-            "MajorVersion": 4,
-            "Manufacturer": "HP",
-            "DriverVersion": "10.0.17119.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Hewlett-Packard HP LaserJet P2055d",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        },
-        {
-          "Name": "Fax",
-          "DriverName": {
-            "Name": "Microsoft Shared Fax Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.752"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Fax",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        },
-        {
-          "Name": "ApeosPort-VI C3371_17West",
-          "DriverName": {
-            "Name": "Xerox Global Print Driver PS",
-            "MajorVersion": 3,
-            "Manufacturer": "Xerox",
-            "DriverVersion": "5675.600.0.0"
-          },
-          "Default": false,
-          "location": "http://10.112.115.183/ws/",
-          "Local": true,
-          "Network": false,
-          "DeviceID": "ApeosPort-VI C3371_17West",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        },
-        {
-          "VID": "04F9",
-          "PID": "2044",
-          "manufacturer": "Microsoft",
-          "name": "USB Printing Support",
-          "vendor": "BrotherQL-720NW",
-          "driverprovider": "Microsoft",
-          "driverver": "10.0.18362.1",
-          "isRebootNeeded": false,
-          "isPresent": true,
-          "hasProblem": false
-        }
-      ]
-    },
-    "agent": {
-      "OSname": "Windows 10",
-      "OSver": "1909",
-      "agentver": "7.12.0",
-      "clientDetails": null,
-      "Horizoncomp": {
-        "URLRedirection": 1,
-        "VmVideo": 1,
-        "VmwVdisplay": 1,
-        "VmwVidd": 1,
-        "ScannerRedirection": 1,
-        "SerialPortRedirection": 1,
-        "SmartCard": 1,
-        "TSMMR": 1,
-        "PrintRedir": 1,
-        "USB": 1,
-        "V4V": 1,
-        "VPA": 1,
-        "VmwVaudio": 1,
-        "DeviceBridgeBAS": 1,
-        "SdoSensor": 1,
-        "HelpDesk": 1,
-        "RDP": 1,
-        "BlastUDP": 1,
-        "Core": 1,
-        "VMWMediaProviderProxy": 1,
-        "ClientDriveRedirection": 1,
-        "RTAV": 1,
-        "FLASHMMR": 1,
-        "GEOREDIR": 1,
-        "PerfTracker": 1,
-        "SVIAgent": 0,
-        "NGVC": 0,
-        "ThinPrint": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Brother QL-720NW",
+        "Printerstatus": 3,
+        "Printerstate": 0
       },
-      "CDRservice": "Running",
-      "usbdisk": null,
-      "PrinterService": "Running",
-      "printers": [
-        {
-          "Name": "ApeosPort-VI C3371_17West (vdi)",
-          "DriverName": {
-            "Name": "VMware Universal EMF Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "VMware, Inc.",
-            "DriverVersion": "1.0.0.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "ApeosPort-VI C3371_17West (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+      {
+        "Name": "VMware Global Print",
+        "DriverName": {
+          "Name": "Xerox GPD PS V5.675.6.0",
+          "MajorVersion": 3,
+          "Manufacturer": "Xerox",
+          "DriverVersion": "5675.600.0.0"
         },
-        {
-          "Name": "Hewlett-Packard HP LaserJet P2055d (vdi)",
-          "DriverName": {
-            "Name": "VMware Universal EMF Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "VMware, Inc.",
-            "DriverVersion": "1.0.0.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Hewlett-Packard HP LaserJet P2055d (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": true,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "VMware Global Print",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "PDFCreator",
+        "DriverName": {
+          "Name": "PDFCreator",
+          "MajorVersion": 3,
+          "Manufacturer": null,
+          "DriverVersion": "0.0.0.0"
         },
-        {
-          "Name": "Fax (vdi)",
-          "DriverName": {
-            "Name": "Microsoft Shared Fax Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.752"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Fax (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "PDFCreator",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "OneNote (Desktop)",
+        "DriverName": {
+          "Name": "Send to Microsoft OneNote 16 Driver",
+          "MajorVersion": 4,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "16.0.7629.4000"
         },
-        {
-          "Name": "Microsoft Print to PDF (vdi)",
-          "DriverName": {
-            "Name": "VMware Universal EMF Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "VMware, Inc.",
-            "DriverVersion": "1.0.0.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Microsoft Print to PDF (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "OneNote (Desktop)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Microsoft XPS Document Writer",
+        "DriverName": {
+          "Name": "Microsoft XPS Document Writer v4",
+          "MajorVersion": 4,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.1"
         },
-        {
-          "Name": "Microsoft XPS Document Writer (vdi)",
-          "DriverName": {
-            "Name": "VMware Universal EMF Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "VMware, Inc.",
-            "DriverVersion": "1.0.0.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Microsoft XPS Document Writer (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Microsoft XPS Document Writer",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Microsoft Print to PDF",
+        "DriverName": {
+          "Name": "Microsoft Print To PDF",
+          "MajorVersion": 4,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.1"
         },
-        {
-          "Name": "OneNote (Desktop) (vdi)",
-          "DriverName": {
-            "Name": "VMware Universal EMF Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "VMware, Inc.",
-            "DriverVersion": "1.0.0.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "OneNote (Desktop) (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Microsoft Print to PDF",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Hewlett-Packard HP LaserJet P2055d",
+        "DriverName": {
+          "Name": "HP LaserJet P205X series PCL6 Class Driver",
+          "MajorVersion": 4,
+          "Manufacturer": "HP",
+          "DriverVersion": "10.0.17119.1"
         },
-        {
-          "Name": "PDFCreator (vdi)",
-          "DriverName": {
-            "Name": "VMware Universal EMF Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "VMware, Inc.",
-            "DriverVersion": "1.0.0.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "PDFCreator (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Hewlett-Packard HP LaserJet P2055d",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Fax",
+        "DriverName": {
+          "Name": "Microsoft Shared Fax Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.752"
         },
-        {
-          "Name": "VMware Global Print (vdi)",
-          "DriverName": {
-            "Name": "VMware Universal EMF Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "VMware, Inc.",
-            "DriverVersion": "1.0.0.1"
-          },
-          "Default": true,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "VMware Global Print (vdi)",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Fax",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "ApeosPort-VI C3371_17West",
+        "DriverName": {
+          "Name": "Xerox Global Print Driver PS",
+          "MajorVersion": 3,
+          "Manufacturer": "Xerox",
+          "DriverVersion": "5675.600.0.0"
         },
-        {
-          "Name": "OneNote for Windows 10",
-          "DriverName": {
-            "Name": "Microsoft Software Printer Driver",
-            "MajorVersion": 4,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.815"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "OneNote for Windows 10",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": "http://10.112.115.183/ws/",
+        "Local": true,
+        "Network": false,
+        "DeviceID": "ApeosPort-VI C3371_17West",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      }
+    ]
+  },
+  "agent": {
+    "OSname": "Windows 10",
+    "OSver": "1909",
+    "agentver": "7.12.0",
+    "clientDetails": {
+      "Broker_DNS_Name": "tc-b-818207541.tc.bj",
+      "Broker_DomainName": "TC",
+      "Broker_Farm_ID": "vdi-win10ent1909x64",
+      "Broker_Gateway_IP_Address": "10.117.28.123",
+      "Broker_GatewayHost": "tc-b-818207541.tc.bj",
+      "Broker_GatewayLocation": "Internal",
+      "Broker_GatewayType": "SG-cohosted",
+      "Broker_Remote_IP_Address": "10.117.181.16",
+      "Broker_Tunneled": "false",
+      "Broker_URL": "https://tc-b-818207541.tc.bj:443",
+      "Broker_UserName": "joez1",
+      "Client_ID": "AgAAAERFTExNABA2gDa3wE9WUDI",
+      "Client_Version": "5.4.2-15936851",
+      "Device_UUID": "02-50-41-00-00-01",
+      "Displays.Number": "1",
+      "Displays.SystemDpi": "120",
+      "Displays.Topology": "{1920,1080,0,0,32,1}",
+      "Displays.TopologyV2": "{1920,1080,0,0,32,1,120}",
+      "IP_Address": "10.117.181.16",
+      "Keyboard.KeyDelayToRepeat": "1",
+      "Keyboard.KeyRepeatRate": "31",
+      "Keyboard.Language": "2052",
+      "Keyboard.Layout": "00000804",
+      "Keyboard.NumFuncKeys": "12",
+      "Keyboard.NumIndicators": "3",
+      "Keyboard.NumKeys": "101",
+      "Keyboard.ScanCodeMode": "1",
+      "Keyboard.SubType": "0",
+      "Keyboard.Type": "4",
+      "Language": "zh-CN",
+      "Launch_ID": "vdi-win10ent1909x64",
+      "Launch_SessionType": "DESKTOP",
+      "LoggedOn_Domainname": "VMWAREM",
+      "LoggedOn_FQDN": "vmware.com",
+      "LoggedOn_Username": "joez",
+      "MAC_Address": "02-50-41-00-00-01",
+      "Machine_DistinguishedName": "CN=JOEZ-W01,OU=Generic,OU=Workstations,OU=Corp,OU=Common,DC=vmware,DC=com",
+      "Machine_Domain": "VMWAREM",
+      "Machine_FQDN": "vmware.com",
+      "Machine_Name": "joez-w01",
+      "Mouse.Identifier": "256",
+      "Mouse.NumButtons": "3",
+      "Protocol": "BLAST",
+      "Type": "Windows",
+      "TZID": "KAST",
+      "Windows_Timezone": "China Standard Time"
+    },
+    "Horizoncomp": {
+      "URLRedirection": 1,
+      "VmVideo": 1,
+      "VmwVdisplay": 1,
+      "VmwVidd": 1,
+      "ScannerRedirection": 1,
+      "SerialPortRedirection": 1,
+      "SmartCard": 1,
+      "TSMMR": 1,
+      "PrintRedir": 1,
+      "USB": 1,
+      "V4V": 1,
+      "VPA": 1,
+      "VmwVaudio": 1,
+      "DeviceBridgeBAS": 1,
+      "SdoSensor": 1,
+      "HelpDesk": 1,
+      "RDP": 1,
+      "BlastUDP": 1,
+      "Core": 1,
+      "VMWMediaProviderProxy": 1,
+      "ClientDriveRedirection": 1,
+      "RTAV": 1,
+      "FLASHMMR": 1,
+      "GEOREDIR": 1,
+      "PerfTracker": 1,
+      "SVIAgent": 0,
+      "NGVC": 0,
+      "ThinPrint": 0
+    },
+    "CDRservice": "Running",
+    "usbdisk": null,
+    "PrinterService": "Running",
+    "printers": [
+      {
+        "Name": "Brother QL-720NW (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
         },
-        {
-          "Name": "Microsoft XPS Document Writer",
-          "DriverName": {
-            "Name": "Microsoft XPS Document Writer v4",
-            "MajorVersion": 4,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Microsoft XPS Document Writer",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Brother QL-720NW (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "ApeosPort-VI C3371_17West (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
         },
-        {
-          "Name": "Microsoft Print to PDF",
-          "DriverName": {
-            "Name": "Microsoft Print To PDF",
-            "MajorVersion": 4,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.1"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Microsoft Print to PDF",
-          "Printerstatus": 3,
-          "Printerstate": 0
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "ApeosPort-VI C3371_17West (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Fax (vdi)",
+        "DriverName": {
+          "Name": "Microsoft Shared Fax Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.752"
         },
-        {
-          "Name": "Fax",
-          "DriverName": {
-            "Name": "Microsoft Shared Fax Driver",
-            "MajorVersion": 3,
-            "Manufacturer": "Microsoft",
-            "DriverVersion": "10.0.18362.752"
-          },
-          "Default": false,
-          "location": null,
-          "Local": true,
-          "Network": false,
-          "DeviceID": "Fax",
-          "Printerstatus": 3,
-          "Printerstate": 0
-        }
-      ]
-    }
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Fax (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Hewlett-Packard HP LaserJet P2055d (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Hewlett-Packard HP LaserJet P2055d (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Microsoft Print to PDF (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Microsoft Print to PDF (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Microsoft XPS Document Writer (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Microsoft XPS Document Writer (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "OneNote (Desktop) (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "OneNote (Desktop) (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "PDFCreator (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "PDFCreator (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "VMware Global Print (vdi)",
+        "DriverName": {
+          "Name": "VMware Universal EMF Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "VMware, Inc.",
+          "DriverVersion": "1.0.0.1"
+        },
+        "Default": true,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "VMware Global Print (vdi)",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "OneNote for Windows 10",
+        "DriverName": {
+          "Name": "Microsoft Software Printer Driver",
+          "MajorVersion": 4,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.815"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "OneNote for Windows 10",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Microsoft XPS Document Writer",
+        "DriverName": {
+          "Name": "Microsoft XPS Document Writer v4",
+          "MajorVersion": 4,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.1"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Microsoft XPS Document Writer",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Microsoft Print to PDF",
+        "DriverName": {
+          "Name": "Microsoft Print To PDF",
+          "MajorVersion": 4,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.1"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Microsoft Print to PDF",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "Name": "Fax",
+        "DriverName": {
+          "Name": "Microsoft Shared Fax Driver",
+          "MajorVersion": 3,
+          "Manufacturer": "Microsoft",
+          "DriverVersion": "10.0.18362.752"
+        },
+        "Default": false,
+        "location": null,
+        "Local": true,
+        "Network": false,
+        "DeviceID": "Fax",
+        "Printerstatus": 3,
+        "Printerstate": 0
+      },
+      {
+        "VID": "04F9",
+        "PID": "2044",
+        "manufacturer": "Microsoft",
+        "name": "USB Printing Support",
+        "vendor": "BrotherQL-720NW",
+        "driverprovider": "Microsoft",
+        "driverver": "10.0.18362.1",
+        "isRebootNeeded": false,
+        "isPresent": true,
+        "hasProblem": false
+      }
+    ]
   }
+}
 }

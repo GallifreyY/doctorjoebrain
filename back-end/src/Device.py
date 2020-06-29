@@ -19,7 +19,20 @@ class Device:
         self.raw_data = self._read_raw_data()
         self.details = self.find_details()
         self.is_usb_redirect = self._is_usb_redirect()
+        self.is_virtual_printer = self._is_virtual_printer()
         self.suspected_vendor = self._find_suspected_vendor()
+        self._parse()
+        #
+        # if self.type == 'printers' and self.find_redirection_in_agent() is not None:
+        #     print_r = self.find_redirection_in_agent()
+        #     self.vid, self.pid = print_r.get("VID", None), print_r.get("PID", None)
+        #     print(print_r)
+
+
+    def _parse(self):
+        # XXX: parse for some special situation
+        # 1. printers: vid& pid were redirected in agent end
+        
 
     def _read_raw_data(self):
         return util.read_data(self.uuid)
@@ -63,7 +76,7 @@ class Device:
         devices = self.raw_data[self.end][self.type]
         return devices[self.index] if len(devices) >= self.index else None
 
-    def is_virtual_printer(self):
+    def _is_virtual_printer(self):
         # todo:update
         return self.type == 'printers' and self.vid is None and self.pid is None and not self.is_usb_redirect
 
@@ -81,7 +94,7 @@ class Device:
         return None
 
     def _find_suspected_vendor(self):
-        if self.is_virtual_printer(): return None
+        if self._is_virtual_printer(): return None
         return self.name.split(' ')[0] or None
 
     def default_info(self):
@@ -103,7 +116,7 @@ class Device:
                 "isPresent": self.is_present,
                 "isRebootNeed": self.is_reboot_needed,
                 "isUsbRedirect": self.is_usb_redirect,
-                "isVirtualPrinter" : self.is_virtual_printer()
+                "isVirtualPrinter" : self.is_virtual_printer
             }
         }
         # todo:
@@ -117,7 +130,7 @@ class Device:
         #     default_info['picture'] = 'Brother-QL.png'
 
         # todo: add some photos for virtual printers
-        if self.is_virtual_printer():
+        if self.is_virtual_printer:
             default_info['details']['description'] = 'This device is a virtual printer'
             if re.search(r'VMware Global Print', self.name):
                 default_info['details']['picture'] = 'VMwareGlobalPrint.png'
