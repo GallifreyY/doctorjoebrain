@@ -21,7 +21,7 @@ class Device:
         self.is_usb_redirect = self._is_usb_redirect()
         self.is_virtual_printer = self._is_virtual_printer()
         self.suspected_vendor = self._find_suspected_vendor()
-        self._parse()
+        # self._parse()
         #
         # if self.type == 'printers' and self.find_redirection_in_agent() is not None:
         #     print_r = self.find_redirection_in_agent()
@@ -29,7 +29,7 @@ class Device:
         #     print(print_r)
 
 
-    def _parse(self):
+    #def _parse(self):
         # XXX: parse for some special situation
         # 1. printers: vid& pid were redirected in agent end
         

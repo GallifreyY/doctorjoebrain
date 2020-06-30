@@ -337,6 +337,5 @@ def matrix_edit_data():
 
 
 
-if __name__ == 'main':
-
+if __name__ == '__main__':
     app.run(debug=(ENV == 'DEV'))
