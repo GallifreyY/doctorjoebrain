@@ -1,0 +1,31 @@
+version: '3'
+services:
+    dj-flask:
+        build: ./flask
+        ports:
+            - "5000:5000"
+        restart: always
+        container_name: "dj-flask"
+        # networks:
+        #     main:
+        #         aliases: 
+        #             - flask-app
+    
+    dj-nginx:
+        build: ./nginx
+        ports:
+            - "8088:8088"
+        depends_on:
+            - dj-flask
+        links:
+            - dj-flask
+        restart: always
+        container_name: "dj-nginx"
+
+            
+# networks:
+#     main:
+
+
+    
+

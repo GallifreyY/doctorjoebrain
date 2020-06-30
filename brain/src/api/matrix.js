@@ -15,3 +15,28 @@ export function submitData(data){
         data
     })
 }
+
+export function deleteData(data){
+    return request({
+        url: '/matrix/deletedData',
+        method:'post',
+        data
+
+    })
+}
+
+export function editData(data){
+    return request({
+        url:'/matrix/editedData',
+        method:'post',
+        data
+    })
+
+}
+
+export function getCategoryInfo(){
+    return request({
+        url:'/matrix/categoryInfo',
+        method:'get'
+    })
+}

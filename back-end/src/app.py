@@ -12,10 +12,22 @@ from models import *
 from util import *
 from diagnosis import diagnosis
 import json
-import Config
 import re
 import copy
+import configparser
 
+# todo: read data from config file
+cf = configparser.ConfigParser()
+cf.read("./config.ini")
+cf.get('PROD','HTTPS_AD')
+ENV = cf.get('ENV','ENV')
+
+if ENV == 'PROD':
+    URL = 'https://'+ cf.get('PROD','HTTPS_AD') + ':' + cf.get('PROD','PORT') + '/#/diagnosis/'
+else:
+    URL = 'http://'+ cf.get('DEV','LOCAL') + ':'+cf.get('DEV','PORT') + '/#/diagnosis/'
+
+print(ENV,URL)
 
 CATE_MAP = {
     "Other Devices" : -1,
@@ -23,8 +35,23 @@ CATE_MAP = {
     "Printers": 1,
     "Scanners" : 2,
     "Cameras" : 3,
-    "Mics" : 4,
+    "USB Speech Mics" : 4,
+    "Smart Cards":5,
+    "Key Boards" : 6,
+    "Mouses" : 7,
+    "Signature Pads" : 8,
+    "PIN Pads" : 9,
+    "Credit Cards" : 10,
+    "Fingerprint Readers": 11,
+    "Barcode Scanners" :12,
+    "Serial Port Devices" :13
 }
+
+CATE_LIST = []
+for key in CATE_MAP:
+    if CATE_MAP[key] == -1: continue
+    CATE_LIST.insert(CATE_MAP[key],key)
+
 
 @app.route('/test',methods=['GET'])
 @cross_origin()
@@ -39,18 +66,23 @@ def add_to_log_file():
     state = 'failed'
     url = ''
 
+
     if not request.is_json:
+        # Fixme: please update a more strong method to pare String data from collector
         form = request.form.to_dict()
         for item in form.items():
-            collected_json = item[0].replace("\n", "").replace("\'", "\"")
-            collected_data = json.loads(collected_json)
+            collected_json = ''
+            for json_section in item:
+                json_section = json_section.replace("\n", "").replace("\'", "\"")
+                collected_json += json_section
+        collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
 
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        url = Config.GET_URL() + uuid
+        url = URL + uuid
 
     return {'code': code,
             'state': state,
@@ -107,12 +139,11 @@ def device_and_client_info():
     add_info_to_db(collected_data)
 
     devices_info = []
-    # todo walk all devices
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
 
-        # todo: query vendor
+        # query vendor
         if device.vid is not None:
             item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
                                                                                      Vendor.vendor_link,
@@ -127,7 +158,7 @@ def device_and_client_info():
         if not (device.vid is None or device.pid is None):
             # device_id = device.vid + '-' + device.pid
             item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(
-                and_(Device.vendor_id == device.vid, Device.product_id == device.pid)) \
+                and_(Device.vendor_id== device.vid, Device.product_id== device.pid)) \
                 .with_entities(Device.device_name,
                                Device.description,
                                Device.picture, Vendor.vendor_name,
@@ -185,37 +216,6 @@ def device_and_client_info():
     }
 
 
-######### api: diagnosis_info(deprecated)
-# @app.route('/diagnosis_info', methods=['GET'])
-# @cross_origin()
-# def diagnosis_info():
-#     uuid = request.args.get('id')
-#     index = int(request.args.get('index'))
-#     collected_data = read_data(uuid, 'user', 'json')
-#     if collected_data is None:
-#         return {'code': 20022, 'data': {}}
-#     devices = read_data(uuid, 'devices', 'pickle')
-#     # todo :find index
-#     device = devices[index]
-#     # todo: compatibility check
-#     check_res = check_compatibility(collected_data, device)
-#     # todo: diagnosis
-#     suggestions = diagnosis(collected_data, device)
-#
-#     # print(suggestions)
-#     # fake data
-#
-#     video = "PowerMic.mp4"
-#
-#     return {
-#         'code': 20022,
-#         'data': {
-#             'checkResult': check_res,
-#             'suggestions': suggestions,
-#             'referenceVideo': video
-#         }
-#     }
-
 
 ###########api：matrix
 @app.route('/matrix', methods=['GET'])
@@ -234,8 +234,19 @@ def matrix():
     matrix = to_json_join(matrix)
     return {
         'code': 20022,
-        'data': matrix
+        'data': matrix,
+        'cateList': CATE_LIST
     }
+
+
+@app.route('/matrix/categoryInfo', methods=['GET'])
+@cross_origin()
+def get_category_info():
+    return {
+        'code': 20022,
+        'data': CATE_LIST
+    }
+
 
 
 # reminder delete:
@@ -299,8 +310,33 @@ def matrix_new_data():
         'data': 'success'
     }
 
+@app.route('/matrix/deletedData', methods=['GET', 'POST'])
+@cross_origin()
+def matrix_delete_data():
+    Matrix.query.filter_by(**request.json).delete()
+    db.session.commit()
+    return {
+        'code': 20022,
+        'data': 'success'
+    }
 
-if __name__ == 'main':
-    env = Config.info().ENV
-    debug = True if env == 'dev' else False
-    app.run(debug=debug)
+@app.route('/matrix/editedData', methods=['GET','POST'])
+@cross_origin()
+def matrix_edit_data():
+    # print(request.json)
+    edit_item = Matrix.query.filter_by(**request.json['query']).first()
+    edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], request.json["Horizon_agent_version"]
+    db.session.commit()
+
+    return {
+        'code': 20022,
+        'data': 'success'
+    }
+
+
+
+
+
+if __name__ == '__main__':
+
+    app.run(debug=(ENV == 'DEV'))

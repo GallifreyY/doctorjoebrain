@@ -45,7 +45,7 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
   height:100vh;
-  border: 1px solid red;
+
   z-index:0;
 }
 .titles {

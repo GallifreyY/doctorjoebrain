@@ -8,11 +8,10 @@
 
 <script>
     import NavBar from "@/components/NavBar";
-    import DeviceTable from "@/components/DeviceTable"
     import Matrix from  "@/components/Matrix"
     export default {
         name: 'DeviceMatrix',
-        components:{NavBar,DeviceTable,Matrix},
+        components:{NavBar,Matrix},
         data() {
             return {
                 

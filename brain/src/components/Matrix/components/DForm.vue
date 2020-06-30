@@ -38,7 +38,7 @@
           <FormItem label="Category">
             <Select v-model="formItem.category">
               <Option
-                v-for="cate in ['USB Disks','Printers','Scanners','Cameras','Mics','Other Devices']"
+                v-for="cate in categoryList"
                 :key="cate"
                 :value="cate"
               >{{cate}}</Option>
@@ -120,6 +120,9 @@ export default {
     modalForm: {
       type: Boolean,
       default: false
+    },
+    categoryList:{
+      type: Array
     }
   },
   data() {
