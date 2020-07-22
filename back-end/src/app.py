@@ -15,48 +15,50 @@ import json
 import re
 import copy
 import configparser
+import password_access
 
 # todo: read data from config file
 cf = configparser.ConfigParser()
 cf.read("./config.ini")
-cf.get('PROD','HTTPS_AD')
-ENV = cf.get('ENV','ENV')
+cf.get('PROD', 'HTTPS_AD')
+ENV = cf.get('ENV', 'ENV')
 
 if ENV == 'PROD':
-    URL = 'https://'+ cf.get('PROD','HTTPS_AD') + ':' + cf.get('PROD','PORT') + '/#/diagnosis/'
+    URL = 'https://' + cf.get('PROD', 'HTTPS_AD') + ':' + cf.get('PROD', 'PORT') + '/#/diagnosis/'
 else:
-    URL = 'http://'+ cf.get('DEV','LOCAL') + ':'+cf.get('DEV','PORT') + '/#/diagnosis/'
+    URL = 'http://' + cf.get('DEV', 'LOCAL') + ':' + cf.get('DEV', 'PORT') + '/#/diagnosis/'
 
-print(ENV,URL)
+print(ENV, URL)
 
 CATE_MAP = {
-    "Other Devices" : -1,
+    "Other Devices": -1,
     "USB Disks": 0,
     "Printers": 1,
-    "Scanners" : 2,
-    "Cameras" : 3,
-    "USB Speech Mics" : 4,
-    "Smart Cards":5,
-    "Key Boards" : 6,
-    "Mouses" : 7,
-    "Signature Pads" : 8,
-    "PIN Pads" : 9,
-    "Credit Cards" : 10,
+    "Scanners": 2,
+    "Cameras": 3,
+    "USB Speech Mics": 4,
+    "Smart Cards": 5,
+    "Key Boards": 6,
+    "Mouses": 7,
+    "Signature Pads": 8,
+    "PIN Pads": 9,
+    "Credit Cards": 10,
     "Fingerprint Readers": 11,
-    "Barcode Scanners" :12,
-    "Serial Port Devices" :13
+    "Barcode Scanners": 12,
+    "Serial Port Devices": 13
 }
 
 CATE_LIST = []
 for key in CATE_MAP:
     if CATE_MAP[key] == -1: continue
-    CATE_LIST.insert(CATE_MAP[key],key)
+    CATE_LIST.insert(CATE_MAP[key], key)
 
 
-@app.route('/test',methods=['GET'])
+@app.route('/test', methods=['GET'])
 @cross_origin()
 def test():
     return 'Hello!'
+
 
 # protocols to collector
 @app.route('/protocols/data_collector', methods=['GET', 'POST'])
@@ -65,7 +67,6 @@ def add_to_log_file():
     code = 20022
     state = 'failed'
     url = ''
-
 
     if not request.is_json:
         # Fixme: please update a more strong method to pare String data from collector
@@ -158,7 +159,7 @@ def device_and_client_info():
         if not (device.vid is None or device.pid is None):
             # device_id = device.vid + '-' + device.pid
             item = Device.query.join(Vendor, Vendor.vendor_id == Device.vendor_id).filter(
-                and_(Device.vendor_id== device.vid, Device.product_id== device.pid)) \
+                and_(Device.vendor_id == device.vid, Device.product_id == device.pid)) \
                 .with_entities(Device.device_name,
                                Device.description,
                                Device.picture, Vendor.vendor_name,
@@ -216,7 +217,6 @@ def device_and_client_info():
     }
 
 
-
 ###########api：matrix
 @app.route('/matrix', methods=['GET'])
 @cross_origin()
@@ -248,7 +248,6 @@ def get_category_info():
     }
 
 
-
 # reminder delete:
 # >>> db.session.delete(me)
 # >>> db.session.commit()
@@ -261,12 +260,13 @@ def matrix_new_data():
 
     # todo: extract device info
     new_device = {'vendor_id': res['vid'], 'product_id': res['pid'], 'device_name': res['deviceName'],
-                  "category": CATE_MAP.get(res["category"],-1),
+                  "category": CATE_MAP.get(res["category"], -1),
                   "model": None if res["model"] is None or len(res["model"]) == 0 else res["model"]}
     query_res = Device.query.filter(
-        and_(Device.vendor_id == res["vid"], Device.product_id == res["pid"], Device.model == new_device["model"] )).all()
+        and_(Device.vendor_id == res["vid"], Device.product_id == res["pid"],
+             Device.model == new_device["model"])).all()
 
-    if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid'])!=0  :
+    if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid']) != 0:
         insert_item = Device(**new_device)
         db.session.add(insert_item)
         db.session.commit()
@@ -278,16 +278,15 @@ def matrix_new_data():
             continue
         new_matrix = {'vendor_id': res['vid'], 'product_id': res['pid'],
                       "model": None if res["model"] is None or len(res["model"]) == 0 else res["model"],
-                      "Horizon_client_version" : versions['client'],
+                      "Horizon_client_version": versions['client'],
                       "Horizon_agent_version": versions['agent'],
                       }
         query_res = Matrix.query.filter_by(**new_matrix).all()
-        if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid'])!=0:
+        if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid']) != 0:
             insert_item = Matrix(**new_matrix)
             db.session.add(insert_item)
             db.session.commit()
             print("Inserted to the DB - Matrix table : {}".format(new_matrix))
-
 
     # todo:spread items for driver DB
     for os in res["OS"]:
@@ -298,17 +297,17 @@ def matrix_new_data():
                       "os_name": os
                       }
         query_res = Driver.query.filter_by(**new_driver).all()
-        if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid'])!=0:
+        if len(query_res) == 0 and len(res['vid']) != 0 and len(res['pid']) != 0:
             insert_item = Driver(**new_driver)
             db.session.add(insert_item)
             db.session.commit()
             print("Inserted to the DB - Driver table : {}".format(new_driver))
 
-
     return {
         'code': 20022,
         'data': 'success'
     }
+
 
 @app.route('/matrix/deletedData', methods=['GET', 'POST'])
 @cross_origin()
@@ -320,12 +319,14 @@ def matrix_delete_data():
         'data': 'success'
     }
 
-@app.route('/matrix/editedData', methods=['GET','POST'])
+
+@app.route('/matrix/editedData', methods=['GET', 'POST'])
 @cross_origin()
 def matrix_edit_data():
     # print(request.json)
     edit_item = Matrix.query.filter_by(**request.json['query']).first()
-    edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], request.json["Horizon_agent_version"]
+    edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], \
+                                                                        request.json["Horizon_agent_version"]
     db.session.commit()
 
     return {
@@ -334,9 +335,30 @@ def matrix_edit_data():
     }
 
 
+@app.route('/reg', methods=['GET', 'POST'])
+@cross_origin()
+def password_modify():
+    response_object = {'status': 'success'}
+    if request.method == 'POST':
+        post_data = request.get_json()
+        password = post_data.get('password')
+        insert_password = password_access.insert_password("admin",password)
+        print(insert_password)
+        response_object['message'] = 'success!'
+    else:
+        response_object['message'] = 'none!'
+    return post_data
 
 
+@app.route('/result', methods=['GET'])
+@cross_origin()
+def trs_result():
+    response_object = {'status': 'success'}
+    sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
+    count, result, conn = password_access.find_mysql(sql_search)
+    conn.close()
+    response_object['message'] = count
+    return response_object
 
 if __name__ == '__main__':
-
     app.run(debug=(ENV == 'DEV'))
