@@ -17,7 +17,7 @@ Vue.use(ViewUI)
 
 import axios from 'axios'
 Vue.prototype.$axios = axios
-axios.defaults.baseURL = '/api'  //关键代码
+axios.defaults.baseURL = '/api'  //important!src/main.js
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -25,7 +25,6 @@
           callback(new Error('Please enter your password'));
         } else {
           if (this.formCustom.passwdCheck !== '') {
-            // 对第二个密码框单独验证
             this.$refs.formCustom.validateField('passwdCheck');
           }
           callback();

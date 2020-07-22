@@ -16,6 +16,7 @@ import re
 import copy
 import configparser
 import password_access
+import handleDB
 
 # todo: read data from config file
 cf = configparser.ConfigParser()
@@ -342,8 +343,7 @@ def password_modify():
     if request.method == 'POST':
         post_data = request.get_json()
         password = post_data.get('password')
-        insert_password = password_access.insert_password("admin",password)
-        print(insert_password)
+        password_access.insert_password("admin",password)
         response_object['message'] = 'success!'
     else:
         response_object['message'] = 'none!'
@@ -355,9 +355,9 @@ def password_modify():
 def trs_result():
     response_object = {'status': 'success'}
     sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
-    count, result, conn = password_access.find_mysql(sql_search)
-    conn.close()
+    count, result, conn = handleDB.find_mysql(sql_search)
     response_object['message'] = count
+    conn.close()
     return response_object
 
 if __name__ == '__main__':
