@@ -22,6 +22,8 @@
     <div style="justify-content:center;">
       <Button type="primary" shape="circle" @click="handleLogin">Log In</Button>
     </div>
+
+
   </div>
 </template>
 
@@ -52,7 +54,8 @@ export default {
           this.$router.push({ path: "/" });
         }
       });
-    }
+    },
+
   }
 };
 </script>

@@ -11,7 +11,7 @@ export default new Router({
       component: () => import('@/components/DownloadButton')
     },
     {
-      path: '/', 
+      path: '/',
       component: () => import('@/views/HomePage')
     },
 
@@ -26,8 +26,12 @@ export default new Router({
     {
       path: '/Log-in',
       component: () => import('@/views/Login')
-    }
-    
+    },
+    {
+      path: '/modify',
+      component: () => import('@/views/Modify')
+    },
+
   ]
 })
 
