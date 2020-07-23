@@ -7,7 +7,13 @@ export function login(data){
         data
     })
 }
-
+export function modifyPassword(data){
+    return request({
+        url:'/reg',
+        method:'post',
+        data
+    })
+}
 export function getInfo(token) {
     return request({
       url: '/user/info',
@@ -15,7 +21,7 @@ export function getInfo(token) {
       params: { token }
     })
   }
-  
+
 
 export function logout() {
     return request({
@@ -23,4 +29,4 @@ export function logout() {
       method: 'post'
     })
   }
-  
+

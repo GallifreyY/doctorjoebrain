@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:5000/',
+        target: 'http://127.0.0.1:5000/',
         changeOrigin: true,
         pathRewrite: { '^/api': '' },
         headers: {
@@ -52,7 +52,6 @@ module.exports = {
 
     cssSourceMap: true
   },
-
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),

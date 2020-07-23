@@ -7,6 +7,7 @@ sys.path.append('../data/user/')
 import os
 import datetime
 import json
+import password_access
 from collections import OrderedDict
 
 
@@ -23,7 +24,9 @@ def to_json_join(items):
 
 
 def validate(user_name, password):
-    if (user_name == 'admin' and password == 'ca$hc0w'):  # 暂时
+    flag = password_access.password_deposit("admin",password)
+    print(flag)
+    if flag:  # 暂时
         return True
     return False
 

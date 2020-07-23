@@ -2,8 +2,8 @@
     <div class = "log-in">
     <nav-bar></nav-bar>
         <login-box></login-box>
-        
-              
+
+
     </div>
 </template>
 
@@ -16,7 +16,7 @@ import RearBar from "@/components/RearBar";
         components:{LoginBox, NavBar,RearBar},
         data() {
             return {
-                
+
             }
         }
     }
@@ -27,7 +27,7 @@ import RearBar from "@/components/RearBar";
 
 .log-in{
     height: 100vh;
-    
+
     background: url(../../assets/background.jpeg);
     display: flex;
     align-items: center;
