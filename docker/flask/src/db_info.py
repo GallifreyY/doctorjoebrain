@@ -4,11 +4,11 @@
 # USERNAME = 'root'
 # PASSWORD = '04081350'
 
-HOSTNAME = '10.117.43.99'
+HOSTNAME = 'dj-mysql'
 PORT = '3306'
 DATABASE = 'doctorjoe'
-USERNAME = 'zwx'
-PASSWORD = '123456'
+USERNAME = 'root'
+PASSWORD = 'root'
 
 DB_URI =  'mysql+pymysql://{}:{}@{}:{}/{}' \
           '?charset=utf8mb4'.format(USERNAME,PASSWORD,HOSTNAME,PORT,DATABASE)

@@ -4,6 +4,8 @@ services:
         build: ./flask
         ports:
             - "5000:5000"
+        depends_on:
+            - dj-mysql
         restart: always
         container_name: "dj-flask"
         # networks:
@@ -22,7 +24,21 @@ services:
         restart: always
         container_name: "dj-nginx"
 
-            
+    dj-mysql:
+        build: ./mysql
+#        volumes:
+#            - ./mysql/sql/DoctorJoe.sql:/docker-entrypoint-initdb.d/1-schema.sql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: 'zmingyu'
+            MYSQL_PASS: '123456'
+            #初始化的数据库名称
+            MYSQL_DATABASE: doctorjoe
+        ports:
+            - "3306:3306"
+        restart: always
+        container_name: "dj-mysql"
+        command: mysqld --lower_case_table_names=1
 # networks:
 #     main:
 
