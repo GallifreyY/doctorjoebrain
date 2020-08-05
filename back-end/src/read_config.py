@@ -9,7 +9,7 @@ class ReadConfig:
             configpath = filepath
         else:
             root_dir = os.path.dirname(os.path.abspath('.'))
-            configpath = os.path.join(root_dir, "back-end","config.ini")
+            configpath = os.path.join(root_dir, "config.ini")
             print(configpath)
         self.cf = configparser.ConfigParser()
         self.cf.read(configpath)

@@ -347,7 +347,10 @@ def password_modify():
         response_object['message'] = 'success!'
     else:
         response_object['message'] = 'none!'
-    return post_data
+    return {
+        'code': 20022,
+        'data': 'success'
+    }
 
 
 @app.route('/result', methods=['GET'])
@@ -358,7 +361,10 @@ def trs_result():
     count, result, conn = handleDB.find_mysql(sql_search)
     response_object['message'] = count
     conn.close()
-    return response_object
+    return {
+        'code': 20022,
+        'data': response_object
+    }
 
 if __name__ == '__main__':
     app.run(debug=(ENV == 'DEV'))
