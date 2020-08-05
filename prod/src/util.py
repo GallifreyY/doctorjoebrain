@@ -26,7 +26,7 @@ def to_json_join(items):
 def validate(user_name, password):
     flag = password_access.password_deposit("admin",password)
     print(flag)
-    if flag:  # 暂时
+    if flag:
         return True
     return False
 

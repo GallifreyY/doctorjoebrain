@@ -31,7 +31,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .banner {
-  background-image: url(../../assets/background1.jpg);
+  background-image: url(../../assets/background.jpeg);
   height: 300px;
   background-size:100% 100%;
   opacity:1;

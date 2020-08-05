@@ -74,10 +74,8 @@ def add_to_log_file():
     url = ''
 
     if not request.is_json:
-        print("+++++++")
         # Fixme: please update a more strong method to pare String data from collector
         form = request.form.to_dict()
-        print("++++++++",form)
         for item in form.items():
             collected_json = ''
             for json_section in item:
@@ -86,12 +84,10 @@ def add_to_log_file():
                 print(collected_json)
         collected_data = json.loads(collected_json)
     else:
-        print("none!!!")
         collected_data = json.loads(request.json)
 
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
-        print("uuid::::",uuid)
         state = 'success'
         #url = URL + uuid
 
