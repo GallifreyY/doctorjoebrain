@@ -1,0 +1,111 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 94717 (0x171fd)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, ST=California, L=PA, O=VMware, OU=EUCBU, CN=EUCBU-CA/emailAddress=shariharan@vmware.com
+        Validity
+            Not Before: Jul 30 07:08:28 2020 GMT
+            Not After : Jul 29 07:08:28 2025 GMT
+        Subject: C=US, ST=California, O=VMware, OU=EUCBU, CN=djintelligence.eng.vmware.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:dd:f2:54:c1:84:0f:84:4a:7d:b8:6a:24:00:a1:
+                    bb:b1:dc:9b:27:de:a2:a3:07:2b:9c:d0:cd:e3:1a:
+                    24:25:1d:f4:cc:53:0e:e2:ea:b1:bb:33:10:52:ce:
+                    48:43:9e:ed:16:9f:68:7d:ee:24:fc:73:05:d8:5c:
+                    95:1d:79:d7:14:e0:b6:39:a8:c2:5d:e7:de:b3:a3:
+                    9b:16:f6:98:84:ce:ff:8a:19:2c:73:14:3c:d9:5c:
+                    6f:16:c9:56:11:69:70:74:ef:7c:6e:87:8a:37:b4:
+                    8d:b2:a9:80:eb:b4:51:d2:b7:b0:dd:62:94:95:96:
+                    7f:f6:90:3e:59:10:d8:1a:70:f3:fe:83:9b:a9:35:
+                    59:68:61:da:0d:37:b4:63:9c:6d:e5:84:cb:28:8f:
+                    56:83:5c:6e:9e:48:43:24:39:c3:c8:34:72:c3:1e:
+                    4e:67:88:18:50:6e:fa:17:b0:70:10:05:6f:93:89:
+                    a5:e9:78:21:b5:44:7c:16:c0:86:0e:3a:fa:de:91:
+                    6b:5b:3c:90:7e:17:7f:09:49:dc:f5:68:6b:48:25:
+                    20:1b:28:37:82:d5:45:b0:51:dd:a7:32:42:a3:49:
+                    4d:93:7b:20:65:da:89:81:ae:55:c2:1b:28:44:9e:
+                    98:47:6c:3e:86:46:6e:36:4b:e5:94:0e:53:5a:88:
+                    0b:b3
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Non Repudiation, Key Encipherment
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier: 
+                FF:F7:5B:FB:02:BD:F7:6C:F9:4D:81:34:6F:8C:E7:A1:EA:52:A7:0E
+            X509v3 Authority Key Identifier: 
+                keyid:F2:8B:BD:8D:75:72:04:09:F2:64:70:27:A1:3E:05:B4:72:83:A6:76
+
+            X509v3 CRL Distribution Points: 
+
+                Full Name:
+                  URI:http://certgentool.eng.vmware.com/eDrive/CertificateGenerator/crl/crl.pem
+
+    Signature Algorithm: sha256WithRSAEncryption
+         3b:12:94:57:a5:f3:85:65:2d:bc:75:8f:f2:7d:2b:d3:00:e0:
+         7d:20:0a:56:b8:d9:c2:b7:7d:d9:a2:54:54:8b:53:a9:81:a0:
+         05:65:aa:2c:a4:a9:23:8c:c7:e5:de:76:5b:98:ef:ea:7a:69:
+         56:7c:82:b5:e1:46:30:d8:ee:0f:a9:e0:0e:22:ba:b0:54:fc:
+         96:c9:3e:c0:52:25:88:7e:fe:0e:31:f6:c2:50:f2:41:67:18:
+         27:07:8e:8a:8d:eb:41:72:77:37:f5:6e:24:0d:42:9c:d4:be:
+         29:97:d0:87:92:4c:84:bc:c7:ef:72:ff:28:ca:7f:f4:d5:71:
+         51:70:d6:0b:55:02:c4:63:c5:b8:c0:99:27:b8:6a:9d:9b:9b:
+         84:2b:24:35:9f:75:f2:09:a0:56:d4:a7:0d:e4:5f:14:77:69:
+         cf:ca:c9:62:f0:93:c5:fa:b2:ce:c3:41:ac:14:3a:ba:b3:a0:
+         1d:e9:21:e0:17:9d:8a:36:8c:c2:8e:33:14:20:36:09:72:33:
+         91:9b:99:f0:81:e4:7b:48:bc:12:48:40:f7:d2:53:8b:ac:d0:
+         72:45:d9:4a:1e:7e:5a:fd:78:6b:c4:97:32:67:e7:8b:66:56:
+         0b:db:79:78:63:be:7f:bd:8a:45:34:5a:d9:41:23:06:b1:b8:
+         b2:98:dc:83:c3:68:b1:15:2e:e8:19:85:4c:b2:fe:98:84:cc:
+         51:bc:5b:1b:46:83:6c:77:6d:ff:25:22:80:c3:85:2b:1e:ad:
+         60:45:cb:74:40:c2:16:f6:81:c8:c5:77:23:37:23:d4:c2:f6:
+         bd:fb:64:02:42:41:08:56:96:cd:3e:ba:c1:a6:23:dc:29:86:
+         8f:8e:0f:07:df:ff:5a:ad:59:a2:58:5f:ae:cd:3b:d3:9d:5a:
+         40:98:e4:58:fe:f5:ff:6a:fa:5d:ef:8c:04:c0:f7:66:e7:de:
+         29:1d:76:85:0b:a9:6a:46:04:4d:36:7e:05:a0:23:e5:4e:eb:
+         ec:ba:c2:46:a5:1f:0f:49:79:7a:9e:08:78:3e:1d:e5:ca:45:
+         22:24:3f:99:46:8d:ce:9b:c3:55:c9:26:12:0a:48:bc:3e:06:
+         5d:70:16:55:85:72:8c:2c:97:5e:93:df:e7:af:f9:81:6f:c2:
+         2a:db:4f:f2:47:46:d6:16:a2:90:ee:aa:12:13:ba:71:6c:f0:
+         dc:ac:75:65:96:86:c6:49:5a:1b:46:25:74:e7:57:4c:19:24:
+         1c:07:21:91:2a:d4:16:ec:d7:c5:36:e8:55:32:a9:a0:23:03:
+         13:b8:a5:94:12:6d:93:79:72:ff:f2:fd:26:9a:c9:a4:8a:26:
+         dc:43:d7:7a:29:98:d3:6b
+-----BEGIN CERTIFICATE-----
+MIIFWDCCA0CgAwIBAgIDAXH9MA0GCSqGSIb3DQEBCwUAMIGJMQswCQYDVQQGEwJV
+UzETMBEGA1UECAwKQ2FsaWZvcm5pYTELMAkGA1UEBwwCUEExDzANBgNVBAoMBlZN
+d2FyZTEOMAwGA1UECwwFRVVDQlUxETAPBgNVBAMMCEVVQ0JVLUNBMSQwIgYJKoZI
+hvcNAQkBFhVzaGFyaWhhcmFuQHZtd2FyZS5jb20wHhcNMjAwNzMwMDcwODI4WhcN
+MjUwNzI5MDcwODI4WjBrMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5p
+YTEPMA0GA1UECgwGVk13YXJlMQ4wDAYDVQQLDAVFVUNCVTEmMCQGA1UEAwwdZGpp
+bnRlbGxpZ2VuY2UuZW5nLnZtd2FyZS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IB
+DwAwggEKAoIBAQDd8lTBhA+ESn24aiQAobux3Jsn3qKjByuc0M3jGiQlHfTMUw7i
+6rG7MxBSzkhDnu0Wn2h97iT8cwXYXJUdedcU4LY5qMJd596zo5sW9piEzv+KGSxz
+FDzZXG8WyVYRaXB073xuh4o3tI2yqYDrtFHSt7DdYpSVln/2kD5ZENgacPP+g5up
+NVloYdoNN7RjnG3lhMsoj1aDXG6eSEMkOcPINHLDHk5niBhQbvoXsHAQBW+TiaXp
+eCG1RHwWwIYOOvrekWtbPJB+F38JSdz1aGtIJSAbKDeC1UWwUd2nMkKjSU2TeyBl
+2omBrlXCGyhEnphHbD6GRm42S+WUDlNaiAuzAgMBAAGjgeUwgeIwCQYDVR0TBAIw
+ADALBgNVHQ8EBAMCBeAwLAYJYIZIAYb4QgENBB8WHU9wZW5TU0wgR2VuZXJhdGVk
+IENlcnRpZmljYXRlMB0GA1UdDgQWBBT/91v7Ar33bPlNgTRvjOeh6lKnDjAfBgNV
+HSMEGDAWgBTyi72NdXIECfJkcCehPgW0coOmdjBaBgNVHR8EUzBRME+gTaBLhklo
+dHRwOi8vY2VydGdlbnRvb2wuZW5nLnZtd2FyZS5jb20vZURyaXZlL0NlcnRpZmlj
+YXRlR2VuZXJhdG9yL2NybC9jcmwucGVtMA0GCSqGSIb3DQEBCwUAA4ICAQA7EpRX
+pfOFZS28dY/yfSvTAOB9IApWuNnCt33ZolRUi1OpgaAFZaospKkjjMfl3nZbmO/q
+emlWfIK14UYw2O4PqeAOIrqwVPyWyT7AUiWIfv4OMfbCUPJBZxgnB46KjetBcnc3
+9W4kDUKc1L4pl9CHkkyEvMfvcv8oyn/01XFRcNYLVQLEY8W4wJknuGqdm5uEKyQ1
+n3XyCaBW1KcN5F8Ud2nPysli8JPF+rLOw0GsFDq6s6Ad6SHgF52KNozCjjMUIDYJ
+cjORm5nwgeR7SLwSSED30lOLrNByRdlKHn5a/XhrxJcyZ+eLZlYL23l4Y75/vYpF
+NFrZQSMGsbiymNyDw2ixFS7oGYVMsv6YhMxRvFsbRoNsd23/JSKAw4UrHq1gRct0
+QMIW9oHIxXcjNyPUwva9+2QCQkEIVpbNPrrBpiPcKYaPjg8H3/9arVmiWF+uzTvT
+nVpAmORY/vX/avpd74wEwPdm594pHXaFC6lqRgRNNn4FoCPlTuvsusJGpR8PSXl6
+ngh4Ph3lykUiJD+ZRo3Om8NVySYSCki8PgZdcBZVhXKMLJdek9/nr/mBb8Iq20/y
+R0bWFqKQ7qoSE7pxbPDcrHVllobGSVobRiV051dMGSQcByGRKtQW7NfFNuhVMqmg
+IwMTuKWUEm2TeXL/8v0mmsmkiibcQ9d6KZjTaw==
+-----END CERTIFICATE-----

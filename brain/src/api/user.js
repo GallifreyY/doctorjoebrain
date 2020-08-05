@@ -14,6 +14,13 @@ export function modifyPassword(data){
         data
     })
 }
+export function trsPassword(data){
+    return request({
+        url:'/result',
+        method:'get',
+        data
+    })
+}
 export function getInfo(token) {
     return request({
       url: '/user/info',
