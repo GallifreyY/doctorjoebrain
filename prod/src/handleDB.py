@@ -5,12 +5,12 @@ import pymysql
 def conn_mysql():
     data = ReadConfig()
     config = {
-        'host': data.get_db("host"),
-        'port': int(data.get_db("port")),
-        'user': data.get_db("user"),
-        'password': data.get_db("password"),
-        'database': data.get_db("database"),
-        'charset': data.get_db("charset"),
+        'host': data.get_db("HOSTNAME"),
+        'port': int(data.get_db("PORT")),
+        'user': data.get_db("USERNAME"),
+        'password': data.get_db("PASSWORD"),
+        'database': data.get_db("DATABASE"),
+        'charset': data.get_db("CHARSET"),
         'cursorclass': pymysql.cursors.Cursor,
     }
     conn = pymysql.connect(**config)
