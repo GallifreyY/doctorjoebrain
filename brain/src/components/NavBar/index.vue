@@ -9,7 +9,7 @@
         </div>
       </Col>
       <Col span="16">
-        <div class="link-bar" >
+        <div class="link-bar">
           <router-link to="/" class="link">
             <Icon type="ios-home" color="white" size="20"/>
             <p>Home</p>
@@ -24,7 +24,7 @@
           </router-link>
           <div v-if="token == 'false'" @click="handleLogin" class="link">
             <Icon type="md-log-in" color="white" size="20"/>
-            <p>Log in</p>
+            <p>admin Login</p>
           </div>
           <div v-else @click="personal=true" class="link">
             <Icon type="md-contact" color="white" size="20"/>
@@ -62,6 +62,7 @@
 <script>
   import {mapGetters} from "vuex";
   import axios from "axios";
+  import {trsPassword} from "@/api/user";
 
   export default {
     name: "NavBar",
@@ -94,20 +95,20 @@
 
         })
       },
+
       handleLogin() {
-        axios.get('/result')
-          .then( (response)=> {
-            console.log(response.data['message']);
+        trsPassword()
+          .then(response => {
             var result = response.data['message']
-            if (result>0){
+            if (result > 0) {
               this.$router.replace("/Log-in")
-            }
-            else{
+            } else {
               this.$router.replace("/modify")
             }
           })
-          .catch((error)=>{
+          .catch(error => {
             console.log(error);
+            this.$Message.error("Sorry, there's something wrong with this this page");
           });
       }
 
@@ -124,13 +125,12 @@
   }
 
   .nav-bar {
-    padding: 0px 10px;
     background-image: url(../../assets/background.jpeg);
     background-size: 100%;
     background-repeat: no-repeat;
     border-bottom: 2px solid rgb(200, 241, 241);
     position: fixed;
-    width: 100%;
+    width: 97.6%;
     z-index: 30;
     top: 0;
     /* height:50px; */
