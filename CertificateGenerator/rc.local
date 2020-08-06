@@ -1,0 +1,78 @@
+#!/bin/bash -x
+# William Lam
+# www.virtuallyghetto.com
+# Sample Network Customization script for VMware PhotonOS
+
+if [ -e /root/ran_customization ]; then
+    exit
+else
+    NETWORK_CONFIG_FILE=$(ls /etc/systemd/network | grep .network)
+
+    HOSTNAME_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.hostname")
+    IP_ADDRESS_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.ipaddress")
+    NETMASK_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.netmask")
+    GATEWAY_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.gateway")
+    DNS_SERVER_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.dns")
+    DNS_DOMAIN_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.domain")
+	
+	HOSTNAME=$(echo "${HOSTNAME_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
+    IP_ADDRESS=$(echo "${IP_ADDRESS_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
+    NETMASK=$(echo "${NETMASK_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
+    GATEWAY=$(echo "${GATEWAY_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
+    DNS_SERVER=$(echo "${DNS_SERVER_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
+    DNS_DOMAIN=$(echo "${DNS_DOMAIN_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
+
+    ##################################
+    ### No User Input for HOSTNAME
+    ##################################
+    if [ -z "${HOSTNAME}" ]; then
+	    echo "No hostname is set by user. Use the default one with the OVA template."
+	else
+	    hostnamectl set-hostname ${HOSTNAME}
+    fi
+    
+    ##################################
+    ### No User Input for IP or NETMASK. Set DHCP
+    ##################################
+    if [ -z "${IP_ADDRESS}" ] || [ -z "${NETMASK}" ] || [ -z "${GATEWAY}"]; then
+        echo "No IP_ADDRESS or NETMASK or GATEWAY is set by user. Use DHCP for IP setting."
+        cat > /etc/systemd/network/${NETWORK_CONFIG_FILE} << __CUSTOMIZE_PHOTON__
+[Match]
+Name=e*
+[Network]
+DHCP=yes
+IPv6AcceptRA=no
+__CUSTOMIZE_PHOTON__
+    #########################
+    ### Static IP Address ###
+    #########################
+    else
+        cat > /etc/systemd/network/${NETWORK_CONFIG_FILE} << __CUSTOMIZE_PHOTON__
+[Match]
+Name=e*
+[Network]
+Address=${IP_ADDRESS}/${NETMASK}
+Gateway=${GATEWAY}
+DNS=${DNS_SERVER}
+Domain=${DNS_DOMAIN}
+__CUSTOMIZE_PHOTON__
+    fi
+	
+	#########################
+    ### Generate Crt ###
+    #########################
+	
+    openssl req -new -nodes -out /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.csr -keyout /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.key -days 1825 -config /home/doctorjoe/CertificateGenerator/configfiles/openssl-main.cfg -subj /C=US/ST=California/L=PA/O=VMware/OU=EUCBU/CN=${HOSTNAME}
+	openssl ca -passin pass:testpassword -batch -out /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.crt -days 1825 -config /home/doctorjoe/CertificateGenerator/configfiles/openssl-main.cfg -infiles /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.csr
+    
+    cp /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.crt /etc/nginx/
+    cp /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.key /etc/nginx/
+    sed -i "s#/etc/nginx/.*#/etc/nginx/${HOSTNAME}.crt#g" /etc/nginx/nginx.conf
+    sed -i "s#/etc/nginx/.*#/etc/nginx/${HOSTNAME}.key#g" /etc/nginx/nginx.conf
+    ##################################
+    ### Restart the networkd to apply the changes.
+    ##################################	
+    systemctl restart systemd-networkd
+    touch /root/ran_customization
+fi
+
