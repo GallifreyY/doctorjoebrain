@@ -57,7 +57,14 @@ DNS=${DNS_SERVER}
 Domain=${DNS_DOMAIN}
 __CUSTOMIZE_PHOTON__
     fi
-    
+	
+	#########################
+    ### Generate Crt ###
+    #########################
+	
+    cd /home/doctorjoe/CertificateGenerator/
+	. ./crtGen.sh
+	
     ##################################
     ### Restart the networkd to apply the changes.
     ##################################	
