@@ -14,9 +14,9 @@
   </Form>
 </template>
 <script>
-  import {modifyPassword} from "@/api/user";
   import qs from 'qs'
   import axios from 'axios';
+  import {modifyPassword} from "@/api/user";
 
   export default {
     data() {
@@ -56,16 +56,6 @@
       }
     },
     methods: {
-      trs_password(load) {
-        const path = 'http://localhost:5000/reg';
-        axios.post(path, load)
-          .then(() => {
-            console.log("success")
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
@@ -74,13 +64,14 @@
             const load = {
               password: this.formCustom.passwd,
             };
-            this.trs_password(load)
-            this.$http.post('/reg', data).then(res => {
-              console.log(res)
-            }, err => {
-              console.log(err)// error callback
-            });
-
+            modifyPassword(load)
+              .then(response => {
+               console.log(response)
+              })
+              .catch(error => {
+                console.log(error);
+                this.$Message.error("Sorry, there's something wrong with configuring the password");
+              });
           } else {
             this.$Message.error('Fail!');
           }

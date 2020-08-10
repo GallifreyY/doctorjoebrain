@@ -1,22 +1,12 @@
 <template>
   <div class="home-page">
     <nav-bar></nav-bar>
-    <div class="content">
-      <div class="titles">
-        <h1 class="title">Peripheral devices Cloud Doctor</h1>
-        <h2
-          class="subtitle"
-        >Test:Online self diagnosis for Peripheral devices usages in Horizon environment</h2>
-      </div>
-      <div class="home-icons">
-        <home-intro></home-intro>
-        <home-intro></home-intro>
-        <home-intro></home-intro>
-        <home-intro></home-intro>
-      </div>
-      <!-- <Button shape="circle" ghost size="large">Download</Button> -->
-      <download-button ></download-button>
-    </div>
+    <banner></banner>
+    <logo-contents></logo-contents>
+    <Divider style="height: 2px;margin-top: 100px;background-color:#DCDCDC"/>
+    <description-contents></description-contents>
+    <home-footer></home-footer>
+
   </div>
 </template>
 
@@ -24,13 +14,20 @@
 import NavBar from "@/components/NavBar";
 import HomeIntro from "@/components/HomeIntro";
 import DownloadButton from "@/components/DownloadButton"
-
+import Banner from "@/components/Banner"
+import LogoContents from "@/components/LogoContents"
+import DescriptionContents from "@/components/DescriptionContents"
+import HomeFooter from "@/components/HomeFooter"
 export default {
   name: "HomePage",
   components: {
     NavBar,
     HomeIntro,
-    DownloadButton
+    DownloadButton,
+    Banner,
+    LogoContents,
+    DescriptionContents,
+    HomeFooter
   },
   data() {
     return {};
@@ -41,41 +38,13 @@ export default {
 <style scoped>
 
 .home-page {
-  background-image: url(../../assets/background.jpeg);
+  /*background-image: url(../../assets/background.jpeg);*/
+  background-color:#F5F5F5;
   background-size: 100%;
   background-repeat: no-repeat;
-  height:100vh;
-
+  /*height:100vh;*/
+  margin: 15px;
   z-index:0;
 }
-.titles {
-  color: white;
-  text-align: center;
-  padding-bottom: 5rem;
-  padding-top: 9rem;
-}
 
-.title {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.125;
-  margin-bottom: 1.5rem;
-}
-.subtitle {
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.25;
-}
-.home-icons{
-    /* padding:50%; */
-  /* border: 2px solid white; */
-  width: 80vw;
-  /* height:30vh; */
-  margin : auto;
-  margin-top:0vh;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
 </style>
