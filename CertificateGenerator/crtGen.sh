@@ -3,14 +3,6 @@
 #webCrtGen
 HOSTNAME_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.hostname")
 HOSTNAME=$(echo "${HOSTNAME_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
-##################################
-### No User Input for HOSTNAME
-##################################
-if [ -z "${HOSTNAME}" ]; then
-	echo "No hostname is set by user. Use the default one with the OVA template."
-else
-	hostnamectl set-hostname ${HOSTNAME}
-fi
 
 ##################################
 ### Certificate Generator
