@@ -1,8 +1,6 @@
 
 #!/bin/sh
 #webCrtGen
-HOSTNAME_PROPERTY=$(vmtoolsd --cmd "info-get guestinfo.ovfEnv" | grep "guestinfo.hostname")
-HOSTNAME=$(echo "${HOSTNAME_PROPERTY}" | awk -F 'oe:value="' '{print $2}' | awk -F '"' '{print $1}')
 
 ##################################
 ### Certificate Generator
