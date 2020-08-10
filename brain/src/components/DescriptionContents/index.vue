@@ -55,13 +55,6 @@
     </Row>
           <Button class="dj-installer-button" :size="buttonSize" icon="ios-download-outline" type="primary"  @click="download_client">Download DJClient</Button>
         </TabPane>
-        <TabPane label="Uninstall" name="name3">
-               <div class="uninstall">
-                <h1 class="uninstall-title">Uninstall</h1><br /><br />
-                 <h4>Go   to   the   Uninstall   a   program   entry   in   Control   Panel.   Uninstall   theDoctorJoeClient and DoctorJoeAgent programs. </h4><br />
-               <img class="uninstaller-pic" src="../../assets/uninstaller.png">
-               </div>
-        </TabPane>
     </Tabs>
     </div>
 </template>
@@ -122,15 +115,5 @@
   .guide{
     margin-top: 100px;
   }
-  .uninstaller-pic{
-    height: 200px;
-    width: 900px;
-  }
-  .uninstall{
-    text-align: center;
-  }
-  .uninstall-title{
-    margin-top: 60px;
-    margin-left: 10px;
-  }
+
 </style>
