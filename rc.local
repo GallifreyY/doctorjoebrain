@@ -62,13 +62,9 @@ __CUSTOMIZE_PHOTON__
     ### Generate Crt ###
     #########################
 	
-    openssl req -new -nodes -out /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.csr -keyout /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.key -days 1825 -config /home/doctorjoe/CertificateGenerator/configfiles/openssl-main.cfg -subj /C=US/ST=California/L=PA/O=VMware/OU=EUCBU/CN=${HOSTNAME}
-	openssl ca -passin pass:testpassword -batch -out /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.crt -days 1825 -config /home/doctorjoe/CertificateGenerator/configfiles/openssl-main.cfg -infiles /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.csr
-    
-    cp /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.crt /etc/nginx/
-    cp /home/doctorjoe/CertificateGenerator/newcerts/${HOSTNAME}.key /etc/nginx/
-    sed -i "s#djintelligence.eng.vmware.com#${HOSTNAME}#g" /etc/nginx/nginx.conf
-
+    cd /home/doctorjoe/CertificateGenerator/
+	. ./crtGen.sh
+	
     ##################################
     ### Restart the networkd to apply the changes.
     ##################################	
