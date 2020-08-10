@@ -6,7 +6,7 @@
         </Col>
         <Col span="12">
           <div class="description">
-          <h2>DoctorJoe 1.0: Device intelligence diagnosis service for VMware Horizon</h2><br /><br />
+          <h2>DoctorJoe 1.0.1: Device intelligence diagnosis service for VMware Horizon</h2><br /><br />
           <h5>DoctorJoe is a self diagnosis system for peripheral devices usages in Horizon environment. DoctorJoe is flexible: configure and arrange the user interface to support a wide range of peripheral devices.</h5>
         </div>
         </Col>
@@ -18,18 +18,23 @@
         <Col span="12">
           <div class="guide">
           <h1>DJAgent Installer Guide</h1><br />
-          <h4>This is the application to be installed on your Horizon agent machine. There are 3 options in the installer setup page – Typical/Custom/Complete. To make full use of the installer capabilities, we suggest you launch the installer with administrator privilege.</h4><br />
+            <h4>DoctorJoeAgent.msi is the installer to be run on your Horizon agent machine. There are 3 options in the installer setup page – Typical/Custom/Complete. Tomake full use of the installer capabilities, we suggest you launch the installerwith administrator privilege.</h4>
             <h4><strong>1.</strong>&nbsp;&nbsp;&nbsp;&nbsp;If you launch the installer with administrator privilege, choose either Typical or Complete option. Both are ok. The components selection page will be skipped. The Filecopy and Autolaunch components will be installed by default. Change the installation directory if you want. By default, it is C:\DoctorJoeAgent\ directory.</h4><br />
-            <h4><strong>2.</strong>&nbsp;&nbsp;&nbsp;&nbsp;If you launch the installer with ordinary user privilege, choose the Custom option. There are two components in the custom setup page – Filecopy and Autolaunch. Deselect the Autolaunch component. Click the Filecopy component, if you want to change the installation directory. By default, it is C:\DoctorJoeAgent\ directory. If you deselect the Autolaunch component, you need to manually click to launch the DJAgent.exe under installation directory. </h4><br />
-            <h4><strong>3.</strong>&nbsp;&nbsp;&nbsp;&nbsp;Filecopy component will copy necessary files to the installation directory you choose.</h4><br />
-            <h4><strong>4.</strong>&nbsp;&nbsp;&nbsp;&nbsp;Autolaunch component will add some registry entries in HKLM path. These registries make DJAgent.exe launch automatically whenever you freshly login a Horizon desktop or app session.</h4><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <h4>The DoctorJoeAgent.exe will be auto launched after horizon client connects to a new remote desktop or app session.</h4><br />
+            <br /><br /><br /><br /><br /><br /><br />
+            <h4><strong>2.</strong>&nbsp;&nbsp;&nbsp;&nbsp;If you launch the installer with ordinary user privilege, choose the Custom option. There are two components in the custom setup page – Filecopy and Autolaunch. Deselect the Autolaunch component. Click the Filecopy component, if you want to change the installation directory. By default, it is C:\DoctorJoeAgent\ directory. </h4><br />
+            <h4>You   need   to   manually   click   the   DoctorJoeAgent.exe   under   installationdirectory to launch it after successful installation.</h4><br />
+            <h4><strong>*</strong>&nbsp;&nbsp;&nbsp;Filecopy feature will copy all necessary files to the installation directoryyou choose.</h4><br />
+            <br /><br /><br /><br /><br /><br />
+            <h4><strong>*</strong>&nbsp;&nbsp;&nbsp;&nbsp;Autolaunch   feature   will   add   registry   entries   in   HKLM   path.   Theseregistries   make   DoctorJoeAgent.exe   launch   automatically   wheneveryou freshly login a Horizon desktop or app session. The registries are –“HKLM\\Software\\VMware, Inc.\\VMware VDM\\UnityShell\\Run”“HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run”</h4><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             <h2>After the installation</h2><br />
-            <h4>Djagentconfig.ini under the installation folder contains the default web server address and port. Do not change them unless instructed by your administrator.</h4>
+            <h4>Djagentconfig.ini under the installation folder contains the default web server address and port. Do not change them unless instructed by your administrator. They should be configured to the real FQDN of the web OVAserver and web port listening on that server.</h4>
           </div>
         </Col>
               <Col span="12">
           <img class="dj-installer-pic" src="../../assets/dj-agent-installer1.png">
                 <img class="dj-installer-pic" src="../../assets/dj-agent-installer2.png">
+                <img class="dj-installer-pic" src="../../assets/dj-agent-installer4.png">
                 <img class="dj-installer-pic" src="../../assets/dj-agent-installer3.png">
         </Col>
     </Row>
@@ -40,8 +45,8 @@
         <Col span="12">
           <div class="guide">
           <h1>DJClient Installer Guide</h1><br /><br />
-          <h4>This is the installer to be run on your Horizon client machine.
-You can choose the installation directory for DJClient. By default, it is C:\DoctorJoeClient.</h4><br />
+          <h4>DoctorJoeClient.msi is the installer to be run on your Horizon client machine. It doesn’t require the administrator privilege to run.</h4><br />
+            <h4>You can choose the installation directory for DoctorJoeClient. By default, it isC:\DoctorJoeClient.</h4>
         </div>
         </Col>
               <Col span="12">
@@ -49,6 +54,13 @@ You can choose the installation directory for DJClient. By default, it is C:\Doc
         </Col>
     </Row>
           <Button class="dj-installer-button" :size="buttonSize" icon="ios-download-outline" type="primary"  @click="download_client">Download DJClient</Button>
+        </TabPane>
+        <TabPane label="Uninstall" name="name3">
+               <div class="uninstall">
+                <h1 class="uninstall-title">Uninstall</h1><br /><br />
+                 <h4>Go   to   the   Uninstall   a   program   entry   in   Control   Panel.   Uninstall   theDoctorJoeClient and DoctorJoeAgent programs. </h4><br />
+               <img class="uninstaller-pic" src="../../assets/uninstaller.png">
+               </div>
         </TabPane>
     </Tabs>
     </div>
@@ -109,5 +121,16 @@ You can choose the installation directory for DJClient. By default, it is C:\Doc
   }
   .guide{
     margin-top: 100px;
+  }
+  .uninstaller-pic{
+    height: 200px;
+    width: 900px;
+  }
+  .uninstall{
+    text-align: center;
+  }
+  .uninstall-title{
+    margin-top: 60px;
+    margin-left: 10px;
   }
 </style>

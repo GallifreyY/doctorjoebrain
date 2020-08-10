@@ -11,7 +11,7 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>Download</h1>
-                <h2>DJClient installer</h2>
+                <h2>DoctorJoeClient installer</h2>
                 <p>If you want more information of this product and the guide of installation,please scroll down and see details!</p>
               </div>
               </Col>
@@ -27,7 +27,7 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>Download</h1>
-                <h2>DJAgent installer</h2>
+                <h2>DoctorJoeAgent installer</h2>
                 <p>If you want more information of this product and the guide of installation,please scroll down and see details!</p>
               </div>
               </Col>

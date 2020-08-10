@@ -15,7 +15,7 @@
       <Input
         v-model="loginForm.password"
         type="password"
-        placeholder="Default:ca$hc0w"
+        placeholder="Default:changeme"
         style="width: 20vw"
       />
     </div>
