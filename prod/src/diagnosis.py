@@ -33,7 +33,16 @@ def diagnosis(collected_data, device):
     comp = components.get(device.type, None)
     if comp is not None:
         if isinstance(comp,list) :
-            if _judge_comp([collected_data['agent']['Horizoncomp'][_comp] for _comp in comp]):
+            comp_installed = False
+            for _comp in comp:
+                 if _comp in collected_data['agent']['Horizoncomp']:
+                    if collected_data['agent']['Horizoncomp'][_comp] == 1:
+                        comp_installed = True
+                        break
+                 else:
+                    s = "The {} component is not available in the Horizon agent product.".format(_comp)
+                    results.append(_add_refers(s,device.type,collected_data))
+            if comp_installed == False :
                 comp_string = " or ".join(comp)
                 s = "The {} component is not installed on the Horizon agent desktop. " \
                                "Please install it on your remote desktop".format(comp_string)
@@ -165,12 +174,6 @@ def _get_Horizon_agent_version(collected_data):
     version = collected_data['agent']['agentver']
     # todo: seconding version
     return '.'.join(version.split('.')[:-1])
-
-def _judge_comp(comp_list):
-    for comp in comp_list:
-        if comp == 1:
-            return False
-    return True
 
 # todo：test
 #
