@@ -6,7 +6,7 @@
         </Col>
         <Col span="12">
           <div class="description">
-          <h2>DoctorJoe 1.0.1: Device intelligence diagnosis service for VMware Horizon</h2><br /><br />
+          <h2>DoctorJoe: Device intelligence diagnosis service for VMware Horizon</h2><br /><br />
           <h5>DoctorJoe is a self diagnosis system for peripheral devices usages in Horizon environment. DoctorJoe is flexible: configure and arrange the user interface to support a wide range of peripheral devices.</h5>
         </div>
         </Col>
