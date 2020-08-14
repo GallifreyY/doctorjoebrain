@@ -3,7 +3,8 @@ import axios from 'axios'
 
 // create an axios instance
 const service = axios.create({
-    baseURL: '/api',
+    baseURL:'/api',
+    //baseURL: 'http://10.117.41.178:5000',
     //process.env.SERVER_URI + '/api',
     //'http://127.0.0.1:5000', //process.env.VUE_APP_BASE_API + request_url
     timeout: 5000
@@ -23,8 +24,8 @@ service.interceptors.response.use(
 
     },
     err => {
-        console.log('err' + error)
-        return Promise.reject(error)
+        console.log('err' + err)
+        return Promise.reject(err)
     }
 )
 export default service
