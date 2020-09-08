@@ -150,7 +150,9 @@ def get_client_info(collected_data):
 def get_agent_info(collected_data):
     if collected_data['agent'] is None:
         return None
-
+    if collected_data['agent']['OSver'] is None:
+        print("null")
+        collected_data['agent']['OSver']=" "
     return [
         {'key': "Agent OS", 'value': collected_data['agent']['OSname'] + ' ' + collected_data['agent']['OSver']},
         {'key': "Horizon Version(Agent)", 'value': collected_data['agent']['agentver']}

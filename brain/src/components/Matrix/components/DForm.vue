@@ -9,7 +9,7 @@
     @on-ok="handleSubmit"
   >
     <Divider orientation="left" size="small" style="padding:2% 0 2% 0;">Device Information</Divider>
-    <Form ref="formItem" :model="formItem" label-width="110" :rules="rulesV">
+    <Form ref="formItem" :model="formItem" label-width=110 :rules="rulesV">
       <Row>
         <Col span="8">
           <FormItem label="VID" prop="vid">
@@ -55,7 +55,7 @@
 
       <Row v-for="(item,index) in formItem.HorizonVersionsRes" v-if="item.status" :key="index">
         <Col span="8">
-          <FormItem :label="'Client Version' + item.index" label-width="150">
+          <FormItem :label="'Client Version' + item.index" label-width=150>
             <Select v-model="item.client">
               <Option
                 v-for="ver in HorizonVersionsList.client"
@@ -66,7 +66,7 @@
           </FormItem>
         </Col>
         <Col span="8">
-          <FormItem :label="'Agent Version' + item.index" label-width="150">
+          <FormItem :label="'Agent Version' + item.index" label-width=150>
             <Select v-model="item.agent">
               <Option
                 v-for="ver in HorizonVersionsList.agent"
@@ -80,7 +80,7 @@
           <Button type="error" ghost @click="handleRemove(index)">Delete</Button>
         </Col>
       </Row>
-      <FormItem label-width="150">
+      <FormItem label-width=150>
         <Row>
           <Col span="14">
             <Button type="dashed" long @click="handleAdd" icon="md-add">Add item</Button>

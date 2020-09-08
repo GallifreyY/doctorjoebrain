@@ -26,7 +26,7 @@ def to_json_join(items):
 def validate(user_name, password):
     flag = password_access.password_deposit("admin",password)
     print(flag)
-    if flag:  # 暂时
+    if flag:
         return True
     return False
 
@@ -90,13 +90,15 @@ def recognize_devices(collected_data, uuid):
 
 def save_data(data, file_name, dir='user', mode='json'):
     today = str(datetime.date.today())
-    path = './data/' + dir + '/' + today + '/'
+    root_dir = os.path.abspath('..')
+    path = os.path.join(root_dir, "prod", "data",dir,today)
+    #path = './data/' + dir + '/' + today + '/'
     if not os.path.exists(path):
         print(os.getcwd())
-        os.mkdir(path)
+        os.makedirs(path)
 
     file_mode = 'wb' if mode == 'pickle' else 'w'
-    with open(path + file_name + '.' + mode, file_mode) as f:
+    with open(path+'/'+file_name+'.'+mode, file_mode) as f:
         if mode == 'pickle':
             pickle.dump(data, f)
         elif mode == 'json':
@@ -106,14 +108,11 @@ def save_data(data, file_name, dir='user', mode='json'):
 
 
 def read_data(file_name, dir='user', mode='json'):
-    path = './data/' + dir + '/'
-
+    root_dir = os.path.abspath('..')
+    path = os.path.join(root_dir, "prod", "data", dir)
     file_mode = 'rb' if mode == 'pickle' else 'r'
-    for dir in os.listdir(path):
-        if os.path.isfile(dir):
-            continue
-        dir_path = os.path.join(path, dir)
-
+    for list_dir in os.listdir(path):
+        dir_path = os.path.join(path, list_dir)
         for file in os.listdir(dir_path):
             if str(file) == file_name + '.' + mode:
                 with open(os.path.join(dir_path, file), file_mode) as f:
@@ -151,7 +150,9 @@ def get_client_info(collected_data):
 def get_agent_info(collected_data):
     if collected_data['agent'] is None:
         return None
-
+    if collected_data['agent']['OSver'] is None:
+        print("null")
+        collected_data['agent']['OSver']=" "
     return [
         {'key': "Agent OS", 'value': collected_data['agent']['OSname'] + ' ' + collected_data['agent']['OSver']},
         {'key': "Horizon Version(Agent)", 'value': collected_data['agent']['agentver']}

@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <Sider id="sider">
+    <Sider id="sider" style="overflow:scroll">
       <Menu hide-trigger theme="light" width="auto" open-names="['1','2']">
         <Submenu name="1">
           <template slot="title">
@@ -28,7 +28,7 @@
       </Menu>
     </Sider>
     <div class="content">
-      <d-table :filter='filter' :otherIndex='5' ></d-table>  
+      <d-table :filter='filter' :otherIndex='13' ></d-table>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     return {
       filter:'all',
       categoryList : [],
-      otherIndex :5
+      otherIndex :13
     };
   },
   methods:{
@@ -54,6 +54,7 @@ export default {
   },
   created(){
     getCategoryInfo().then(response => {
+      console.log(response.data)
       this.categoryList = response.data.slice(0,this.otherIndex);
     }).catch(() => {
           this.$Message.error("Sorry, could not get Category Information..");
@@ -74,7 +75,7 @@ export default {
 }
 #sider {
   position: fixed;
-  height: 80vh;
+  height: 100vh;
   width: 35vw;
   left: 0;
   /* overflow: auto; */

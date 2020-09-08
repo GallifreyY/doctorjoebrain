@@ -8,25 +8,31 @@
     @on-ok="handleSubmit"
     :title="'Edit for the device: '+data.device_name"
   >
-    <Form ref="formItem" :model="formItem" label-width="60">
+    <Form ref="formItem" :model="formItem" label-width=60>
       <Row>
         <Col span="8">
           <FormItem label="VID">
-            <Input :placeholder="data.vendor_id" disabled />
+            <Input  v-model="data.vendor_id" disabled/>
           </FormItem>
         </Col>
         <Col span="8">
           <FormItem label="PID">
-            <Input :placeholder="data.product_id" disabled />
+            <Input v-model="data.product_id" disabled/>
           </FormItem>
         </Col>
         <Col span="8">
           <FormItem label="Model">
-            <Input :placeholder="data.model" disabled />
+            <Input v-model="data.model" disabled/>
           </FormItem>
         </Col>
       </Row>
-      <FormItem label="Horizon Client Version" label-width="170">
+          <FormItem label="Device Name" label-width=170>
+            <Input v-model="data.device_name"/>
+          </FormItem>
+          <FormItem label="Category" label-width=170>
+            <Input v-model="data.category"/>
+          </FormItem>
+      <FormItem label="Horizon Client Version" label-width=170>
         <Select
           v-model="formItem.Horizon_client_version"
           :placeholder="data.Horizon_client_version"
@@ -39,7 +45,7 @@
         </Select>
       </FormItem>
 
-      <FormItem label="Horizon Agent Version" label-width="170">
+      <FormItem label="Horizon Agent Version" label-width=170>
         <Select v-model="formItem.Horizon_agent_version" :placeholder="data.Horizon_agent_version">
           <Option
             v-for="ver in HorizonVersionsList.agent"
@@ -98,12 +104,15 @@ export default {
           product_id:this.data.product_id,
           model:this.data.model
         },
-    
+      this.formItem.edit ={
+          device_name:this.data.device_name,
+          category:this.data.category
+      }
       editData(this.formItem)
         .then(response => {
+          console.log(this.formItem)
           this.$Message.success("Successfully edited this item !");
           this.reload()
-          
         })
         .catch(error => {
           this.$Message.error("Sorry, could not edit this item");

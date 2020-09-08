@@ -329,10 +329,20 @@ def matrix_delete_data():
 @app.route('/matrix/editedData', methods=['GET', 'POST'])
 @cross_origin()
 def matrix_edit_data():
-    # print(request.json)
+    print(request.json)
     edit_item = Matrix.query.filter_by(**request.json['query']).first()
-    edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], \
+    db.session.query(Device).filter(Device.product_id == request.json["query"]["product_id"],
+                                    Device.vendor_id == request.json["query"]["vendor_id"],
+                                    Device.model == request.json["query"]["model"]).update(
+        {'device_name': request.json["edit"]["device_name"],
+         'category': CATE_MAP.get(request.json["edit"]["category"], -1)})
+    if request.json["Horizon_client_version"]!="":
+        edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], \
                                                                         request.json["Horizon_agent_version"]
+
+    # device_item.device_name = request.json["edit"]["device_name"]
+    # device_item.category = CATE_MAP.get(request.json["edit"]["category"], -1)
+
     db.session.commit()
 
     return {
@@ -348,13 +358,28 @@ def password_modify():
     if request.method == 'POST':
         post_data = request.get_json()
         password = post_data.get('password')
-        password_access.insert_password("admin",password)
-        response_object['message'] = 'success!'
+        oldpasswd = post_data.get('oldpasswd')
+        sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
+        count, result, conn = handleDB.find_mysql(sql_search)
+        if count==0:
+            password_access.insert_password("admin",password)
+            message = 1
+        else:
+            flag = password_access.password_deposit("admin", oldpasswd)
+            if flag:
+                repeat = password_access.password_deposit("admin", password)
+                if repeat:
+                    message = 2
+                else:
+                    password_access.modify_password(password)
+                    message = 1
+            else:
+                message = 0
     else:
         response_object['message'] = 'none!'
     return {
         'code': 20022,
-        'data': 'success'
+        'data': message
     }
 
 
@@ -364,6 +389,10 @@ def trs_result():
     response_object = {'status': 'success'}
     sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
     count, result, conn = handleDB.find_mysql(sql_search)
+    if count==1:
+        flag = password_access.password_deposit("admin", "changeme")
+        if flag:
+            count=0
     response_object['message'] = count
     conn.close()
     return {
