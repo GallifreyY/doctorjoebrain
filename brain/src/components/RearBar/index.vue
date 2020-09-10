@@ -1,7 +1,7 @@
 <template>
   <div class = "container">
       <Row justify="center">
-          <Tag color = "black">© 2019 VMware, Inc</Tag>
+          <Tag color = "black">© 2020 VMware, Inc</Tag>
            <Tag color = "primary">
                <Icon type="ios-mail" />
                <Icon type="md-cloudy" />

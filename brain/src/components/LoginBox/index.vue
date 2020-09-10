@@ -19,8 +19,9 @@
         style="width: 20vw"
       />
     </div>
-    <div style="justify-content:center;">
-      <Button type="primary" shape="circle" @click="handleLogin">Log In</Button>
+    <div>
+      <Button class="reset-button" type="primary" shape="circle" @click="resetpassword">Reset Password</Button>
+      <Button class="login-button" type="primary" shape="circle" @click="handleLogin">Log In</Button>
     </div>
 
 
@@ -55,6 +56,9 @@ export default {
         }
       });
     },
+    resetpassword(){
+      this.$router.replace("/modify")
+    }
 
   }
 };
@@ -82,4 +86,13 @@ span {
   justify-content: space-between;
   padding: 4% 3%;
 }
+  .reset-button{
+    width:150px;
+    background-color: #8F99A3;
+    color: #4d5669;
+    border-color: #8F99A3;
+  }
+  .login-button{
+    margin-left: 50px;
+  }
 </style>

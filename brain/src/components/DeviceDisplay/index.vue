@@ -7,8 +7,8 @@
           <Panel v-for="(tags,index) in sortedTag" :key = "index">
               <span><Badge :count="tags.length" class-name="badge"></Badge></span>
               <span style="margin:0 2%">{{parseTypeName(index)}}</span>
-              
-           
+
+
             <p slot="content">
               <span v-for="tag in tags">
                 <Tag size="default" type="border" :color="tag.tagStyle">
@@ -19,12 +19,12 @@
           </Panel>
         </Collapse> -->
         <!-- selector -->
-        <div class="title">Which device you want to diagnosis?</div>
+        <div class="title">Which device you want to diagnose?</div>
         <Cascader placeholder="Please select a device" :data="cascaderData" v-model="selectedData"></Cascader>
       </Card>
     </div>
   <device-card :deviceInfo="deviceInfo[index]" :index="index" :showDetails="true"></device-card>
-<!-- 
+<!--
     <Carousel v-model = "index" loop>
       <CarouselItem>
             <device-card :deviceInfo="deviceInfo[0]" :index="0" :showDetails="true"></device-card>
@@ -35,7 +35,7 @@
         <CarouselItem>
 <device-card :deviceInfo="deviceInfo[2]" :index="2" :showDetails="true"></device-card>
         </CarouselItem>
-       
+
     </Carousel> -->
 
 

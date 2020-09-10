@@ -2,7 +2,7 @@
     <div class="home-footer">
       <Row>
         <Col span="8">
-          <h1 class="des">DJIntelligence</h1>
+          <h1 class="des">Horizon Peripherals Intelligence</h1>
           <h3 class="info">About Us</h3>
           <h3 class="info">Visit Us</h3>
           <h3 class="info">Design Guide</h3>

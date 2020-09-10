@@ -1,5 +1,7 @@
+# -*- coding: UTF-8 -*-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
 from sqlalchemy import and_, or_
 from flask_cors import cross_origin
 from flask import request
@@ -20,7 +22,9 @@ import handleDB
 
 # todo: read data from config file
 cf = configparser.ConfigParser()
-cf.read("./config.ini")
+root_dir = os.path.abspath('..')
+configpath = os.path.join(root_dir, "prod", "config.ini")
+cf.read(configpath)
 cf.get('PROD', 'HTTPS_AD')
 ENV = cf.get('ENV', 'ENV')
 
@@ -77,6 +81,7 @@ def add_to_log_file():
             for json_section in item:
                 json_section = json_section.replace("\n", "").replace("\'", "\"")
                 collected_json += json_section
+                print(collected_json)
         collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
@@ -84,11 +89,11 @@ def add_to_log_file():
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        url = URL + uuid
+        # url = URL + uuid
 
     return {'code': code,
             'state': state,
-            'url': url
+            'uuid': uuid
             }
 
 
@@ -324,10 +329,20 @@ def matrix_delete_data():
 @app.route('/matrix/editedData', methods=['GET', 'POST'])
 @cross_origin()
 def matrix_edit_data():
-    # print(request.json)
+    print(request.json)
     edit_item = Matrix.query.filter_by(**request.json['query']).first()
-    edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], \
+    db.session.query(Device).filter(Device.product_id == request.json["query"]["product_id"],
+                                    Device.vendor_id == request.json["query"]["vendor_id"],
+                                    Device.model == request.json["query"]["model"]).update(
+        {'device_name': request.json["edit"]["device_name"],
+         'category': CATE_MAP.get(request.json["edit"]["category"], -1)})
+    if request.json["Horizon_client_version"]!="":
+        edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], \
                                                                         request.json["Horizon_agent_version"]
+
+    # device_item.device_name = request.json["edit"]["device_name"]
+    # device_item.category = CATE_MAP.get(request.json["edit"]["category"], -1)
+
     db.session.commit()
 
     return {
@@ -343,13 +358,28 @@ def password_modify():
     if request.method == 'POST':
         post_data = request.get_json()
         password = post_data.get('password')
-        password_access.insert_password("admin",password)
-        response_object['message'] = 'success!'
+        oldpasswd = post_data.get('oldpasswd')
+        sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
+        count, result, conn = handleDB.find_mysql(sql_search)
+        if count == 0:
+            password_access.insert_password("admin", password)
+            message = 1
+        else:
+            flag = password_access.password_deposit("admin", oldpasswd)
+            if flag:
+                repeat = password_access.password_deposit("admin", password)
+                if repeat:
+                    message = 2
+                else:
+                    password_access.modify_password(password)
+                    message = 1
+            else:
+                message = 0
     else:
         response_object['message'] = 'none!'
     return {
         'code': 20022,
-        'data': 'success'
+        'data': message
     }
 
 
@@ -359,12 +389,17 @@ def trs_result():
     response_object = {'status': 'success'}
     sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
     count, result, conn = handleDB.find_mysql(sql_search)
+    if count == 1:
+        flag = password_access.password_deposit("admin", "changeme")
+        if flag:
+            count = 0
     response_object['message'] = count
     conn.close()
     return {
         'code': 20022,
         'data': response_object
     }
+
 
 if __name__ == '__main__':
     app.run(debug=(ENV == 'DEV'))

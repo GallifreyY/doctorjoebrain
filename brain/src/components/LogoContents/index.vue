@@ -6,12 +6,12 @@
           <div class="djclient-install">
             <Button class="dj-client-button" @click="download_client">
               <Row>
-              <Col span="8"><img class="diagnose-logo" src="../../assets/diagnoselogo-c.jpg">
+              <Col span="8"><img class="diagnose-logo" src="../../assets/logo.png">
               </Col>
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>Download</h1>
-                <h2>DoctorJoeClient installer</h2>
+                <h2>HorizonPeripheralsClient installer</h2>
                 <p>If you want more information of this product and the guide of installation,please scroll down and see details!</p>
               </div>
               </Col>
@@ -22,12 +22,12 @@
         <Col span="12"><div class="djagent-install">
          <Button class="dj-agent-button"  @click="download_agent">
             <Row>
-              <Col span="8"><img class="diagnose-logo" src="../../assets/diagnoselogo-a.jpg">
+              <Col span="8"><img class="diagnose-logo" src="../../assets/logo.png">
               </Col>
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>Download</h1>
-                <h2>DoctorJoeAgent installer</h2>
+                <h2>HorizonPeripheralsAgent installer</h2>
                 <p>If you want more information of this product and the guide of installation,please scroll down and see details!</p>
               </div>
               </Col>
@@ -75,17 +75,17 @@
   width: 80px;
   height: 80px;
   margin-top: 20px;
-  margin-right: 20px;
+  margin-right: 50px;
 }
   .install-content{
-    width:1000px;
+    width:1100px;
     height:120px;
     margin:auto;
     margin-top: 20px;
 
   }
   .dj-agent-button{
-    width:450px;
+    width:500px;
     height: 170px;
     float: right;
     background-color: 	#E1FFFF;
@@ -93,7 +93,7 @@
     border-radius: 10px;
   }
     .dj-client-button{
-    width:450px;
+    width:500px;
     height: 170px;
       background-color: #FFFFF0;
     border: 2px solid 	#EEE8AA;
@@ -105,11 +105,12 @@
   p{
     white-space:normal;
     width:300px;
+    margin-left: 25px;
   }
   h2{
-    margin-left: 10px;
+    margin-left:5px;
   }
   .dj-install-des{
-    margin-left: -20px;
+    margin-left: -40px;
   }
 </style>
