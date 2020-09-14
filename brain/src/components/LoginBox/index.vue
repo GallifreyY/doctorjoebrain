@@ -52,7 +52,7 @@ export default {
           this.loginForm.password = ""
         } else {
           this.$Message.success("Successfully Log in");
-          this.$router.push({ path: "/" });
+          this.$router.push({ path: "/Device-Matrix" });
         }
       });
     },

@@ -31,7 +31,22 @@ export default new Router({
       path: '/modify',
       component: () => import('@/views/Modify')
     },
-
+    {
+      path: '/help',
+      component: () => import('@/views/Help')
+    },
+    {
+      path: '/step',
+      component: () => import('@/views/Step')
+    },
+    {
+      path: '/options',
+      component: () => import('@/views/Options')
+    },
+    {
+      path: '/tips',
+      component: () => import('@/views/Tips')
+    },
   ]
 })
 

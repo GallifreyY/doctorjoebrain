@@ -2,10 +2,11 @@
   <div class="home-page">
     <nav-bar></nav-bar>
     <banner></banner>
-    <logo-contents></logo-contents>
-    <Divider style="height: 2px;margin-top: 100px;background-color:#DCDCDC"/>
-    <description-contents></description-contents>
-    <home-footer></home-footer>
+     <description-contents></description-contents>
+    <logo-contents style="margin-top: 100px;padding-bottom: 20px"></logo-contents>
+<!--    <Divider style="height: 2px;margin-top: 100px;background-color:#DCDCDC"/>-->
+
+
 
   </div>
 </template>
@@ -17,7 +18,7 @@ import DownloadButton from "@/components/DownloadButton"
 import Banner from "@/components/Banner"
 import LogoContents from "@/components/LogoContents"
 import DescriptionContents from "@/components/DescriptionContents"
-import HomeFooter from "@/components/HomeFooter"
+
 export default {
   name: "HomePage",
   components: {
@@ -26,8 +27,7 @@ export default {
     DownloadButton,
     Banner,
     LogoContents,
-    DescriptionContents,
-    HomeFooter
+    DescriptionContents
   },
   data() {
     return {};
@@ -38,12 +38,13 @@ export default {
 <style scoped>
 
 .home-page {
-  /*background-image: url(../../assets/background.jpeg);*/
-  background-color:#F5F5F5;
+  background-image: url(../../assets/background.jpeg);
+  /*background-color:#F5F5F5;*/
   background-size: 100%;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   /*height:100vh;*/
-  margin: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
   z-index:0;
 }
 

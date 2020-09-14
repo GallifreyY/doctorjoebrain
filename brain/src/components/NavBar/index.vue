@@ -14,36 +14,10 @@
             <Icon type="ios-home" color="white" size="20"/>
             <p>Home</p>
           </router-link>
-          <router-link :to="reportLink" class="link">
-            <Icon type="md-podium" color="white" size="20"/>
-            <p>My report</p>
-          </router-link>
           <router-link to="/Device-Matrix" class="link">
             <Icon type="md-analytics" color="white" size="20"/>
             <p>Device Matrix</p>
           </router-link>
-          <div v-if="token == 'false'" @click="handleLogin" class="link">
-            <Icon type="md-log-in" color="white" size="20"/>
-            <p>admin Login</p>
-          </div>
-          <div v-else @click="personal=true" class="link">
-            <Icon type="md-contact" color="white" size="20"/>
-            <p>{{name}}</p>
-          </div>
-          <!-- personal info -->
-          <Modal v-model="personal" width="360">
-            <p slot="header" style="color:rgb(0, 174, 255);text-align:center">
-              <Icon type="ios-information-circle"></Icon>
-              <span>Your Information</span>
-            </p>
-            <div style="text-align:center">
-              <p>Username: {{name}}</p>
-              <p>Permission: {{roles}}</p>
-            </div>
-            <div slot="footer">
-              <Button type="error" size="large" long @click="handleLogout">Log out</Button>
-            </div>
-          </Modal>
 
           <a a href="https://www.vmware.com/cn.html" class="link">
             <Icon type="md-globe" color="white" size="20"/>
@@ -73,14 +47,6 @@
         //reportLink:""
 
       };
-    },
-    computed: {
-      ...mapGetters(["token", "name", "roles", "uuid"]),
-      reportLink: {
-        get: function () {
-          return '/diagnosis/' + this.uuid;
-        }
-      }
     },
     methods: {
       handleLogout() {
