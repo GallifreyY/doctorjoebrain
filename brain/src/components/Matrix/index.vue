@@ -14,20 +14,15 @@
         </Submenu>
         <Submenu name="2">
           <template slot="title">
-            <Icon type="md-checkbox" size="20" />Check
+            <Icon type="md-checkbox" size="20" />Filter
           </template>
           <MenuItem name="2-1">Horizon Versions</MenuItem>
           <MenuItem name="2-2">Device Drivers</MenuItem>
         </Submenu>
-        <MenuItem name="3">
-          <Icon type="md-create" size="20" />Edit
-        </MenuItem>
-        <MenuItem name="4">
-          <Icon type="md-contacts" size="20" />Contact us
-        </MenuItem>
+
       </Menu>
     </Sider>
-    <div class="content">
+    <div class="matrixcontent">
       <d-table :filter='filter' :otherIndex='13' ></d-table>
     </div>
   </div>
@@ -67,15 +62,16 @@ export default {
 <style lang="" scoped>
 
 
-.content {
-  margin-left: 15vw;
+.matrixcontent {
+  margin-left: 12vw;
   margin-top: 75px;
+  width: 1180px;
   /* border: 1px solid red; */
   height:100vh;
 }
 #sider {
   position: fixed;
-  height: 100vh;
+  height: 90vh;
   width: 35vw;
   left: 0;
   /* overflow: auto; */

@@ -12,8 +12,7 @@
                 <div class="dj-install-des">
                 <h1>Download</h1>
                 <h2>HorizonPeripheralsClient installer</h2>
-                <p>If you want more information of this product and the guide of installation,please scroll down and see details!</p>
-              </div>
+                </div>
               </Col>
             </Row>
             </Button>
@@ -28,8 +27,7 @@
                 <div class="dj-install-des">
                 <h1>Download</h1>
                 <h2>HorizonPeripheralsAgent installer</h2>
-                <p>If you want more information of this product and the guide of installation,please scroll down and see details!</p>
-              </div>
+               </div>
               </Col>
             </Row>
           </Button>
@@ -53,11 +51,11 @@
         },
      methods: {
       download_client(){
-            var url = 'https://'+window.location.host+'/download/DoctorJoe%20Client.msi';
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsClient.msi';
             window.open(url,'_blank');
           },
           download_agent(){
-            var url = 'https://'+window.location.host+'/download/DoctorJoe%20Agent.msi';
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent.rar';
             window.open(url,'_blank');
           }
      }
@@ -86,7 +84,7 @@
   }
   .dj-agent-button{
     width:500px;
-    height: 170px;
+    height: 130px;
     float: right;
     background-color: 	#E1FFFF;
     border: 2px solid 	#4682B4;
@@ -94,7 +92,7 @@
   }
     .dj-client-button{
     width:500px;
-    height: 170px;
+    height: 130px;
       background-color: #FFFFF0;
     border: 2px solid 	#EEE8AA;
     border-radius: 10px;
