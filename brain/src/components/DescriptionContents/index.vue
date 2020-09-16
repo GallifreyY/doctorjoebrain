@@ -6,8 +6,8 @@
         </Col>
         <Col span="12">
           <div class="description">
-          <h2 style="color: white;margin-top: -70px;width: 600px">Horizon Peripherals Intelligence : Device intelligence diagnosis service for VMware Horizon</h2><br /><br />
-          <h4 style="color: white;margin-top: 20px">Horizon Peripherals Intelligence is a self diagnosis system for peripheral devices usages in Horizon environment. Horizon Peripherals Intelligence is flexible: configure and arrange the user interface to support a wide range of peripheral devices.</h4>
+          <h2 style="color: white;margin-top: -70px;width: 600px">Horizon Peripherals Intelligence</h2><br /><br />
+          <h3 style="color: white;margin-top: 20px">Horizon Peripherals Intelligence is a self diagnosis system for peripheral devices usages in Horizon environment. Horizon Peripherals Intelligence is flexible: configure and arrange the user interface to support a wide range of peripheral devices.</h3>
         </div>
         </Col>
     </Row>

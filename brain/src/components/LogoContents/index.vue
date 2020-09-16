@@ -55,7 +55,7 @@
             window.open(url,'_blank');
           },
           download_agent(){
-            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent.rar';
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent.zip';
             window.open(url,'_blank');
           }
      }

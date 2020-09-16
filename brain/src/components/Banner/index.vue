@@ -4,7 +4,7 @@
     <div>
       <div class="titles">
         <h1 class="title">{{title}}</h1>
-<!--        <h2 class="subtitle">{{subtitle}}</h2>-->
+        <h2 class="subtitle">{{subtitle}}</h2>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@ export default {
     return {
       title: "Horizon Peripherals Intelligence",
       subtitle:
-        "Online self diagnosis for Peripheral devices usages in Horizon environment."
+        "Device Intelligence Diagnosis Service for VMware Horizon"
     };
   }
 };
@@ -32,7 +32,7 @@ export default {
 <style scoped>
 .banner {
   /*background-image: url(../../assets/background.jpeg);*/
-  height: 300px;
+  height: 350px;
   background-size:100% 100%;
   opacity:1;
   background-repeat:no-repeat;
