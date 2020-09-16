@@ -1,12 +1,12 @@
 <template>
   <div class="layout">
     <Sider id="sider" style="overflow:scroll">
-      <Menu hide-trigger theme="light" width="auto" open-names="['1','2']">
+      <Menu hide-trigger theme="light" width="auto" open-names="['1']">
         <Submenu name="1">
           <template slot="title">
             <Icon type="md-analytics" size="20" />Matrix
           </template>
-          <MenuItem name="1-1" @click.native= "filter = 'all'" >All Devices</MenuItem>
+          <MenuItem name="1" @click.native= "filter = 'all'" >All Devices</MenuItem>
           <MenuItem v-for = "(item,index) in categoryList" :key="index" :name="'1-'+index" @click.native="handleClick(item)" >
           {{item}}
           </MenuItem>
