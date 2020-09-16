@@ -7,19 +7,20 @@
                 <Icon type="ios-analytics" />
                 HorizonPeripheralsAgent Installer Guide
             </template>
-            <MenuGroup title="Installation">
                <router-link to="/help" class="link">
-                <MenuItem name="1-1">Step</MenuItem>
+                <MenuItem name="1-1">HorizonPeripheralsAgent.zip</MenuItem>
                </router-link>
               <router-link to="/options" class="link">
-                <MenuItem name="1-2">Options</MenuItem>
+                <MenuItem name="1-2">HorizonPeripheralsAgent.msi</MenuItem>
               </router-link>
-            </MenuGroup>
-            <MenuGroup title="After the Installation">
+              <router-link to="/installstep" class="link">
+                <MenuItem name="1-3">Installation steps</MenuItem>
+              </router-link>
+
               <router-link to="/tips" class="link">
-                <MenuItem name="1-3">Tips</MenuItem>
+                <MenuItem name="1-4">Installation failure and modification</MenuItem>
               </router-link>
-            </MenuGroup>
+
         </Submenu>
         <Submenu name="2">
             <template slot="title">
@@ -27,16 +28,17 @@
                 HorizonPeripheralsClient Installer Guide
             </template>
           <router-link to="/step" class="link">
-            <MenuItem name="2-1">Step</MenuItem>
+            <MenuItem name="2-1">Installation steps</MenuItem>
           </router-link>
         </Submenu>
 
     </Menu>
     </Sider>
     <div class="content">
-      <h4>&nbsp;&nbsp;&nbsp;&nbsp;HorizonPeripheralsAgent.msi is the installer to be run on your Horizon agent machine. The web server address and port number need to be configured to the correct value firstly.</h4><br />
-       <h4>&nbsp;&nbsp;&nbsp;&nbsp;If you don’t know the value, you can use the default one and change it after the installation by editing the config file.</h4>
-            <img class="dj-installer-pic" src="../../assets/dj-agent-installer1.png">
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;We provide two ways to install the HorizonPeripheralsAgent program – zip package and msi installer. Use the zip package if you only have normal user permission in the remote agent desktop. Use the msi installer if you have admin user permission.</h4><br />
+      <br /><h3>  HorizonPeripheralsAgent.zip</h3><br />
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;HorizonPeripheralsAgent.zip contains all the files to be copied and extracted on your Horizon agent machine. Use this zip file instead of msi installer to deploy the program if the agent OS has some limitations to run MSI installer under normal user privilege. In this way, the AutoLaunch registries and functions will be missing. You must manually launch the HorizonPeripheralsAgent program under the installation folder. You will not be able to launch the program in Horizon remote app session since it is not auto launched.</h4>
+
     </div>
   </div>
 </template>

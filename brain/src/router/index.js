@@ -47,6 +47,10 @@ export default new Router({
       path: '/tips',
       component: () => import('@/views/Tips')
     },
+    {
+      path: '/installstep',
+      component: () => import('@/views/InstallStep')
+    },
   ]
 })
 
