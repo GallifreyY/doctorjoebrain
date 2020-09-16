@@ -1,25 +1,27 @@
 <template>
    <div class="tips">
-    <Sider id="sider" style="overflow:scroll" width="380px">
-       <Menu active-name="1-3" :open-names="['1']" width="380px">
+   <Sider id="sider" style="overflow:scroll" width="380px">
+       <Menu active-name="1-4" :open-names="['1']" width="380px">
         <Submenu name="1">
             <template slot="title">
                 <Icon type="ios-analytics" />
                 HorizonPeripheralsAgent Installer Guide
             </template>
-            <MenuGroup title="Installation">
+
                <router-link to="/help" class="link">
-                <MenuItem name="1-1">Step</MenuItem>
+                <MenuItem name="1-1">HorizonPeripheralsAgent.zip</MenuItem>
                </router-link>
               <router-link to="/options" class="link">
-                <MenuItem name="1-2">Options</MenuItem>
+                <MenuItem name="1-2">HorizonPeripheralsAgent.msi</MenuItem>
               </router-link>
-            </MenuGroup>
-            <MenuGroup title="After the Installation">
+              <router-link to="/installstep" class="link">
+                <MenuItem name="1-3">Installation steps</MenuItem>
+              </router-link>
+
               <router-link to="/tips" class="link">
-                <MenuItem name="1-3">Tips</MenuItem>
+                <MenuItem name="1-4">Installation failure and modification</MenuItem>
               </router-link>
-            </MenuGroup>
+
         </Submenu>
         <Submenu name="2">
             <template slot="title">
@@ -27,7 +29,7 @@
                 HorizonPeripheralsClient Installer Guide
             </template>
           <router-link to="/step" class="link">
-            <MenuItem name="2-1">Step</MenuItem>
+            <MenuItem name="2-1">Installation steps</MenuItem>
           </router-link>
         </Submenu>
 

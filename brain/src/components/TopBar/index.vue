@@ -1,7 +1,7 @@
 <template>
   <div class="topBar">
     <nav-bar></nav-bar>
-    <div class="content">
+    <div class="topcontent">
       <div class="titles">
         <h1 class="title">{{title}}</h1>
         <h2 class="subtitle">{{subtitle}}</h2>
@@ -18,9 +18,9 @@ export default {
   components: {NavBar},
   data() {
     return {
-      title: "Peripheral devices Cloud Doctor",
+     title: "Horizon Peripherals Intelligence",
       subtitle:
-        "Test:Online self diagnosis for Peripheral devices usages in Horizon environment."
+        "Online self diagnosis for Peripheral devices usages in Horizon environment."
     };
   }
 };
