@@ -7,19 +7,21 @@
                 <Icon type="ios-analytics" />
                 HorizonPeripheralsAgent Installer Guide
             </template>
-            <MenuGroup title="Installation">
+
                <router-link to="/help" class="link">
-                <MenuItem name="1-1">Step</MenuItem>
+                <MenuItem name="1-1">HorizonPeripheralsAgent.zip</MenuItem>
                </router-link>
               <router-link to="/options" class="link">
-                <MenuItem name="1-2">Options</MenuItem>
+                <MenuItem name="1-2">HorizonPeripheralsAgent.msi</MenuItem>
               </router-link>
-            </MenuGroup>
-            <MenuGroup title="After the Installation">
+              <router-link to="/installstep" class="link">
+                <MenuItem name="1-3">Installation steps</MenuItem>
+              </router-link>
+
               <router-link to="/tips" class="link">
-                <MenuItem name="1-3">Tips</MenuItem>
+                <MenuItem name="1-4">Web server configuration</MenuItem>
               </router-link>
-            </MenuGroup>
+
         </Submenu>
         <Submenu name="2">
             <template slot="title">
@@ -27,7 +29,7 @@
                 HorizonPeripheralsClient Installer Guide
             </template>
           <router-link to="/step" class="link">
-            <MenuItem name="2-1">Step</MenuItem>
+            <MenuItem name="2-1">Installation steps</MenuItem>
           </router-link>
         </Submenu>
 
