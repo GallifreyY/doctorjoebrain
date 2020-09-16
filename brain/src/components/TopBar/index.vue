@@ -20,7 +20,7 @@ export default {
     return {
      title: "Horizon Peripherals Intelligence",
       subtitle:
-        "Online self diagnosis for Peripheral devices usages in Horizon environment."
+        "Device Intelligence Diagnosis Service for VMware Horizon."
     };
   }
 };
