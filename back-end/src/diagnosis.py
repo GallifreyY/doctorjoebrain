@@ -120,8 +120,8 @@ def _printer_diagnose(collected_data, device, results):
         if major_version == 3: # NPD
             agent_redirect =  device.find_redirection_in_agent()
             if agent_redirect is not None and agent_redirect['DriverName']['Name'] == 'VMware Universal EMF Driver':
-                results.append("VMware Universal printing driver(UPD) was used by this printer in remote desktop." \
-                               " If you want to utilize native printing driver(NPD), please install its native driver on the remote desktop.")
+                results.append("VMware Universal Printing Driver(UPD) was used by this printer in remote desktop." \
+                               " If you want to utilize Native Printing Driver(NPD), please install its native driver on the remote desktop.")
                 # todo: update!
 
 

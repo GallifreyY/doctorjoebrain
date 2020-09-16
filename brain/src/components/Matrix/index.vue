@@ -12,6 +12,7 @@
           </MenuItem>
           <MenuItem name="other" @click.native= "filter = 'other'" >Other Devices</MenuItem>
         </Submenu>
+        <!--
         <Submenu name="2">
           <template slot="title">
             <Icon type="md-checkbox" size="20" />Filter
@@ -19,7 +20,7 @@
           <MenuItem name="2-1">Horizon Versions</MenuItem>
           <MenuItem name="2-2">Device Drivers</MenuItem>
         </Submenu>
-
+        -->
       </Menu>
     </Sider>
     <div class="matrixcontent">
