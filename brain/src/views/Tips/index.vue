@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <nav-bar></nav-bar>
+    <nav-bar style="margin-left: 15px"></nav-bar>
     <guide-tips></guide-tips>
     </div>
 </template>

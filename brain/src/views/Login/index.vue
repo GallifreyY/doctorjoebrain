@@ -1,7 +1,7 @@
 <template>
     <div class = "log-in">
-    <nav-bar></nav-bar>
-        <login-box></login-box>
+    <nav-bar style="margin-left: 15px"></nav-bar>
+        <login-box style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto"></login-box>
 
 
     </div>
@@ -29,9 +29,10 @@ import RearBar from "@/components/RearBar";
     height: 100vh;
 
     background: url(../../assets/background.jpeg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
 
 }
 

@@ -1,9 +1,7 @@
 <template>
   <div class="modify">
-    <nav-bar></nav-bar>
-    <modify-form></modify-form>
-
-
+    <nav-bar style="margin-left: 15px"></nav-bar>
+    <modify-form style="position: absolute;top: 200px;left: 0;right: 0;bottom: 0;margin: auto;width: 400px;"></modify-form>
 
   </div>
 </template>
@@ -28,9 +26,10 @@
     height: 100vh;
 
     background: url(../../assets/background.jpeg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
 
   }
 
