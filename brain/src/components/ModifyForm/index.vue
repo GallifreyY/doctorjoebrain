@@ -11,8 +11,8 @@
       <Input type="password" v-model="formCustom.passwdCheck" name="password"></Input>
     </FormItem>
     <FormItem class="modify-button">
-      <Button type="primary" @click="handleSubmit('formCustom')">Submit</Button>
-      <Button @click="handleReset('formCustom')" style="margin-left: 58px">Reset</Button>
+      <Button type="primary" @click="handleSubmit('formCustom')" style="margin-left: 50px">Submit</Button>
+      <Button @click="handleCancel('formCustom')" style="margin-left: 58px">Cancel</Button>
     </FormItem>
   </Form>
 </template>
@@ -94,8 +94,8 @@
 
         })
       },
-      handleReset(name) {
-        this.$refs[name].resetFields();
+      handleCancel(name) {
+        this.$router.replace("/Log-in");
       },
     }
   }
