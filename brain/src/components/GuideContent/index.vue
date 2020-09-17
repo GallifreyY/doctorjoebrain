@@ -18,7 +18,7 @@
               </router-link>
 
               <router-link to="/tips" class="link">
-                <MenuItem name="1-4">Installation failure and modification</MenuItem>
+                <MenuItem name="1-4">Web server configuration</MenuItem>
               </router-link>
 
         </Submenu>
