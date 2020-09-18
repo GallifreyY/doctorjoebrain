@@ -1,17 +1,15 @@
 <template>
   <div style="padding:2% 5% 2% 5% ">
+  <Row>Search the device matrix: </Row>
     <Row class="buttons">
       <Col span="8">
         <Input
           v-model="searchString"
-          search
-          placeholder="Search device names..."
-          @on-search="handleSearch"
         />
       </Col>
       <Col span="3">
-        <Button shape="circle" @click="reload" style="margin-left:5% ">
-          <Icon type="ios-refresh" size="18" />
+        <Button shape="circle" @click="handleSearch" style="margin-left:5% ">
+          <Icon type="ios-search" size="18" />
         </Button>
       </Col>
       <Col span="11" offset="2">
@@ -49,25 +47,6 @@
       </Col>
     </Row>
     </br>
-    <Row class="buttons">
-    <Col span="4">
-      <Input
-          v-model="searchVersionClient"
-          placeholder="Search Client versions..."
-        />
-      </Col>
-      <Col span="4">
-      <Input
-          v-model="searchVersionAgent"
-          placeholder="Search Agent versions..."
-        />
-      </Col>
-      <Col span="3">
-        <Button shape="circle" @click="handleSearchV" style="margin-left:5% ">
-          <Icon type="ios-search" size="18" />
-        </Button>
-      </Col>
-      </Row>
     <div v-if="showSearchResult">
       <Divider>
         Search Result
@@ -282,10 +261,6 @@ export default {
       this.showSearchResult = true;
       this.searchedData = this._search(this.searchString);
     },
-    handleSearchV() {
-      this.showSearchResult = true;
-      this.searchedData = this._searchV(this.searchVersionClient, this.searchVersionAgent);
-    },
     handleClose(){
       this.showSearchResult = false;
       this.searchedData = undefined
@@ -339,38 +314,8 @@ export default {
       if(!searchString) return []
       for(let data of this.matrixDisplayData){
         console.log(data);
-        if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase()){
+        if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase() || data.Horizon_client_version.slice(0,searchString.length) === searchString || data.Horizon_agent_version.slice(0,searchString.length) === searchString){
           res.push(data)
-        }
-      }
-      if(res.length === 0 ){
-        this.$Notice.error({
-          title:"No Search Result"
-
-        })
-      }
-      return res
-    },
-  
-  _searchV(searchVersionClient, searchVersionAgent){
-      const res = []
-      if(!searchVersionClient && !searchVersionAgent) return []
-      for(let data of this.matrixDisplayData){
-        console.log(data);
-        if(!searchVersionAgent){
-        if(data.Horizon_client_version.slice(0,searchVersionClient.length) === searchVersionClient){
-          res.push(data)
-        }
-        }
-        else if(!searchVersionClient){
-          if(data.Horizon_agent_version.slice(0,searchVersionAgent.length) === searchVersionAgent){
-          res.push(data)
-        }
-        }
-        else{
-          if(data.Horizon_agent_version.slice(0,searchVersionAgent.length) === searchVersionAgent && data.Horizon_client_version.slice(0,searchVersionClient.length) === searchVersionClient){
-          res.push(data)
-        }
         }
       }
       if(res.length === 0 ){
