@@ -50,17 +50,21 @@
     </Row>
     </br>
     <Row class="buttons">
-    <Col span="8">
+    <Col span="4">
       <Input
-          v-model="searchVersion"
-          search
-          placeholder="Search horizon versions..."
-          @on-search="handleSearchV"
+          v-model="searchVersionClient"
+          placeholder="Search Client versions..."
+        />
+      </Col>
+      <Col span="4">
+      <Input
+          v-model="searchVersionAgent"
+          placeholder="Search Agent versions..."
         />
       </Col>
       <Col span="3">
-        <Button shape="circle" @click="reload" style="margin-left:5% ">
-          <Icon type="ios-refresh" size="18" />
+        <Button shape="circle" @click="handleSearchV" style="margin-left:5% ">
+          <Icon type="ios-search" size="18" />
         </Button>
       </Col>
       </Row>
@@ -117,7 +121,8 @@ export default {
       personalLoading: false,
       cateList:[],
       searchString: "",
-      searchVersion: "",
+      searchVersionClient: "",
+      searchVersionAgent: "",
       searchedData:undefined,
       showSearchResult: false,
       matrixAllData: undefined,
@@ -279,7 +284,7 @@ export default {
     },
     handleSearchV() {
       this.showSearchResult = true;
-      this.searchedData = this._searchV(this.searchVersion);
+      this.searchedData = this._searchV(this.searchVersionClient, this.searchVersionAgent);
     },
     handleClose(){
       this.showSearchResult = false;
@@ -347,24 +352,26 @@ export default {
       return res
     },
   
-  _searchV(searchVersion){
+  _searchV(searchVersionClient, searchVersionAgent){
       const res = []
-      if(!searchVersion) return []
-      if(this.searchedData === undefined ){
+      if(!searchVersionClient && !searchVersionAgent) return []
       for(let data of this.matrixDisplayData){
         console.log(data);
-        if(data.Horizon_client_version.slice(0,searchVersion.length) === searchVersion|| data.Horizon_agent_version.slice(0,searchVersion.length) === searchVersion){
+        if(!searchVersionAgent){
+        if(data.Horizon_client_version.slice(0,searchVersionClient.length) === searchVersionClient){
           res.push(data)
         }
-      }
-      }
-      else{
-        for(let data of this.matrixSearchedData){
-        console.log(data);
-        if(data.Horizon_client_version.slice(0,searchVersion.length) === searchVersion|| data.Horizon_agent_version.slice(0,searchVersion.length) === searchVersion){
+        }
+        else if(!searchVersionClient){
+          if(data.Horizon_agent_version.slice(0,searchVersionAgent.length) === searchVersionAgent){
           res.push(data)
         }
-      }
+        }
+        else{
+          if(data.Horizon_agent_version.slice(0,searchVersionAgent.length) === searchVersionAgent && data.Horizon_client_version.slice(0,searchVersionClient.length) === searchVersionClient){
+          res.push(data)
+        }
+        }
       }
       if(res.length === 0 ){
         this.$Notice.error({
