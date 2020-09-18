@@ -1,17 +1,15 @@
 <template>
   <div style="padding:2% 5% 2% 5% ">
+  <Row>Search the device matrix: </Row>
     <Row class="buttons">
       <Col span="8">
         <Input
           v-model="searchString"
-          search
-          placeholder="Search device names..."
-          @on-search="handleSearch"
         />
       </Col>
       <Col span="3">
-        <Button shape="circle" @click="reload" style="margin-left:5% ">
-          <Icon type="ios-refresh" size="18" />
+        <Button shape="circle" @click="handleSearch" style="margin-left:5% ">
+          <Icon type="ios-search" size="18" />
         </Button>
       </Col>
       <Col span="11" offset="2">
@@ -49,30 +47,6 @@
       </Col>
     </Row>
     </br>
-    <Row class="buttons">
-    <Col span="5">
-      <Input
-          v-model="searchVersionClient"
-          placeholder="Search client versions..."
-        />
-      </Col>
-      <Col span="2">
-      <Button @click="handleSearchVClient">
-            <Icon type="ios-search" size="16" />
-          </Button>
-      </Col>
-      <Col span="5">
-      <Input
-          v-model="searchVersionAgent"
-          placeholder="Search agent versions..."
-        /> 
-      </Col>
-      <Col span="2">
-      <Button @click="handleSearchVAgent">
-            <Icon type="ios-search" size="16" />
-          </Button>
-      </Col>
-      </Row>
     <div v-if="showSearchResult">
       <Divider>
         Search Result
@@ -287,16 +261,9 @@ export default {
       this.showSearchResult = true;
       this.searchedData = this._search(this.searchString);
     },
-    handleSearchVClient() {
-      this.showSearchResult = true;
-      this.searchedData = this._searchVClient(this.searchVersionClient);
-    },
-    handleSearchVAgent() {
-      this.showSearchResult = true;
-      this.searchedData = this._searchVAgent(this.searchVersionAgent);
-    },
     handleClose(){
       this.showSearchResult = false;
+      this.searchedData = undefined
     },
     handleUpload() {
       this.modalForm = true;
@@ -347,7 +314,7 @@ export default {
       if(!searchString) return []
       for(let data of this.matrixDisplayData){
         console.log(data);
-        if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase()){
+        if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase() || data.Horizon_client_version.slice(0,searchString.length) === searchString || data.Horizon_agent_version.slice(0,searchString.length) === searchString){
           res.push(data)
         }
       }
@@ -358,42 +325,7 @@ export default {
         })
       }
       return res
-    },
-  
-  _searchVClient(searchVersionClient){
-      const res = []
-      if(!searchVersionClient) return []
-      for(let data of this.matrixDisplayData){
-        console.log(data);
-        if(data.Horizon_client_version === searchVersionClient){
-          res.push(data)
-        }
-      }
-      if(res.length === 0 ){
-        this.$Notice.error({
-          title:"No Search Result"
-
-        })
-      }
-      return res
-    },
-    _searchVAgent(searchVersionAgent){
-    const res = []
-    if(!searchVersionAgent) return []
-    for(let data of this.matrixDisplayData){
-      console.log(data);
-      if(data.Horizon_agent_version === searchVersionAgent){
-        res.push(data)
-      }
     }
-    if(res.length === 0 ){
-      this.$Notice.error({
-        title:"No Search Result"
-
-      })
-    }
-    return res
-  }
   },
   computed: {
     ...mapGetters(["token"]),
