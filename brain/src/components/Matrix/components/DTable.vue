@@ -50,27 +50,18 @@
     </Row>
     </br>
     <Row class="buttons">
-    <Col span="5">
+    <Col span="8">
       <Input
-          v-model="searchVersionClient"
-          placeholder="Search client versions..."
+          v-model="searchVersion"
+          search
+          placeholder="Search horizon versions..."
+          @on-search="handleSearchV"
         />
       </Col>
-      <Col span="2">
-      <Button @click="handleSearchVClient">
-            <Icon type="ios-search" size="16" />
-          </Button>
-      </Col>
-      <Col span="5">
-      <Input
-          v-model="searchVersionAgent"
-          placeholder="Search agent versions..."
-        /> 
-      </Col>
-      <Col span="2">
-      <Button @click="handleSearchVAgent">
-            <Icon type="ios-search" size="16" />
-          </Button>
+      <Col span="3">
+        <Button shape="circle" @click="reload" style="margin-left:5% ">
+          <Icon type="ios-refresh" size="18" />
+        </Button>
       </Col>
       </Row>
     <div v-if="showSearchResult">
@@ -126,8 +117,7 @@ export default {
       personalLoading: false,
       cateList:[],
       searchString: "",
-      searchVersionClient: "",
-      searchVersionAgent: "",
+      searchVersion: "",
       searchedData:undefined,
       showSearchResult: false,
       matrixAllData: undefined,
@@ -287,16 +277,13 @@ export default {
       this.showSearchResult = true;
       this.searchedData = this._search(this.searchString);
     },
-    handleSearchVClient() {
+    handleSearchV() {
       this.showSearchResult = true;
-      this.searchedData = this._searchVClient(this.searchVersionClient);
-    },
-    handleSearchVAgent() {
-      this.showSearchResult = true;
-      this.searchedData = this._searchVAgent(this.searchVersionAgent);
+      this.searchedData = this._searchV(this.searchVersion);
     },
     handleClose(){
       this.showSearchResult = false;
+      this.searchedData = undefined
     },
     handleUpload() {
       this.modalForm = true;
@@ -360,14 +347,24 @@ export default {
       return res
     },
   
-  _searchVClient(searchVersionClient){
+  _searchV(searchVersion){
       const res = []
-      if(!searchVersionClient) return []
+      if(!searchVersion) return []
+      if(this.searchedData === undefined ){
       for(let data of this.matrixDisplayData){
         console.log(data);
-        if(data.Horizon_client_version === searchVersionClient){
+        if(data.Horizon_client_version.slice(0,searchVersion.length) === searchVersion|| data.Horizon_agent_version.slice(0,searchVersion.length) === searchVersion){
           res.push(data)
         }
+      }
+      }
+      else{
+        for(let data of this.matrixSearchedData){
+        console.log(data);
+        if(data.Horizon_client_version.slice(0,searchVersion.length) === searchVersion|| data.Horizon_agent_version.slice(0,searchVersion.length) === searchVersion){
+          res.push(data)
+        }
+      }
       }
       if(res.length === 0 ){
         this.$Notice.error({
@@ -376,24 +373,7 @@ export default {
         })
       }
       return res
-    },
-    _searchVAgent(searchVersionAgent){
-    const res = []
-    if(!searchVersionAgent) return []
-    for(let data of this.matrixDisplayData){
-      console.log(data);
-      if(data.Horizon_agent_version === searchVersionAgent){
-        res.push(data)
-      }
     }
-    if(res.length === 0 ){
-      this.$Notice.error({
-        title:"No Search Result"
-
-      })
-    }
-    return res
-  }
   },
   computed: {
     ...mapGetters(["token"]),
