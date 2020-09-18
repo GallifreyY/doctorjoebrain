@@ -19,7 +19,7 @@
             <p>Device Matrix</p>
           </router-link>
 
-          <a a href="https://www.vmware.com/cn.html" class="link">
+          <a href="https://www.vmware.com/cn.html" class="link">
             <Icon type="md-globe" color="white" size="20"/>
             <p>Visit us</p>
           </a>

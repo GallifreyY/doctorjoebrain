@@ -8,19 +8,10 @@
                 HorizonPeripheralsAgent Installer Guide
             </template>
 
-               <router-link to="/help" class="link">
-                <MenuItem name="1-1">HorizonPeripheralsAgent.zip</MenuItem>
-               </router-link>
-              <router-link to="/options" class="link">
-                <MenuItem name="1-2">HorizonPeripheralsAgent.msi</MenuItem>
-              </router-link>
-              <router-link to="/installstep" class="link">
-                <MenuItem name="1-3">Installation steps</MenuItem>
-              </router-link>
-
-              <router-link to="/tips" class="link">
-                <MenuItem name="1-4">Web server configuration</MenuItem>
-              </router-link>
+               <a name="1-1" @click="handlezip" class="linka">HorizonPeripheralsAgent.zip</a>
+                <a class="active" @click="handlemsi" name="1-2">HorizonPeripheralsAgent.msi</a>
+                <a class="linka" @click="handlestep" name="1-3">Installation steps</a>
+                <a class="linka" @click="handlemod" name="1-4">Installation failure and modification</a>
 
         </Submenu>
         <Submenu name="2">
@@ -28,9 +19,7 @@
                 <Icon type="ios-filing" />
                 HorizonPeripheralsClient Installer Guide
             </template>
-          <router-link to="/step" class="link">
-            <MenuItem name="2-1">Installation steps</MenuItem>
-          </router-link>
+           <a class="linka" @click="handleclient" name="2-1">Installation steps</a>
         </Submenu>
 
     </Menu>
@@ -46,6 +35,23 @@
 <script>
   export default {
     name: "GuideOptions",
+    methods:{
+  handlezip(){
+    this.$router.replace("/help");
+  },
+  handlemsi(){
+    this.$router.replace("/options");
+  },
+  handlestep(){
+    this.$router.replace("/installstep");
+  },
+  handlemod(){
+    this.$router.replace("/tips");
+  },
+  handleclient(){
+    this.$router.replace("/step");
+  }
+}
 
   }
 </script>
@@ -83,5 +89,24 @@
   }
   .link:hover{
     color: #0F1D38;
+  }
+   .linka{
+    display: block;
+    height:50px;
+     margin-top: 20px;
+    color:#0F1D38;
+    margin-left: 40px;
+  }
+  .linka:hover{
+    color: #2b85e4;
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+  .active{
+    color: #00aeff;
+    display: block;
+    height:50px;
+    margin-top: 20px;
+    margin-left: 40px;
   }
 </style>

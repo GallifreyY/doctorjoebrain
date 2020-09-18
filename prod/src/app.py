@@ -334,12 +334,15 @@ def matrix_edit_data():
     db.session.query(Device).filter(Device.product_id == request.json["query"]["product_id"],
                                     Device.vendor_id == request.json["query"]["vendor_id"],
                                     Device.model == request.json["query"]["model"]).update(
-        {'device_name': request.json["edit"]["device_name"],
-         'category': CATE_MAP.get(request.json["edit"]["category"], -1)})
+        {'device_name': request.json["edit"]["device_name"]})
     if request.json["Horizon_client_version"]!="":
         edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], \
                                                                         request.json["Horizon_agent_version"]
-
+    if request.json["category"]!="":
+        db.session.query(Device).filter(Device.product_id == request.json["query"]["product_id"],
+                                        Device.vendor_id == request.json["query"]["vendor_id"],
+                                        Device.model == request.json["query"]["model"]).update(
+            {'category': CATE_MAP.get(request.json["category"], -1)})
     # device_item.device_name = request.json["edit"]["device_name"]
     # device_item.category = CATE_MAP.get(request.json["edit"]["category"], -1)
 
@@ -349,6 +352,7 @@ def matrix_edit_data():
         'code': 20022,
         'data': 'success'
     }
+
 
 
 @app.route('/reg', methods=['GET', 'POST'])
