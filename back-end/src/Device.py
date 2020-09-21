@@ -40,7 +40,7 @@ class Device:
     def _is_usb_redirect(self):
         # todo:details
 
-        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' :
+        if self.type == 'usbdisk':
             if self.end == 'agent':
                 return True
             else:

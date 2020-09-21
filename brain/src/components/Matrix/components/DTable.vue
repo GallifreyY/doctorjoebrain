@@ -315,12 +315,11 @@ export default {
       for(let data of this.matrixDisplayData){
         console.log(data);
         if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase() || 
-        data.Horizon_client_version.slice(0,searchString.length) === searchString || 
-        data.Horizon_agent_version.slice(0,searchString.length) === searchString||
-        data.vendor_id.slice(0,searchString.length) == searchString ||  
-        data.product_id.slice(0,searchString.length) === searchString||
-        data.model.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase())
-        {
+           data.Horizon_client_version.slice(0,searchString.length) === searchString || 
+           data.Horizon_agent_version.slice(0,searchString.length) === searchString||
+           data.vendor_id.slice(0,searchString.length) === searchString ||
+           data.product_id.slice(0,searchString.length) === searchString ||
+           data.model.slice(0,searchString.length) === searchString){
           res.push(data)
         }
       }
