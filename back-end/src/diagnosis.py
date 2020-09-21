@@ -111,7 +111,6 @@ def _printer_diagnose(collected_data, device, results):
             or collected_data['agent'].get('PrinterService',None) != 'Running':
         results.append("The print service(spooler) was at stopped status on your client or agent desktop. "
                        "Please check it out and ensure it is running before printer redirection..")
-        return results
 
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
@@ -150,6 +149,24 @@ def _scanner_diagnose(collected_data, device, results):
         results.append(_judge_driver(device))
     s = "It is recommended to use scanner redirection solution for this device in Horizon environment."
     results.append(_add_refers(s,"scanner_redirection",collected_data))
+
+    if collected_data['client'].get('netlinkClientService',None) != 'Running'\
+            or collected_data['agent'].get('netlinkAgentService',None) != 'Running':
+        results.append("The VMware Netlink Supervisor service(ftnlsv3hv) was at stopped status on your client or agent desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+    
+    if collected_data['client'].get('scannerClientService',None) != 'Running':
+        results.append("The VMware Scanner Redirection Client service(ftscanmgrhv) was at stopped status on your client desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+    
+    if collected_data['agent'].get('scannerAgentService',None) != 'Running':
+        results.append("The VMware Scanner Redirection Agent service(ftscansvchv) was at stopped status on your agent desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+    
+    if collected_data['agent'].get('netlinkSessionService',None) != 'Running':
+        results.append("The VMware Network Session service(ftnlses3hv) was at stopped status on your agent desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+
     if device.is_usb_redirect:
         results.append("You are using USB redirection for scanner devices. Please use scanner redirection.")
     return results
@@ -160,6 +177,12 @@ def _camera_diagnose(collected_data, device, results):
         results.append(_judge_driver(device))
     s = "It is recommended to use RTAV redirection solution for this device in Horizon environment."
     results.append(_add_refers(s,"RTAV",collected_data))
+
+    if collected_data['client'].get('audioService',None) != 'Running'\
+            or collected_data['agent'].get('audioService',None) != 'Running':
+        results.append("The Windows Audio service(Audiosrv) was at stopped status on your client or agent desktop. "
+                       "Please check it out and ensure it is running before RTAV redirection..")
+
     if device.is_usb_redirect:
         results.append("You are using USB redirection for camera devices. Please use RTAV redirection.")
     return results
