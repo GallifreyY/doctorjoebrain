@@ -136,7 +136,7 @@ def _printer_diagnose(collected_data, device, results):
 
     # todo： USB direction （vid & pid）or in _Device Class
     if device.is_usb_redirect:
-        results.append("You are using USB redirection for printer devices, please use printer redirection.")
+        results.append("You are using USB redirection for printer devices. Please use printer redirection.")
         # todo : detect in agent
         if device.find_redirection_in_agent() is None:
             results.append("The USB redirection could not be found in Horizon end.")
@@ -151,7 +151,7 @@ def _scanner_diagnose(collected_data, device, results):
     s = "It is recommended to use scanner redirection solution for this device in Horizon environment."
     results.append(_add_refers(s,"scanner_redirection",collected_data))
     if device.is_usb_redirect:
-        results.append("You are using USB redirection for scanner devices, please use scanner redirection.")
+        results.append("You are using USB redirection for scanner devices. Please use scanner redirection.")
     return results
 
 
@@ -161,7 +161,7 @@ def _camera_diagnose(collected_data, device, results):
     s = "It is recommended to use RTAV redirection solution for this device in Horizon environment."
     results.append(_add_refers(s,"RTAV",collected_data))
     if device.is_usb_redirect:
-        results.append("You are using USB redirection for camera devices, please use RTAV redirection.")
+        results.append("You are using USB redirection for camera devices. Please use RTAV redirection.")
     return results
 
 
