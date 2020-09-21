@@ -9,17 +9,12 @@ components = {
     "cameras": "RTAV"
 }
 
-link = {
-    "CDR": ["https://docs.vmware.com/en/VMware-Horizon-7/",
-            "/horizon-remote-desktop-features/GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html"],
-    "usbdisk": ["https://docs.vmware.com/en/VMware-Horizon-7/",
-                "/horizon-remote-desktop-features/GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html"],
-    "printer_redirection":["https://docs.vmware.com/en/VMware-Horizon-7/",
-                "/horizon-remote-desktop-features/GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"],
-    "scanner_redirection":["https://docs.vmware.com/en/VMware-Horizon-7/",
-                "/horizon-remote-desktop-features/GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html"],
-    "RTAV":["https://docs.vmware.com/en/VMware-Horizon-7/",
-                "/horizon-remote-desktop-features/GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"]
+docGUIDlinks = {
+    "CDR": "GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html",
+    "usbdisk": "GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html",
+    "printer_redirection": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
+    "scanner_redirection": "GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html",
+    "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"
 }
 
 
@@ -199,28 +194,23 @@ def _judge_driver(device):
     return None
 
 def _add_refers(suggestion,key,collected_data):
-    if key not in link.keys():
+    if key not in docGUIDlinks.keys():
         return None
-    return [suggestion,
-            link[key][0] + _get_Horizon_agent_version(collected_data) + link[key][1]]
+    prefix7="https://docs.vmware.com/en/VMware-Horizon-7/"
+    prefix8="https://docs.vmware.com/en/VMware-Horizon/"
+    middle="/horizon-remote-desktop-features/"
+    horizon_ver=_get_horizon_ver(collected_data)
+    if horizon_ver.startswith('7'):
+        prefix= prefix7
+        docver= horizon_ver
+    else:
+        prefix= prefix8
+        #ToDo: check the agent version 2006 and build no
+        docver= "2006"
+    fulldoclink= prefix + docver  + middle + docGUIDlinks[key]
+    return [suggestion, fulldoclink]
 
-
-def _get_Horizon_agent_version(collected_data):
+# Get the 7.13 as return value from agent version 7.13.0
+def _get_horizon_ver(collected_data):
     version = collected_data['agent']['agentver']
-    # todo: seconding version
     return '.'.join(version.split('.')[:-1])
-
-# todo：test
-#
-# uuid = '25633f65-f820-40c6-b725-179fdbf74621'
-# collected_data = read_data(uuid)
-# print(_get_Horizon_agent_version(collected_data))
-# device = read_data(uuid, 'devices', 'pickle')[0]
-# print(diagnosis(collected_data, device))
-
-# link
-# CDR 的 -  https://docs.vmware.com/en/VMware-Horizon-7/7.10/horizon-remote-desktop-features/GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html
-# USB的- https://docs.vmware.com/en/VMware-Horizon-7/7.10/horizon-remote-desktop-features/GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html
-# Printer 的 -  https://docs.vmware.com/en/VMware-Horizon-7/7.10/horizon-remote-desktop-features/GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html
-# Scanner -  https://docs.vmware.com/en/VMware-Horizon-7/7.10/horizon-remote-desktop-features/GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html
-# RTAV - https://docs.vmware.com/en/VMware-Horizon-7/7.10/horizon-remote-desktop-features/GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html
