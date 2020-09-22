@@ -46,7 +46,7 @@
         </ButtonGroup>
       </Col>
     </Row>
-    </br>
+    </br></br>
     <div v-if="showSearchResult">
       <Divider>
         Search Result
@@ -58,7 +58,8 @@
         />
       </Divider>
       <Row class="search-result">
-        <Table :columns="columns1" :data="matrixDisplayData" ref="table"></Table>
+        <Table :columns="columns1" :data="matrixPageData" ref="table"></Table>
+         <d-item :modalItem.sync="modalItem" :data="modalItemDataProps"></d-item>
       </Row>
     </div>
     <div v-if="showSearchResult == false">
@@ -66,16 +67,17 @@
       <Table stripe :columns="columns1" :data="matrixPageData" ref="table"></Table>
       <d-item :modalItem.sync="modalItem" :data="modalItemDataProps"></d-item>
     </Row>
+    </div>
     </br>
     <Row type="flex" justify="end">
-    <Button @click="handlePrevious">
-    <Icon type="ios-arrow-back" size="18" ></Icon>
+    <Button @click="handlePrevious" shape="circle">
+    <Icon type="ios-arrow-back" size="15" ></Icon>
     </Button>
-    <Button @click="handleNext">
-    <Icon type="ios-arrow-forward" size="18"></Icon>
+    <p style="margin-right:5px">{{currentPage+1}}/{{pageNum}}</p>
+    <Button @click="handleNext" shape="circle">
+    <Icon type="ios-arrow-forward" size="15"></Icon>
     </Button>
     </Row>
-    </div>
 
   </div>
 </template>
@@ -106,7 +108,7 @@ export default {
   data() {
     return {
       totalPage: [],
-      pageSize:10,
+      pageSize:1,
       pageNum: 1,
       currentPage: 0,
       data: undefined,
@@ -281,10 +283,12 @@ export default {
         });
     },
     handleSearch() {
+      this.currentPage=0;
       this.showSearchResult = true;
       this.searchedData = this._search(this.searchString);
     },
     handleClose(){
+      this.currentPage=0;
       this.showSearchResult = false;
       this.searchedData = undefined
     },
@@ -366,14 +370,17 @@ export default {
     admission: function() {
       return this.token === "true";
     },
-    matrixSearchedData: function() {
-      return this._filter(this.searchedData, this.filter);
-    },
     matrixDisplayData: function(){
-      return this._filter(this.matrixAllData, this.filter);
+      return this.data = this._filter(this.matrixAllData, this.filter);
     },
     matrixPageData: function() {
+      if(this.showSearchResult === false)
+      {
       this.data = this._filter(this.matrixAllData, this.filter);
+      }
+      else{
+        this.data = this._filter(this.searchedData, this.filter);
+      }
       this.pageNum = Math.ceil(this.data.length / this.pageSize) || 1;
       for (let i = 0; i < this.pageNum; i++){
         this.totalPage[i] = this.data.slice(this.pageSize*i, this.pageSize*(i + 1))
