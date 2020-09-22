@@ -58,13 +58,22 @@
         />
       </Divider>
       <Row class="search-result">
-        <Table :columns="columns1" :data="matrixSearchedData" ref="table"></Table>
+        <Table :columns="columns1" :data="matrixDisplayData" ref="table"></Table>
       </Row>
     </div>
     <div v-if="showSearchResult == false">
     <Row class="table">
-      <Table stripe :columns="columns1" :data="matrixDisplayData" ref="table"></Table>
+      <Table stripe :columns="columns1" :data="matrixPageData" ref="table"></Table>
       <d-item :modalItem.sync="modalItem" :data="modalItemDataProps"></d-item>
+    </Row>
+    </br>
+    <Row type="flex" justify="end">
+    <Button @click="handlePrevious">
+    <Icon type="ios-arrow-back" size="18" ></Icon>
+    </Button>
+    <Button @click="handleNext">
+    <Icon type="ios-arrow-forward" size="18"></Icon>
+    </Button>
     </Row>
     </div>
 
@@ -96,6 +105,12 @@ export default {
   },
   data() {
     return {
+      totalPage: [],
+      pageSize:10,
+      pageNum: 1,
+      currentPage: 0,
+      data: undefined,
+      dataShow: "",
       personal: false,
       personalLoading: false,
       cateList:[],
@@ -218,6 +233,14 @@ export default {
       }
     },
   methods: {
+    handlePrevious(){
+      if (this.currentPage === 0) return;
+      this.dataShow = this.totalPage[--this.currentPage];
+    },
+    handleNext(){
+      if(this.currentPage === this.pageNum - 1) return;
+      this.dataShow = this.totalPage[++this.currentPage];
+    },
     handleLogout() {
         this.personalLoading = true
         this.$store.dispatch("user/logout").then(() => {
@@ -346,8 +369,17 @@ export default {
     matrixSearchedData: function() {
       return this._filter(this.searchedData, this.filter);
     },
-    matrixDisplayData: function() {
+    matrixDisplayData: function(){
       return this._filter(this.matrixAllData, this.filter);
+    },
+    matrixPageData: function() {
+      this.data = this._filter(this.matrixAllData, this.filter);
+      this.pageNum = Math.ceil(this.data.length / this.pageSize) || 1;
+      for (let i = 0; i < this.pageNum; i++){
+        this.totalPage[i] = this.data.slice(this.pageSize*i, this.pageSize*(i + 1))
+      }
+      this.dataShow = this.totalPage[this.currentPage]
+      return this.dataShow;
     },
     modalItemDataProps: function() {
       return this.modalItemData;
