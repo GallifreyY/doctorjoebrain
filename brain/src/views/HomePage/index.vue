@@ -3,7 +3,7 @@
     <nav-bar></nav-bar>
     <banner></banner>
      <description-contents></description-contents>
-    <logo-contents style="margin-top: 100px;padding-bottom: 20px"></logo-contents>
+    <logo-contents style="margin-top: 40px;padding-bottom: 20px"></logo-contents>
 <!--    <Divider style="height: 2px;margin-top: 100px;background-color:#DCDCDC"/>-->
 
 
