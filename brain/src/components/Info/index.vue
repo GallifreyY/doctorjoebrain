@@ -212,6 +212,10 @@ export default {
               _string = "Failed";
               _color = "error";
             }
+            else if(params.row.check == 'null'){
+              _string = "";
+              _color = "white";
+            }
             return h(
               "Tag",
               {

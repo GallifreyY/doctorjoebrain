@@ -209,6 +209,7 @@ def _judge_driver(device):
         return 'The driver is probably provided by Microsoft. Recommend to install the native driver provided by the device vendor.'
     return None
 
+
 def _add_refers(suggestion,key,collected_data):
     if key not in docGUIDlinks.keys():
         return None
