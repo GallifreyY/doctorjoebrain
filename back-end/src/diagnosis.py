@@ -41,12 +41,12 @@ def diagnosis(collected_data, device):
                     compstr = "VMware ThinPrint"
                 elif _comp == "PrintRedir":
                     compstr = "VMware Integrated Printing"
-                else：
+                else:
                     compstr = _comp
                 if _comp in collected_data['agent']['Horizoncomp']:
                     if collected_data['agent']['Horizoncomp'][_comp] == 1:
                         comp_installed = True
-                        s = "The {} component is installed on the Horizon agent desktop."\
+                        s = "The {} component is installed on the Horizon agent desktop. " \
                                "Please use it for {} redirection.".format(compstr,device.type)
                         results.append(_add_refers(s,device.type,collected_data))
                         break
@@ -55,15 +55,15 @@ def diagnosis(collected_data, device):
                     results.append(_add_refers(s,device.type,collected_data))
             if comp_installed == False :
                 comp_string = " or ".join(comp)
-                s = "The {} component is not installed on the Horizon agent desktop." \
+                s = "The {} component is not installed on the Horizon agent desktop. " \
                                "Please check it with your IT administrator.".format(comp_string)
                 results.append(_add_refers(s,device.type,collected_data))
         elif collected_data['agent']['Horizoncomp'][comp] == 0:
-            s = "The {} component is not installed on the Horizon agent desktop." \
+            s = "The {} component is not installed on the Horizon agent desktop. " \
                                "Please check it with your IT administrator.".format(comp)
             results.append(_add_refers(s,device.type,collected_data))
         elif collected_data['agent']['Horizoncomp'][comp] == 1:
-            s = "The {} component is installed on the Horizon agent desktop." \
+            s = "The {} component is installed on the Horizon agent desktop. " \
                                "Please use it for {} redirection.".format(comp,device.type)
             results.append(_add_refers(s,device.type,collected_data))
         
