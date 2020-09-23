@@ -6,9 +6,8 @@
         </Col>
         <Col span="12">
           <div class="description">
-          <h2 style="color: white;margin-top: -70px;width: 600px">Horizon Peripherals Intelligence</h2><br /><br />
-          <h4 style="color: white;margin-top: 20px">Horizon Peripherals Intelligence is an online diagnosis system for peripherals usage in Horizon environment. </h4>
-          <h4 style="color: white;margin-top: 20px">Horizon Peripherals Intelligence is flexible and self-serviced. It can facilitate Horizon users and admins to detect and diagnose a wide range of peripherals issues and generate the device report in HTML format accordingly. </h4>
+          <h3 style="color: white;margin-top: 20px">Horizon Peripherals Intelligence is an online diagnosis system for peripherals usage in Horizon environment. </h3>
+          <h3 style="color: white;margin-top: 20px">Horizon Peripherals Intelligence is flexible and self-serviced. It can facilitate Horizon users and admins to detect and diagnose a wide range of peripherals issues and generate the device report in HTML format accordingly. </h3>
         </div>
         </Col>
     </Row>
