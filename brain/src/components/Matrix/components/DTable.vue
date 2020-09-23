@@ -46,7 +46,7 @@
         </ButtonGroup>
       </Col>
     </Row>
-    </br>
+    </br></br>
     <div v-if="showSearchResult">
       <Divider>
         Search Result
@@ -58,15 +58,26 @@
         />
       </Divider>
       <Row class="search-result">
-        <Table :columns="columns1" :data="matrixSearchedData" ref="table"></Table>
+        <Table :columns="columns1" :data="matrixPageData" ref="table"></Table>
+         <d-item :modalItem.sync="modalItem" :data="modalItemDataProps"></d-item>
       </Row>
     </div>
     <div v-if="showSearchResult == false">
     <Row class="table">
-      <Table stripe :columns="columns1" :data="matrixDisplayData" ref="table"></Table>
+      <Table stripe :columns="columns1" :data="matrixPageData" ref="table"></Table>
       <d-item :modalItem.sync="modalItem" :data="modalItemDataProps"></d-item>
     </Row>
     </div>
+    </br>
+    <Row type="flex" justify="end">
+    <Button @click="handlePrevious" shape="circle">
+    <Icon type="ios-arrow-back" size="15" ></Icon>
+    </Button>
+    <p style="margin-right:5px">{{currentPage+1}}/{{pageNum}}</p>
+    <Button @click="handleNext" shape="circle">
+    <Icon type="ios-arrow-forward" size="15"></Icon>
+    </Button>
+    </Row>
 
   </div>
 </template>
@@ -96,6 +107,12 @@ export default {
   },
   data() {
     return {
+      totalPage: [],
+      pageSize:20,
+      pageNum: 1,
+      currentPage: 0,
+      data: undefined,
+      dataShow: "",
       personal: false,
       personalLoading: false,
       cateList:[],
@@ -218,6 +235,14 @@ export default {
       }
     },
   methods: {
+    handlePrevious(){
+      if (this.currentPage === 0) return;
+      this.dataShow = this.totalPage[--this.currentPage];
+    },
+    handleNext(){
+      if(this.currentPage === this.pageNum - 1) return;
+      this.dataShow = this.totalPage[++this.currentPage];
+    },
     handleLogout() {
         this.personalLoading = true
         this.$store.dispatch("user/logout").then(() => {
@@ -258,10 +283,12 @@ export default {
         });
     },
     handleSearch() {
+      this.currentPage=0;
       this.showSearchResult = true;
       this.searchedData = this._search(this.searchString);
     },
     handleClose(){
+      this.currentPage=0;
       this.showSearchResult = false;
       this.searchedData = undefined
     },
@@ -313,16 +340,21 @@ export default {
       const res = []
       if(!searchString) return []
       for(let data of this.matrixDisplayData){
-        console.log(data);
         if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase() || 
-        data.Horizon_client_version.slice(0,searchString.length) === searchString || 
-        data.Horizon_agent_version.slice(0,searchString.length) === searchString||
-        data.vendor_id.slice(0,searchString.length) == searchString ||  
-        data.product_id.slice(0,searchString.length) === searchString||
-        data.model.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase())
+           data.Horizon_client_version.slice(0,searchString.length) === searchString || 
+           data.Horizon_agent_version.slice(0,searchString.length) === searchString||
+           data.vendor_id.slice(0,searchString.length) === searchString ||
+           data.product_id.slice(0,searchString.length) === searchString
+          )
         {
           res.push(data)
         }
+        else if(data.model != null) 
+        {
+          if (data.model.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase())
+          res.push(data)
+        }
+        console.log(res)
       }
       if(res.length === 0 ){
         this.$Notice.error({
@@ -338,11 +370,23 @@ export default {
     admission: function() {
       return this.token === "true";
     },
-    matrixSearchedData: function() {
-      return this._filter(this.searchedData, this.filter);
+    matrixDisplayData: function(){
+      return this.data = this._filter(this.matrixAllData, this.filter);
     },
-    matrixDisplayData: function() {
-      return this._filter(this.matrixAllData, this.filter);
+    matrixPageData: function() {
+      if(this.showSearchResult === false)
+      {
+      this.data = this._filter(this.matrixAllData, this.filter);
+      }
+      else{
+        this.data = this._filter(this.searchedData, this.filter);
+      }
+      this.pageNum = Math.ceil(this.data.length / this.pageSize) || 1;
+      for (let i = 0; i < this.pageNum; i++){
+        this.totalPage[i] = this.data.slice(this.pageSize*i, this.pageSize*(i + 1))
+      }
+      this.dataShow = this.totalPage[this.currentPage]
+      return this.dataShow;
     },
     modalItemDataProps: function() {
       return this.modalItemData;

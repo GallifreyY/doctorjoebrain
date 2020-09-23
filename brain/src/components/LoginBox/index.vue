@@ -8,6 +8,7 @@
         clearable
         placeholder="Default: admin"
         style="width: 20vw"
+        disabled
       />
     </div>
     <div>
