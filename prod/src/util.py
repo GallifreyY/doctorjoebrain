@@ -196,7 +196,7 @@ def check_compatibility(collected_data, device):
 
         {'key': "Horizon Version", 'value': collected_data['client']['clientver'], 'check': True},
         {
-            'key': "Printer Service",
+            'key': "Print Spooler Service",
             'value': collected_data['client']['PrinterService'],
             'check': collected_data['client'].get('PrinterService', None) == 'Running'
         }, {
@@ -230,7 +230,7 @@ def check_compatibility(collected_data, device):
         },
         {'key': "Horizon Version", 'value': collected_data['agent']['agentver'], 'check': True},
         {
-            'key': "Printer Service",
+            'key': "Print Spooler Service",
             'value': collected_data['agent'].get('PrinterService', 'N/A'),
             'check': collected_data['agent'].get('PrinterService', None) == 'Running'
         },

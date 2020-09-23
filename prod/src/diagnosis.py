@@ -229,7 +229,6 @@ def _add_refers(suggestion, key, collected_data):
     fulldoclink = prefix + docver + middle + docGUIDlinks[key]
     return [suggestion, fulldoclink]
 
-
 # Get the 7.13 as return value from agent version 7.13.0
 def _get_horizon_ver(collected_data):
     version = collected_data['agent']['agentver']
