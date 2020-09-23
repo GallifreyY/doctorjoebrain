@@ -40,7 +40,7 @@ class Device:
     def _is_usb_redirect(self):
         # todo:details
 
-        if self.type == 'usbdisk':
+        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' :
             if self.end == 'agent':
                 return True
             else:
@@ -122,9 +122,15 @@ class Device:
         # todo:
         if self.type == 'usbdisk':
             default_info['details']['picture'] = 'defaultUSB.jpg'
+            default_info['details']['description'] = 'This device is an USB disk'
         elif self.type == 'printers':
             default_info['details']['picture'] = 'defaultPrinter.png'
-
+        elif self.type == 'scanners':
+            default_info['details']['picture'] = 'defaultScanner.jpg'
+            default_info['details']['description'] = 'This device is a scanner'
+        elif self.type == 'cameras':
+            default_info['details']['picture'] = 'defaultCamera.jpg'
+            default_info['details']['description'] = 'This device is a camera'
         # todo: just for demo, will add in db in the future
         # if self.type == 'printers' and re.search(r'Brother', self.name):
         #     default_info['picture'] = 'Brother-QL.png'

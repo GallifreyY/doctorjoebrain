@@ -175,6 +175,17 @@ def get_client_details_from_agent(collected_data):
 
 
 def check_compatibility(collected_data, device):
+    dict_list = {'USBArbitrator':collected_data['client'].get('USBArbitrator', 'N/A'),\
+                 'audioService':collected_data['client'].get('audioService', 'N/A'), \
+                 'scannerClientService':collected_data['client'].get('scannerClientService','N/A'),\
+                 'netlinkClientService':collected_data['client'].get('netlinkClientService', 'N/A'),\
+                 'agentAudioService':collected_data['agent'].get('audioService', 'N/A'),\
+                 'scannerAgentService':collected_data['agent'].get('scannerAgentService', 'N/A'),\
+                 'netlinkAgentService':collected_data['agent'].get('netlinkAgentService', 'N/A'),\
+                 'netlinkSessionService':collected_data['agent'].get('netlinkSessionService', 'N/A')}
+    for key,value in dict_list.items():
+        if value=="null" or value=="" or value==None:
+           dict_list[key] = 'N/A'
     client = [
         {'key': "Client OS Name", 'value': collected_data['client']['OSname'], 'check': True},
         {
@@ -190,8 +201,24 @@ def check_compatibility(collected_data, device):
             'check': collected_data['client'].get('PrinterService', None) == 'Running'
         }, {
             'key': "USB Arbitrator Service",
-            'value': collected_data['client'].get('USBArbitrator', None),
+            'value': dict_list['USBArbitrator'],
             'check': collected_data['client'].get('USBArbitrator', None) == 'Running'
+        }, {
+            'key': "Windows Audio Service",
+            'value': dict_list['audioService'],
+            'check': collected_data['client'].get('audioService', None) == 'Running'
+        }, {
+            'key': "VMware Scanner Redirection Client service",
+            'value':  dict_list['scannerClientService'],
+            'check': collected_data['client'].get('scannerClientService', None) == 'Running'
+        },{
+            'key': "VMware Netlink Supervisor service",
+            'value': dict_list['netlinkClientService'],
+            'check': collected_data['client'].get('netlinkClientService', None) == 'Running'
+        }, {
+            'key': "",
+            'value': None,
+            'check': 'null'
         }
     ]
     agent = [
@@ -204,13 +231,33 @@ def check_compatibility(collected_data, device):
         {'key': "Horizon Version", 'value': collected_data['agent']['agentver'], 'check': True},
         {
             'key': "Printer Service",
-            'value': collected_data['agent'].get('PrinterService', None),
+            'value': collected_data['agent'].get('PrinterService', 'N/A'),
             'check': collected_data['agent'].get('PrinterService', None) == 'Running'
         },
         {
             'key': "CDR Service",
-            'value': collected_data['agent'].get('CDRservice', None),
+            'value': collected_data['agent'].get('CDRservice', 'N/A'),
             'check': collected_data['agent'].get('CDRservice', None) == 'Running'
+        },
+        {
+        'key': "Windows Audio Service",
+        'value': dict_list['agentAudioService'],
+        'check': collected_data['agent'].get('audioService', None) == 'Running'
+        },
+        {
+            'key': "VMware Scanner Redirection Agent service",
+            'value': dict_list['scannerAgentService'],
+            'check': collected_data['agent'].get('scannerAgentService', None) == 'Running'
+        },
+        {
+            'key': "VMware Netlink Supervisor service",
+            'value': dict_list['netlinkAgentService'],
+            'check': collected_data['agent'].get('netlinkAgentService', None) == 'Running'
+        },
+        {
+            'key': "VMware Network Session service",
+            'value': dict_list['netlinkSessionService'],
+            'check': collected_data['agent'].get('netlinkSessionService', None) == 'Running'
         }
     ]
 

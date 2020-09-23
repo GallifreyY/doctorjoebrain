@@ -4,7 +4,9 @@ import re
 
 components = {
     "usbdisk": "USB",
-    "printers": ["ThinPrint","PrintRedir"]
+    "printers": ["ThinPrint","PrintRedir"],
+    "scanners": "ScannerRedirection",
+    "cameras": "RTAV"
 }
 
 link = {
@@ -13,7 +15,11 @@ link = {
     "usbdisk": ["https://docs.vmware.com/en/VMware-Horizon-7/",
                 "/horizon-remote-desktop-features/GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html"],
     "printer_redirection":["https://docs.vmware.com/en/VMware-Horizon-7/",
-                "/horizon-remote-desktop-features/GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"]
+                "/horizon-remote-desktop-features/GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"],
+    "scanner_redirection":["https://docs.vmware.com/en/VMware-Horizon-7/",
+                "/horizon-remote-desktop-features/GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html"],
+    "RTAV":["https://docs.vmware.com/en/VMware-Horizon-7/",
+                "/horizon-remote-desktop-features/GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"]
 }
 
 
@@ -54,7 +60,7 @@ def diagnosis(collected_data, device):
 
     # todo: for different devices
     if device.type == 'usbdisk':
-        results = _usb_diagnose(collected_data, device, results)
+        results = _usb_disk_diagnose(collected_data, device, results)
     elif device.type == 'printers':
         results = _printer_diagnose(collected_data, device, results)
     elif device.type == 'scanners':
@@ -68,7 +74,7 @@ def diagnosis(collected_data, device):
     return results
 
 
-def _usb_diagnose(collected_data, device, results):
+def _usb_disk_diagnose(collected_data, device, results):
 
 
     # todo: USB Arbitrator
@@ -76,8 +82,8 @@ def _usb_diagnose(collected_data, device, results):
         results.append("Please check and ensure the USB arbitrator service is in running status on your client machine.")
 
     # todo: Redirection
-    if device.end == 'agent':
-        s = "The USB device  is redirected to the remote agent desktop by USB redirection way which is not recommended for the USB disk devices."
+    if device.is_usb_redirect:
+        s = "You are using USB redirection for USB disk devices. Please use CDR redirection."
         results.append(_add_refers(s,device.type,collected_data))
 
     # todo: CDR Service
@@ -97,7 +103,7 @@ def _printer_diagnose(collected_data, device, results):
     device_details = device.find_details()
 
     # todo: PrinterService
-    s = "It is recommended to use Printer redirection solution for this device in Horizon environment."
+    s = "It is recommended to use printer redirection solution for this device in Horizon environment."
     results.append(_add_refers(s,"printer_redirection",collected_data))
 
 
@@ -105,7 +111,6 @@ def _printer_diagnose(collected_data, device, results):
             or collected_data['agent'].get('PrinterService',None) != 'Running':
         results.append("The print service(spooler) was at stopped status on your client or agent desktop. "
                        "Please check it out and ensure it is running before printer redirection..")
-        return results
 
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
@@ -120,8 +125,8 @@ def _printer_diagnose(collected_data, device, results):
         if major_version == 3: # NPD
             agent_redirect =  device.find_redirection_in_agent()
             if agent_redirect is not None and agent_redirect['DriverName']['Name'] == 'VMware Universal EMF Driver':
-                results.append("VMware Universal printing driver(UPD) was used by this printer in remote desktop." \
-                               " If you want to utilize native printing driver(NPD), please install its native driver on the remote desktop.")
+                results.append("VMware Universal Printing Driver(UPD) was used by this printer in remote desktop." \
+                               " If you want to utilize Native Printing Driver(NPD), please install its native driver on the remote desktop.")
                 # todo: update!
 
 
@@ -130,7 +135,7 @@ def _printer_diagnose(collected_data, device, results):
 
     # todo： USB direction （vid & pid）or in _Device Class
     if device.is_usb_redirect:
-        results.append("Not recommend using USB redirect in this printer device, please use printer redirection.")
+        results.append("You are using USB redirection for printer devices. Please use printer redirection.")
         # todo : detect in agent
         if device.find_redirection_in_agent() is None:
             results.append("The USB redirection could not be found in Horizon end.")
@@ -142,14 +147,44 @@ def _printer_diagnose(collected_data, device, results):
 def _scanner_diagnose(collected_data, device, results):
     if _judge_driver(device) is not None:
         results.append(_judge_driver(device))
+    s = "It is recommended to use scanner redirection solution for this device in Horizon environment."
+    results.append(_add_refers(s,"scanner_redirection",collected_data))
 
+    if collected_data['client'].get('netlinkClientService',None) != 'Running'\
+            or collected_data['agent'].get('netlinkAgentService',None) != 'Running':
+        results.append("The VMware Netlink Supervisor service(ftnlsv3hv) was at stopped status on your client or agent desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+    
+    if collected_data['client'].get('scannerClientService',None) != 'Running':
+        results.append("The VMware Scanner Redirection Client service(ftscanmgrhv) was at stopped status on your client desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+    
+    if collected_data['agent'].get('scannerAgentService',None) != 'Running':
+        results.append("The VMware Scanner Redirection Agent service(ftscansvchv) was at stopped status on your agent desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+    
+    if collected_data['agent'].get('netlinkSessionService',None) != 'Running':
+        results.append("The VMware Network Session service(ftnlses3hv) was at stopped status on your agent desktop. "
+                       "Please check it out and ensure it is running before scanner redirection..")
+
+    if device.is_usb_redirect:
+        results.append("You are using USB redirection for scanner devices. Please use scanner redirection.")
     return results
 
 
 def _camera_diagnose(collected_data, device, results):
     if _judge_driver(device) is not None:
         results.append(_judge_driver(device))
+    s = "It is recommended to use RTAV redirection solution for this device in Horizon environment."
+    results.append(_add_refers(s,"RTAV",collected_data))
 
+    if collected_data['client'].get('audioService',None) != 'Running'\
+            or collected_data['agent'].get('audioService',None) != 'Running':
+        results.append("The Windows Audio service(Audiosrv) was at stopped status on your client or agent desktop. "
+                       "Please check it out and ensure it is running before RTAV redirection..")
+
+    if device.is_usb_redirect:
+        results.append("You are using USB redirection for camera devices. Please use RTAV redirection.")
     return results
 
 
@@ -160,7 +195,7 @@ def _judge_driver(device):
     if provider == 'Microsoft' \
         and re.search(r'.crosoft*',device.name) is None \
         and device.suspected_vendor is not 'Microsoft':
-        return 'The driver is probably provided by Microsoft. Recommend to install the driver from the vendor.'
+        return 'The driver is probably provided by Microsoft. Recommend to install the native driver provided by the device vendor.'
     return None
 
 def _add_refers(suggestion,key,collected_data):

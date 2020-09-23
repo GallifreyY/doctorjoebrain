@@ -124,7 +124,10 @@ class Device:
             default_info['details']['picture'] = 'defaultUSB.jpg'
         elif self.type == 'printers':
             default_info['details']['picture'] = 'defaultPrinter.png'
-
+        elif self.type == 'scanners':
+            default_info['details']['picture'] = 'defaultScanner.jpg'
+        elif self.type == 'cameras':
+            default_info['details']['picture'] = 'defaultCamera.jpg'
         # todo: just for demo, will add in db in the future
         # if self.type == 'printers' and re.search(r'Brother', self.name):
         #     default_info['picture'] = 'Brother-QL.png'
