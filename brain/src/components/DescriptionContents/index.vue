@@ -2,7 +2,7 @@
     <div class="description-content">
        <Row>
         <Col span="12">
-          <img class="screenshoot" src="../../assets/screenshoot.jpg">
+          <img class="screenshoot" src="../../assets/screenshoot.png">
         </Col>
         <Col span="12">
           <div class="description">
@@ -90,8 +90,8 @@
 <style scoped>
 .screenshoot{
   height:500px;
-  width:500px;
-  margin-left: 100px;
+  width:570px;
+  margin-left: 80px;
   margin-top: -50px;
 }
   .description{
