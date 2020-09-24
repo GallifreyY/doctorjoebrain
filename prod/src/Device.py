@@ -28,10 +28,10 @@ class Device:
         #     self.vid, self.pid = print_r.get("VID", None), print_r.get("PID", None)
         #     print(print_r)
 
-    # def _parse(self):
-    # XXX: parse for some special situation
-    # 1. printers: vid& pid were redirected in agent end
 
+    #def _parse(self):
+        # XXX: parse for some special situation
+        # 1. printers: vid& pid were redirected in agent end
 
 
     def _read_raw_data(self):
@@ -40,12 +40,12 @@ class Device:
     def _is_usb_redirect(self):
         # todo:details
 
-        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras':
+        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' or self.type == 'printers':
             if self.end == 'agent':
                 return True
             else:
                 return False
-
+'''
         elif self.type == 'printers':
             # printer will be detected only in agent
             if self.vid is not None and self.pid is not None:
@@ -56,7 +56,7 @@ class Device:
                     # device_id = device_r['VID'] + '-' + device_r['PID']
                     # todo: query in db
                     item = models.Device.query.filter(and_(models.Device.vendor_id == device_r['VID'],
-                                                           models.Device.product_id == device_r['PID'])) \
+                                                           models.Device.product_id == device_r['PID']))\
                         .with_entities(models.Device.device_name).all()
                     if len(item) == 1:
                         if item[0] == self.name:
@@ -71,7 +71,7 @@ class Device:
                     #     return True
 
         return False
-
+'''
     def find_details(self):
         devices = self.raw_data[self.end][self.type]
         return devices[self.index] if len(devices) >= self.index else None
@@ -103,20 +103,20 @@ class Device:
             "vid": self.vid,
             "pid": self.pid,
             "type": self.type,
-            "hasProblem": self.has_problem or False,
+            "hasProblem":self.has_problem or False,
             "end": self.end,
             "details": {
                 'picture': 'devices.jpg',
-                'vendor_name': self.suspected_vendor or 'unrecorded',
+                'vendor_name':  self.suspected_vendor or 'unrecorded',
                 'vendor_link': 'unrecorded',
                 'vendor_logo': 'vendor.png',
                 'description': 'This device is not recorded in our database'
             },
-            "tag": {
+            "tag":{
                 "isPresent": self.is_present,
                 "isRebootNeed": self.is_reboot_needed,
                 "isUsbRedirect": self.is_usb_redirect,
-                "isVirtualPrinter": self.is_virtual_printer
+                "isVirtualPrinter" : self.is_virtual_printer
             }
         }
         # todo:
