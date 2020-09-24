@@ -3,7 +3,7 @@ import json
 import re
 
 components = {
-    "usbdisk": "USB",
+    "usbdisk": "ClientDriveRedirection",
     "printers": ["ThinPrint","PrintRedir"],
     "scanners": "ScannerRedirection",
     "cameras": "RTAV"
@@ -37,23 +37,34 @@ def diagnosis(collected_data, device):
         if isinstance(comp,list) :
             comp_installed = False
             for _comp in comp:
-                 if _comp in collected_data['agent']['Horizoncomp']:
+                if _comp == "PrintRedir":
+                    compstr = "Integrated Printing"
+                else:
+                    compstr = _comp
+                if _comp in collected_data['agent']['Horizoncomp']:
                     if collected_data['agent']['Horizoncomp'][_comp] == 1:
                         comp_installed = True
+                        s = "The VMware {} component is installed on the Horizon agent desktop. " \
+                               "Please use it for {} redirection.".format(compstr,device.type)
+                        results.append(_add_refers(s,device.type,collected_data))
                         break
-                 else:
+                else:
                     s = "The {} component is not available in the Horizon agent product.".format(_comp)
                     results.append(_add_refers(s,device.type,collected_data))
             if comp_installed == False :
                 comp_string = " or ".join(comp)
-                s = "The {} component is not installed on the Horizon agent desktop. " \
+                s = "The VMware {} component is not installed on the Horizon agent desktop. " \
                                "Please check it with your IT administrator.".format(comp_string)
                 results.append(_add_refers(s,device.type,collected_data))
         elif collected_data['agent']['Horizoncomp'][comp] == 0:
-            s = "The {} component is not installed on the Horizon agent desktop. " \
+            s = "The VMware {} component is not installed on the Horizon agent desktop. " \
                                "Please check it with your IT administrator.".format(comp)
             results.append(_add_refers(s,device.type,collected_data))
-
+        elif collected_data['agent']['Horizoncomp'][comp] == 1:
+            s = "The VMware {} component is installed on the Horizon agent desktop. " \
+                               "Please use it for {} redirection.".format(comp,device.type)
+            results.append(_add_refers(s,device.type,collected_data))
+        
     # todo: for different devices
     if device.type == 'usbdisk':
         results = _usb_disk_diagnose(collected_data, device, results)
@@ -85,7 +96,7 @@ def _usb_disk_diagnose(collected_data, device, results):
     # todo: CDR Service
     if 'CDRservice' in collected_data['agent'].keys():
         if collected_data['agent']['CDRservice'] == 'Running':
-            s = "Please use the CDR (client drive redirection) service to redirect the file systems on USB disk devices."
+            s = "Please use the CDR (Client Drive Redirection) solution to redirect the file systems on USB disk devices."
         else:
             s = "The CDR service is not running properly on your agent machine. Please check it with your IT administrator to restart the service."
     else:
@@ -101,13 +112,6 @@ def _printer_diagnose(collected_data, device, results):
     # todo: PrinterService
     s = "It is recommended to use printer redirection solution for this device in Horizon environment."
     results.append(_add_refers(s,device.type,collected_data))
-
-    # Check which printer component is installed on agent
-    if collected_data['agent']['Horizoncomp']['ThinPrint'] == 1:
-        s = "The VMware ThinPrint component is installed on your agent machine. Please use it for printer redirection."
-    elif collected_data['agent']['Horizoncomp']['PrintRedir'] == 1:
-        s = "The VMware Integrated Printing component is installed on your agent machine. Please use it for printer redirection."
-    results.append(s)
 
     if collected_data['client'].get('PrinterService',None) != 'Running':
         results.append("The print service(spooler) is not running on your client desktop."
