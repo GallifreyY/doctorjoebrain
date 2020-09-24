@@ -108,7 +108,7 @@ export default {
   data() {
     return {
       totalPage: [],
-      pageSize:1,
+      pageSize:20,
       pageNum: 1,
       currentPage: 0,
       data: undefined,
