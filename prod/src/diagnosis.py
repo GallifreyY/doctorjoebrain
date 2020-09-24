@@ -3,7 +3,7 @@ import json
 import re
 
 components = {
-    "usbdisk": "USB",
+    "usbdisk": "ClientDriveRedirection",
     "printers": ["ThinPrint", "PrintRedir"],
     "scanners": "ScannerRedirection",
     "cameras": "RTAV"
@@ -37,21 +37,32 @@ def diagnosis(collected_data, device):
         if isinstance(comp, list):
             comp_installed = False
             for _comp in comp:
+                if _comp == "PrintRedir":
+                    compstr = "Integrated Printing"
+                else:
+                    compstr = _comp
                 if _comp in collected_data['agent']['Horizoncomp']:
                     if collected_data['agent']['Horizoncomp'][_comp] == 1:
                         comp_installed = True
+                        s = "The VMware {} component is installed on the Horizon agent desktop. " \
+                            "Please use it for {} redirection.".format(compstr, device.type)
+                        results.append(_add_refers(s, device.type, collected_data))
                         break
                 else:
-                    s = "The {} component is not available in the Horizon agent product.".format(_comp)
+                    s = "The VMware {} component is not available in the Horizon agent product.".format(compstr)
                     results.append(_add_refers(s, device.type, collected_data))
             if comp_installed == False:
                 comp_string = " or ".join(comp)
-                s = "The {} component is not installed on the Horizon agent desktop. " \
+                s = "The VMware {} component is not installed on the Horizon agent desktop. " \
                     "Please check it with your IT administrator.".format(comp_string)
                 results.append(_add_refers(s, device.type, collected_data))
         elif collected_data['agent']['Horizoncomp'][comp] == 0:
-            s = "The {} component is not installed on the Horizon agent desktop. " \
+            s = "The VMware {} component is not installed on the Horizon agent desktop. " \
                 "Please check it with your IT administrator.".format(comp)
+            results.append(_add_refers(s, device.type, collected_data))
+        elif collected_data['agent']['Horizoncomp'][comp] == 1:
+            s = "The VMware {} component is installed on the Horizon agent desktop. " \
+                "Please use it for {} redirection.".format(comp, device.type)
             results.append(_add_refers(s, device.type, collected_data))
 
     # todo: for different devices
@@ -84,7 +95,7 @@ def _usb_disk_diagnose(collected_data, device, results):
     # todo: CDR Service
     if 'CDRservice' in collected_data['agent'].keys():
         if collected_data['agent']['CDRservice'] == 'Running':
-            s = "Please use the CDR (client drive redirection) service to redirect the file systems on USB disk devices."
+            s = "Please use the CDR (Client Drive Redirection) solution to redirect the file systems on USB disk devices."
         else:
             s = "The CDR service is not running properly on your agent machine. Please check it with your IT administrator to restart the service."
     else:
@@ -101,13 +112,6 @@ def _printer_diagnose(collected_data, device, results):
     s = "It is recommended to use printer redirection solution for this device in Horizon environment."
     results.append(_add_refers(s, device.type, collected_data))
 
-    # Check which printer component is installed on agent
-    if collected_data['agent']['Horizoncomp']['ThinPrint'] == 1:
-        s = "The VMware ThinPrint component is installed on your agent machine. Please use it for printer redirection."
-    elif collected_data['agent']['Horizoncomp']['PrintRedir'] == 1:
-        s = "The VMware Integrated Printing component is installed on your agent machine. Please use it for printer redirection."
-    results.append(s)
-
     if collected_data['client'].get('PrinterService', None) != 'Running':
         results.append("The print service(spooler) is not running on your client desktop."
                        "Please check it out and ensure it is running before printer redirection.")
@@ -116,11 +120,18 @@ def _printer_diagnose(collected_data, device, results):
         results.append("The print service(spooler) is not running on your agent desktop."
                        "Please check it out and ensure it is running before printer redirection.")
 
+    if device.is_usb_redirect:
+        results.append("You are using USB redirection for printer devices. Please use printer redirection.")
+
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
-        s = "This printer  is connected to your machine via USB connection. " \
-            "However, the appropriate driver of this device is not found in your client system. " \
-            "Please contact your IT administrator to install the specific driver of the printer on your machine."
+        if device.end == "client":
+            conn = "connection"
+        elif device.end == "agent":
+            conn = "redirection"
+        s = "This printer is connected to the Horizon {} machine via USB {}. " \
+            "However, the device driver is not found in the machine. " \
+            "Please contact IT administrator to install the printer driver in it.".format(device.end, conn)
         results.append(s)
 
     else:
@@ -136,15 +147,6 @@ def _printer_diagnose(collected_data, device, results):
 
         elif major_version == 4:  # UDPmajo
             pass
-
-    # todo： USB direction （vid & pid）or in _Device Class
-    if device.is_usb_redirect:
-        results.append("You are using USB redirection for printer devices. Please use printer redirection.")
-        # todo : detect in agent
-        if device.find_redirection_in_agent() is None:
-            results.append("The USB redirection could not be found in Horizon end.")
-    # else:
-    #     results.append("It is a virtual printer.")
 
     return results
 
@@ -228,6 +230,7 @@ def _add_refers(suggestion, key, collected_data):
         docver = "2006"
     fulldoclink = prefix + docver + middle + docGUIDlinks[key]
     return [suggestion, fulldoclink]
+
 
 # Get the 7.13 as return value from agent version 7.13.0
 def _get_horizon_ver(collected_data):
