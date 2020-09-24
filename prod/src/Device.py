@@ -40,13 +40,18 @@ class Device:
     def _is_usb_redirect(self):
         # todo:details
 
-        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' or self.type == 'printers':
+        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' :
             if self.end == 'agent':
                 return True
             else:
                 return False
-'''
-        elif self.type == 'printers':
+
+        elif self.type == 'printers' and self.end == 'agent':
+            if self.vid is not None and self.pid is not None:
+                return True
+            else:
+                return False
+        elif self.type =='printers' and self.end =='client':
             # printer will be detected only in agent
             if self.vid is not None and self.pid is not None:
                 return False
@@ -71,7 +76,7 @@ class Device:
                     #     return True
 
         return False
-'''
+
     def find_details(self):
         devices = self.raw_data[self.end][self.type]
         return devices[self.index] if len(devices) >= self.index else None
