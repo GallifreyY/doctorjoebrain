@@ -57,7 +57,7 @@
               <Poptip trigger="hover" placement="left" width="750">
                 <a>More Information</a>
                 <!-- <div slot="title">Detail Information about the Client</div> -->
-                <div slot="content">
+                <div slot="content" style="height: 500px;overflow:scroll">
                   <Table
                     stripe
                     :show-header="showHeader"
