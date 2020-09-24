@@ -56,8 +56,8 @@ def recognize_devices(collected_data, uuid):
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             # todo: dimiss pritners check at agent end
-            if key == 'printers' and end == 'agent':
-                continue
+            #if key == 'printers' and end == 'agent':
+                #continue
 
             if collected_data[end][key] is None:
                 continue
