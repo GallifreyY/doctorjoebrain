@@ -228,7 +228,7 @@ export default {
       ],
       showHeader: false, //tableHeader
       showProgressBar: false,
-      tableSize: "small"
+      tableSize: "big"
     };
   },
 
