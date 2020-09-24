@@ -55,7 +55,7 @@
 
       <Row v-for="(item,index) in formItem.HorizonVersionsRes" v-if="item.status" :key="index">
         <Col span="8">
-          <FormItem :label="'Client Version' + item.index" label-width=150>
+          <FormItem label="Client Version" label-width=150>
             <Select v-model="item.client">
               <Option
                 v-for="ver in HorizonVersionsList.client"
@@ -66,7 +66,7 @@
           </FormItem>
         </Col>
         <Col span="8">
-          <FormItem :label="'Agent Version' + item.index" label-width=150>
+          <FormItem label="Agent Version" label-width=150>
             <Select v-model="item.agent">
               <Option
                 v-for="ver in HorizonVersionsList.agent"
@@ -135,14 +135,16 @@ export default {
           { label: "5.1.0", value: "5.1.0" },
           { label: "5.2.0", value: "5.2.0" },
           { label: "5.3.0", value: "5.3.0" },
-          { label: "5.4.0", value: "5.4.0" }
+          { label: "5.4.0", value: "5.4.0" },
+          { label: "2006", value: "2006" }
         ],
         agent: [
           { label: "7.8.0", value: "7.8.0" },
           { label: "7.9.0", value: "7.9.0" },
           { label: "7.10.0", value: "7.10.0" },
           { label: "7.11.0", value: "7.11.0" },
-          { label: "7.12.0", value: "7.12.0" }
+          { label: "7.12.0", value: "7.12.0" },
+          { label: "8.0.0", value: "8.0.0" }
         ]
       },
       rulesV: {
