@@ -49,7 +49,7 @@ def diagnosis(collected_data, device):
                         results.append(_add_refers(s,device.type,collected_data))
                         break
                 else:
-                    s = "The {} component is not available in the Horizon agent product.".format(_comp)
+                    s = "The VMware {} component is not available in the Horizon agent product.".format(compstr)
                     results.append(_add_refers(s,device.type,collected_data))
             if comp_installed == False :
                 comp_string = " or ".join(comp)
@@ -121,11 +121,18 @@ def _printer_diagnose(collected_data, device, results):
         results.append("The print service(spooler) is not running on your agent desktop."
                        "Please check it out and ensure it is running before printer redirection.")
 
+    if device.is_usb_redirect:
+        results.append("You are using USB redirection for printer devices. Please use printer redirection.")
+    
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
-        s = "This printer  is connected to your machine via USB connection. " \
-            "However, the appropriate driver of this device is not found in your client system. " \
-            "Please contact your IT administrator to install the specific driver of the printer on your machine."
+        if device.end == "client":
+            conn = "connection"
+        elif device.end == "agent":
+            conn = "redirection"
+        s = "This printer is connected to the Horizon {} machine via USB {}. " \
+            "However, the device driver is not found in the machine. " \
+            "Please contact IT administrator to install the printer driver in it.".format(device.end, conn)
         results.append(s)
 
     else:
@@ -141,15 +148,6 @@ def _printer_diagnose(collected_data, device, results):
 
         elif major_version == 4: # UDPmajo
             pass
-
-    # todo： USB direction （vid & pid）or in _Device Class
-    if device.is_usb_redirect:
-        results.append("You are using USB redirection for printer devices. Please use printer redirection.")
-        # todo : detect in agent
-        if device.find_redirection_in_agent() is None:
-            results.append("The USB redirection could not be found in Horizon end.")
-    # else:
-    #     results.append("It is a virtual printer.")
 
     return results
 
