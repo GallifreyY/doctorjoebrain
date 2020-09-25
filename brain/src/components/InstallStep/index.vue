@@ -11,7 +11,7 @@
               <a name="1-1" @click="handlezip" class="linka">HorizonPeripheralsAgent.zip</a>
                 <a class="linka" @click="handlemsi" name="1-2">HorizonPeripheralsAgent.msi</a>
                 <a class="active" @click="handlestep" name="1-3">Installation steps</a>
-                <a class="linka" @click="handlemod" name="1-4">Installation failure and modification</a>
+                <a class="linka" @click="handlemod" name="1-4">Web server configuration</a>
         </Submenu>
         <Submenu name="2">
             <template slot="title">

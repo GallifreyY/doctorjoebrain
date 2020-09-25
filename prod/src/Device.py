@@ -51,8 +51,7 @@ class Device:
                 return True
             else:
                 return False
-        elif self.type =='printers' and self.end =='client':
-            # printer will be detected only in agent
+        elif self.type == 'printers' and self.end == 'client':
             if self.vid is not None and self.pid is not None:
                 return False
 
