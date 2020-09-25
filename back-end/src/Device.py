@@ -52,6 +52,9 @@ class Device:
             else:
                 return False
         elif self.type == 'printers' and self.end == 'client':
+            if self.vid is not None and self.pid is not None:
+                return False
+                
             for device_r in self.raw_data['agent'][self.type]:
                 if 'VID' in device_r.keys() and 'PID' in device_r.keys():
                     # device_id = device_r['VID'] + '-' + device_r['PID']
