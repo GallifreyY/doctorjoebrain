@@ -33,7 +33,6 @@ if ENV == 'PROD':
 else:
     URL = 'http://' + cf.get('DEV', 'LOCAL') + ':' + cf.get('DEV', 'PORT') + '/#/diagnosis/'
 
-print(ENV, URL)
 
 CATE_MAP = {
     "Other Devices": -1,

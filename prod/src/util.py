@@ -218,11 +218,14 @@ def get_client_details_from_agent(collected_data):
 def check_compatibility(collected_data, device):
     dict_list = {'USBArbitrator':collected_data['client'].get('USBArbitrator', 'N/A'),\
                  'audioService':collected_data['client'].get('audioService', 'N/A'), \
+                 'clientPrint':collected_data['client'].get('PrinterService', 'N/A'), \
+                 'agentPrint':collected_data['agent'].get('PrinterService', 'N/A'), \
                  'scannerClientService':collected_data['client'].get('scannerClientService','N/A'),\
                  'netlinkClientService':collected_data['client'].get('netlinkClientService', 'N/A'),\
                  'agentAudioService':collected_data['agent'].get('audioService', 'N/A'),\
                  'scannerAgentService':collected_data['agent'].get('scannerAgentService', 'N/A'),\
                  'netlinkAgentService':collected_data['agent'].get('netlinkAgentService', 'N/A'),\
+                 'CDRService':collected_data['agent'].get('CDRservice', 'N/A'),\
                  'netlinkSessionService':collected_data['agent'].get('netlinkSessionService', 'N/A')}
     for key,value in dict_list.items():
         if value=="null" or value=="" or value==None:
@@ -238,7 +241,7 @@ def check_compatibility(collected_data, device):
         {'key': "Horizon Version", 'value': collected_data['client']['clientver'], 'check': True},
         {
             'key': "Print Spooler Service",
-            'value': collected_data['client']['PrinterService'],
+            'value': dict_list['clientPrint'],
             'check': collected_data['client'].get('PrinterService', None) == 'Running'
         }, {
             'key': "USB Arbitrator Service",
@@ -272,12 +275,12 @@ def check_compatibility(collected_data, device):
         {'key': "Horizon Version", 'value': collected_data['agent']['agentver'], 'check': True},
         {
             'key': "Print Spooler Service",
-            'value': collected_data['agent'].get('PrinterService', 'N/A'),
+            'value': dict_list['agentPrint'],
             'check': collected_data['agent'].get('PrinterService', None) == 'Running'
         },
         {
             'key': "CDR Service",
-            'value': collected_data['agent'].get('CDRservice', 'N/A'),
+            'value': dict_list['CDRService'],
             'check': collected_data['agent'].get('CDRservice', None) == 'Running'
         },
         {
