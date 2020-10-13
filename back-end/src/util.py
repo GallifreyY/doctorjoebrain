@@ -52,7 +52,7 @@ def recognize_devices(collected_data, uuid):
     :return: devices(on duplicated item)
     """
     res = []
-    recorded_devices = ['usbdisk', 'printers', 'scanners', 'cameras']
+    recorded_devices = ['usbdisk', 'printers', 'scanners', 'cameras','others']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             # todo: dimiss pritners check at agent end
@@ -82,6 +82,7 @@ def recognize_devices(collected_data, uuid):
                                        device.get("PID", None),
                                        device.get('name', None) or device.get('Name', None),
                                        device.get('hasProblem', None),
+                                       device.get('problemCode',None),
                                        device.get('isRebootNeeded', None),
                                        device.get('isPresent', None)))
 
