@@ -20,12 +20,21 @@
             </template>
           <a class="linka" @click="handleclient" name="2-1">Installation steps</a>
         </Submenu>
+<Submenu name="3">
+            <template slot="title">
+                <Icon type="ios-aperture" />
+                Peripherals Intelligence User Guide
+            </template>
+                <a name="3-1" @click="handleuserprocess" class="linka">How to start a diagnosis process?</a>
+                <a class="linka" @click="handleusermatrix" name="3-2">How to check the device support matrix?</a>
+                <a class="linka" @click="handleuserlogin" name="3-3">How to login as Admin to maintain and edit the device support matrix?</a>
 
+        </Submenu>
     </Menu>
     </Sider>
     <div class="content">
        <h4>&nbsp;&nbsp;&nbsp;The hpagentconfig.ini under the installation folder contains the web server address and port which are configured during installation. If you don’t input them correctly during installation, you could manually change them by editing this config file.</h4>
-      <img class="dj-installer-pic" src="../../assets/dj-agent-installer5.png">
+      <img class="dj-tip-pic" src="../../assets/dj-agent-installer5.png">
     </div>
   </div>
 </template>
@@ -47,7 +56,16 @@ name:"GuideTips",
   },
   handleclient(){
     this.$router.replace("/step");
-  }
+  },
+        handleuserprocess(){
+    this.$router.replace("/userprocess");
+  },
+  handleusermatrix(){
+    this.$router.replace("/usermatrix");
+  },
+  handleuserlogin(){
+    this.$router.replace("/userlogin");
+  },
 }
 
     }
@@ -69,10 +87,12 @@ name:"GuideTips",
   background: #fff;
   z-index: 25;
 }
-  .dj-installer-pic{
+  .dj-tip-pic{
     margin-top: 50px;
     margin-left: 100px;
     margin-bottom: 50px;
+    width: 600px;
+    height: 400px;
   }
   .link{
     color: black;

@@ -21,13 +21,22 @@
             </template>
            <a class="active" @click="handleclient" name="2-1">Installation steps</a>
         </Submenu>
+<Submenu name="3">
+            <template slot="title">
+                <Icon type="ios-aperture" />
+                Peripherals Intelligence User Guide
+            </template>
+                <a name="3-1" @click="handleuserprocess" class="linka">How to start a diagnosis process?</a>
+                <a class="linka" @click="handleusermatrix" name="3-2">How to check the device support matrix?</a>
+                <a class="linka" @click="handleuserlogin" name="3-3">How to login as Admin to maintain and edit the device support matrix?</a>
 
+        </Submenu>
     </Menu>
     </Sider>
     <div class="content">
       <h4>&nbsp;&nbsp;&nbsp;HorizonPeripheralsClient.msi is the installer to be run on your Horizon client machine. It doesn’t require the administrator privilege to run.</h4><br />
             <h4>&nbsp;&nbsp;&nbsp;You can choose the installation directory for HorizonPeripheralsClient. By default, it isC:\HorizonPeripheralsClient.</h4>
-        <img class="dj-installer-pic" src="../../assets/dj-client-installer.png">
+        <img class="dj-client-pic" src="../../assets/dj-client-installer.png">
     </div>
   </div>
 </template>
@@ -49,7 +58,16 @@ name:"GuideStep",
   },
   handleclient(){
     this.$router.replace("/step");
-  }
+  },
+        handleuserprocess(){
+    this.$router.replace("/userprocess");
+  },
+  handleusermatrix(){
+    this.$router.replace("/usermatrix");
+  },
+  handleuserlogin(){
+    this.$router.replace("/userlogin");
+  },
 }
 
     }
@@ -71,10 +89,12 @@ name:"GuideStep",
   background: #fff;
   z-index: 25;
 }
-  .dj-installer-pic{
+  .dj-client-pic{
     margin-top: 50px;
     margin-left: 100px;
     margin-bottom: 50px;
+    width: 600px;
+    height: 400px;
   }
    .link{
     color: black;

@@ -12,6 +12,7 @@
                 <div class="dj-install-des">
                 <h1>Download</h1>
                 <h2>HorizonPeripheralsClient installer</h2>
+                   <h2>(beta version)</h2>
                 </div>
               </Col>
             </Row>
@@ -27,6 +28,7 @@
                 <div class="dj-install-des">
                 <h1>Download</h1>
                 <h2>HorizonPeripheralsAgent installer</h2>
+                  <h2>(beta version)</h2>
                </div>
               </Col>
             </Row>

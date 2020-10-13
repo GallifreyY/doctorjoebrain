@@ -51,6 +51,18 @@ export default new Router({
       path: '/installstep',
       component: () => import('@/views/InstallStep')
     },
+    {
+      path: '/userlogin',
+      component: () => import('@/views/UserLogin')
+    },
+    {
+      path: '/userprocess',
+      component: () => import('@/views/UserProcess')
+    },
+    {
+      path: '/usermatrix',
+      component: () => import('@/views/UserMatrix')
+    },
   ]
 })
 

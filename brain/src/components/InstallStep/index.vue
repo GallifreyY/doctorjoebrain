@@ -20,7 +20,16 @@
             </template>
           <a class="linka" @click="handleclient" name="2-1">Installation steps</a>
         </Submenu>
+<Submenu name="3">
+            <template slot="title">
+                <Icon type="ios-aperture" />
+                Peripherals Intelligence User Guide
+            </template>
+                <a name="3-1" @click="handleuserprocess" class="linka">How to start a diagnosis process?</a>
+                <a class="linka" @click="handleusermatrix" name="3-2">How to check the device support matrix?</a>
+                <a class="linka" @click="handleuserlogin" name="3-3">How to login as Admin to maintain and edit the device support matrix?</a>
 
+        </Submenu>
     </Menu>
     </Sider>
     <div class="content">
@@ -56,7 +65,16 @@ name:"InstallStep",
   },
   handleclient(){
     this.$router.replace("/step");
-  }
+  },
+        handleuserprocess(){
+    this.$router.replace("/userprocess");
+  },
+  handleusermatrix(){
+    this.$router.replace("/usermatrix");
+  },
+  handleuserlogin(){
+    this.$router.replace("/userlogin");
+  },
 }
 
     }
@@ -82,6 +100,8 @@ name:"InstallStep",
     margin-top: 50px;
     margin-left: 100px;
     margin-bottom: 50px;
+    width: 500px;
+    height: 400px;
   }
    .link{
     color: black;
