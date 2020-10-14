@@ -25,7 +25,11 @@ def diagnosis(collected_data, device):
 
     # todo: general
     if device.has_problem:
-        results.append("This device has some problems, please check.")
+        results.append("This device has some problems, please check the problem code.")
+        if device.problemcode != 0:
+            ss="The device problem code is {}.".format(device.problemcode)
+            sslink = "https://support.microsoft.com/en-us/help/310123/error-codes-in-device-manager-in-windows"
+            results.append([ss,sslink])
     if device.is_present == False:
         results.append("Please make sure this device is connected to your client machine by USB physically.")
     if device.is_reboot_needed:
@@ -200,6 +204,8 @@ def _camera_diagnose(collected_data, device, results):
         results.append("You are using USB redirection for camera devices. Please use RTAV redirection.")
     return results
 
+def _other_diagnose(collected_data, device, results):
+    return results
 
 def _judge_driver(device):
     if "driverprovider" not in device.find_details().keys():
