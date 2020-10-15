@@ -96,7 +96,7 @@ export default {
       for (let devices in data) {
         let deviceType = {
           value: devices,
-          label: this.labelDict[devices] || "others",
+          label: this.labelDict[devices] || "Others",
           children: []
         };
         console.log(data[devices]);
