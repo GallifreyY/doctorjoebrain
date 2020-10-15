@@ -24,14 +24,15 @@ def diagnosis(collected_data, device):
     collected_data = collected_data
 
     # todo: general
-    if device.problemcode != 0:
-        ss="This device has some configuration issues. The device problem code is {}. {}".format(device.problemcode, device.problemdesc)
-        sslink = "https://support.microsoft.com/en-us/help/310123/error-codes-in-device-manager-in-windows"
-        results.append([ss,sslink])
-    if device.is_present == False:
-        results.append("Please make sure this device is connected to your client machine by USB physically.")
-    if device.is_reboot_needed:
-        results.append("Please reboot your client machine OS to make this device work properly.")
+    if device.problemcode!=None:
+        if int(device.problemcode) > 0:
+            ss="This device has some configuration issues. The device problem code is {}. {}".format(device.problemcode, device.problemdesc)
+            sslink = "https://support.microsoft.com/en-us/help/310123/error-codes-in-device-manager-in-windows"
+            results.append([ss,sslink])
+        if device.is_present == False:
+            results.append("Please make sure this device is connected to your client machine by USB physically.")
+        if device.is_reboot_needed:
+            results.append("Please reboot your client machine OS to make this device work properly.")
 
     # todo: detect components in Horizon
     comp = components.get(device.type, None)

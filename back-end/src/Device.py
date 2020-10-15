@@ -140,6 +140,7 @@ class Device:
         elif self.type == 'others':
             default_info['details']['picture'] = 'defaultOther.png'
             default_info['details']['description'] = 'This device is an unknown device.'
+            default_info['hasProblem'] = True
         # todo: just for demo, will add in db in the future
         # if self.type == 'printers' and re.search(r'Brother', self.name):
         #     default_info['picture'] = 'Brother-QL.png'
