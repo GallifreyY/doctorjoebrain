@@ -83,6 +83,7 @@ def recognize_devices(collected_data, uuid):
                                        device.get('name', None) or device.get('Name', None),
                                        device.get('hasProblem', None),
                                        device.get('problemCode',None),
+                                       device.get('problemdesc',None),
                                        device.get('isRebootNeeded', None),
                                        device.get('isPresent', None)))
 

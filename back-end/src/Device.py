@@ -4,7 +4,7 @@ import models
 from sqlalchemy import and_, or_
 # usbdisk printers
 class Device:
-    def __init__(self, index, type, end, uuid, vid, pid, name, has_p, pcode, irn, is_present):
+    def __init__(self, index, type, end, uuid, vid, pid, name, has_p, pcode, pdesc, irn, is_present):
         self.index = index
         self.type = type
         self.end = end
@@ -14,6 +14,7 @@ class Device:
         self.name = name
         self.has_problem = has_p
         self.problemcode = pcode
+        self.problemdesc = pdesc
         self.is_reboot_needed = irn
         self.is_present = is_present
 
