@@ -25,7 +25,7 @@ def diagnosis(collected_data, device):
 
     # todo: general
     if device.problemcode != 0:
-        ss="The device problem code is {}. {}".format(device.problemcode, device.problemdesc)
+        ss="This device has some configuration issues. The device problem code is {}. {}".format(device.problemcode, device.problemdesc)
         sslink = "https://support.microsoft.com/en-us/help/310123/error-codes-in-device-manager-in-windows"
         results.append([ss,sslink])
     if device.is_present == False:
