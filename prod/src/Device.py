@@ -4,7 +4,7 @@ import models
 from sqlalchemy import and_, or_
 # usbdisk printers
 class Device:
-    def __init__(self, index, type, end, uuid, vid, pid, name, has_p, irn, is_present):
+    def __init__(self, index, type, end, uuid, vid, pid, name, has_p, pcode, pdesc, irn, is_present):
         self.index = index
         self.type = type
         self.end = end
@@ -13,6 +13,8 @@ class Device:
         self.pid = pid
         self.name = name
         self.has_problem = has_p
+        self.problemcode = pcode
+        self.problemdesc = pdesc
         self.is_reboot_needed = irn
         self.is_present = is_present
 
@@ -40,7 +42,7 @@ class Device:
     def _is_usb_redirect(self):
         # todo:details
 
-        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' :
+        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' or self.type == 'others' :
             if self.end == 'agent':
                 return True
             else:
@@ -135,6 +137,9 @@ class Device:
         elif self.type == 'cameras':
             default_info['details']['picture'] = 'defaultCamera.jpg'
             default_info['details']['description'] = 'This device is a camera'
+        elif self.type == 'others':
+            default_info['details']['picture'] = 'defaultOther.png'
+            default_info['details']['description'] = 'This device is an unknown device.'
         # todo: just for demo, will add in db in the future
         # if self.type == 'printers' and re.search(r'Brother', self.name):
         #     default_info['picture'] = 'Brother-QL.png'
