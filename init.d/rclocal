@@ -1,0 +1,22 @@
+#!/bin/bash
+#chkconfig: 2345 50 90
+#description: This script set the hostname and network parameters and certificates.
+RETVAL=0
+start(){ 
+echo -n "invoke rclocal script ..."
+/root/rc.local
+}
+
+stop(){ 
+echo "nothing needs for rclocal script stop..."
+}
+
+case $1 in 
+start)
+start
+;;
+stop)
+stop
+;;
+esac
+exit $RETVAL
