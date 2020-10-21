@@ -1,0 +1,27 @@
+#!/bin/bash
+#chkconfig:2345 80 05 
+#description:mystart service
+RETVAL=0
+start(){ 
+echo -n "mystart serive ..."
+cd /home/doctorjoe/prod
+nohup python3 -u -m src > nohup.out 2>&1 &
+iptables -A INPUT -ptcp --dport 3306 -j ACCEPT
+iptables -A INPUT -ptcp --dport 5000 -j ACCEPT
+iptables -A INPUT -ptcp --dport 8090 -j ACCEPT
+
+}
+
+stop(){ 
+echo "mystart service is stoped..."
+}
+
+case $1 in 
+start)
+start
+;;
+stop)
+stop
+;;
+esac
+exit $RETVAL
