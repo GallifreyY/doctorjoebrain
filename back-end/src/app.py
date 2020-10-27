@@ -149,7 +149,6 @@ def device_and_client_info():
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
-
         # query vendor
         if device.vid is not None:
             item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
@@ -188,7 +187,7 @@ def device_and_client_info():
                     device_info['deviceName'] = item['device_name']
 
         devices_info.append(device_info)
-
+        
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
     agent_column_data = get_agent_info(collected_data)
