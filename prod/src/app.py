@@ -33,6 +33,7 @@ if ENV == 'PROD':
 else:
     URL = 'http://' + cf.get('DEV', 'LOCAL') + ':' + cf.get('DEV', 'PORT') + '/#/diagnosis/'
 
+print(ENV, URL)
 
 CATE_MAP = {
     "Other Devices": -1,
@@ -88,7 +89,7 @@ def add_to_log_file():
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        #url = URL + uuid
+        # url = URL + uuid
 
     return {'code': code,
             'state': state,
@@ -148,7 +149,6 @@ def device_and_client_info():
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
-
         # query vendor
         if device.vid is not None:
             item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
@@ -187,7 +187,7 @@ def device_and_client_info():
                     device_info['deviceName'] = item['device_name']
 
         devices_info.append(device_info)
-
+        
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
     agent_column_data = get_agent_info(collected_data)
@@ -353,7 +353,6 @@ def matrix_edit_data():
     }
 
 
-
 @app.route('/reg', methods=['GET', 'POST'])
 @cross_origin()
 def password_modify():
@@ -364,8 +363,8 @@ def password_modify():
         oldpasswd = post_data.get('oldpasswd')
         sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
         count, result, conn = handleDB.find_mysql(sql_search)
-        if count==0:
-            password_access.insert_password("admin",password)
+        if count == 0:
+            password_access.insert_password("admin", password)
             message = 1
         else:
             flag = password_access.password_deposit("admin", oldpasswd)
@@ -392,10 +391,10 @@ def trs_result():
     response_object = {'status': 'success'}
     sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
     count, result, conn = handleDB.find_mysql(sql_search)
-    if count==1:
+    if count == 1:
         flag = password_access.password_deposit("admin", "changeme")
         if flag:
-            count=0
+            count = 0
     response_object['message'] = count
     conn.close()
     return {
@@ -403,5 +402,6 @@ def trs_result():
         'data': response_object
     }
 
+
 if __name__ == '__main__':
-    app.run(debug=(ENV == 'DEV'),host='0.0.0.0')
+    app.run(debug=(ENV == 'DEV'))

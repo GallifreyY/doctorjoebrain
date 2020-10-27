@@ -73,19 +73,42 @@ def recognize_devices(collected_data, uuid):
                     collected_data[end][device_type] = devices
                     save_data(collected_data, uuid, 'user', 'json')
 
-                for index, device in enumerate(devices):
-                    res.append(_Device(index,
-                                       device_type,
-                                       end,
-                                       uuid,
-                                       device.get("VID", None),
-                                       device.get("PID", None),
-                                       device.get('name', None) or device.get('Name', None),
-                                       device.get('hasProblem', None),
-                                       device.get('problemCode',None),
-                                       device.get('problemdesc',None),
-                                       device.get('isRebootNeeded', None),
-                                       device.get('isPresent', None)))
+                if device_type == 'printers':
+                    for key in collected_data[end][device_type]:
+                        for k, v in dict.items(key):
+                            if k == 'DriverName':
+                                for index, device in enumerate(devices):
+                                    res.append(_Device(index,
+                                                device_type,
+                                                end,
+                                                uuid,
+                                                device.get("VID", None),
+                                                device.get("PID", None),
+                                                device.get('name', None) or device.get('Name', None),
+                                                device.get('hasProblem', None),
+                                                device.get('problemCode',None),
+                                                device.get('problemdesc',None),
+                                                device.get('isRebootNeeded', None),
+                                                device.get('isPresent', None),
+                                                v.get('Name', None),
+                                                v.get('DriverVersion', None)))
+
+                else:
+                    for index, device in enumerate(devices):
+                                res.append(_Device(index,
+                                            device_type,
+                                            end,
+                                            uuid,
+                                            device.get("VID", None),
+                                            device.get("PID", None),
+                                            device.get('name', None) or device.get('Name', None),
+                                            device.get('hasProblem', None),
+                                            device.get('problemCode',None),
+                                            device.get('problemdesc',None),
+                                            device.get('isRebootNeeded', None),
+                                            device.get('isPresent', None),
+                                            device.get('driverName', None),
+                                            device.get('driverver', None)))
 
     return res
 

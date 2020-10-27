@@ -4,7 +4,7 @@ import models
 from sqlalchemy import and_, or_
 # usbdisk printers
 class Device:
-    def __init__(self, index, type, end, uuid, vid, pid, name, has_p, pcode, pdesc, irn, is_present):
+    def __init__(self, index, type, end, uuid, vid, pid, name, has_p, pcode, pdesc, irn, is_present, driverName, driverVersion):
         self.index = index
         self.type = type
         self.end = end
@@ -17,6 +17,8 @@ class Device:
         self.problemdesc = pdesc
         self.is_reboot_needed = irn
         self.is_present = is_present
+        self.driverName = driverName
+        self.driverVersion = driverVersion
 
         self.raw_data = self._read_raw_data()
         self.details = self.find_details()
@@ -101,7 +103,8 @@ class Device:
 
     def _find_suspected_vendor(self):
         if self._is_virtual_printer(): return None
-        return self.name.split(' ')[0] or None
+        if self.name == None: return None
+        return self.name.split(' ')[0] or None 
 
     def default_info(self):
         default_info = {
@@ -111,6 +114,8 @@ class Device:
             "type": self.type,
             "hasProblem":self.has_problem or False,
             "end": self.end,
+            "driverName": self.driverName,
+            "driverVersion": self.driverVersion,
             "details": {
                 'picture': 'devices.jpg',
                 'vendor_name':  self.suspected_vendor or 'unrecorded',
