@@ -77,6 +77,8 @@ def diagnosis(collected_data, device):
         results = _scanner_diagnose(collected_data, device, results)
     elif device.type == 'cameras':
         results = _camera_diagnose(collected_data, device, results)
+    elif device.type == 'others':
+        results = _other_diagnose(collected_data, device, results)
 
     # todo: final check
     results = list(filter(None, results))
@@ -204,6 +206,9 @@ def _camera_diagnose(collected_data, device, results):
     return results
 
 def _other_diagnose(collected_data, device, results):
+    if device.is_usb_redirect:
+       results.append("You are using USB redirection for this device in Horizon agent desktop."
+                      "Please check the device type and choose the most suitable redirection solution for it.")
     return results
 
 def _judge_driver(device):
