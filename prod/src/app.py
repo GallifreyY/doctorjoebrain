@@ -33,6 +33,7 @@ if ENV == 'PROD':
 else:
     URL = 'http://' + cf.get('DEV', 'LOCAL') + ':' + cf.get('DEV', 'PORT') + '/#/diagnosis/'
 
+print(ENV, URL)
 
 CATE_MAP = {
     "Other Devices": -1,
@@ -88,7 +89,7 @@ def add_to_log_file():
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        #url = URL + uuid
+        # url = URL + uuid
 
     return {'code': code,
             'state': state,
@@ -145,10 +146,10 @@ def device_and_client_info():
     add_info_to_db(collected_data)
 
     devices_info = []
+    devices_pics = []
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
-
         # query vendor
         if device.vid is not None:
             item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
@@ -185,7 +186,7 @@ def device_and_client_info():
                     if key in device_info['details'].keys():
                         device_info['details'][key] = item[key]
                     device_info['deviceName'] = item['device_name']
-
+        devices_pics.append(device_info['details']['picture'])
         devices_info.append(device_info)
 
     # todo: directly get info from collected_data
@@ -201,22 +202,68 @@ def device_and_client_info():
     }
 
     diagnosis_info = []
-    for device in devices:
-        check_res = check_compatibility(collected_data, device)
-        suggestions = diagnosis(collected_data, device)
+    diagnosis_type_info = []
+    for device_index in range(len(devices)):
+        check_res = check_compatibility(collected_data, devices[device_index])
+        suggestions = diagnosis(collected_data, devices[device_index])
         video = "PowerMic.mp4"
-
+        if(len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])==0):
+            errorType = 1
+        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+            errorType = 0
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+            errorType = 2
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])>0):
+            errorType = 11
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+            errorType = 21
+        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+            errorType = 10
+        else:
+            errorType =-1
         diagnosis_info.append({
+            'deviceName':devices[device_index].name,
             'checkResult': check_res,
             'suggestions': suggestions,
             'referenceVideo': video
         })
+        diagnosis_type_info.append({
+            'deviceEnd': devices[device_index].default_info()['end'],
+            'deviceTag':devices[device_index].default_info()['tag'],
+            # 'deviceIp': devices[device_index].default_info().is_present,
+            # 'deviceIur': devices[device_index].default_info().is_usb_redirect,
+            # 'deviceIvp': devices[device_index].default_info().is_virtual_printer,
+            'deviceHasProblem': devices[device_index].default_info()['hasProblem'],
+            'devicePics':devices_pics[device_index],
+            'devicePid': devices[device_index].pid,
+            'deviceVid': devices[device_index].vid,
+            'errorType':errorType,
+            'deviceType': devices[device_index].type,
+            'deviceName': devices[device_index].name,
+            'suggestionInfo': suggestions['suggestion'],
+            'errorInfo':suggestions['error'],
+            'warningInfo':suggestions['warning'],
+            'infoLen':{'errorLen':len(suggestions['error']),'warningLen':len(suggestions['warning']),'suggestionLen':len(suggestions['suggestion'])}
+        })
+
+
+    # for i in diagnosis_type_info:
+    #     print(i)
+    print("==",diagnosis_type_info[50])
+    del_dup_diagnosis_type_info = []
+    seen = set()
+    for item in diagnosis_type_info:
+        if item['deviceName'] not in seen:
+            seen.add(item['deviceName'])
+            del_dup_diagnosis_type_info.append(item)
+
 
     return {
         'code': 20022,
         'data': {
             'basicInfo': basic_info,
-            'diagnosisInfo': diagnosis_info
+            'diagnosisInfo': diagnosis_info,
+            'diagnosisTypeInfo':del_dup_diagnosis_type_info
         }
 
     }
@@ -353,7 +400,6 @@ def matrix_edit_data():
     }
 
 
-
 @app.route('/reg', methods=['GET', 'POST'])
 @cross_origin()
 def password_modify():
@@ -364,8 +410,8 @@ def password_modify():
         oldpasswd = post_data.get('oldpasswd')
         sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
         count, result, conn = handleDB.find_mysql(sql_search)
-        if count==0:
-            password_access.insert_password("admin",password)
+        if count == 0:
+            password_access.insert_password("admin", password)
             message = 1
         else:
             flag = password_access.password_deposit("admin", oldpasswd)
@@ -392,10 +438,10 @@ def trs_result():
     response_object = {'status': 'success'}
     sql_search = "SELECT password FROM user WHERE username = '%s';" % ('admin')
     count, result, conn = handleDB.find_mysql(sql_search)
-    if count==1:
+    if count == 1:
         flag = password_access.password_deposit("admin", "changeme")
         if flag:
-            count=0
+            count = 0
     response_object['message'] = count
     conn.close()
     return {
@@ -403,5 +449,6 @@ def trs_result():
         'data': response_object
     }
 
+
 if __name__ == '__main__':
-    app.run(debug=(ENV == 'DEV'),host='0.0.0.0')
+    app.run(debug=(ENV == 'DEV'))

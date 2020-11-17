@@ -34,8 +34,8 @@
     </Menu>
     </Sider>
     <div class="content">
-      <h4>&nbsp;&nbsp;&nbsp;HorizonPeripheralsClient.msi is the installer to be run on your Horizon client machine. It doesn’t require the administrator privilege to run.</h4><br />
-            <h4>&nbsp;&nbsp;&nbsp;You can choose the installation directory for HorizonPeripheralsClient. By default, it isC:\HorizonPeripheralsClient.</h4>
+      <h4>&nbsp;HorizonPeripheralsClient.msi is the installer to be run on your Horizon client machine. It doesn’t require the administrator privilege to run.</h4><br />
+            <h4>&nbsp;&nbsp;&nbsp;You can choose the installation directory for HorizonPeripheralsClient. By default, it is <strong>C:\Program Files\HorizonPeripheralsClient\</strong> directory.</h4>
         <img class="dj-client-pic" src="../../assets/dj-client-installer.png">
     </div>
   </div>

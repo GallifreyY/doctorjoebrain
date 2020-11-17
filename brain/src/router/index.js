@@ -17,7 +17,7 @@ export default new Router({
 
     {
       path: '/diagnosis/:id', //path:'/:id'  后面再组件中可以由 this.$route.params.id 取到
-      component: () => import('@/views/Report')
+      component: () => import('@/views/UserReport')
     },
     {
       path: '/Device-Matrix',

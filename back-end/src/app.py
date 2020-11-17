@@ -146,10 +146,10 @@ def device_and_client_info():
     add_info_to_db(collected_data)
 
     devices_info = []
+    devices_pics = []
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
-
         # query vendor
         if device.vid is not None:
             item = Vendor.query.filter(Vendor.vendor_id == device.vid).with_entities(Vendor.vendor_name,
@@ -186,7 +186,7 @@ def device_and_client_info():
                     if key in device_info['details'].keys():
                         device_info['details'][key] = item[key]
                     device_info['deviceName'] = item['device_name']
-
+        devices_pics.append(device_info['details']['picture'])
         devices_info.append(device_info)
 
     # todo: directly get info from collected_data
@@ -202,22 +202,68 @@ def device_and_client_info():
     }
 
     diagnosis_info = []
-    for device in devices:
-        check_res = check_compatibility(collected_data, device)
-        suggestions = diagnosis(collected_data, device)
+    diagnosis_type_info = []
+    for device_index in range(len(devices)):
+        check_res = check_compatibility(collected_data, devices[device_index])
+        suggestions = diagnosis(collected_data, devices[device_index])
         video = "PowerMic.mp4"
-
+        if(len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])==0):
+            errorType = 1
+        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+            errorType = 0
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+            errorType = 2
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])>0):
+            errorType = 11
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+            errorType = 21
+        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+            errorType = 10
+        else:
+            errorType =-1
         diagnosis_info.append({
+            'deviceName':devices[device_index].name,
             'checkResult': check_res,
             'suggestions': suggestions,
             'referenceVideo': video
         })
+        diagnosis_type_info.append({
+            'deviceEnd': devices[device_index].default_info()['end'],
+            'deviceTag':devices[device_index].default_info()['tag'],
+            # 'deviceIp': devices[device_index].default_info().is_present,
+            # 'deviceIur': devices[device_index].default_info().is_usb_redirect,
+            # 'deviceIvp': devices[device_index].default_info().is_virtual_printer,
+            'deviceHasProblem': devices[device_index].default_info()['hasProblem'],
+            'devicePics':devices_pics[device_index],
+            'devicePid': devices[device_index].pid,
+            'deviceVid': devices[device_index].vid,
+            'errorType':errorType,
+            'deviceType': devices[device_index].type,
+            'deviceName': devices[device_index].name,
+            'suggestionInfo': suggestions['suggestion'],
+            'errorInfo':suggestions['error'],
+            'warningInfo':suggestions['warning'],
+            'infoLen':{'errorLen':len(suggestions['error']),'warningLen':len(suggestions['warning']),'suggestionLen':len(suggestions['suggestion'])}
+        })
+
+
+    # for i in diagnosis_type_info:
+    #     print(i)
+    print("==",diagnosis_type_info[50])
+    del_dup_diagnosis_type_info = []
+    seen = set()
+    for item in diagnosis_type_info:
+        if item['deviceName'] not in seen:
+            seen.add(item['deviceName'])
+            del_dup_diagnosis_type_info.append(item)
+
 
     return {
         'code': 20022,
         'data': {
             'basicInfo': basic_info,
-            'diagnosisInfo': diagnosis_info
+            'diagnosisInfo': diagnosis_info,
+            'diagnosisTypeInfo':del_dup_diagnosis_type_info
         }
 
     }

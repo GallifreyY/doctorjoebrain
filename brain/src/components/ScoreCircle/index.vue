@@ -1,0 +1,64 @@
+<template>
+  <div class="score-circle">
+    <i-circle :percent="rate" :size="250" stroke-color="#AFEEEE" :stroke-width="10" :trail-width="9">
+<!--        <span class="demo-i-circle-inner" style="font-size:24px">-->
+<!--          <Icon type="md-checkmark" size="100" style="color:#AFEEEE"></Icon></span>-->
+      <span class="demo-i-circle-inner" style="font-size:75px">{{rate}}</span>
+    </i-circle>
+    </div>
+</template>
+
+<script>
+import { getBasicInfo} from "@/api/diagnosis";
+ import {mapGetters} from "vuex";
+    export default {
+        name: "ScoreCircle",
+       data() {
+    return {
+      errorLen:undefined,
+      warningLen:undefined,
+      suggestionLen:undefined,
+      rate:undefined
+    };
+  },
+
+  methods: {
+    fetchDiagnoseInfo(uuid) {
+      getBasicInfo(uuid)
+        .then(response => {
+          console.log("---")
+          let errorLen = 0;
+          let warningLen = 0;
+          let suggestionLen = 0;
+          let fetchInfoData = response.data.diagnosisTypeInfo;
+          fetchInfoData.forEach(item => {
+            errorLen += item.infoLen.errorLen;
+            warningLen += item.infoLen.warningLen;
+            suggestionLen += item.infoLen.suggestionLen;
+          })
+          this.errorLen = errorLen;
+          this.warningLen = warningLen;
+          this.suggestionLen = suggestionLen;
+          this.rate = parseInt((suggestionLen/(errorLen+warningLen+suggestionLen))*100);
+          this.$Loading.finish();
+
+        })
+        .catch(() => {
+          this.$Loading.error();
+          this.$Message.error(
+            "Sorry, could not get your diagnosis information..."
+          );
+        });
+    }
+  },
+  computed: {
+    ...mapGetters(["uuid"]),
+  },
+  created() {
+    this.$store.commit("uuid/SET_UUID", this.$route.params.id);
+    this.$Loading.start();
+    this.fetchDiagnoseInfo(this.uuid);
+  }
+};
+</script>
+

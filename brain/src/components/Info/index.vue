@@ -6,7 +6,6 @@
         <!-- Device display -->
         <device-display :deviceInfo="deviceInfo" :labelDict="labelDict" :index.sync="index"></device-display>
       </Col>
-
       <Col :sm="12" :lg="16" class="col-tables">
         <div style="margin:10px 0px">
           <Card shadow>
@@ -170,7 +169,7 @@
 </template>
 
 <script>
-import { getBasicInfo, getDiagnosisInfo } from "@/api/diagnosis";
+import { getBasicInfo} from "@/api/diagnosis";
 import DeviceDisplay from "@/components/DeviceDisplay";
 import DeviceCard from "@/components/DeviceCard";
 import { mapGetters } from "vuex";
@@ -260,7 +259,6 @@ export default {
           this.numOfDevices = this.deviceInfo.length;
           this.diagnosisInfo = response.data.diagnosisInfo;
           this.$Loading.finish();
-          this.$Message.success("Successfully get the report of this device");
         })
         .catch(() => {
           this.$Loading.error();

@@ -33,13 +33,13 @@
     </Menu>
     </Sider>
     <div class="content">
-       <h4>&nbsp;&nbsp;&nbsp;&nbsp;We provide two ways to install the HorizonPeripheralsAgent program – zip package and msi installer. Use the zip package if you only have normal user permission in the remote agent desktop. Use the msi installer if you have admin user permission.</h4><br />
+       <h4>&nbsp;&nbsp;&nbsp;&nbsp;There are two files in the downloaded HorizonPeripheralsAgent.zip installer – a zip file (HorizonPeripheralsAgent.zip) and a msi installer (HorizonPeripheralsAgent.msi). Use the zip file if you only have normal user permission in the remote agent desktop. Use the msi installer if you have admin user permission.</h4><br />
          <img class="dj-installer-pic" src="../../assets/dj-agent-installer1.png">
-      <h4>&nbsp;&nbsp;&nbsp;You can change the installation directory. By default, it is C:\HorizonPeripheralsAgent\ directory.</h4>
+      <h4>&nbsp;&nbsp;&nbsp;You can change the installation directory. By default, it is <strong>C:\Program Files\HorizonPeripheralsAgent\</strong> directory.</h4>
         <img class="dj-installer-pic" src="../../assets/dj-agent-installer2.png">
-      <h4>There are two sub features of the msi installer – core and autolaunch. Zip package only contains the core feature.</h4>
+      <h4>There are two sub features of the msi installer – core and autolaunch. The zip file only contains the core feature.</h4>
       <h4><strong>*</strong>&nbsp;&nbsp;&nbsp;Core feature will copy all necessary files to the installation directory you choose.</h4>
-      <h4><strong>*</strong>&nbsp;&nbsp;&nbsp;Autolaunch feature will add registry entries in HKLM path. These registries make HorizonPeripheralsAgent.exe launch automatically when you freshly login a Horizon desktop or app session.</h4>
+      <h4><strong>*</strong>&nbsp;&nbsp;&nbsp;Autolaunch feature will add registry entries in HKLM path. These registries make HorizonPeripheralsAgent.exe launch automatically whenever you freshly login a Horizon desktop or app session.</h4>
       <h4><strong>*</strong>&nbsp;&nbsp;&nbsp;The registry entries are in the HKLM path. These registries make HorizonPeripheralsAgent.exe launch automatically whenever you freshly login a Horizon desktop or app session. The registries are –</h4>
       <h4 style="font-style: italic">&nbsp;&nbsp;&nbsp;“HKLM\\Software\\VMware, Inc.\\VMware VDM\\UnityShell\\Run”</h4>
       <h4 style="font-style: italic">&nbsp;&nbsp;&nbsp;“HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run”</h4>

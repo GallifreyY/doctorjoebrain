@@ -18,7 +18,6 @@
             <Icon type="md-analytics" color="white" size="20"/>
             <p>Device Matrix</p>
           </router-link>
-
           <a href="https://www.vmware.com/cn.html" class="link">
             <Icon type="md-globe" color="white" size="20"/>
             <p>Visit us</p>
