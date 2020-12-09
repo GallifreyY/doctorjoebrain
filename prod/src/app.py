@@ -193,7 +193,7 @@ def device_and_client_info():
                     device_info['deviceName'] = item['device_name']
         devices_pics.append(device_info['details']['picture'])
         devices_info.append(device_info)
-
+        
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
     agent_column_data = get_agent_info(collected_data)

@@ -302,6 +302,14 @@ export default {
           {
             key: "Device Type",
             value: this.labelDict[this.deviceInfo[this.index].type]
+          },
+          {
+            key: "Device Driver Name",
+            value: this.deviceInfo[this.index].driverName
+          },
+          {
+            key: "Device Driver Version",
+            value: this.deviceInfo[this.index].driverVersion
           }
         ];
       }
