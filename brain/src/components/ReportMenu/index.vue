@@ -3,8 +3,8 @@
     <Sider id="reportsider" style="overflow:scroll">
     <Menu theme="light" active-name="1">
        <MenuItem v-for = "(item,index) in reportCategoryList" :key="index" :name="index" @click.native="handleClick(item)" >
-          <Icon type="ios-arrow-forward"></Icon>
-         {{item}}
+          <Icon type="ios-bookmark"></Icon>
+         {{item}}({{typeNum[item]}})
           </MenuItem>
     </Menu>
       </Sider>
@@ -190,6 +190,7 @@
                 reportData: [],
               filter:'all',
               reportCategoryList : [],
+              typeNum:[]
             }
         },
       methods:{
@@ -275,6 +276,8 @@
 
         fetchCategoryTable() {
           let uid = this.$route.params.id;
+          let counts = (arr, value) => arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
+          var typeArray = new Array();
           console.log(this.$route.params.id)
           getBasicInfo(uid)
             .then(response => {
@@ -282,8 +285,13 @@
               let categoryInfoData = response.data.diagnosisTypeInfo;
               categoryInfoData.forEach(function (value) {
                 categoryInfoDataSet.add(value.deviceType);
-
+                typeArray.push(value.deviceType);
               })
+              for (let v of categoryInfoDataSet){
+                this.typeNum[v] = counts(typeArray,v);
+              }
+              console.log("!!")
+              console.log(this.typeNum)
               this.reportCategoryList = categoryInfoDataSet;
               console.log(this.reportCategoryList);
             })

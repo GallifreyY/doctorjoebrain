@@ -4,7 +4,8 @@ import re
 
 components = {
     "usbdisk": "ClientDriveRedirection",
-    "printers": ["ThinPrint","PrintRedir"],
+    "virtualprinters": ["ThinPrint","PrintRedir"],
+    "usbprinters": ["ThinPrint","PrintRedir"],
     "scanners": "ScannerRedirection",
     "cameras": "RTAV"
 }
@@ -12,7 +13,8 @@ components = {
 docGUIDlinks = {
     "CDR": "GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html",
     "usbdisk": "GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html",
-    "printers": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
+    "virtualprinters": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
+    "usbprinters": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
     "scanners": "GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html",
     "cameras": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html",
     "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"
@@ -73,7 +75,7 @@ def diagnosis(collected_data, device):
     # todo: for different devices
     if device.type == 'usbdisk':
         error, warning, suggestion = _usb_disk_diagnose(collected_data, device, error, warning, suggestion)
-    elif device.type == 'printers':
+    elif device.type == 'virtualprinters' or device.type == 'usbprinters':
         error, warning, suggestion = _printer_diagnose(collected_data, device, error, warning, suggestion)
     elif device.type == 'scanners':
         error, warning, suggestion = _scanner_diagnose(collected_data, device, error, warning, suggestion)

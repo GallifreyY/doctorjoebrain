@@ -52,7 +52,7 @@ def recognize_devices(collected_data, uuid):
     :return: devices(on duplicated item)
     """
     res = []
-    recorded_devices = ['usbdisk', 'printers', 'scanners', 'cameras','others']
+    recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', 'cameras','others']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             # todo: dimiss pritners check at agent end
@@ -73,19 +73,42 @@ def recognize_devices(collected_data, uuid):
                     collected_data[end][device_type] = devices
                     save_data(collected_data, uuid, 'user', 'json')
 
-                for index, device in enumerate(devices):
-                    res.append(_Device(index,
-                                       device_type,
-                                       end,
-                                       uuid,
-                                       device.get("VID", None),
-                                       device.get("PID", None),
-                                       device.get('name', None) or device.get('Name', None),
-                                       device.get('hasProblem', None),
-                                       device.get('problemCode',None),
-                                       device.get('problemdesc',None),
-                                       device.get('isRebootNeeded', None),
-                                       device.get('isPresent', None)))
+                if device_type == 'virtualprinters' or device_type == 'usbprinters':
+                    for key in collected_data[end][device_type]:
+                        for k, v in dict.items(key):
+                            if k == 'DriverName':
+                                for index, device in enumerate(devices):
+                                    res.append(_Device(index,
+                                                device_type,
+                                                end,
+                                                uuid,
+                                                device.get("VID", None),
+                                                device.get("PID", None),
+                                                device.get('name', None) or device.get('Name', None),
+                                                device.get('hasProblem', None),
+                                                device.get('problemCode',None),
+                                                device.get('problemdesc',None),
+                                                device.get('isRebootNeeded', None),
+                                                device.get('isPresent', None),
+                                                v.get('Name', None),
+                                                v.get('DriverVersion', None)))
+
+                else:
+                    for index, device in enumerate(devices):
+                                res.append(_Device(index,
+                                            device_type,
+                                            end,
+                                            uuid,
+                                            device.get("VID", None),
+                                            device.get("PID", None),
+                                            device.get('name', None) or device.get('Name', None),
+                                            device.get('hasProblem', None),
+                                            device.get('problemCode',None),
+                                            device.get('problemdesc',None),
+                                            device.get('isRebootNeeded', None),
+                                            device.get('isPresent', None),
+                                            device.get('driverName', None),
+                                            device.get('driverver', None)))
 
     return res
 
@@ -267,6 +290,7 @@ def check_compatibility(collected_data, device):
             'check': 'null'
         }
     ]
+
     agent = [
         {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
         {
@@ -311,6 +335,6 @@ def check_compatibility(collected_data, device):
 
     res = {
         'client': client,
-        'agent': agent
+        'agent': agent,
     }
     return res

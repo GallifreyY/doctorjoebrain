@@ -107,7 +107,8 @@ export default {
         ],
         categoryList: [
           {label: "USB Disks", value: "USB Disks"},
-          {label: "Printers", value: "Printers"},
+          {label: "Virtual Printers", value: "Virtual Printers"},
+          {label: "USB Printers", value: "USB Printers"},
           {label: "Scanners", value: "Scanners"},
           {label: "Cameras", value: "Cameras"},
           {label: "USB Speech Mics", value: "USB Speech Mics"},

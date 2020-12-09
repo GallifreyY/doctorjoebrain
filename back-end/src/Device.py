@@ -55,11 +55,11 @@ class Device:
                 return True
             else:
                 return False
-        elif self.type == 'printers' and self.end == 'client':
+        elif self.type == 'usbprinters' or self.type == 'virtualprinters' and self.end == 'client':
             if self.vid is not None and self.pid is not None:
                 return False
 
-            for device_r in self.raw_data['agent'][self.type]:
+            for device_r in self.raw_data['client'][self.type]:
                 if 'VID' in device_r.keys() and 'PID' in device_r.keys():
                     # device_id = device_r['VID'] + '-' + device_r['PID']
                     # todo: query in db
@@ -86,15 +86,15 @@ class Device:
 
     def _is_virtual_printer(self):
         # todo:update
-        return self.type == 'printers' and self.vid is None and self.pid is None and not self.is_usb_redirect
+        return self.type == 'virtualprinters' and self.vid is None and self.pid is None and not self.is_usb_redirect
 
     def find_redirection_in_agent(self):
         # just for printers
         # todo:update
-        if self.type != 'printers' or 'printers' not in self.raw_data['agent'].keys():
+        if self.type != 'virtualprinters' or 'virtualprinters' not in self.raw_data['agent'].keys():
             return None
 
-        for printer_r in self.raw_data['agent']['printers']:
+        for printer_r in self.raw_data['agent']['virtualprinters']:
             printer_r_name = printer_r.get('name', None) or printer_r.get('Name', None)
             # todo : future update to re
             if self.name[0:int(len(self.name))] == printer_r_name[0:int(len(self.name))]:
@@ -134,7 +134,7 @@ class Device:
         if self.type == 'usbdisk':
             default_info['details']['picture'] = 'defaultUSB.jpg'
             default_info['details']['description'] = 'This device is an USB disk'
-        elif self.type == 'printers':
+        elif self.type == 'virtualprinters' or self.type == 'usbprinters':
             default_info['details']['picture'] = 'defaultPrinter.png'
         elif self.type == 'scanners':
             default_info['details']['picture'] = 'defaultScanner.jpg'

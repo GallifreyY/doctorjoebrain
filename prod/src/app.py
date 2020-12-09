@@ -7,6 +7,7 @@ from flask_cors import cross_origin
 from flask import request
 
 app = Flask(__name__)
+
 app.config.from_object('db_info')
 db = SQLAlchemy(app)
 
@@ -38,7 +39,7 @@ print(ENV, URL)
 CATE_MAP = {
     "Other Devices": -1,
     "USB Disks": 0,
-    "Printers": 1,
+    "Virtual Printers": 1,
     "Scanners": 2,
     "Cameras": 3,
     "USB Speech Mics": 4,
@@ -50,7 +51,8 @@ CATE_MAP = {
     "Credit Cards": 10,
     "Fingerprint Readers": 11,
     "Barcode Scanners": 12,
-    "Serial Port Devices": 13
+    "Serial Port Devices": 13,
+    "USB Printers": 1,
 }
 
 CATE_LIST = []
@@ -58,7 +60,10 @@ for key in CATE_MAP:
     if CATE_MAP[key] == -1: continue
     CATE_LIST.insert(CATE_MAP[key], key)
 
-
+@app.after_request
+def apply_caching(response):
+    response.headers["X-Frame-Options"] = "ALLOW-FROM https://10.117.43.79:8443"
+    return response
 @app.route('/test', methods=['GET'])
 @cross_origin()
 def test():
@@ -247,9 +252,9 @@ def device_and_client_info():
         })
 
 
-    # for i in diagnosis_type_info:
-    #     print(i)
-    print("==",diagnosis_type_info[50])
+    for i in diagnosis_type_info:
+        print(i['deviceType'])
+
     del_dup_diagnosis_type_info = []
     seen = set()
     for item in diagnosis_type_info:

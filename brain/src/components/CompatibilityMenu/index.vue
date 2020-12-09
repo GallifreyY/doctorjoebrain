@@ -65,7 +65,8 @@
       numOfDevices: 0,
       diagnosisInfo: undefined,
       labelDict: {
-        printers: "Printers",
+        virtualprinters: "Virtual Printers",
+        usbprinters: "USB Printers",
         usbdisk: "USB Disk Devices",
         scanners: "Scanners",
         cameras: "Cameras"

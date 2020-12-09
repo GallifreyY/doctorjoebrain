@@ -32,7 +32,7 @@
                     width: '400px',
                     align: 'right',
                     render: (h, params) => {
-                      if((this.data9[params.index].erroeType === 1) || (this.data9[params.index].errorType === 11)){
+                      if((this.data9[params.index].errorType === 1) || (this.data9[params.index].errorType === 11)){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -160,6 +160,7 @@
 
           })
           this.data9 = infoDataArray;
+          console.log("data9:")
           console.log(this.data9)
         //  this.data9 = response.data.diagnosisTypeInfo; //array
           this.$Message.success("Successfully get the report of this device");
