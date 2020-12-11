@@ -60,10 +60,7 @@ for key in CATE_MAP:
     if CATE_MAP[key] == -1: continue
     CATE_LIST.insert(CATE_MAP[key], key)
 
-@app.after_request
-def apply_caching(response):
-    response.headers["X-Frame-Options"] = "ALLOW-FROM https://10.117.43.79:8443"
-    return response
+
 @app.route('/test', methods=['GET'])
 @cross_origin()
 def test():
