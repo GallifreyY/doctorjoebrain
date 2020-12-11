@@ -55,7 +55,7 @@ class Device:
                 return True
             else:
                 return False
-        elif self.type == 'usbprinters' or self.type == 'virtualprinters' and self.end == 'client':
+        elif self.type == 'usbprinters' and self.end == 'client':
             if self.vid is not None and self.pid is not None:
                 return False
 
@@ -86,7 +86,7 @@ class Device:
 
     def _is_virtual_printer(self):
         # todo:update
-        return self.type == 'virtualprinters' and self.vid is None and self.pid is None and not self.is_usb_redirect
+        return self.type == 'virtualprinters'
 
     def find_redirection_in_agent(self):
         # just for printers
