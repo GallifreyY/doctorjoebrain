@@ -34,9 +34,9 @@
     </Menu>
     </Sider>
     <div class="content">
-      <h4>&nbsp;&nbsp;&nbsp;&nbsp;We provide two ways to install the HorizonPeripheralsAgent program – zip package and msi installer. Use the zip package if you only have normal user permission in the remote agent desktop. Use the msi installer if you have admin user permission.</h4><br />
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;There are two files in the downloaded HorizonPeripheralsAgent.zip installer – a zip file (HorizonPeripheralsAgent.zip) and a msi installer (HorizonPeripheralsAgent.msi). Use the zip file if you only have normal user permission in the remote agent desktop. Use the msi installer if you have admin user permission.</h4><br />
       <br /><h3>  HorizonPeripheralsAgent.zip</h3><br />
-      <h4>&nbsp;&nbsp;&nbsp;&nbsp;HorizonPeripheralsAgent.zip contains all the files to be copied and extracted on your Horizon agent machine. Use this zip file instead of msi installer to deploy the program if the agent OS has some limitations to run MSI installer under normal user privilege. In this way, the AutoLaunch registries and functions will be missing. You must manually launch the HorizonPeripheralsAgent program under the installation folder. You will not be able to launch the program in Horizon remote app session since it is not auto launched.</h4>
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;Use this zip file to deploy if the agent OS has some limitations to run MSI installer under normal user privilege. Unzip and extract the zip file to anywhere on your Horizon agent machine. In this way, the AutoLaunch registries and functions will not be available. You must manually launch the HorizonPeripheralsAgent.exe under the unzip folder. You will not be able to launch the program in Horizon remote app session since it cannot be auto launched.</h4>
 
     </div>
   </div>

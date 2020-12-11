@@ -35,8 +35,8 @@
     </Menu>
     </Sider>
     <div class="content">
-      <h4>&nbsp;&nbsp;&nbsp;&nbsp;We provide two ways to install the HorizonPeripheralsAgent program – zip package and msi installer. Use the zip package if you only have normal user permission in the remote agent desktop. Use the msi installer if you have admin user permission.</h4><br />
-       <br /><h3>HorizonPeripheralsAgent.msi</h3><br />
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;There are two files in the downloaded HorizonPeripheralsAgent.zip installer – a zip file (HorizonPeripheralsAgent.zip) and a msi installer (HorizonPeripheralsAgent.msi). Use the zip file if you only have normal user permission in the remote agent desktop. Use the msi installer if you have admin user permission.</h4><br />
+      <br /><h3>HorizonPeripheralsAgent.msi</h3><br />
       <h4>&nbsp;&nbsp;&nbsp;&nbsp;HorizonPeripheralsAgent.msi is the installer to be run on your Horizon agent machine. The web server address and port number need to be configured to the correct value firstly. If you don’t know the value, you can use the default one and change it after the installation by editing the config file – hpagentconfig.ini.</h4>
 
     </div>

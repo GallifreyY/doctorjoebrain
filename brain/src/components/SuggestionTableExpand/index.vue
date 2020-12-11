@@ -1,0 +1,273 @@
+<style scoped>
+    .expand-row{
+        margin-bottom: 16px;
+    }
+</style>
+<template>
+    <div>
+        <Row class="suexpand-row">
+           <Col span="24" v-if="(row.errorType===1) || (row.errorType===11)">
+                <div v-for="(item,i) in row.errorInfo">
+              <Icon type="ios-alert-outline" color="red" />
+              <span class="suggestions">{{row.errorInfo[i].context}}</span>
+              <span class="suggestions" v-if="row.errorInfo[i].hasDetail">
+                Follow
+                <a :href="row.errorInfo[i].detail">
+                  this link
+                  <Icon type="ios-search" size="16" />
+                </a>
+                to find more guidance.
+              </span>
+                 </div>
+             <div style="margin-top: 15px">
+                <Row style="background:#eee;padding:20px">
+        <Col span="8">
+            <Card :bordered="false" style="text-align: center">
+                <p slot="title">{{row.deviceName}}</p>
+                <img class="device-img" :src="'/static/device/'+ row.devicePics" style="margin: 0 auto" />
+                <div class="diagtag">
+              <span slot="extra" style=" font-weight:400;">
+              <Tag
+                color="success"
+                type="border"
+                size="default"
+              >Detected in {{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              <Tag
+                v-if="row.deviceTag.isVirtualPrinter"
+                color="warning"
+                type="border"
+              >Virtual Printer</Tag>
+              <Tag
+                v-else-if="row.deviceTag.isPresent"
+                color="success"
+                type="border"
+              >Connected</Tag>
+              <Tag v-else color="error" type="border">Disconnected</Tag>
+              <Tag v-if="row.deviceHasProblem" color="error" type="border" style="width: 196px">Has problem</Tag>
+              <Tag
+                v-if="row.deviceTag.isRebootNeed"
+                color="warning"
+                type="border"
+              >Reboot Need</Tag>
+              <Tag
+                v-if="row.deviceTag.isUsbRedirect"
+                color="warning"
+                type="border"
+              >Usb Redirected</Tag>
+            </span>
+                  </div>
+            </Card>
+        </Col>
+        <Col span="15" offset="1">
+            <Card shadow>
+                <p slot="title">Device Information</p>
+             <ul style="list-style: none;" >
+            <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Pid</h3><h4 style="margin-right: 20px">{{ row.devicePid}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Vid</h3><h4 style="margin-right: 20px">{{ row.deviceVid}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+            </li>
+        </ul>
+            </Card>
+        </Col>
+    </Row>
+              </div>
+        </Col>
+       <Col span="24" v-else-if="(row.errorType===0) || (row.errorType===10)">
+                <div v-for="(item,i) in row.warningInfo">
+              <Icon type="ios-alert-outline" color="#FFA500" />
+              <span class="suggestions">{{row.warningInfo[i].context}}</span>
+              <span class="suggestions" v-if="row.warningInfo[i].hasDetail">
+                Follow
+                <a :href="row.warningInfo[i].detail">
+                  this link
+                  <Icon type="ios-search" size="16" />
+                </a>
+                to find more guidance.
+              </span>
+                 </div>
+         <div style="margin-top: 15px">
+                <Row style="background:#eee;padding:20px">
+        <Col span="8">
+            <Card :bordered="false" style="text-align: center">
+                <p slot="title">{{row.deviceName}}</p>
+                <img class="device-img" :src="'/static/device/'+ row.devicePics" style="margin: 0 auto" />
+                <div class="diagtag">
+              <span slot="extra" style=" font-weight:400;">
+              <Tag
+                color="success"
+                type="border"
+                size="default"
+              >Detected in {{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              <Tag
+                v-if="row.deviceTag.isVirtualPrinter"
+                color="warning"
+                type="border"
+              >Virtual Printer</Tag>
+              <Tag
+                v-else-if="row.deviceTag.isPresent"
+                color="success"
+                type="border"
+              >Connected</Tag>
+              <Tag v-else color="error" type="border">Disconnected</Tag>
+              <Tag v-if="row.deviceHasProblem" color="error" type="border" style="width: 196px">Has problem</Tag>
+              <Tag
+                v-if="row.deviceTag.isRebootNeed"
+                color="warning"
+                type="border"
+              >Reboot Need</Tag>
+              <Tag
+                v-if="row.deviceTag.isUsbRedirect"
+                color="warning"
+                type="border"
+              >Usb Redirected</Tag>
+            </span>
+                  </div>
+            </Card>
+        </Col>
+        <Col span="15" offset="1">
+            <Card shadow>
+                <p slot="title">Device Information</p>
+             <ul style="list-style: none;" >
+            <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Pid</h3><h4 style="margin-right: 20px">{{ row.devicePid}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Vid</h3><h4 style="margin-right: 20px">{{ row.deviceVid}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+            </li>
+        </ul>
+            </Card>
+        </Col>
+    </Row>
+              </div>
+              </Col>
+
+          <Col span="24" v-else-if="(row.errorType===2) || (row.errorType===21)">
+                <div v-for="(item,i) in row.errorInfo">
+              <Icon type="ios-alert-outline" color="red" />
+              <span class="suggestions">{{row.errorInfo[i].context}}</span>
+              <span class="suggestions" v-if="row.errorInfo[i].hasDetail">
+                Follow
+                <a :href="row.errorInfo[i].detail">
+                  this link
+                  <Icon type="ios-search" size="16" />
+                </a>
+                to find more guidance.
+              </span>
+                 </div>
+             <div v-for="(item,i) in row.warningInfo">
+              <Icon type="ios-alert-outline" color="#FFA500" />
+              <span class="suggestions">{{row.warningInfo[i].context}}</span>
+              <span class="suggestions" v-if="row.warningInfo[i].hasDetail">
+                Follow
+                <a :href="row.warningInfo[i].detail">
+                  this link
+                  <Icon type="ios-search" size="16" />
+                </a>
+                to find more guidance.
+              </span>
+                 </div>
+            <div style="margin-top: 15px">
+                <Row style="background:#eee;padding:20px">
+        <Col span="8">
+            <Card :bordered="false" style="text-align: center">
+                <p slot="title">{{row.deviceName}}</p>
+                <img class="device-img" :src="'/static/device/'+ row.devicePics" style="margin: 0 auto" />
+                <div class="diagtag">
+              <span slot="extra" style=" font-weight:400;">
+              <Tag
+                color="success"
+                type="border"
+                size="default"
+              >Detected in {{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              <Tag
+                v-if="row.deviceTag.isVirtualPrinter"
+                color="warning"
+                type="border"
+              >Virtual Printer</Tag>
+              <Tag
+                v-else-if="row.deviceTag.isPresent"
+                color="success"
+                type="border"
+              >Connected</Tag>
+              <Tag v-else color="error" type="border">Disconnected</Tag>
+              <Tag v-if="row.deviceHasProblem" color="error" type="border" style="width: 196px">Has problem</Tag>
+              <Tag
+                v-if="row.deviceTag.isRebootNeed"
+                color="warning"
+                type="border"
+              >Reboot Need</Tag>
+              <Tag
+                v-if="row.deviceTag.isUsbRedirect"
+                color="warning"
+                type="border"
+              >Usb Redirected</Tag>
+            </span>
+                  </div>
+            </Card>
+        </Col>
+        <Col span="15" offset="1">
+            <Card shadow>
+                <p slot="title">Device Information</p>
+             <ul style="list-style: none;" >
+            <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Pid</h3><h4 style="margin-right: 20px">{{ row.devicePid}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Vid</h3><h4 style="margin-right: 20px">{{ row.deviceVid}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:22px">
+                 <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+            </li>
+        </ul>
+            </Card>
+        </Col>
+    </Row>
+              </div>
+              </Col>
+
+
+
+        </Row>
+    </div>
+</template>
+<script>
+    export default {
+      name: "SuggestionTableExpand",
+        props: {
+            row: Object,
+            index: Object
+        }
+    };
+</script>
+<style>
+    .device-img{
+    width: 100px;
+    height: 100px;
+  }
+  .diagtag{
+    margin-top: 5px;
+  }
+</style>

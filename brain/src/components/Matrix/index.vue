@@ -12,26 +12,17 @@
           </MenuItem>
           <MenuItem name="other" @click.native= "filter = 'other'" >Other Devices</MenuItem>
         </Submenu>
-        <!--
-        <Submenu name="2">
-          <template slot="title">
-            <Icon type="md-checkbox" size="20" />Filter
-          </template>
-          <MenuItem name="2-1">Horizon Versions</MenuItem>
-          <MenuItem name="2-2">Device Drivers</MenuItem>
-        </Submenu>
-        -->
       </Menu>
     </Sider>
     <div class="matrixcontent">
-      <d-table :filter='filter' :otherIndex='13' ></d-table>
+      <d-table :filter='filter' :otherIndex='14' ></d-table>
     </div>
   </div>
 </template>
 
 <script>
-import DTable from './components/DTable.vue'
-import DForm from './components/DForm.vue'
+import DTable from './components/DTable.vue';
+import DForm from './components/DForm.vue';
 import {getCategoryInfo} from "@/api/matrix";
 export default {
   name: "Matrix",
@@ -40,7 +31,7 @@ export default {
     return {
       filter:'all',
       categoryList : [],
-      otherIndex :13
+      otherIndex :14
     };
   },
   methods:{

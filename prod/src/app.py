@@ -7,6 +7,7 @@ from flask_cors import cross_origin
 from flask import request
 
 app = Flask(__name__)
+
 app.config.from_object('db_info')
 db = SQLAlchemy(app)
 
@@ -38,19 +39,20 @@ print(ENV, URL)
 CATE_MAP = {
     "Other Devices": -1,
     "USB Disks": 0,
-    "Printers": 1,
-    "Scanners": 2,
-    "Cameras": 3,
-    "USB Speech Mics": 4,
-    "Smart Cards": 5,
-    "Key Boards": 6,
-    "Mouses": 7,
-    "Signature Pads": 8,
-    "PIN Pads": 9,
-    "Credit Cards": 10,
-    "Fingerprint Readers": 11,
-    "Barcode Scanners": 12,
-    "Serial Port Devices": 13
+    "Virtual Printers": 1,
+    "USB Printers": 2,
+    "Scanners": 3,
+    "Cameras": 4,
+    "USB Speech Mics": 5,
+    "Smart Cards": 6,
+    "Key Boards": 7,
+    "Mouses": 8,
+    "Signature Pads": 9,
+    "PIN Pads": 10,
+    "Credit Cards": 11,
+    "Fingerprint Readers": 12,
+    "Barcode Scanners": 13,
+    "Serial Port Devices": 14
 }
 
 CATE_LIST = []
@@ -146,6 +148,7 @@ def device_and_client_info():
     add_info_to_db(collected_data)
 
     devices_info = []
+    devices_pics = []
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
@@ -185,7 +188,7 @@ def device_and_client_info():
                     if key in device_info['details'].keys():
                         device_info['details'][key] = item[key]
                     device_info['deviceName'] = item['device_name']
-
+        devices_pics.append(device_info['details']['picture'])
         devices_info.append(device_info)
         
     # todo: directly get info from collected_data
@@ -201,22 +204,68 @@ def device_and_client_info():
     }
 
     diagnosis_info = []
-    for device in devices:
-        check_res = check_compatibility(collected_data, device)
-        suggestions = diagnosis(collected_data, device)
+    diagnosis_type_info = []
+    for device_index in range(len(devices)):
+        check_res = check_compatibility(collected_data, devices[device_index])
+        suggestions = diagnosis(collected_data, devices[device_index])
         video = "PowerMic.mp4"
-
+        if(len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])==0):
+            errorType = 1
+        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+            errorType = 0
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+            errorType = 2
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])>0):
+            errorType = 11
+        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+            errorType = 21
+        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+            errorType = 10
+        else:
+            errorType =-1
         diagnosis_info.append({
+            'deviceName':devices[device_index].name,
             'checkResult': check_res,
             'suggestions': suggestions,
             'referenceVideo': video
         })
+        diagnosis_type_info.append({
+            'deviceEnd': devices[device_index].default_info()['end'],
+            'deviceTag':devices[device_index].default_info()['tag'],
+            # 'deviceIp': devices[device_index].default_info().is_present,
+            # 'deviceIur': devices[device_index].default_info().is_usb_redirect,
+            # 'deviceIvp': devices[device_index].default_info().is_virtual_printer,
+            'deviceHasProblem': devices[device_index].default_info()['hasProblem'],
+            'devicePics':devices_pics[device_index],
+            'devicePid': devices[device_index].pid,
+            'deviceVid': devices[device_index].vid,
+            'errorType':errorType,
+            'deviceType': devices[device_index].type,
+            'deviceName': devices[device_index].name,
+            'suggestionInfo': suggestions['suggestion'],
+            'errorInfo':suggestions['error'],
+            'warningInfo':suggestions['warning'],
+            'infoLen':{'errorLen':len(suggestions['error']),'warningLen':len(suggestions['warning']),'suggestionLen':len(suggestions['suggestion'])}
+        })
+
+
+    for i in diagnosis_type_info:
+        print(i['deviceType'])
+
+    del_dup_diagnosis_type_info = []
+    seen = set()
+    for item in diagnosis_type_info:
+        if item['deviceName'] not in seen:
+            seen.add(item['deviceName'])
+            del_dup_diagnosis_type_info.append(item)
+
 
     return {
         'code': 20022,
         'data': {
             'basicInfo': basic_info,
-            'diagnosisInfo': diagnosis_info
+            'diagnosisInfo': diagnosis_info,
+            'diagnosisTypeInfo':del_dup_diagnosis_type_info
         }
 
     }

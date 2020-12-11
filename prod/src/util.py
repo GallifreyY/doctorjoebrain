@@ -52,7 +52,7 @@ def recognize_devices(collected_data, uuid):
     :return: devices(on duplicated item)
     """
     res = []
-    recorded_devices = ['usbdisk', 'printers', 'scanners', 'cameras','others']
+    recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', 'cameras','others']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             # todo: dimiss pritners check at agent end
@@ -73,7 +73,7 @@ def recognize_devices(collected_data, uuid):
                     collected_data[end][device_type] = devices
                     save_data(collected_data, uuid, 'user', 'json')
 
-                if device_type == 'printers':
+                if device_type == 'virtualprinters' or device_type == 'usbprinters':
                     for key in collected_data[end][device_type]:
                         for k, v in dict.items(key):
                             if k == 'DriverName':
@@ -290,6 +290,7 @@ def check_compatibility(collected_data, device):
             'check': 'null'
         }
     ]
+
     agent = [
         {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
         {
@@ -334,6 +335,6 @@ def check_compatibility(collected_data, device):
 
     res = {
         'client': client,
-        'agent': agent
+        'agent': agent,
     }
     return res
