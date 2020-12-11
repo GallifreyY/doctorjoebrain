@@ -50,7 +50,7 @@ class Device:
             else:
                 return False
 
-        elif self.type == 'printers' and self.end == 'agent':
+        elif self.type == 'usbprinters' and self.end == 'agent':
             if self.vid is not None and self.pid is not None:
                 return True
             else:
