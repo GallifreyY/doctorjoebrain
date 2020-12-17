@@ -83,7 +83,7 @@ def add_to_log_file():
             for json_section in item:
                 json_section = json_section.replace("\n", "").replace("\'", "\"")
                 collected_json += json_section
-                print(collected_json)
+
         collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
@@ -149,6 +149,7 @@ def device_and_client_info():
 
     devices_info = []
     devices_pics = []
+    device_vendor_name = []
     for index, device in enumerate(devices):
 
         device_info = device.default_info()
@@ -189,6 +190,7 @@ def device_and_client_info():
                         device_info['details'][key] = item[key]
                     device_info['deviceName'] = item['device_name']
         devices_pics.append(device_info['details']['picture'])
+        device_vendor_name.append(device_info['details']['vendor_name'])
         devices_info.append(device_info)
         
     # todo: directly get info from collected_data
@@ -236,6 +238,8 @@ def device_and_client_info():
             # 'deviceIur': devices[device_index].default_info().is_usb_redirect,
             # 'deviceIvp': devices[device_index].default_info().is_virtual_printer,
             'deviceHasProblem': devices[device_index].default_info()['hasProblem'],
+            'deviceDriverName':devices[device_index].default_info()['driverName'],
+            'deviceVendorName': device_vendor_name[device_index],
             'devicePics':devices_pics[device_index],
             'devicePid': devices[device_index].pid,
             'deviceVid': devices[device_index].vid,

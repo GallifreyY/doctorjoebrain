@@ -205,9 +205,12 @@
           var infoDataSet = new Set();
           let infoData = response.data.diagnosisTypeInfo;
           infoData.forEach(function (value) {
+              console.log("deviceVendorName!!");
+            console.log(value.deviceVendorName);
               var copyValue = value;
              let errorRes = [];
           value.errorInfo.forEach(item => {
+
           let errorSug = {};
           if (item instanceof Array) {
             errorSug["rcontext"] = item[0];

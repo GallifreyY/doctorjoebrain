@@ -112,7 +112,7 @@ def _usb_disk_diagnose(collected_data, device, error, warning, suggestion):
             error.append(_add_refers(s,'CDR',collected_data))
     else:
         s = "The CDR component is not installed on your agent machine correctly. Please check it with your IT administrator."
-    error.append(_add_refers(s,'CDR',collected_data))
+        error.append(_add_refers(s,'CDR',collected_data))
 
     return error, warning, suggestion
 

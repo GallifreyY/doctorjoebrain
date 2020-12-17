@@ -22,7 +22,7 @@
              <div style="margin-top: 15px">
                 <Row style="background:#eee;padding:20px">
         <Col span="8">
-            <Card :bordered="false" style="text-align: center">
+            <Card :bordered="false" style="text-align: center;height:370px">
                 <p slot="title">{{row.deviceName}}</p>
                 <img class="device-img" :src="'/static/device/'+ row.devicePics" style="margin: 0 auto" />
                 <div class="diagtag">
@@ -75,6 +75,16 @@
                <li style="display: flex;
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Vendor Name</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
             </li>
         </ul>
             </Card>
@@ -98,7 +108,7 @@
          <div style="margin-top: 15px">
                 <Row style="background:#eee;padding:20px">
         <Col span="8">
-            <Card :bordered="false" style="text-align: center">
+            <Card :bordered="false" style="text-align: center;height:370px">
                 <p slot="title">{{row.deviceName}}</p>
                 <img class="device-img" :src="'/static/device/'+ row.devicePics" style="margin: 0 auto" />
                 <div class="diagtag">
@@ -151,6 +161,16 @@
                <li style="display: flex;
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Vendor Name</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
             </li>
         </ul>
             </Card>
@@ -187,7 +207,7 @@
             <div style="margin-top: 15px">
                 <Row style="background:#eee;padding:20px">
         <Col span="8">
-            <Card :bordered="false" style="text-align: center">
+            <Card :bordered="false" style="text-align: center;height:370px">
                 <p slot="title">{{row.deviceName}}</p>
                 <img class="device-img" :src="'/static/device/'+ row.devicePics" style="margin: 0 auto" />
                 <div class="diagtag">
@@ -241,6 +261,16 @@
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
             </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Vendor Name</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
+            </li>
         </ul>
             </Card>
         </Col>
@@ -264,10 +294,10 @@
 </script>
 <style>
     .device-img{
-    width: 100px;
-    height: 100px;
+    width: 170px;
+    height: 170px;
   }
   .diagtag{
-    margin-top: 5px;
+    margin-top: 30px;
   }
 </style>
