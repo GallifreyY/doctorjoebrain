@@ -81,6 +81,8 @@ def diagnosis(collected_data, device):
         error, warning, suggestion = _scanner_diagnose(collected_data, device, error, warning, suggestion)
     elif device.type == 'cameras':
         error, warning, suggestion = _camera_diagnose(collected_data, device, error, warning, suggestion)
+    elif device.type == 'signaturepad':
+        error, warning, suggestion = _signaturepad_diagnose(collected_data, device, error, warning, suggestion)
 
     # todo: final check
     error = list(filter(None, error))
@@ -209,6 +211,13 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion):
 
     if device.is_usb_redirect:
         error.append("You are using USB redirection for camera devices. Please use RTAV redirection.")
+    return error, warning, suggestion
+
+def _signaturepad_diagnose(collected_data, device, error, warning, suggestion):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+    if device.is_usb_redirect:
+        error.append("You are using USB redirection for camera devices. Please use XXX redirection.")
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device, error, warning, suggestion):
