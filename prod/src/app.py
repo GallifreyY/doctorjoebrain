@@ -239,6 +239,7 @@ def device_and_client_info():
             # 'deviceIvp': devices[device_index].default_info().is_virtual_printer,
             'deviceHasProblem': devices[device_index].default_info()['hasProblem'],
             'deviceDriverName':devices[device_index].default_info()['driverName'],
+            'driverVersion':devices[device_index].default_info()['driverVersion'],
             'deviceVendorName': device_vendor_name[device_index],
             'devicePics':devices_pics[device_index],
             'devicePid': devices[device_index].pid,

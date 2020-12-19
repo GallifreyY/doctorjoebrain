@@ -81,6 +81,11 @@
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
             </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
+            </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:22px">
@@ -166,6 +171,11 @@
                 <li style="display: flex;
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
@@ -265,6 +275,11 @@
                 <li style="display: flex;
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
@@ -379,6 +394,11 @@
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
             </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
+            </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:22px">
@@ -477,6 +497,11 @@
                 <li style="display: flex;
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
@@ -577,6 +602,11 @@
     justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
             </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
+            </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:22px">
@@ -662,6 +692,11 @@
                 <Divider />
                 <li style="display: flex;justify-content: space-between;height:22px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+               <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
