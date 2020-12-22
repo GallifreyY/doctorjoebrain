@@ -180,7 +180,7 @@ def get_agent_info(collected_data):
         collected_data['agent']['OSver']=" "
     return [
         {'key': "Agent OS", 'value': collected_data['agent']['OSname'] + ' ' + collected_data['agent']['OSver']},
-        {'key': "Horizon Version(Agent)", 'value': collected_data['agent']['agentver']}
+        {'key': "Horizon Version(Agent)", 'value': collected_data['agent']['agentver']},
     ]
 
 
