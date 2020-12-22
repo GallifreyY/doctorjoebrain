@@ -84,6 +84,11 @@
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
                  <h3 style="margin-left: 20px">Vendor Name</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
             </li>
         </ul>
@@ -166,6 +171,11 @@
                <li style="display: flex;
     justify-content: space-between;height:12px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
@@ -265,6 +275,11 @@
                <li style="display: flex;
     justify-content: space-between;height:12px">
                  <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+            </li>
+                <Divider />
+               <li style="display: flex;
+    justify-content: space-between;height:12px">
+                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
