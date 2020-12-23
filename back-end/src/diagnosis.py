@@ -137,6 +137,9 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
     if device.is_usb_redirect:
         error.append("You are using USB redirection for printer devices. Please use printer redirection.")
     
+    if device.workoffline:
+        error.append("This printer is offline. Please check the device connection status firstly.")
+
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
         if device.end == "client":
