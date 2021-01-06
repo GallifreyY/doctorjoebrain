@@ -83,6 +83,10 @@ def diagnosis(collected_data, device):
         error, warning, suggestion = _camera_diagnose(collected_data, device, error, warning, suggestion)
     elif device.type == 'signaturepad':
         error, warning, suggestion = _signaturepad_diagnose(collected_data, device, error, warning, suggestion)
+    elif device.type == 'speechmic':
+        error, warning, suggestion = _speechmic_diagnose(collected_data, device, error, warning, suggestion)
+    elif device.type == 'audio':
+        error, warning, suggestion = _audio_diagnose(collected_data, device, error, warning, suggestion)
 
     # todo: final check
     error = list(filter(None, error))
@@ -137,6 +141,9 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
     if device.is_usb_redirect:
         error.append("You are using USB redirection for printer devices. Please use printer redirection.")
     
+    if device.workoffline:
+        error.append("This printer is offline. Please check the device connection status firstly.")
+
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
         if device.end == "client":
@@ -186,9 +193,10 @@ def _scanner_diagnose(collected_data, device, error, warning, suggestion):
         error.append("The VMware Scanner Redirection Agent service(ftscansvchv) is not running on your agent desktop. "
                        "Please check it out and ensure it is running before scanner redirection.")
     
-    if collected_data['agent'].get('netlinkSessionService',None) != 'Running':
-        error.append("The VMware Network Session service(ftnlses3hv) is not running on your agent desktop. "
-                       "Please check it out and ensure it is running before scanner redirection.")
+    if _is_below_HZN81(collected_data):
+        if collected_data['agent'].get('netlinkSessionService',None) != 'Running':
+            error.append("The VMware Network Session service(ftnlses3hv) is not running on your agent desktop. "
+                          "Please check it out and ensure it is running before scanner redirection.")
 
     if device.is_usb_redirect:
         error.append("You are using USB redirection for scanner devices. Please use scanner redirection.")
@@ -216,8 +224,12 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion):
 def _signaturepad_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
-    if device.is_usb_redirect:
-        error.append("You are using USB redirection for camera devices. Please use XXX redirection.")
+    return error, warning, suggestion
+
+def _speechmic_diagnose(collected_data, device, error, warning, suggestion):
+    return error, warning, suggestion
+
+def _audio_diagnose(collected_data, device, error, warning, suggestion):
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device, error, warning, suggestion):
@@ -246,8 +258,12 @@ def _add_refers(suggestion,key,collected_data):
         docver= horizon_ver
     else:
         prefix= prefix8
-        #ToDo: check the agent version 2006 and build no
-        docver= "2006"
+        # The agent doc version is like 2006 , 2012, etc.
+        if 'agentdocver' in collected_data['agent']:
+            if collected_data['agent']['agentdocver'] is not None:
+                docver = collected_data['agent']['agentdocver']
+        else:
+            docver = "2006" # Add a default value as Horizon 8.0(2006)
     fulldoclink= prefix + docver  + middle + docGUIDlinks[key]
     return [suggestion, fulldoclink]
 
@@ -255,3 +271,14 @@ def _add_refers(suggestion,key,collected_data):
 def _get_horizon_ver(collected_data):
     version = collected_data['agent']['agentver']
     return '.'.join(version.split('.')[:-1])
+
+# HZN version is less than version 8.1.0
+def _is_below_HZN81(collected_data):
+    version = collected_data['agent']['agentver']
+    major = int((version.split('.'))[0])
+    minor = int((version.split('.'))[1])
+    if (major < 8 or (major == 8 and minor == 0)):
+        return True
+    else:
+        return False
+
