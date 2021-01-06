@@ -52,7 +52,7 @@ def recognize_devices(collected_data, uuid):
     :return: devices(on duplicated item)
     """
     res = []
-    recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', 'cameras','others','signaturepad']
+    recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', 'cameras','others','signaturepad', 'speechmic','audio']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             # todo: dimiss pritners check at agent end
@@ -84,12 +84,13 @@ def recognize_devices(collected_data, uuid):
                                                 uuid,
                                                 device.get("VID", None),
                                                 device.get("PID", None),
-                                                device.get('name', None) or device.get('Name', None),
+                                                device.get('Name', None),
                                                 device.get('hasProblem', None),
                                                 device.get('problemCode',None),
                                                 device.get('problemdesc',None),
                                                 device.get('isRebootNeeded', None),
                                                 device.get('isPresent', None),
+                                                device.get('WorkOffline', None),
                                                 v.get('Name', None),
                                                 v.get('DriverVersion', None)))
 
@@ -101,13 +102,14 @@ def recognize_devices(collected_data, uuid):
                                             uuid,
                                             device.get("VID", None),
                                             device.get("PID", None),
-                                            device.get('name', None) or device.get('Name', None),
+                                            device.get('Name', None),
                                             device.get('hasProblem', None),
                                             device.get('problemCode',None),
                                             device.get('problemdesc',None),
                                             device.get('isRebootNeeded', None),
                                             device.get('isPresent', None),
-                                            device.get('driverName', None),
+                                            device.get('WorkOffline', None),
+                                            device.get('driverprovider', None),
                                             device.get('driverver', None)))
 
     return res

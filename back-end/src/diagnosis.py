@@ -83,6 +83,10 @@ def diagnosis(collected_data, device):
         error, warning, suggestion = _camera_diagnose(collected_data, device, error, warning, suggestion)
     elif device.type == 'signaturepad':
         error, warning, suggestion = _signaturepad_diagnose(collected_data, device, error, warning, suggestion)
+    elif device.type == 'speechmic':
+        error, warning, suggestion = _speechmic_diagnose(collected_data, device, error, warning, suggestion)
+    elif device.type == 'audio':
+        error, warning, suggestion = _audio_diagnose(collected_data, device, error, warning, suggestion)
 
     # todo: final check
     error = list(filter(None, error))
@@ -220,6 +224,12 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion):
 def _signaturepad_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
+    return error, warning, suggestion
+
+def _speechmic_diagnose(collected_data, device, error, warning, suggestion):
+    return error, warning, suggestion
+
+def _audio_diagnose(collected_data, device, error, warning, suggestion):
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device, error, warning, suggestion):
