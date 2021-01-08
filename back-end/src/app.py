@@ -260,8 +260,11 @@ def device_and_client_info():
     del_dup_diagnosis_type_info = []
     seen = set()
     for item in diagnosis_type_info:
-        if item['deviceName'] not in seen:
-            seen.add(item['deviceName'])
+        if (item['deviceType'] == 'virtualprinters' or item['deviceType'] == 'usbprinters'):
+            if item['deviceName'] not in seen:
+                seen.add(item['deviceName'])
+                del_dup_diagnosis_type_info.append(item)
+        else:
             del_dup_diagnosis_type_info.append(item)
 
 
