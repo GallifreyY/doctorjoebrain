@@ -14,7 +14,7 @@ import 'view-design/dist/styles/iview.css';
 
 Vue.config.productionTip = false
 Vue.use(ViewUI)
-
+import i18n from '../language'
 import axios from 'axios'
 Vue.prototype.$axios = axios
 axios.defaults.baseURL = '/api'  //important!src/main.js
@@ -25,6 +25,9 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   components: { App },
   template: '<App/>'
 })
+
+

@@ -83,6 +83,8 @@ class Device:
 
     def find_details(self):
         devices = self.raw_data[self.end][self.type]
+        if not isinstance(devices,list):
+            return devices
         return devices[self.index] if len(devices) >= self.index else None
 
     def _is_virtual_printer(self):
