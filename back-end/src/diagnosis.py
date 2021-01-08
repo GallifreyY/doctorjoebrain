@@ -1,6 +1,17 @@
 from util import *
 import json
 import re
+import os, gettext
+_ = None
+def getUserLanguage():
+    return "zh-CN"
+
+# Get loc string by language
+def getLocStrings():
+    currentDir = os.path.dirname(os.path.realpath(__file__))
+    return gettext.translation('resource', currentDir, [getUserLanguage(), "en-US"]).gettext
+
+_ = getLocStrings()
 
 components = {
     "usbdisk": "ClientDriveRedirection",
@@ -128,6 +139,7 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
 
     # todo: PrinterService
     s = "It is recommended to use printer redirection solution for this device in Horizon environment."
+    print(_("diagnosis"))
     suggestion.append(_add_refers(s,device.type,collected_data))
 
     if collected_data['client'].get('PrinterService',None) != 'Running':
@@ -240,7 +252,7 @@ def _judge_driver(device):
         return None
     provider = device.find_details()['driverprovider']
     if provider == 'Microsoft' \
-        and re.search(r'.crosoft*',device.name) is None \
+        and re.search(r'.crosoft*',str(device.name)) is None \
         and device.suspected_vendor is not 'Microsoft':
         return 'The driver is probably provided by Microsoft. Recommend to install the native driver provided by the device vendor.'
     return None

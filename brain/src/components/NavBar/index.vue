@@ -12,19 +12,19 @@
         <div class="link-bar">
           <router-link to="/" class="link">
             <Icon type="ios-home" color="white" size="20"/>
-            <p>Home</p>
+            <p>{{ $t('home') }}</p>
           </router-link>
           <router-link to="/Device-Matrix" class="link">
             <Icon type="md-analytics" color="white" size="20"/>
-            <p>Device Matrix</p>
+            <p>{{ $t('device') }}</p>
           </router-link>
           <a href="https://www.vmware.com/cn.html" class="link">
             <Icon type="md-globe" color="white" size="20"/>
-            <p>Visit us</p>
+            <p>{{ $t('visit') }}</p>
           </a>
           <router-link to="/help" class="link">
             <Icon type="md-help-circle" color="white" size="20"/>
-            <p>Help</p>
+            <p>{{ $t('help') }}</p>
           </router-link>
         </div>
       </Col>

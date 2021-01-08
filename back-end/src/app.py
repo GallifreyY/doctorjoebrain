@@ -21,20 +21,6 @@ import configparser
 import password_access
 import handleDB
 
-# todo: read data from config file
-cf = configparser.ConfigParser()
-root_dir = os.path.abspath('..')
-configpath = os.path.join(root_dir, "prod", "config.ini")
-cf.read(configpath)
-cf.get('PROD', 'HTTPS_AD')
-ENV = cf.get('ENV', 'ENV')
-
-if ENV == 'PROD':
-    URL = 'https://' + cf.get('PROD', 'HTTPS_AD') + ':' + cf.get('PROD', 'PORT') + '/#/diagnosis/'
-else:
-    URL = 'http://' + cf.get('DEV', 'LOCAL') + ':' + cf.get('DEV', 'PORT') + '/#/diagnosis/'
-
-print(ENV, URL)
 
 CATE_MAP = {
     "Other Devices": -1,
@@ -253,9 +239,6 @@ def device_and_client_info():
             'infoLen':{'errorLen':len(suggestions['error']),'warningLen':len(suggestions['warning']),'suggestionLen':len(suggestions['suggestion'])}
         })
 
-
-    for i in diagnosis_type_info:
-        print(i['deviceType'])
 
     del_dup_diagnosis_type_info = []
     seen = set()
