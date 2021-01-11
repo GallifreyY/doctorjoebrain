@@ -139,7 +139,6 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
 
     # todo: PrinterService
     s = "It is recommended to use printer redirection solution for this device in Horizon environment."
-    print(_("diagnosis"))
     suggestion.append(_add_refers(s,device.type,collected_data))
 
     if collected_data['client'].get('PrinterService',None) != 'Running':
