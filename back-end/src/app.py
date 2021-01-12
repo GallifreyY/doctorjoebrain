@@ -1,13 +1,16 @@
 # -*- coding: UTF-8 -*-
+
 from flask import Flask
+from flask_babel import Babel
 from flask_sqlalchemy import SQLAlchemy
 
 from sqlalchemy import and_, or_
 from flask_cors import cross_origin
 from flask import request
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+babel = Babel(app)
 app.config.from_object('db_info')
 db = SQLAlchemy(app)
 
@@ -15,13 +18,15 @@ from models import *
 from util import *
 from diagnosis import diagnosis
 import json
-import re
-import copy
-import configparser
+import locale
 import password_access
 import handleDB
 
-
+@babel.localeselector
+def get_locale():
+    language,coding = locale.getdefaultlocale()
+    print(language)
+    return language
 CATE_MAP = {
     "Other Devices": -1,
     "USB Disks": 0,

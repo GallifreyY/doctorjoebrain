@@ -1,0 +1,240 @@
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-01-12 13:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: diagnosis.py:47
+#, python-format
+msgid ""
+"This device has some configuration issues. The device problem code is "
+"%(problemcode)s. %(problemdesc)s"
+msgstr "设备存在一些配置问题。设备问题代码是%(problemcode)s。%(problemdesc)s"
+
+#: diagnosis.py:51
+msgid ""
+"Please make sure this device is connected to your client machine by USB "
+"physically."
+msgstr "请确保该设备已通过USB连接到您的客户端机器。"
+
+#: diagnosis.py:54
+msgid "Please reboot your client machine OS to make this device work properly."
+msgstr "请重新启动您的客户端机器操作系统以使该设备正常工作。"
+
+#: diagnosis.py:65
+msgid "Integrated Printing"
+msgstr "集成打印"
+
+#: diagnosis.py:73
+#, python-format
+msgid ""
+"The VMware %(compstr)s component is installed on the Horizon agent "
+"desktop. Please use it for %(type)s redirection."
+msgstr "Horizon agent桌面已安装VMware %(compstr)s组件。请将它用于%(type)s的重定向。"
+
+#: diagnosis.py:78
+#, python-format
+msgid ""
+"The VMware %(compstr)s component is not available in the Horizon agent "
+"product."
+msgstr "VMware %(compstr)s组件在Horizon代理产品中不可用。"
+
+#: diagnosis.py:84
+#, python-format
+msgid ""
+"The VMware %(comp_string)s component is not installed on the Horizon "
+"agent desktop. Please check it with your IT administrator."
+msgstr "Horizon agent桌面没有安装VMware %(comp_string)s组件，请联系您的it管理员进行检查。"
+
+#: diagnosis.py:89
+#, python-format
+msgid ""
+"The VMware %(comp)s component is not installed on the Horizon agent "
+"desktop. Please check it with your IT administrator."
+msgstr "Horizon agent桌面没有安装VMware %(comp)s组件，请联系您的it管理员进行检查。"
+
+#: diagnosis.py:94
+#, python-format
+msgid ""
+"The VMware %(comp)s component is installed on the Horizon agent desktop. "
+"Please use it for %(type)s redirection."
+msgstr "Horizon agent桌面已经安装VMware %(comp)s组件。请将它用于%(type)的重定向。"
+
+#: diagnosis.py:127
+msgid ""
+"Please check and ensure the USB arbitrator service is in running status "
+"on your client machine."
+msgstr "请检查并确保USB仲裁服务在您的客户端机器上处于运行状态。"
+
+#: diagnosis.py:133
+msgid ""
+"You are using USB redirection for USB disk devices. Please use CDR "
+"redirection."
+msgstr "您正在为USB磁盘设备使用USB重定向。请使用USB重定向。"
+
+#: diagnosis.py:140
+msgid ""
+"Please use the CDR (Client Drive Redirection) solution to redirect the "
+"file systems on USB disk devices."
+msgstr "请使用CDR(客户端驱动器重定向)重定向USB磁盘设备上的文件系统。"
+
+#: diagnosis.py:144
+msgid ""
+"The CDR service is not running properly on your agent machine. Please "
+"check it with your IT administrator to restart the service."
+msgstr "CDR服务在您的代理机上没有正常运行。请联系您的it管理员检查以重新启动服务。"
+
+#: diagnosis.py:148
+msgid ""
+"The CDR component is not installed on your agent machine correctly. "
+"Please check it with your IT administrator."
+msgstr "您的代理机器上没有正确安装CDR组件。请联系您的it管理员进行检查。"
+
+#: diagnosis.py:159
+msgid ""
+"It is recommended to use printer redirection solution for this device in "
+"Horizon environment."
+msgstr "建议在Horizon环境中为该设备使用打印机重定向解决方案。"
+
+#: diagnosis.py:163
+msgid ""
+"The print service(spooler) is not running on your client desktop. Please "
+"check it out and ensure it is running before printer redirection."
+msgstr "打印服务(后台处理程序)没有在客户端桌面上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+
+#: diagnosis.py:168
+msgid ""
+"The print service(spooler) is not running on your agent desktop. Please "
+"check it out and ensure it is running before printer redirection."
+msgstr "打印服务(后台处理程序)没有在agent桌面上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+
+#: diagnosis.py:173
+msgid ""
+"You are using USB redirection for printer devices. Please use printer "
+"redirection."
+msgstr "您正在为打印机设备使用USB重定向。请使用打印机重定向。"
+
+#: diagnosis.py:177
+msgid ""
+"This printer is offline. Please check the device connection status "
+"firstly."
+msgstr "此打印机已离线。请先检查设备连接状态。"
+
+#: diagnosis.py:184
+msgid "connection"
+msgstr "连接"
+
+#: diagnosis.py:187
+msgid "redirection"
+msgstr "重定向"
+
+#: diagnosis.py:191
+#, python-format
+msgid ""
+"This printer is connected to the Horizon %(end)s machine via USB "
+"%(trs_conn)s. However, the device driver is not found in the machine. "
+"Please contact IT administrator to install the printer driver in it."
+msgstr "此打印机通过USB %(trs_conn)s连接到Horizon %(end)s端。但是无法在机器中找到设备驱动程序。请联系IT管理员安装打印机驱动程序。"
+
+#: diagnosis.py:201
+msgid ""
+"VMware Universal Printing Driver(UPD) is used by this printer in remote "
+"desktop. If you want to utilize Native Printing Driver(NPD), please "
+"install its native driver on the remote desktop."
+msgstr "此打印机在远程桌面中使用VMware 通用打印驱动(UPD)。如果你想使用原生打印驱动(NPD)，请在远程桌面安装它的原生驱动。"
+
+#: diagnosis.py:216
+msgid ""
+"It is recommended to use scanner redirection solution for this device in "
+"Horizon environment."
+msgstr "建议在Horizon环境中为该设备使用扫描仪重定向解决方案。"
+
+#: diagnosis.py:220
+msgid ""
+"The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your "
+"client desktop. Please check it out and ensure it is running before "
+"scanner redirection."
+msgstr "VMware Netlink Supervisor service(ftnlsv3hv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+
+#: diagnosis.py:225
+msgid ""
+"The VMware Scanner Redirection Client service(ftscanmgrhv) is not running"
+" on your client desktop. Please check it out and ensure it is running "
+"before scanner redirection."
+msgstr "VMware 扫描仪重定向客户端服务(ftscanmgrhv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+
+#: diagnosis.py:230
+msgid ""
+"The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your "
+"agent desktop. Please check it out and ensure it is running before "
+"scanner redirection."
+msgstr "VMware Netlink Supervisor service(ftnlsv3hv)没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+
+#: diagnosis.py:235
+msgid ""
+"The VMware Scanner Redirection Agent service(ftscansvchv) is not running "
+"on your agent desktop. Please check it out and ensure it is running "
+"before scanner redirection."
+msgstr "VMware 扫描仪重定向客户端服务(ftscanmgrhv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+
+#: diagnosis.py:241
+msgid ""
+"The VMware Network Session service(ftnlses3hv) is not running on your "
+"agent desktop. Please check it out and ensure it is running before "
+"scanner redirection."
+msgstr "VMware Network Session service(ftnlses3hv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+
+#: diagnosis.py:246
+msgid ""
+"You are using USB redirection for scanner devices. Please use scanner "
+"redirection."
+msgstr "您正在为扫描器设备使用USB重定向。请使用扫描仪重定向。"
+
+#: diagnosis.py:255
+msgid ""
+"It is recommended to use RTAV redirection solution for this device in "
+"Horizon environment."
+msgstr "建议在Horizon环境中对该设备使用RTAV重定向解决方案。"
+
+#: diagnosis.py:259
+msgid ""
+"The Windows Audio service(Audiosrv) is not running on your client "
+"desktop. Please check it out and ensure it is running before RTAV "
+"redirection."
+msgstr "Windows音频服务(Audiosrv)没有在您的客户端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
+
+#: diagnosis.py:264
+msgid ""
+"The Windows Audio service(Audiosrv) is not running on your agent desktop."
+" Please check it out and ensure it is running before RTAV redirection."
+msgstr "Windows音频服务(Audiosrv)没有在您的agent端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
+
+#: diagnosis.py:269
+msgid ""
+"You are using USB redirection for camera devices. Please use RTAV "
+"redirection."
+msgstr "您正在为相机设备使用USB重定向。请使用RTAV重定向。"
+
+#: diagnosis.py:294
+msgid ""
+"The driver is probably provided by Microsoft. Recommend to install the "
+"native driver provided by the device vendor."
+msgstr "驱动程序可能是由微软提供的。建议安装设备厂商提供的本地驱动程序。"
+
+#: locsample.py:16
+msgid "Hello"
+msgstr ""
+
