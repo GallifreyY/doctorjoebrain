@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from util import *
 import json
 import re
@@ -274,6 +273,8 @@ def _add_refers(suggestion,key,collected_data):
         if 'agentdocver' in collected_data['agent']:
             if collected_data['agent']['agentdocver'] is not None:
                 docver = collected_data['agent']['agentdocver']
+            else:
+                docver = "2006" # Add a default value as Horizon 8.0(2006)
         else:
             docver = "2006" # Add a default value as Horizon 8.0(2006)
     fulldoclink= prefix + docver  + middle + docGUIDlinks[key]
