@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 
 from models import *
 from util import *
-from diagnosis import diagnosis
+from diagnosis import diagnosis, diagnosis_general_issues
 import json
 import re
 import copy
@@ -183,7 +183,7 @@ def device_and_client_info():
     client_column_data = get_client_info(collected_data)
     agent_column_data = get_agent_info(collected_data)
     client_detail_data = get_client_details_from_agent(collected_data)
-
+   
     basic_info = {
         'device': devices_info,
         'client': client_column_data,
@@ -196,7 +196,6 @@ def device_and_client_info():
     for device_index in range(len(devices)):
         check_res = check_compatibility(collected_data, devices[device_index])
         suggestions = diagnosis(collected_data, devices[device_index])
-        video = "PowerMic.mp4"
         if(len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])==0):
             errorType = 1
         elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
@@ -214,8 +213,7 @@ def device_and_client_info():
         diagnosis_info.append({
             'deviceName':devices[device_index].name,
             'checkResult': check_res,
-            'suggestions': suggestions,
-            'referenceVideo': video
+            'suggestions': suggestions
         })
         diagnosis_type_info.append({
             'deviceEnd': devices[device_index].default_info()['end'],
@@ -249,6 +247,10 @@ def device_and_client_info():
                 del_dup_diagnosis_type_info.append(item)
         else:
             del_dup_diagnosis_type_info.append(item)
+    
+    # Check the general issues from the collected_data
+    general_issues_info = []
+    general_issues_info = diagnosis_general_issues(collected_data)
 
 
     return {
@@ -256,7 +258,8 @@ def device_and_client_info():
         'data': {
             'basicInfo': basic_info,
             'diagnosisInfo': diagnosis_info,
-            'diagnosisTypeInfo':del_dup_diagnosis_type_info
+            'diagnosisTypeInfo':del_dup_diagnosis_type_info,
+            'generalIssueInfo': general_issues_info
         }
 
     }

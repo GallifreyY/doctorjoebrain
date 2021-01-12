@@ -31,6 +31,27 @@ docGUIDlinks = {
     "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"
 }
 
+def diagnosis_general_issues(collected_data):
+    error = []
+    warning = []
+    collected_data = collected_data
+
+    if collected_data['client'].get('clientService',None) != 'Running':
+        error.append("The VMware Horizon client service is not running on your client desktop."
+                       "Please check it out and ensure it is running.")
+
+    if collected_data['agent'].get('agentService',None) != 'Running':
+        error.append("The VMware Horizon agent service is not running on your agent desktop."
+                       "Please check it out and ensure it is running.")
+
+    # Check the Desktop Experience component installation status on RDS
+    if _is_agent_RDS(collected_data):
+        if collected_data['agent'].get('DesktopExpInstalled',None) != True:
+            warning.append("The Desktop Experience component is not installed on your RDS desktop."
+                        "The VMware Horizon agent functions (such as scanner redirection) may not work normally because of it."
+                        "Please check it out and ensure it is installed.")
+        
+    return {'error': error,'warning': warning}
 
 def diagnosis(collected_data, device):
     suggestion = []
@@ -149,12 +170,27 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
     if collected_data['agent'].get('PrinterService',None) != 'Running':
         error.append("The print service(spooler) is not running on your agent desktop."
                        "Please check it out and ensure it is running before printer redirection.")
+    
+    # Check printer service status for VMware Integrated Printing
+    if _is_pr_installed(collected_data,"PrintRedir"):
+        if collected_data['agent'].get('vmwareprintService',None) != 'Running':
+                error.append("The VMware print service is not running on your agent desktop."
+                            "Please check it out and ensure it is running before printer redirection.")
+
+    # Check printer service status for VMware ThinPrint
+    if _is_pr_installed(collected_data,"ThinPrint"):
+        if collected_data['agent'].get('thinprintAutoConn',None) != 'Running':
+                error.append("The Thinprint AutoConnection service is not running on your agent desktop."
+                            "Please check it out and ensure it is running before printer redirection.")                
+        if collected_data['agent'].get('thinprintGateway',None) != 'Running':
+                error.append("The Thinprint Gateway service is not running on your agent desktop."
+                            "Please check it out and ensure it is running before printer redirection.")  
 
     if device.is_usb_redirect:
         error.append("You are using USB redirection for printer devices. Please use printer redirection.")
     
     if device.workoffline:
-        error.append("This printer is offline. Please check the device connection status firstly.")
+        warning.append("This printer is offline. Please check the device connection status firstly.")
 
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
@@ -294,3 +330,22 @@ def _is_below_HZN81(collected_data):
     else:
         return False
 
+# Check if HZN agent is server OS
+def _is_agent_RDS(collected_data):
+    osname = collected_data['agent']['OSname']
+    if ('Server' in osname):
+        return True
+    else:
+        return False
+
+# Check if Printer redirection component is installed or not
+# pr - PrintRedir  or ThinPrint
+def _is_pr_installed(collected_data,pr):
+     #check thinprint/vmwareprint 
+    details = collected_data['agent'].get('Horizoncomp', None)
+    if details != None:
+        prvalue = details.get(pr, None)
+        if prvalue is not None:
+            if int(prvalue) == 1:
+                return True
+    return False
