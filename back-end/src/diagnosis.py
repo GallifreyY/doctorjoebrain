@@ -339,7 +339,7 @@ def _is_agent_RDS(collected_data):
         return False
 
 # Check if Printer redirection component is installed or not
-# pr - printRedir  or ThinPrint
+# pr - PrintRedir  or ThinPrint
 def _is_pr_installed(collected_data,pr):
      #check thinprint/vmwareprint 
     details = collected_data['agent'].get('Horizoncomp', None)
