@@ -36,7 +36,7 @@ def diagnosis_general_issues(collected_data):
     warning = []
     collected_data = collected_data
 
-     if collected_data['client'].get('clientService',None) != 'Running':
+    if collected_data['client'].get('clientService',None) != 'Running':
         error.append("The VMware Horizon client service is not running on your client desktop."
                        "Please check it out and ensure it is running.")
 
@@ -172,7 +172,7 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
                        "Please check it out and ensure it is running before printer redirection.")
     
     # Check printer service status for VMware Integrated Printing
-    if _is_pr_installed(collected_data,"printRedir"):
+    if _is_pr_installed(collected_data,"PrintRedir"):
         if collected_data['agent'].get('vmwareprintService',None) != 'Running':
                 error.append("The VMware print service is not running on your agent desktop."
                             "Please check it out and ensure it is running before printer redirection.")
@@ -344,11 +344,8 @@ def _is_pr_installed(collected_data,pr):
      #check thinprint/vmwareprint 
     details = collected_data['agent'].get('Horizoncomp', None)
     if details != None:
-        printRedir = details.get(pr, None)
-        if int(printRedir) == 1:
-            return True
-        else:
-            return False
-    else:
-        return False
-
+        prvalue = details.get(pr, None)
+        if prvalue is not None:
+            if int(prvalue) == 1:
+                return True
+    return False
