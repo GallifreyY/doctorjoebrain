@@ -358,21 +358,6 @@ def check_compatibility(collected_data, device):
             'key': "Serial Agent Service",
             'value': dict_list['serialAgentService'],
             'check': collected_data['agent'].get('serialAgentService', None) == 'Running'
-        },
-        {
-            'key': "VMware Print Service",
-            'value': dict_list['vmwareprintService'],
-            'check': collected_data['agent'].get('vmwareprintService', None) == 'Running'
-        },
-        {
-            'key': "ThinPrint Auto-Connect",
-            'value': dict_list['thinprintAutoConn'],
-            'check': collected_data['agent'].get('thinprintAutoConn', None) == 'Running'
-        },
-        {
-            'key': "ThinPrint Gateway",
-            'value': dict_list['thinprintGateway'],
-            'check': collected_data['agent'].get('thinprintGateway', None) == 'Running'
         }
     ]
 
@@ -387,13 +372,23 @@ def check_compatibility(collected_data, device):
     details = collected_data['agent'].get('Horizoncomp', None)
     if details != None:
         printRedir = details.get('PrintRedir', None)
-    for key in agent:
-        if int(printRedir) == 1:
-            if (key['key'] == "ThinPrint Auto-Connect" or key['key'] == "ThinPrint Gateway"):
-                agent.remove(key)
-        else:
-            if key['key'] == "VMware Print Service":
-                agent.remove(key)
+    if int(printRedir) == 1:
+        agent.append({
+            'key': "VMware Print Service",
+            'value': dict_list['vmwareprintService'],
+            'check': collected_data['agent'].get('vmwareprintService', None) == 'Running'
+        })
+    else:
+        agent.append({
+            'key': "ThinPrint Gateway",
+            'value': dict_list['thinprintGateway'],
+            'check': collected_data['agent'].get('thinprintGateway', None) == 'Running'
+        })
+        agent.append({
+            'key': "ThinPrint Auto-Connect",
+            'value': dict_list['thinprintAutoConn'],
+            'check': collected_data['agent'].get('thinprintAutoConn', None) == 'Running'
+        })
 
     # todo: for different device, show custom results
 
