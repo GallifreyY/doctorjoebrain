@@ -23,7 +23,7 @@ msgstr ""
 msgid ""
 "The VMware Horizon client service is not running on your client desktop. "
 "Please check it out and ensure it is running."
-msgstr "Windows打印服务(spooler)没有在客户端机器上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "VMware Horizon 客户端服务没有在客户端桌面上运行。请检查并确保它处于运行状态。"
 
 #: diagnosis.py:35
 #, fuzzy
@@ -39,8 +39,8 @@ msgid ""
 "work normally because of it. Please check it out and ensure it is "
 "installed."
 msgstr ""
-"RDS桌面上未安装Desktop Experience组件。 因此VMware Horizon agent的功能（例如扫描仪重定向）可能无法正常工作。 "
-"请检查并确保Desktop Experience组件在RDS桌面上已安装。"
+"RDS桌面上未安装Desktop Experience组件。 因此VMware Horizon "
+"agent的功能（例如扫描仪重定向）可能无法正常工作。请检查并确保Desktop Experience组件在RDS桌面上已安装。"
 
 #: diagnosis.py:55
 #, python-format
@@ -213,17 +213,15 @@ msgid ""
 "client desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"VMware Netlink Supervisor "
-"服务(ftnlsv3hv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+"VMware Netlink "
+"Supervisor服务(ftnlsv3hv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:222
 msgid ""
 "The VMware Scanner Redirection Client service(ftscanmgrhv) is not running"
 " on your client desktop. Please check it out and ensure it is running "
 "before scanner redirection."
-msgstr ""
-"VMware "
-"扫描仪重定向客户端服务(ftscanmgrhv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr "VMware扫描仪重定向客户端服务(ftscanmgrhv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:226
 msgid ""
@@ -231,15 +229,15 @@ msgid ""
 "agent desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"VMware Netlink Supervisor "
-"服务(ftnlsv3hv)没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+"VMware Netlink "
+"Supervisor服务(ftnlsv3hv)没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:230
 msgid ""
 "The VMware Scanner Redirection Agent service(ftscansvchv) is not running "
 "on your agent desktop. Please check it out and ensure it is running "
 "before scanner redirection."
-msgstr "VMware 扫描仪重定向Agent端服务(ftscanmgrhv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr "VMware扫描仪重定向Agent端服务(ftscanmgrhv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:235
 msgid ""
@@ -247,8 +245,8 @@ msgid ""
 "agent desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"VMware Network Session "
-"服务(ftnlses3hv)没有在您的Agent端桌面上运行。。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+"VMware Network "
+"Session服务(ftnlses3hv)没有在您的Agent端桌面上运行。。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:239
 msgid ""
