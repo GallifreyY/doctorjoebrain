@@ -1,48 +1,83 @@
-### DoctorJoe 编译流程
+### flask L10n
 
-目录
-├─zh-CN
-|   ├─LC_MESSAGES
-|   |      ├─resource.mo
-|   |      └resource.po
-├─en-US
-|   ├─LC_MESSAGES
-|   |      ├─resource.mo
-|   |      └resource.po
+> workflow
 
-1. 引入python中Tools/l18n/msgfmt.py文件
-2. 编辑resource.po
+1. ```powershell
+   pip install flask-babel
+   ```
 
-```python
-msgid "hello"
-msgstr "你好"
-```
+2. Init babel and get locale in app.py 
 
-3. 生成对应二进制翻译文件*.mo
+   ```python
+   from flask_babel import Babel
+   from flask import request
+   
+    
+   app = Flask(__name__)
+   babel = Babel(app)
+   @babel.localeselector
+   def get_locale():
+       language = locale.getdefaultlocale()
+       return language
+   ```
 
-```po
-python msgfmt.py -o zh-CN/LC_MESSAGES/resource.mo zh-CN/LC_MESSAGES/resource.po
+3. Create babel.cfg 
 
-```
+   ```python
+   [python: **.py]#Find all marked text
+   extensions=jinja2.ext.autoescape,jinja2.ext.with_
+   ```
 
-4. 在py文件对应翻译字符串中引入
+4. Generate translation file template
 
-```python
-import os, gettext
-_ = None
-def getUserLanguage():
-    return "zh-CN"   #正确做法应该从前端传入对应语言环境
+   ```python
+   pybabel extract -F babel.cfg -o messages.pot .#-F:the config file -o:output
+   ```
 
-# Get loc string by language
-def getLocStrings():
-    currentDir = os.path.dirname(os.path.realpath(__file__))
-    return gettext.translation('resource', currentDir, [getUserLanguage(), "en-US"]).gettext
+5. Init .po file
 
-_ = getLocStrings()
-```
+   ```python
+   pybabel init -i messages.pot -d translations -l zh#-i:translation template;-d:output .po;-l:translation language
+   ```
 
-5. 在对应翻译的string中直接加入对应的msgid
+6. Edit .po file(edit msgstr)
 
-```py
-print(_("Hello"))
-```
+   ```python
+   #: flask-ext3.py:31
+   msgid "No users"
+   msgstr "没有用户"
+    
+   #: flask-ext3.py:32
+   msgid "%(num)d user"
+   msgid_plural "%(num)d users"
+   msgstr[0] "%(num)d个用户"
+    
+   #: templates/hello.html:2
+   msgid "Test Sample"
+   msgstr "测试范例"
+    
+   #: templates/hello.html:3
+   msgid "Hello World!"
+   msgstr "世界，你好！"
+   ```
+
+7. Compile .po file into .mo file
+
+   ```python
+   pybabel compile -d translations
+   ```
+
+> Translation file update
+>
+1.  run the commands
+
+    ```powershell
+    $ pybabel extract -F babel.cfg -o messages.pot .
+    $ pybabel update -i messages.pot -d translations
+    ```
+2.  Edit messages.po to update the translations.
+
+3.  run the command
+    ```powershell
+    $ pybabel compile -d translations
+    ```
