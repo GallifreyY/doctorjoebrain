@@ -68,10 +68,16 @@
    ```
 
 > Translation file update
+>
+1.  run the commands
 
-```powershell
-$ pybabel extract -F babel.cfg -o messages.pot .
-$ pybabel update -i messages.pot -d translations
-$ pybabel compile -d translations
-```
+    ```powershell
+    $ pybabel extract -F babel.cfg -o messages.pot .
+    $ pybabel update -i messages.pot -d translations
+    ```
+2.  Edit messages.po to update the translations.
 
+3.  run the command
+    ```powershell
+    $ pybabel compile -d translations
+    ```
