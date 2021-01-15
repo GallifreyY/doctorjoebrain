@@ -152,7 +152,7 @@ class Device:
             default_info['details']['picture'] = 'defaultSpeechmic.jpg'
             default_info['details']['description'] = 'This device is a speechmic'
         elif self.type == 'audio':
-            default_info['details']['picture'] = 'defaultAudio.jpg'
+            default_info['details']['picture'] = 'defaultAudio.png'
             default_info['details']['description'] = 'This device is a audio'
         elif self.type == 'others':
             default_info['details']['picture'] = 'defaultOther.png'

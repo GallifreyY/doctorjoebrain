@@ -274,11 +274,11 @@ def check_compatibility(collected_data, device):
 
         {'key': "Horizon Version", 'value': collected_data['client']['clientver'], 'check': True},
         {
-            'key': "Print Spooler Service",
+            'key': "Windows Print Spooler Service",
             'value': dict_list['clientPrint'],
             'check': collected_data['client'].get('PrinterService', None) == 'Running'
         }, {
-            'key': "USB Arbitrator Service",
+            'key': "VMware USB Arbitration Service",
             'value': dict_list['USBArbitrator'],
             'check': collected_data['client'].get('USBArbitrator', None) == 'Running'
         }, {
@@ -295,12 +295,12 @@ def check_compatibility(collected_data, device):
             'check': collected_data['client'].get('netlinkClientService', None) == 'Running'
         }, 
         {
-            'key': "Client Service",
+            'key': "VMware Horizon Client Service",
             'value': dict_list['clientService'],
             'check': collected_data['client'].get('clientService', None) == 'Running'
         }, 
         {
-            'key': "Serial Client Service",
+            'key': "VMware Serial Com Redirection Client Service",
             'value': dict_list['serialClientService'],
             'check': collected_data['client'].get('serialClientService', None) == 'Running'
         }, 
@@ -320,12 +320,12 @@ def check_compatibility(collected_data, device):
         },
         {'key': "Horizon Version", 'value': collected_data['agent']['agentver'], 'check': True},
         {
-            'key': "Print Spooler Service",
+            'key': "Windows Print Spooler Service",
             'value': dict_list['agentPrint'],
             'check': collected_data['agent'].get('PrinterService', None) == 'Running'
         },
         {
-            'key': "CDR Service",
+            'key': "VMware CDR Service",
             'value': dict_list['CDRService'],
             'check': collected_data['agent'].get('CDRservice', None) == 'Running'
         },
@@ -345,50 +345,49 @@ def check_compatibility(collected_data, device):
             'check': collected_data['agent'].get('netlinkAgentService', None) == 'Running'
         },
         {
-            'key': "VMware Network Session service",
-            'value': dict_list['netlinkSessionService'],
-            'check': collected_data['agent'].get('netlinkSessionService', None) == 'Running' 
-        },
-        {
-            'key': "Agent Service",
+            'key': "VMware Horizon Agent Service",
             'value': dict_list['agentService'],
             'check': collected_data['agent'].get('agentService', None) == 'Running'
         },
         {
-            'key': "Serial Agent Service",
+            'key': "VMware Serial Com Redirection Agent Service",
             'value': dict_list['serialAgentService'],
             'check': collected_data['agent'].get('serialAgentService', None) == 'Running'
         }
     ]
 
-    #check horizon version, if >= 8.1 remove VMware Network Session service
+    #check horizon version, if <= 8.0 add VMware Netlink Session service
     ver = collected_data['agent']['agentver'].split(".", 2)
-    if (int(ver[0]) >= 8 and int(ver[1]) >= 1):
-        for key in agent:
-            if key['key'] == "VMware Network Session service":
-                agent.remove(key)
+    if (int(ver[0]) < 8 or (int(ver[0]) == 8 and int(ver[1]) == 0) ):
+        agent.append({
+            'key': "VMware Netlink Session service",
+            'value': dict_list['netlinkSessionService'],
+            'check': collected_data['agent'].get('netlinkSessionService', None) == 'Running' 
+        })
 
     #check thinprint/vmwareprint 
     details = collected_data['agent'].get('Horizoncomp', None)
     if details != None:
         printRedir = details.get('PrintRedir', None)
+        thinPrint = details.get('ThinPrint', None)
     if int(printRedir) == 1:
         agent.append({
-            'key': "VMware Print Service",
+            'key': "VMware Printer Redirection Service",
             'value': dict_list['vmwareprintService'],
             'check': collected_data['agent'].get('vmwareprintService', None) == 'Running'
         })
-    else:
-        agent.append({
-            'key': "ThinPrint Gateway",
-            'value': dict_list['thinprintGateway'],
-            'check': collected_data['agent'].get('thinprintGateway', None) == 'Running'
-        })
-        agent.append({
-            'key': "ThinPrint Auto-Connect",
-            'value': dict_list['thinprintAutoConn'],
-            'check': collected_data['agent'].get('thinprintAutoConn', None) == 'Running'
-        })
+    if thinPrint is not None:
+        if int(thinPrint) == 1:
+            agent.append({
+                'key': "VMware ThinPrint Gateway Service",
+                'value': dict_list['thinprintGateway'],
+                'check': collected_data['agent'].get('thinprintGateway', None) == 'Running'
+            })
+            agent.append({
+                'key': "VMware ThinPrint Auto-Connect Service",
+                'value': dict_list['thinprintAutoConn'],
+                'check': collected_data['agent'].get('thinprintAutoConn', None) == 'Running'
+            })
 
     # todo: for different device, show custom results
 
