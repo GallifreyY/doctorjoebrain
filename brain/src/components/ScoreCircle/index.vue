@@ -26,7 +26,6 @@ import { getBasicInfo} from "@/api/diagnosis";
     fetchDiagnoseInfo(uuid) {
       getBasicInfo(uuid)
         .then(response => {
-          console.log("---")
           let errorLen = 0;
           let warningLen = 0;
           let suggestionLen = 0;

@@ -183,10 +183,8 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
     # todo：installed driver
     if 'DriverName' not in device_details.keys():
         if device.end == "client":
-            conn = "connection"
             trs_conn=_("connection")
         elif device.end == "agent":
-            conn = "redirection"
             trs_conn=_("redirection")
         trs_s=_("This printer is connected to the Horizon %(end)s machine via USB %(trs_conn)s. However, the device driver is not found in the machine. Please contact IT administrator to install the printer driver in it.",\
                 end=device.end,trs_conn=trs_conn)

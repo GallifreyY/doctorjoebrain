@@ -11,12 +11,12 @@
               <Icon type="ios-alert-outline" color="red" />
               <span class="suggestions">{{row.errorInfo[i].context}}</span>
               <span class="suggestions" v-if="row.errorInfo[i].hasDetail">
-                Follow
+                {{$t("Follow")}}
                 <a :href="row.errorInfo[i].detail">
-                  this link
+                  {{$t("this link")}}
                   <Icon type="ios-search" size="16" />
                 </a>
-                to find more guidance.
+                {{$t("to find more guidance.")}}
               </span>
                  </div>
              <div style="margin-top: 15px">
@@ -31,36 +31,36 @@
                 color="success"
                 type="border"
                 size="default"
-              >Detected in {{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
               <Tag
                 v-if="row.deviceTag.isVirtualPrinter"
                 color="warning"
                 type="border"
-              >Virtual Printer</Tag>
+              >{{$t("Virtual Printer")}}</Tag>
               <Tag
                 v-else-if="row.deviceTag.isPresent"
                 color="success"
                 type="border"
-              >Connected</Tag>
-              <Tag v-else color="error" type="border">Disconnected</Tag>
+              >{{$t("Connected")}}</Tag>
+              <Tag v-else color="error" type="border">{{$t("Disconnected")}}</Tag>
               <Tag v-if="row.deviceHasProblem" color="error" type="border" style="width: 196px">Has problem</Tag>
               <Tag
                 v-if="row.deviceTag.isRebootNeed"
                 color="warning"
                 type="border"
-              >Reboot Need</Tag>
+              >{{$t("Reboot Need")}}</Tag>
               <Tag
                 v-if="row.deviceTag.isUsbRedirect"
                 color="warning"
                 type="border"
-              >Usb Redirected</Tag>
+              >{{$t("Usb Redirected")}}</Tag>
             </span>
                   </div>
             </Card>
         </Col>
         <Col span="15" offset="1">
             <Card shadow>
-                <p slot="title">Device Information</p>
+                <p slot="title">{{$t("Device Information")}}</p>
              <ul style="list-style: none;" >
             <li style="display: flex;
     justify-content: space-between;height:22px">
@@ -74,22 +74,22 @@
                <Divider />
                <li style="display: flex;
     justify-content: space-between;height:22px">
-                 <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Device Type")}}</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Driver Name")}}</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Driver Version")}}</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Vendor Name</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Vendor Name")}}</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
             </li>
         </ul>
             </Card>
@@ -102,12 +102,12 @@
               <Icon type="ios-alert-outline" color="#FFA500" />
               <span class="suggestions">{{row.warningInfo[i].context}}</span>
               <span class="suggestions" v-if="row.warningInfo[i].hasDetail">
-                Follow
+                {{$t("Follow")}}
                 <a :href="row.warningInfo[i].detail">
-                  this link
+                  {{$t("this link")}}
                   <Icon type="ios-search" size="16" />
                 </a>
-                to find more guidance.
+                {{$t("to find more guidance.")}}
               </span>
                  </div>
          <div style="margin-top: 15px">
@@ -122,36 +122,36 @@
                 color="success"
                 type="border"
                 size="default"
-              >Detected in {{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
               <Tag
                 v-if="row.deviceTag.isVirtualPrinter"
                 color="warning"
                 type="border"
-              >Virtual Printer</Tag>
+              >{{$t("Virtual Printer")}}</Tag>
               <Tag
                 v-else-if="row.deviceTag.isPresent"
                 color="success"
                 type="border"
-              >Connected</Tag>
-              <Tag v-else color="error" type="border">Disconnected</Tag>
+              >{{$t("Connected")}}</Tag>
+              <Tag v-else color="error" type="border">{{$t("Disconnected")}}</Tag>
               <Tag v-if="row.deviceHasProblem" color="error" type="border" style="width: 196px">Has problem</Tag>
               <Tag
                 v-if="row.deviceTag.isRebootNeed"
                 color="warning"
                 type="border"
-              >Reboot Need</Tag>
+              >{{$t("Reboot Need")}}</Tag>
               <Tag
                 v-if="row.deviceTag.isUsbRedirect"
                 color="warning"
                 type="border"
-              >Usb Redirected</Tag>
+              >{{$t("Usb Redirected")}}</Tag>
             </span>
                   </div>
             </Card>
         </Col>
         <Col span="15" offset="1">
             <Card shadow>
-                <p slot="title">Device Information</p>
+                <p slot="title">{{$t("Device Information")}}</p>
              <ul style="list-style: none;" >
             <li style="display: flex;
     justify-content: space-between;height:22px">
@@ -165,22 +165,22 @@
                <Divider />
                <li style="display: flex;
     justify-content: space-between;height:22px">
-                 <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Device Type")}}</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Driver Name")}}</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Driver Version")}}</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Vendor Name</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Vendor Name")}}</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
             </li>
         </ul>
             </Card>
@@ -194,24 +194,24 @@
               <Icon type="ios-alert-outline" color="red" />
               <span class="suggestions">{{row.errorInfo[i].context}}</span>
               <span class="suggestions" v-if="row.errorInfo[i].hasDetail">
-                Follow
+                {{$t("Follow")}}
                 <a :href="row.errorInfo[i].detail">
-                  this link
+                  {{$t("this link")}}
                   <Icon type="ios-search" size="16" />
                 </a>
-                to find more guidance.
+                {{$t("to find more guidance.")}}
               </span>
                  </div>
              <div v-for="(item,i) in row.warningInfo">
               <Icon type="ios-alert-outline" color="#FFA500" />
               <span class="suggestions">{{row.warningInfo[i].context}}</span>
               <span class="suggestions" v-if="row.warningInfo[i].hasDetail">
-                Follow
+                {{$t("Follow")}}
                 <a :href="row.warningInfo[i].detail">
-                  this link
+                  {{$t("this link")}}
                   <Icon type="ios-search" size="16" />
                 </a>
-                to find more guidance.
+                {{$t("to find more guidance.")}}
               </span>
                  </div>
             <div style="margin-top: 15px">
@@ -226,36 +226,36 @@
                 color="success"
                 type="border"
                 size="default"
-              >Detected in {{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
               <Tag
                 v-if="row.deviceTag.isVirtualPrinter"
                 color="warning"
                 type="border"
-              >Virtual Printer</Tag>
+              >{{$t("Virtual Printer")}}</Tag>
               <Tag
                 v-else-if="row.deviceTag.isPresent"
                 color="success"
                 type="border"
-              >Connected</Tag>
-              <Tag v-else color="error" type="border">Disconnected</Tag>
+              >{{$t("Connected")}}</Tag>
+              <Tag v-else color="error" type="border">{{$t("Disconnected")}}</Tag>
               <Tag v-if="row.deviceHasProblem" color="error" type="border" style="width: 196px">Has problem</Tag>
               <Tag
                 v-if="row.deviceTag.isRebootNeed"
                 color="warning"
                 type="border"
-              >Reboot Need</Tag>
+              >{{$t("Reboot Need")}}</Tag>
               <Tag
                 v-if="row.deviceTag.isUsbRedirect"
                 color="warning"
                 type="border"
-              >Usb Redirected</Tag>
+              >{{$t("Usb Redirected")}}</Tag>
             </span>
                   </div>
             </Card>
         </Col>
         <Col span="15" offset="1">
             <Card shadow>
-                <p slot="title">Device Information</p>
+                <p slot="title">{{$t("Device Information")}}</p>
              <ul style="list-style: none;" >
             <li style="display: flex;
     justify-content: space-between;height:22px">
@@ -269,22 +269,22 @@
                <Divider />
                <li style="display: flex;
     justify-content: space-between;height:22px">
-                 <h3 style="margin-left: 20px">Device Type</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Device Type")}}</h3><h4 style="margin-right: 20px">{{ row.deviceType}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Driver Name</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Driver Name")}}</h3><h4 style="margin-right: 20px">{{ row.deviceDriverName}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Driver Version</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Driver Version")}}</h3><h4 style="margin-right: 20px">{{ row.driverVersion}}</h4>
             </li>
                 <Divider />
                <li style="display: flex;
     justify-content: space-between;height:12px">
-                 <h3 style="margin-left: 20px">Vendor Name</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
+                 <h3 style="margin-left: 20px">{{$t("Vendor Name")}}</h3><h4 style="margin-right: 20px">{{ row.deviceVendorName}}</h4>
             </li>
         </ul>
             </Card>

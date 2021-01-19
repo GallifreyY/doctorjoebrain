@@ -7,11 +7,11 @@
         <Col >
           <Poptip v-if="deviceInfo.hasProblem" trigger="hover">
             <Icon type="ios-alert-outline" color="red" />
-            <span slot="content" style="color:red;font-size:10px">This device has some problems</span>
+            <span slot="content" style="color:red;font-size:10px">{{$t("This device has some problems")}}</span>
           </Poptip>
           <Poptip v-else trigger="hover">
             <Icon type="ios-checkmark-circle-outline" color="green" />
-            <span slot="content" style="color:green;font-size:10px">This device works normally</span>
+            <span slot="content" style="color:green;font-size:10px">{{$t("This device works normally")}}</span>
           </Poptip>
         </Col>
       </Row>
@@ -86,7 +86,7 @@ div img {
   width: 100%;
   height: 100%;
   object-fit: cover;
- 
+
 }
 /* 溢出 不出框 */
 div p {

@@ -1,6 +1,6 @@
 <template>
   <div style="padding:2% 5% 2% 5% ">
-  <Row>Search the device matrix: </Row>
+  <Row>{{$t("Search the device matrix: ")}}</Row>
     <Row class="buttons">
       <Col span="8">
         <Input
@@ -16,32 +16,32 @@
         <ButtonGroup shape="circle">
           <Button v-if="token == 'false'" @click="handleLogin">
             <Icon type="md-person" size="18" style="margin-right:3px"/>
-            admin Login
+            {{$t("admin Login")}}
           </Button>
           <Button v-else @click="personal=true" class="link">
             <Icon type="ios-log-out" size="18" style="margin-right:3px"/>
-           Log out
+           {{$t("Log out")}}
           </Button>
           <Modal v-model="personal" width="360">
             <p slot="header" style="color:rgb(0, 174, 255);text-align:center">
               <Icon type="ios-information-circle"></Icon>
-              <span>Your Information</span>
+              <span>{{$t("Your Information")}}</span>
             </p>
             <div style="text-align:center">
-              <p>Administrator confirms logout</p>
+              <p>{{$t("Administrator confirms logout")}}</p>
 
             </div>
             <div slot="footer">
-              <Button type="error" size="large" long @click="handleLogout">Log out
+              <Button type="error" size="large" long @click="handleLogout">{{$t("Log out")}}
               </Button>
             </div>
           </Modal>
           <Button @click="handleUpload" :disabled="!admission">
-            <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />Add New Device
+            <Icon type="ios-cloud-upload-outline" size="18" style="margin-right:5px" />{{$t("Add New Device")}}
           </Button>
           <d-form :modalForm.sync="modalForm" :categoryList="cateList"></d-form>
           <Button @click="handleDownload">
-            <Icon type="ios-cloud-download-outline" size="18" style="margin-right:5px" />Download
+            <Icon type="ios-cloud-download-outline" size="18" style="margin-right:5px" />{{$t("Download")}}
           </Button>
         </ButtonGroup>
       </Col>
@@ -49,7 +49,7 @@
     </br></br>
     <div v-if="showSearchResult">
       <Divider>
-        Search Result
+        {{$t("Search Result")}}
         <Icon
           type="ios-close-circle-outline"
           color="red"
@@ -106,7 +106,8 @@ export default {
     }
   },
   data() {
-    return {
+    if (navigator.language !== "zh-CN") {
+         return {
       totalPage: [],
       pageSize:20,
       pageNum: 1,
@@ -225,6 +226,128 @@ export default {
         }
       ]
     };
+    }else{
+         return {
+      totalPage: [],
+      pageSize:20,
+      pageNum: 1,
+      currentPage: 0,
+      data: undefined,
+      dataShow: "",
+      personal: false,
+      personalLoading: false,
+      cateList:[],
+      searchString: "",
+      searchVersionClient: "",
+      searchVersionAgent: "",
+      searchedData:undefined,
+      showSearchResult: false,
+      matrixAllData: undefined,
+      modalItemData: undefined,
+      submit: false,
+      modalForm: false,
+      modalItem: false,
+      columns1: [
+        { type: "index", width: 60, align: "center" },
+        {
+          title: "设备名称",
+          key: "device_name",
+          width: "200",
+          align: "center",
+          sortable: true
+        },
+        {
+          title: "类别",
+          key: "category",
+          width: "130",
+          align: "center",
+          sortable: true
+        },
+        {
+          title: "Vid",
+          key: "vendor_id",
+          width: "100",
+          align: "center",
+          sortable: true
+        },
+        {
+          title: "Pid",
+          key: "product_id",
+          width: "100",
+          align: "center",
+          sortable: true
+        },
+        { title: "型号", key: "model", width: "100", align: "center" },
+        {
+          title: "Horizon版本",
+          align: "center",
+          children: [
+            {
+              title: "Client",
+              key: "Horizon_client_version",
+              width: "100",
+              align: "center",
+              sortable: true
+            },
+            {
+              title: "Agent",
+              key: "Horizon_agent_version",
+              width: "100",
+              align: "center",
+              sortable: true
+            }
+          ]
+        },
+
+        // { title: "Redirect Method", key: "redirect_method", align: "center" },
+        {
+          title: "操作",
+          key: "action",
+          align: "center",
+          render: (h, params) => {
+            return h("div", [
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small",
+                    disabled: !this.admission
+                  },
+                  style: {
+                    marginRight: "5px"
+                  },
+                  on: {
+                    click: () => {
+                      this.handleEdit(params.index);
+                    }
+                  }
+                },
+                "修改"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "error",
+                    size: "small",
+                    disabled: !this.admission
+                  },
+                  on: {
+                    click: () => {
+                      this.handleDelete(params.index);
+                    }
+                  }
+                },
+                "删除"
+              )
+            ]);
+          }
+        }
+      ]
+    };
+    }
+
   },
   computed: {
       ...mapGetters(["token", "name", "roles", "uuid"]),
@@ -272,7 +395,7 @@ export default {
           });
       },
     fetchMatrix() {
-      getMatrix() 
+      getMatrix()
         .then(response => {
           this.matrixAllData = response.data;
           this.cateList = response.cateList;
@@ -344,8 +467,8 @@ export default {
       const res = []
       if(!searchString) return []
       for(let data of this.matrixDisplayData){
-        if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase() || 
-           data.Horizon_client_version.slice(0,searchString.length) === searchString || 
+        if(data.device_name.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase() ||
+           data.Horizon_client_version.slice(0,searchString.length) === searchString ||
            data.Horizon_agent_version.slice(0,searchString.length) === searchString||
            data.vendor_id.slice(0,searchString.length) === searchString ||
            data.product_id.slice(0,searchString.length) === searchString
@@ -353,7 +476,7 @@ export default {
         {
           res.push(data)
         }
-        else if(data.model != null) 
+        else if(data.model != null)
         {
           if (data.model.slice(0,searchString.length).toLowerCase() === searchString.toLowerCase())
           res.push(data)

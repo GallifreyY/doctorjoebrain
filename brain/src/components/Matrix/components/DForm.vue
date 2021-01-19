@@ -8,7 +8,7 @@
     @on-cancel="handleCancel"
     @on-ok="handleSubmit"
   >
-    <Divider orientation="left" size="small" style="padding:2% 0 2% 0;">Device Information</Divider>
+    <Divider orientation="left" size="small" style="padding:2% 0 2% 0;">{{$t("Device Information")}}</Divider>
     <Form ref="formItem" :model="formItem" label-width=110 :rules="rulesV">
       <Row>
         <Col span="8">
@@ -51,7 +51,7 @@
         orientation="left"
         size="small"
         style="padding:2% 0 2% 0;"
-      >Horizon Compatibility Versions</Divider>
+      >{{$t("Horizon Compatibility Versions")}}</Divider>
 
       <Row v-for="(item,index) in formItem.HorizonVersionsRes" v-if="item.status" :key="index">
         <Col span="8">
@@ -77,13 +77,13 @@
           </FormItem>
         </Col>
         <Col span="6" offset="2">
-          <Button type="error" ghost @click="handleRemove(index)">Delete</Button>
+          <Button type="error" ghost @click="handleRemove(index)">{{$t("Delete")}}</Button>
         </Col>
       </Row>
       <FormItem label-width=150>
         <Row>
           <Col span="14">
-            <Button type="dashed" long @click="handleAdd" icon="md-add">Add item</Button>
+            <Button type="dashed" long @click="handleAdd" icon="md-add">{{$t("Add item")}}</Button>
           </Col>
         </Row>
       </FormItem>
@@ -92,7 +92,7 @@
         orientation="left"
         size="small"
         style="padding:2% 0 2% 0;"
-      >Driver Compatibility Versions</Divider>
+      >{{$t("Driver Compatibility Versions")}}</Divider>
 
       <FormItem label="Driver Name">
         <Input v-model="formItem.driver" placeholder="Enter the Driver Name.." />

@@ -13,6 +13,7 @@ app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object('db_info')
 db = SQLAlchemy(app)
+language = 'en-US'
 
 from models import *
 from util import *
@@ -24,7 +25,11 @@ import handleDB
 
 @babel.localeselector
 def get_locale():
-    language,coding = locale.getdefaultlocale()
+    global language
+    if language=='zh-CN' or language=='zh_CN':
+        language='zh_CN'
+    else:
+        language='en_US'
     print(language)
     return language
 CATE_MAP = {
@@ -45,12 +50,32 @@ CATE_MAP = {
     "Barcode Scanners": 13,
     "Serial Port Devices": 14
 }
-
+TRS_CATE_MAP = {
+    "其余设备": -1,
+    "USB硬盘": 0,
+    "虚拟打印机": 1,
+    "USB打印机": 2,
+    "扫描仪": 3,
+    "摄像头": 4,
+    "USB语音麦克风": 5,
+    "智能卡": 6,
+    "键盘": 7,
+    "鼠标": 8,
+    "签名板": 9,
+    "PIN键盘": 10,
+    "信用卡": 11,
+    "指纹读取器": 12,
+    "条码扫描器": 13,
+    "串口设备": 14
+}
 CATE_LIST = []
+TRS_CATE_LIST = []
 for key in CATE_MAP:
     if CATE_MAP[key] == -1: continue
     CATE_LIST.insert(CATE_MAP[key], key)
-
+for key in TRS_CATE_MAP:
+    if TRS_CATE_MAP[key] == -1: continue
+    TRS_CATE_LIST.insert(TRS_CATE_MAP[key], key)
 
 @app.route('/test', methods=['GET'])
 @cross_origin()
@@ -121,7 +146,15 @@ def log_out():
         'data': 'successfully log out'
     }
 
-
+@app.route('/get_language', methods=['POST'])
+@cross_origin()
+def get_language():
+    global language
+    language = request.args.get('data')
+    return {
+        'code': 20022,
+        'language':language
+    }
 #
 ######## api: device_info
 @app.route('/device_and_client_info', methods=['GET'])
@@ -223,9 +256,6 @@ def device_and_client_info():
         diagnosis_type_info.append({
             'deviceEnd': devices[device_index].default_info()['end'],
             'deviceTag':devices[device_index].default_info()['tag'],
-            # 'deviceIp': devices[device_index].default_info().is_present,
-            # 'deviceIur': devices[device_index].default_info().is_usb_redirect,
-            # 'deviceIvp': devices[device_index].default_info().is_virtual_printer,
             'deviceHasProblem': devices[device_index].default_info()['hasProblem'],
             'deviceDriverName':devices[device_index].default_info()['driverName'],
             'driverVersion':devices[device_index].default_info()['driverVersion'],
@@ -285,6 +315,12 @@ def matrix():
                                                ).all()
 
     matrix = to_json_join(matrix)
+    if language=='zh-CN' or language=='zh_CN':
+       return {
+           'code':20022,
+           'data': matrix,
+           'cateList':TRS_CATE_LIST
+       }
     return {
         'code': 20022,
         'data': matrix,
@@ -295,6 +331,11 @@ def matrix():
 @app.route('/matrix/categoryInfo', methods=['GET'])
 @cross_origin()
 def get_category_info():
+    if language=='zh-CN' or language=='zh_CN':
+       return {
+           'code':20022,
+           'data':TRS_CATE_LIST
+       }
     return {
         'code': 20022,
         'data': CATE_LIST

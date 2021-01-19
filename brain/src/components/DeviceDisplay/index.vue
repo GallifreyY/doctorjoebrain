@@ -2,44 +2,12 @@
   <div>
     <div style="margin:20px 20px 20px 0px">
       <Card :bordered="false" shadow id="selector">
-        <!-- <Row class="title">Detecting following devices:</Row> -->
-        <!-- <Collapse simple>
-          <Panel v-for="(tags,index) in sortedTag" :key = "index">
-              <span><Badge :count="tags.length" class-name="badge"></Badge></span>
-              <span style="margin:0 2%">{{parseTypeName(index)}}</span>
-
-
-            <p slot="content">
-              <span v-for="tag in tags">
-                <Tag size="default" type="border" :color="tag.tagStyle">
-                  <span style=" font-weight:400">{{tag.name}}</span>
-                </Tag>
-              </span>
-            </p>
-          </Panel>
-        </Collapse> -->
-        <!-- selector -->
         <div class="title">Which device you want to diagnose?</div>
         <Cascader placeholder="Please select a device" :data="cascaderData" v-model="selectedData"></Cascader>
       </Card>
     </div>
   <device-card :deviceInfo="deviceInfo[index]" :index="index" :showDetails="true"></device-card>
-<!--
-    <Carousel v-model = "index" loop>
-      <CarouselItem>
-            <device-card :deviceInfo="deviceInfo[0]" :index="0" :showDetails="true"></device-card>
-        </CarouselItem>
-        <CarouselItem>
-            <device-card :deviceInfo="deviceInfo[1]" :index="1" :showDetails="true"></device-card>
-        </CarouselItem>
-        <CarouselItem>
-<device-card :deviceInfo="deviceInfo[2]" :index="2" :showDetails="true"></device-card>
-        </CarouselItem>
-
-    </Carousel> -->
-
-
-  </div>
+</div>
 </template>
 
 <script>

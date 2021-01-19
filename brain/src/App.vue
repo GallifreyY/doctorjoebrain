@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {getLanguageInfo} from "@/api/diagnosis";
 export default {
   name: 'App',
   provide(){
@@ -24,7 +25,24 @@ export default {
       this.$nextTick(function(){
         this.isRouterAlive = true;
       })
-    }
+    },
+    fetchLanguageInfo() {
+      let language = navigator.language
+      console.log(language)
+      getLanguageInfo(language)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(() => {
+          this.$Loading.error();
+          this.$Message.error(
+            "Sorry, could not get your language information..."
+          );
+        });
+    },
+  },
+  created() {
+     this.fetchLanguageInfo();
   }
 }
 </script>

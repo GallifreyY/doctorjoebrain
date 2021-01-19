@@ -20,11 +20,13 @@
 <script>
    import rexpandRow from '@/components/ReportTableExpand';
     import { getBasicInfo} from "@/api/diagnosis";
+    import {getLanguageInfo} from "@/api/diagnosis";
     export default {
       name: "ReportMenu",
       components: {rexpandRow},
       data () {
-            return {
+        if(navigator.language!=="zh-CN"){
+          return {
               reportColumns: [
                     {
                         type: 'expand',
@@ -192,6 +194,177 @@
               reportCategoryList : [],
               typeNum:[]
             }
+        }else{
+          return {
+              reportColumns: [
+                    {
+                        type: 'expand',
+                        width: 50,
+                        render: (h, params) => {
+                            return h(rexpandRow, {
+                                props: {
+                                    row: params.row,
+                                    index: params.index
+                                }
+                            })
+                        }
+                    },
+                    {
+                        title: '设备信息',
+                        key: 'deviceName'
+                    },
+                  {
+                    title: ' ',
+                    key: 'infoLen',
+                    width: '400px',
+                    align: 'right',
+                    render: (h, params) => {
+                      if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.warningLen + '  警告'),
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  错误'),
+                         h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                         style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  错误'),
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  错误')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  错误'),
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                           style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                           style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                      ]);
+                      }
+
+                    }
+                  }
+                ],
+                reportData: [],
+              filter:'all',
+              reportCategoryList : [],
+              typeNum:[]
+            }
+        }
+
         },
       methods:{
           handleClick(Category){
@@ -205,8 +378,6 @@
           var infoDataSet = new Set();
           let infoData = response.data.diagnosisTypeInfo;
           infoData.forEach(function (value) {
-              console.log("deviceVendorName!!");
-            console.log(value.deviceVendorName);
               var copyValue = value;
              let errorRes = [];
           value.errorInfo.forEach(item => {
@@ -250,7 +421,6 @@
         }
         sugRes.push(sugSug);});
               copyValue.suggestionInfo = sugRes;
-
               infoDataSet.add(value);
           })
           let requestDataArray = []
@@ -275,8 +445,6 @@
           );
         });
          },
-
-
         fetchCategoryTable() {
           let uid = this.$route.params.id;
           let counts = (arr, value) => arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
@@ -293,10 +461,7 @@
               for (let v of categoryInfoDataSet){
                 this.typeNum[v] = counts(typeArray,v);
               }
-              console.log("!!")
-              console.log(this.typeNum)
               this.reportCategoryList = categoryInfoDataSet;
-              console.log(this.reportCategoryList);
             })
             .catch(() => {
               this.$Loading.error();

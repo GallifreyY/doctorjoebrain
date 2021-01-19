@@ -4,10 +4,12 @@
 <script>
     import suexpandRow from '@/components/SuggestionTableExpand';
     import { getBasicInfo} from "@/api/diagnosis";
+    // import {getLanguageInfo} from "@/api/diagnosis";
     export default {
        name: "SuggestionTable",
         components: { suexpandRow },
         data () {
+         if (navigator.language !== "zh-CN") {
             return {
                 columns10: [
                     {
@@ -86,6 +88,87 @@
                 data9: [],
                 errorType: 0
             };
+         }else{
+            return {
+                columns10: [
+                    {
+                        type: 'expand',
+                        width: 50,
+                        render: (h, params) => {
+                            return h(suexpandRow, {
+                                props: {
+                                    row: params.row,
+                                    index: params.index
+                                }
+                            })
+                        }
+                    },
+                    {
+                        title: '外围设备健康信息',
+                        key: 'deviceName'
+                    },
+                  {
+                    title: ' ',
+                    key: 'infoLen',
+                    width: '400px',
+                    align: 'right',
+                    render: (h, params) => {
+                      if((this.data9[params.index].errorType === 1) || (this.data9[params.index].errorType === 11)){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.errorLen + '  错误')
+                      ]);
+                      }else if((this.data9[params.index].erroeType === 0) || (this.data9[params.index].errorType === 10)){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.warningLen + '  警告')
+                      ]);
+                      }else if((this.data9[params.index].erroeType === 2) || (this.data9[params.index].errorType === 21)){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.warningLen + '  警告'),
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                           style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.errorLen + '  错误')
+                      ]);
+                      }
+
+                    }
+                  }
+                ],
+                data9: [],
+                errorType: 0
+            };
+         }
+
         },
       methods: {
         fetchInfoTable() {
@@ -160,9 +243,6 @@
 
           })
           this.data9 = infoDataArray;
-          console.log("data9:")
-          console.log(this.data9)
-        //  this.data9 = response.data.diagnosisTypeInfo; //array
           this.$Message.success("Successfully get the report of this device");
         })
         .catch(() => {
@@ -176,6 +256,7 @@
          },
   created() {
     this.fetchInfoTable();
+     // this.fetchLanguageInfo();
   }
     };
 </script>

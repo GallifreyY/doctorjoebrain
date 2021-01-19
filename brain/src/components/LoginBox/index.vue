@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <div>
-      <span>User Name:</span>
+      <span>{{$t("User Name:")}}</span>
       <Input
         v-model="loginForm.userName"
         prefix="ios-contact"
@@ -12,7 +12,7 @@
       />
     </div>
     <div>
-      <span>Password:</span>
+      <span>{{$t("Password:")}}</span>
       <Input
         v-model="loginForm.password"
         type="password"
@@ -21,8 +21,8 @@
       />
     </div>
     <div>
-      <Button class="reset-button" type="primary" shape="circle" @click="resetpassword">Reset Password</Button>
-      <Button class="login-button" type="primary" shape="circle" @click="handleLogin">Log In</Button>
+      <Button class="reset-button" type="primary" shape="circle" @click="resetpassword">{{$t("Reset Password")}}</Button>
+      <Button class="login-button" type="primary" shape="circle" @click="handleLogin">{{$t("Log In")}}</Button>
     </div>
 
 
@@ -31,6 +31,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   name: "",
   data() {
@@ -57,7 +58,7 @@ export default {
         }
       });
     },
-    resetpassword(){
+    resetpassword() {
       this.$router.replace("/modify")
     }
 
