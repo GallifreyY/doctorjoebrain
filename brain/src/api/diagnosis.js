@@ -7,7 +7,13 @@ export function getBasicInfo(id) {
         params: { id: id }
     })
 }
-
+export function getLanguageInfo(data) {
+    return request({
+        url: '/get_language',
+        method: 'post',
+        params: { data: data }
+    })
+}
 export function getDiagnosisInfo(id, index) {
     return request({
         url: '/diagnosis_info',

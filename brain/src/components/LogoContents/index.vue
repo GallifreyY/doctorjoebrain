@@ -10,9 +10,9 @@
               </Col>
               <Col span="16">
                 <div class="dj-install-des">
-                <h1>Download</h1>
-                <h2>HorizonPeripheralsClient installer</h2>
-                   <h2>(beta version)</h2>
+                <h1>{{$t("Download")}}</h1>
+                <h2>{{$t("HorizonPeripheralsClient installer")}}</h2>
+                   <h2>{{$t("(beta version)")}}</h2>
                 </div>
               </Col>
             </Row>
@@ -26,9 +26,9 @@
               </Col>
               <Col span="16">
                 <div class="dj-install-des">
-                <h1>Download</h1>
-                <h2>HorizonPeripheralsAgent installer</h2>
-                  <h2>(beta version)</h2>
+                <h1>{{$t("Download")}}</h1>
+                <h2>{{$t("HorizonPeripheralsAgent installer")}}</h2>
+                  <h2>{{$t("(beta version)")}}</h2>
                </div>
               </Col>
             </Row>

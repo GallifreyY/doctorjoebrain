@@ -4,7 +4,8 @@ import VueI18n from 'vue-i18n';
 import en from 'view-design/dist/locale/en-US';
 import zh from 'view-design/dist/locale/zh-CN';
 import US from './en-US';
-import CN from './zh-CN'
+import CN from './zh-CN';
+
 
 Vue.use(VueI18n);
 Vue.locale = () => {};
@@ -15,7 +16,7 @@ const messages = {
 };
 
 const i18n = new VueI18n({
-  locale: localStorage.getItem("locale") || 'en',
+  locale: navigator.language,
   messages
 });
 
