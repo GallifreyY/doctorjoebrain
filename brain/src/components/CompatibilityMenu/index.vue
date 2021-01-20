@@ -1,23 +1,11 @@
 <template>
   <div class="compat-menu">
-<!--    <Sider id="sider" style="overflow:scroll">-->
-<!--    <Menu theme="light" active-name="1">-->
-<!--       <Submenu name="1">-->
-<!--          <Icon type="ios-arrow-forward"></Icon>-->
-<!--         Client Compatibility Check-->
-<!--          </Submenu>-->
-<!--       <Submenu name="2">-->
-<!--          <Icon type="ios-arrow-forward"></Icon>-->
-<!--         Agent Compatibility Check-->
-<!--          </Submenu>-->
-<!--    </Menu>-->
-<!--      </Sider>-->
     <div class="compatibilitycontent">
   <Row>
     <Col span="24">
         <div style="margin:0px 10px 0px 0px">
           <Card shadow>
-            <p slot="title">Client Compatibility Check</p>
+            <p slot="title">{{$t("Client Compatibility Check")}}</p>
             <Table
               stripe
               :show-header="showHeader"
@@ -33,7 +21,7 @@
     <Col span="24">
         <div style="margin:0px 0px 0px 10px ">
           <Card shadow>
-            <p slot="title">Agent Compatibility Check</p>
+            <p slot="title">{{$t("Agent Compatibility Check")}}</p>
             <Table
               stripe
               :show-header="showHeader"

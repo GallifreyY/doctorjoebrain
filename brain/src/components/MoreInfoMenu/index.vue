@@ -1,17 +1,5 @@
 <template>
   <div class="more-info-menu">
-<!--    <Sider id="sider" style="overflow:scroll">-->
-<!--    <Menu theme="light" active-name="1">-->
-<!--       <Submenu name="1">-->
-<!--          <Icon type="ios-arrow-forward"></Icon>-->
-<!--         Client Compatibility Check-->
-<!--          </Submenu>-->
-<!--       <Submenu name="2">-->
-<!--          <Icon type="ios-arrow-forward"></Icon>-->
-<!--         Agent Compatibility Check-->
-<!--          </Submenu>-->
-<!--    </Menu>-->
-<!--      </Sider>-->
     <div class="moreinfocontent">
   <Row>
     <Col span="24">

@@ -6,9 +6,9 @@
         <Col span="8" style="margin-top: 80px;padding-left: 15px;padding-right: 5px;text-align: center">
           <score-circle style="margin-top: 20px"></score-circle>
           <div style="margin-top: 50px">
-                <Button type="error">{{errorLen}}  Error</Button>
-            <Button type="warning">{{warningLen}}  Warning</Button>
-        <Button type="info">{{suggestionLen}} Suggestion</Button>
+                <Button type="error">{{errorLen}}  {{$t("Error")}}</Button>
+            <Button type="warning">{{warningLen}}  {{$t("Warning")}}</Button>
+        <Button type="info">{{suggestionLen}} {{$t("Suggestion")}}</Button>
             </div>
         </Col>
         <Col span="16" style="margin-top: 80px;padding-right: 15px;">
@@ -58,7 +58,6 @@ export default {
     fetchDiagnoseInfo(uuid) {
       getBasicInfo(uuid)
         .then(response => {
-          console.log("---")
           let errorLen = 0;
           let warningLen = 0;
           let suggestionLen = 0;

@@ -4,13 +4,13 @@
       <Menu hide-trigger theme="light" width="auto" open-names="['1']">
         <Submenu name="1">
           <template slot="title">
-            <Icon type="md-analytics" size="20" />Matrix
+            <Icon type="md-analytics" size="20" />{{$t("Matrix")}}
           </template>
-          <MenuItem name="1" @click.native= "filter = 'all'" >All Devices</MenuItem>
+          <MenuItem name="1" @click.native= "filter = 'all'" >{{$t("All Devices")}}</MenuItem>
           <MenuItem v-for = "(item,index) in categoryList" :key="index" :name="'1-'+index" @click.native="handleClick(item)" >
           {{item}}
           </MenuItem>
-          <MenuItem name="other" @click.native= "filter = 'other'" >Other Devices</MenuItem>
+          <MenuItem name="other" @click.native= "filter = 'other'" >{{$t("Other Devices")}}</MenuItem>
         </Submenu>
       </Menu>
     </Sider>
