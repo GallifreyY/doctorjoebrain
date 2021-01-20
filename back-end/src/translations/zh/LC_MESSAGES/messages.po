@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-01-14 10:15+0800\n"
+"POT-Creation-Date: 2021-01-13 18:04+0800\n"
 "PO-Revision-Date: 2021-01-09 12:46+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -22,13 +22,13 @@ msgstr ""
 msgid ""
 "The VMware Horizon client service is not running on your client desktop. "
 "Please check it out and ensure it is running."
-msgstr "Windows打印服务(spooler)没有在客户端机器上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "VMware Horizon 客户端服务没有在客户端桌面上运行。请检查并确保它处于运行状态。"
 
 #: diagnosis.py:35
 msgid ""
 "The VMware Horizon agent service is not running on your agent desktop. "
 "Please check it out and ensure it is running."
-msgstr "打印服务(后台处理程序)没有在agent桌面上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "VMware Horizon agent服务没有在agent桌面上运行。请检查并确保它处于运行状态。"
 
 #: diagnosis.py:41
 msgid ""
@@ -37,15 +37,16 @@ msgid ""
 "work normally because of it. Please check it out and ensure it is "
 "installed."
 msgstr ""
-"RDS桌面上未安装Desktop Experience组件。 因此，VMware Horizon代理功能（例如扫描仪重定向）可能无法正常工作。 "
-"请检查并确保已安装。"
+"RDS桌面上未安装Desktop Experience组件。 因此VMware Horizon "
+"agent的功能（例如扫描仪重定向）可能无法正常工作。请检查并确保Desktop Experience组件在RDS桌面上已安装。"
+
 
 #: diagnosis.py:55
 #, python-format
 msgid ""
 "This device has some configuration issues. The device problem code is "
 "%(problemcode)s. %(problemdesc)s"
-msgstr "设备存在一些配置问题。设备问题代码是%(problemcode)s。%(problemdesc)s"
+msgstr "此设备有一些配置问题。设备问题代码是%(problemcode)s。%(problemdesc)s"
 
 #: diagnosis.py:59
 msgid ""
@@ -69,14 +70,14 @@ msgstr "Horizon agent桌面已安装VMware %(compstr)s组件。请使用它做%(
 msgid ""
 "The VMware %(compstr)s component is not available in the current Horizon "
 "agent product version."
-msgstr "VMware %(compstr)s组件在当前版本的Horizon Agent产品中没有了。"
+msgstr "当前版本的Horizon Agent产品中没有VMware %(compstr)s组件了。"
 
 #: diagnosis.py:85
 #, python-format
 msgid ""
 "The VMware %(comp_string)s component is not installed on the Horizon "
 "agent desktop. Please check it with your IT administrator."
-msgstr "Horizon agent桌面没有安装VMware %(comp_string)s组件，请联系您的IT管理员进行检查。"
+msgstr "Horizon agent桌面没有安装VMware %(comp_string)s组件。请联系您的IT管理员进行检查。"
 
 #: diagnosis.py:88
 #, python-format
@@ -126,38 +127,38 @@ msgstr "您的Agent机器上没有正确安装CDR组件。请联系您的IT管�
 msgid ""
 "It is recommended to use printer redirection solution for this device in "
 "Horizon environment."
-msgstr "建议在Horizon环境中为该设备使用打印机重定向解决方案。"
+msgstr "建议在Horizon环境中以打印机重定向的方式来使用此设备。"
 
 #: diagnosis.py:154
 msgid ""
 "The print service(spooler) is not running on your client desktop. Please "
 "check it out and ensure it is running before printer redirection."
-msgstr "Windows打印服务(spooler)没有在客户端机器上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "Windows打印服务(spooler)没有在客户端机器上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
 #: diagnosis.py:158
 msgid ""
 "The print service(spooler) is not running on your agent desktop. Please "
 "check it out and ensure it is running before printer redirection."
-msgstr "打印服务(后台处理程序)没有在agent桌面上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "Windows打印服务(spooler)没有在agent机器上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
 #: diagnosis.py:163
 msgid ""
 "The VMware print service is not running on your agent desktop. Please "
 "check it out and ensure it is running before printer redirection."
-msgstr "打印服务(后台处理程序)没有在agent桌面上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "VMware打印服务没有在agent桌面上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
 #: diagnosis.py:168
 msgid ""
 "The Thinprint AutoConnection service is not running on your agent "
 "desktop. Please check it out and ensure it is running before printer "
 "redirection."
-msgstr "打印服务(后台处理程序)没有在agent桌面上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "Thinprint自动连接服务没有在agent桌面上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
 #: diagnosis.py:171
 msgid ""
 "The Thinprint Gateway service is not running on your agent desktop. "
 "Please check it out and ensure it is running before printer redirection."
-msgstr "打印服务(后台处理程序)没有在agent桌面上运行。检查并确保它在打印机重定向之前已经处于运行状态。"
+msgstr "Thinprint网关服务没有在agent桌面上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
 #: diagnosis.py:175
 msgid ""
@@ -208,17 +209,16 @@ msgid ""
 "client desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"VMware Netlink Supervisor "
-"服务(ftnlsv3hv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+"VMware Netlink "
+"Supervisor服务(ftnlsv3hv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:222
 msgid ""
 "The VMware Scanner Redirection Client service(ftscanmgrhv) is not running"
 " on your client desktop. Please check it out and ensure it is running "
 "before scanner redirection."
-msgstr ""
-"VMware "
-"扫描仪重定向Agent端服务(ftscanmgrhv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr "VMware扫描仪重定向客户端服务(ftscanmgrhv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+
 
 #: diagnosis.py:226
 msgid ""
@@ -226,15 +226,15 @@ msgid ""
 "agent desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"VMware Netlink Supervisor "
-"服务(ftnlsv3hv)没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+"VMware Netlink "
+"Supervisor服务(ftnlsv3hv)没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:230
 msgid ""
 "The VMware Scanner Redirection Agent service(ftscansvchv) is not running "
 "on your agent desktop. Please check it out and ensure it is running "
 "before scanner redirection."
-msgstr "VMware 扫描仪重定向客户端服务(ftscanmgrhv)没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr "VMware扫描仪重定向Agent端服务(ftscanmgrhv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:235
 msgid ""
@@ -242,8 +242,8 @@ msgid ""
 "agent desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"VMware Network Session "
-"服务(ftnlses3hv)没有在您的Agent端桌面上运行。。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+"VMware Network "
+"Session服务(ftnlses3hv)没有在您的Agent端桌面上运行。。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:239
 msgid ""
