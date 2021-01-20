@@ -157,7 +157,7 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
     if collected_data['agent'].get('PrinterService',None) != 'Running':
         trs_s=_("The print service(spooler) is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
         error.append(trs_s)
-        # Check printer service status for VMware Integrated Printing
+    # Check printer service status for VMware Integrated Printing
     if _is_pr_installed(collected_data,"PrintRedir"):
         if collected_data['agent'].get('vmwareprintService',None) != 'Running':
                 trs_s=_("The VMware print service is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
@@ -211,6 +211,7 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
 def _scanner_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
+
     trs_s=_("It is recommended to use scanner redirection solution for this device in Horizon environment.")
     suggestion.append(_add_refers(trs_s,device.type,collected_data))
 
@@ -244,6 +245,7 @@ def _scanner_diagnose(collected_data, device, error, warning, suggestion):
 def _camera_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
+
     trs_s=_("It is recommended to use RTAV redirection solution for this device in Horizon environment.")
     suggestion.append(_add_refers(trs_s,device.type,collected_data))
 
@@ -263,12 +265,107 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion):
 def _signaturepad_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
+    if check Topaz BSB name in devicename:
+        # For Topaz BSB pad devices
+        trs_s=_("It is recommended to use Serial COM redirection solution for this device in Horizon environment.")
+        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+        if collected_data['client'].get('serialClientService',None) != 'Running':
+            trs_e=_("The VMware Serial COM redirection client service is not running on your client desktop. Please check it out and ensure it is running.")
+            error.append(trs_e)
+        if collected_data['agent'].get('serialAgentService',None) != 'Running':
+            trs_e=_("The VMware Serial COM redirection agent service is not running on your agent desktop. Please check it out and ensure it is running.")
+            error.append(trs_e)
+        if device.is_usb_redirect:
+            trs_s=_("You are using USB redirection for this device. Please use Serial Com redirection solution.")
+            error.append(trs_s) 
+    else:
+        # For Non Topaz BSB pad devices and Wacom devices
+        trs_s=_("It is recommended to use USB redirection solution for this device in Horizon environment.")
+        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+        if not Wacom STU-520 and _is_agent_RDS(collected_data):
+            trs_w=_("This device is not compatible with RDS desktop by default. Please check this doc link for all supported devices.")
+            warning.append(trs_w)            
     return error, warning, suggestion
 
 def _speechmic_diagnose(collected_data, device, error, warning, suggestion):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+
+    if isWinclient:
+        if NuancePowerMic device:
+            # Nuance Extensions fully installed on both client and agent sides
+            if NuanceClientExtension installed and NuanceAgentExtension installed:
+                if split key not configed:
+                    trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
+                    suggestion.append(_add_refers(trs_s,device.type,collected_data))
+                    if device.is_usb_redirect:
+                        trs_e=_("You are using USB redirection for this device. Please use Nuance extension solution. No need to redirect the device.")
+                        error.append(trs_e)
+                else:
+                    trs_e=_("It is wrong to configure both USB split and  Nuance extension. Please correct it.")
+                    error.append(trs_e)
+            else:
+                # Nuance Extensions partially installed on either client or agent sides
+                if NuanceClientExtension not installed and NuanceAgentExtension installed:
+                    if split key not configed:
+                        trs_w=_("The Nuance VMware client extension is not installed while agent extension is installed. Suggest to install it on client machine.")
+                        warning.append(trs_w)
+                    else:
+                        # USB split policy configured
+                        trs_e=_("It is wrong to configure both USB split and Nuance extension. Please correct it.")
+                        error.append(trs_e)
+                else if NuanceAgentExtension not installed and NuanceClientExtension installed:
+                    if split key not configed:
+                        trs_w=_("The Nuance VMware agent extension is not installed while client extension is installed. Suggest to install it on agent machine.")
+                        warning.append(trs_w)
+                    else:
+                        # USB split policy configured
+                        trs_e=_("It is wrong to configure both USB split and Nuance extension. Please correct it.")
+                        error.append(trs_e)
+                else:
+                    # Nuance extensions are NOT installed on either client or agent side
+                    if split key configed:
+                        trs_s=_("USB split policy is configured. Suggest to use it with RTAV redirection solution for this device in Horizon environment.")
+                        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+                    else:
+                        trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
+                        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+                        if device.is_usb_redirect:
+                            trs_s=_("You are using pure USB redirection for this device. Please use Nuance extension solution or USB split with RTAV redirection solution.")
+                            error.append(trs_s)
+        else：
+            # For other speech devices - Philips SpeechMike
+            trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
+            suggestion.append(_add_refers(trs_s,device.type,collected_data))
+            if split key not configed:
+                trs_w=_("The USB split registry or GPO is not configured. Please refer to the document to configure it correctly for this device.")
+                warning.append(trs_w)
+    else:
+        # For other horizon client platforms - linux client
+        trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
+        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+        # Todo: to check the USB split policies on other horizon client platforms - linux client
+
     return error, warning, suggestion
 
 def _audio_diagnose(collected_data, device, error, warning, suggestion):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+    
+    trs_s=_("It is recommended to use RTAV redirection solution for this device in Horizon environment.")
+    suggestion.append(_add_refers(trs_s,device.type,collected_data))
+
+    if collected_data['client'].get('audioService',None) != 'Running':
+        trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
+        error.append(trs_s)
+
+    if collected_data['agent'].get('audioService',None) != 'Running':
+        trs_s=_("The Windows Audio service(Audiosrv) is not running on your agent desktop. Please check it out and ensure it is running before RTAV redirection.")
+        error.append(trs_s)
+
+    if device.is_usb_redirect:
+        trs_s=_("You are using USB redirection for audio devices. Please use RTAV redirection solution.")
+        error.append(trs_s)
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device, error, warning, suggestion):
