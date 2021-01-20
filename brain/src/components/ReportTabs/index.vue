@@ -30,10 +30,9 @@
       methods: {
           initLanguage(){
             if (navigator.language==='zh-CN'){
-              console.log("CNyes!")
               this.isLanguageCN=true;
             }else{
-              console.log("nono")
+              this.isLanguageCN=false;
             }
 
           }

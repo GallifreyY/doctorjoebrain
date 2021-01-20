@@ -261,7 +261,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
                         return h('div', [
@@ -285,7 +285,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
                         return h('div', [
@@ -329,7 +329,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
                         return h('div', [
@@ -351,7 +351,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  意见')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
                       ]);
                       }
 

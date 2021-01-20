@@ -51,7 +51,7 @@ CATE_MAP = {
     "Serial Port Devices": 14
 }
 TRS_CATE_MAP = {
-    "其余设备": -1,
+    "其它设备": -1,
     "USB硬盘": 0,
     "虚拟打印机": 1,
     "USB打印机": 2,
