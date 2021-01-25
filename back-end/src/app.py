@@ -16,7 +16,7 @@ language = 'en-US'
 
 from models import *
 from util import *
-from diagnosis import diagnosis, diagnosis_general_issues
+from diagnosis import diagnosis, diagnosis_general_issues,_is_language_zh_cn,_is_language_zh_tw
 import json
 import locale
 import password_access
@@ -26,14 +26,12 @@ import handleDB
 @babel.localeselector
 def get_locale():
     global language
-    print(language=='zh-CN')
-    if language == 'zh-CN' or language == 'zh_Hans_CN':
+    if _is_language_zh_cn(language):
         language = 'zh_Hans_CN'
-    elif language == 'zh-TW' or language == 'zh_Hant_TW':
+    elif _is_language_zh_tw(language):
         language = 'zh_Hant_TW'
     else:
         language = 'en_US'
-    print(language)
     return language
 
 
@@ -335,9 +333,9 @@ def device_and_client_info():
         if trs_dict==None:
             pass
         else:
-            if language == 'zh_Hans_CN':
+            if _is_language_zh_cn(language):
                 item['deviceType']=TYPE_DICT[item['deviceType']]['zh_cn']
-            elif language == 'zh_Hant_TW':
+            elif _is_language_zh_tw(language):
                 item['deviceType']=TYPE_DICT[item['deviceType']]['zh_tw']
             else:
                 item['deviceType'] = TYPE_DICT[item['deviceType']]['en']
@@ -371,13 +369,13 @@ def matrix():
                                                ).all()
 
     matrix = to_json_join(matrix)
-    if language == 'zh_Hans_CN':
+    if _is_language_zh_cn(language):
         return {
             'code': 20022,
             'data': matrix,
             'cateList': TRS_CN_CATE_LIST
         }
-    elif language == 'zh_Hant_TW':
+    elif _is_language_zh_tw(language):
         return {
             'code': 20022,
             'data': matrix,
@@ -393,12 +391,12 @@ def matrix():
 @app.route('/matrix/categoryInfo', methods=['GET'])
 @cross_origin()
 def get_category_info():
-    if language == 'zh_Hans_CN':
+    if _is_language_zh_cn(language):
         return {
             'code': 20022,
             'data': TRS_CN_CATE_LIST
         }
-    elif language == 'zh_Hant_TW':
+    elif _is_language_zh_tw(language):
         return {
             'code': 20022,
             'data': TRS_TW_CATE_LIST

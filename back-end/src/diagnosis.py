@@ -60,9 +60,9 @@ def diagnosis(collected_data, device,language):
     collected_data = collected_data
 
     # todo: general
-    if language == 'zh_Hans_CN':
+    if _is_language_zh_cn(language):
         device_type = TYPE_DICT[device.type]['zh_cn']
-    elif language == 'zh_Hant_TW':
+    elif _is_language_zh_tw(language):
         device_type = TYPE_DICT[device.type]['zh_tw']
     else:
         device_type = TYPE_DICT[device.type]['en']
@@ -356,4 +356,12 @@ def _is_pr_installed(collected_data,pr):
         if prvalue is not None:
             if int(prvalue) == 1:
                 return True
+    return False
+
+def _is_language_zh_cn(language):
+    if language == 'zh-CN' or language == 'zh_Hans_CN':return True
+    return False
+
+def _is_language_zh_tw(language):
+    if language == 'zh-TW' or language == 'zh_Hant_TW':return True
     return False
