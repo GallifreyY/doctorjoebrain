@@ -26,8 +26,11 @@ import handleDB
 @babel.localeselector
 def get_locale():
     global language
-    if language == 'zh-CN' or language == 'zh_CN':
-        language = 'zh_CN'
+    print(language=='zh-CN')
+    if language == 'zh-CN' or language == 'zh_Hans_CN':
+        language = 'zh_Hans_CN'
+    elif language == 'zh-TW' or language == 'zh_Hant_TW':
+        language = 'zh_Hant_TW'
     else:
         language = 'en_US'
     print(language)
@@ -52,7 +55,7 @@ CATE_MAP = {
     "Barcode Scanners": 13,
     "Serial Port Devices": 14
 }
-TRS_CATE_MAP = {
+TRS_CN_CATE_MAP = {
     "其它设备": -1,
     "USB硬盘": 0,
     "虚拟打印机": 1,
@@ -70,26 +73,47 @@ TRS_CATE_MAP = {
     "条码扫描器": 13,
     "串口设备": 14
 }
+TRS_TW_CATE_MAP = {
+    "其他設備": -1,
+    "USB磁盤": 0,
+    "虛擬打印機": 1,
+    "USB打印機": 2,
+    "掃描儀": 3,
+    "攝像頭": 4,
+    "USB語音麥克風": 5,
+    "智能卡": 6,
+    "鍵盤": 7,
+    "鼠標": 8,
+    "簽名板": 9,
+    "PIN鍵盤": 10,
+    "信用卡": 11,
+    "指紋讀取器": 12,
+    "條碼掃描器": 13,
+    "串口設備": 14
+}
 TYPE_DICT = {
-    "usbdisk": {"zh": "USB硬盘", "en": "USB Disks"},
-    "usbprinters": {"zh": "USB打印机", "en": "USB Printers"},
-    "virtualprinters": {"zh": "虚拟打印机", "en": "Virtual Printers"},
-    "scanners": {"zh": "扫描仪", "en": "Scanners"},
-    "cameras": {"zh": "摄像头", "en": "Cameras"},
-    "signaturepad": {"zh": "签名板", "en": "Signature Pads"},
-    "audio": {"zh": "USB 音箱", "en": "USB Audio"},
-    "speechmic": {"zh": "USB语音麦克风", "en": "USB Speech Mics"},
-    "others": {"zh": "其它设备", "en": "Other Devices"}
+    "usbdisk": {"zh_cn": "USB硬盘", "en": "USB Disks","zh_tw":"USB磁盤"},
+    "usbprinters": {"zh_cn": "USB打印机", "en": "USB Printers","zh_tw":"USB打印機"},
+    "virtualprinters": {"zh_cn": "虚拟打印机", "en": "Virtual Printers","zh_tw":"虛擬打印機"},
+    "scanners": {"zh_cn": "扫描仪", "en": "Scanners","zh_tw":"掃描儀"},
+    "cameras": {"zh_cn": "摄像头", "en": "Cameras","zh_tw":"攝像頭"},
+    "signaturepad": {"zh_cn": "签名板", "en": "Signature Pads","zh_tw":"簽名板"},
+    "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
+    "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
+    "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 CATE_LIST = []
-TRS_CATE_LIST = []
+TRS_CN_CATE_LIST = []
+TRS_TW_CATE_LIST = []
 for key in CATE_MAP:
     if CATE_MAP[key] == -1: continue
     CATE_LIST.insert(CATE_MAP[key], key)
-for key in TRS_CATE_MAP:
-    if TRS_CATE_MAP[key] == -1: continue
-    TRS_CATE_LIST.insert(TRS_CATE_MAP[key], key)
-
+for key in TRS_CN_CATE_MAP:
+    if TRS_CN_CATE_MAP[key] == -1: continue
+    TRS_CN_CATE_LIST.insert(TRS_CN_CATE_MAP[key], key)
+for key in TRS_TW_CATE_MAP:
+    if TRS_TW_CATE_MAP[key] == -1: continue
+    TRS_TW_CATE_LIST.insert(TRS_TW_CATE_MAP[key], key)
 
 @app.route('/test', methods=['GET'])
 @cross_origin()
@@ -311,10 +335,12 @@ def device_and_client_info():
         if trs_dict==None:
             pass
         else:
-            if language == 'zh-CN' or language == 'zh_CN':
-                item['deviceType']=TYPE_DICT[item['deviceType']]['zh']
+            if language == 'zh_Hans_CN':
+                item['deviceType']=TYPE_DICT[item['deviceType']]['zh_cn']
+            elif language == 'zh_Hant_TW':
+                item['deviceType']=TYPE_DICT[item['deviceType']]['zh_tw']
             else:
-                item['deviceType']=TYPE_DICT[item['deviceType']]['en']
+                item['deviceType'] = TYPE_DICT[item['deviceType']]['en']
     # Check the general issues from the collected_data
     general_issues_info = []
     general_issues_info = diagnosis_general_issues(collected_data)
@@ -345,11 +371,17 @@ def matrix():
                                                ).all()
 
     matrix = to_json_join(matrix)
-    if language == 'zh-CN' or language == 'zh_CN':
+    if language == 'zh_Hans_CN':
         return {
             'code': 20022,
             'data': matrix,
-            'cateList': TRS_CATE_LIST
+            'cateList': TRS_CN_CATE_LIST
+        }
+    elif language == 'zh_Hant_TW':
+        return {
+            'code': 20022,
+            'data': matrix,
+            'cateList': TRS_TW_CATE_LIST
         }
     return {
         'code': 20022,
@@ -361,10 +393,15 @@ def matrix():
 @app.route('/matrix/categoryInfo', methods=['GET'])
 @cross_origin()
 def get_category_info():
-    if language == 'zh-CN' or language == 'zh_CN':
+    if language == 'zh_Hans_CN':
         return {
             'code': 20022,
-            'data': TRS_CATE_LIST
+            'data': TRS_CN_CATE_LIST
+        }
+    elif language == 'zh_Hant_TW':
+        return {
+            'code': 20022,
+            'data': TRS_TW_CATE_LIST
         }
     return {
         'code': 20022,

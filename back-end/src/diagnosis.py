@@ -12,15 +12,15 @@ components = {
     "cameras": "RTAV"
 }
 TYPE_DICT = {
-    "usbdisk": {"zh": "USB硬盘", "en": "USB Disks"},
-    "usbprinters": {"zh": "USB打印机", "en": "USB Printers"},
-    "virtualprinters": {"zh": "虚拟打印机", "en": "Virtual Printers"},
-    "scanners": {"zh": "扫描仪", "en": "Scanners"},
-    "cameras": {"zh": "摄像头", "en": "Cameras"},
-    "signaturepad": {"zh": "签名板", "en": "Signature Pads"},
-    "audio": {"zh": "USB 音箱", "en": "USB Audio"},
-    "speechmic": {"zh": "USB语音麦克风", "en": "USB Speech Mics"},
-    "others": {"zh": "其它设备", "en": "Other Devices"}
+    "usbdisk": {"zh_cn": "USB硬盘", "en": "USB Disks","zh_tw":"USB磁盤"},
+    "usbprinters": {"zh_cn": "USB打印机", "en": "USB Printers","zh_tw":"USB打印機"},
+    "virtualprinters": {"zh_cn": "虚拟打印机", "en": "Virtual Printers","zh_tw":"虛擬打印機"},
+    "scanners": {"zh_cn": "扫描仪", "en": "Scanners","zh_tw":"掃描儀"},
+    "cameras": {"zh_cn": "摄像头", "en": "Cameras","zh_tw":"攝像頭"},
+    "signaturepad": {"zh_cn": "签名板", "en": "Signature Pads","zh_tw":"簽名板"},
+    "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
+    "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
+    "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 docGUIDlinks = {
     "CDR": "GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html",
@@ -60,8 +60,10 @@ def diagnosis(collected_data, device,language):
     collected_data = collected_data
 
     # todo: general
-    if language == 'zh-CN' or language == 'zh_CN':
-        device_type = TYPE_DICT[device.type]['zh']
+    if language == 'zh_Hans_CN':
+        device_type = TYPE_DICT[device.type]['zh_cn']
+    elif language == 'zh_Hant_TW':
+        device_type = TYPE_DICT[device.type]['zh_tw']
     else:
         device_type = TYPE_DICT[device.type]['en']
     if device.problemcode!=None:

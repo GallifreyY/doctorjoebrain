@@ -1,18 +1,17 @@
-# English translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-01-21 14:32+0800\n"
-"PO-Revision-Date: 2021-01-19 16:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,16 +22,12 @@ msgid ""
 "The VMware Horizon client service is not running on your client desktop. "
 "Please check it out and ensure it is running."
 msgstr ""
-"The VMware Horizon client service is not running on your client desktop. "
-"Please check it out and ensure it is running."
 
 #: diagnosis.py:45
 msgid ""
 "The VMware Horizon agent service is not running on your agent desktop. "
 "Please check it out and ensure it is running."
 msgstr ""
-"The VMware Horizon agent service is not running on your agent desktop. "
-"Please check it out and ensure it is running."
 
 #: diagnosis.py:51
 msgid ""
@@ -41,10 +36,6 @@ msgid ""
 "work normally because of it. Please check it out and ensure it is "
 "installed."
 msgstr ""
-"The Desktop Experience component is not installed on your RDS desktop. "
-"The VMware Horizon agent functions (such as scanner redirection) may not "
-"work normally because of it. Please check it out and ensure it is "
-"installed."
 
 #: diagnosis.py:69
 #, python-format
@@ -52,20 +43,16 @@ msgid ""
 "This device has some configuration issues. The device problem code is "
 "%(problemcode)s. %(problemdesc)s"
 msgstr ""
-"This device has some configuration issues. The device problem code is "
-"%(problemcode)s. %(problemdesc)s"
 
 #: diagnosis.py:73
 msgid ""
 "Please make sure this device is connected to your client machine by USB "
 "physically."
 msgstr ""
-"Please make sure this device is connected to your client machine by USB "
-"physically."
 
 #: diagnosis.py:76
 msgid "Please reboot your client machine OS to make this device work properly."
-msgstr "Please reboot your client machine OS to make this device work properly."
+msgstr ""
 
 #: diagnosis.py:91
 #, python-format
@@ -73,8 +60,6 @@ msgid ""
 "The VMware %(compstr)s component is installed on the Horizon agent "
 "desktop. Please use it for %(type)s redirection."
 msgstr ""
-"The VMware %(compstr)s component is installed on the Horizon agent "
-"desktop. Please use it for %(type)s redirection."
 
 #: diagnosis.py:95
 #, python-format
@@ -82,8 +67,6 @@ msgid ""
 "The VMware %(compstr)s component is not available in the current Horizon "
 "agent product version."
 msgstr ""
-"The VMware %(compstr)s component is not available in the current Horizon "
-"agent product version."
 
 #: diagnosis.py:99
 #, python-format
@@ -91,8 +74,6 @@ msgid ""
 "The VMware %(comp_string)s component is not installed on the Horizon "
 "agent desktop. Please check it with your IT administrator."
 msgstr ""
-"The VMware %(comp_string)s component is not installed on the Horizon "
-"agent desktop. Please check it with your IT administrator."
 
 #: diagnosis.py:102
 #, python-format
@@ -100,8 +81,6 @@ msgid ""
 "The VMware %(comp)s component is not installed on the Horizon agent "
 "desktop. Please check it with your IT administrator."
 msgstr ""
-"The VMware %(comp)s component is not installed on the Horizon agent "
-"desktop. Please check it with your IT administrator."
 
 #: diagnosis.py:105
 #, python-format
@@ -109,80 +88,60 @@ msgid ""
 "The VMware %(comp)s component is installed on the Horizon agent desktop. "
 "Please use it for %(type)s redirection."
 msgstr ""
-"The VMware %(comp)s component is installed on the Horizon agent desktop. "
-"Please use it for %(type)s redirection."
 
 #: diagnosis.py:137
 msgid ""
 "Please check and ensure the USB arbitrator service is in running status "
 "on your client machine."
 msgstr ""
-"Please check and ensure the USB arbitrator service is in running status "
-"on your client machine."
 
 #: diagnosis.py:142
 msgid ""
 "You are using USB redirection for USB disk devices. Please use CDR "
 "redirection."
 msgstr ""
-"You are using USB redirection for USB disk devices. Please use CDR "
-"redirection."
 
 #: diagnosis.py:148
 msgid ""
 "Please use the CDR (Client Drive Redirection) solution to redirect the "
 "file systems on USB disk devices."
 msgstr ""
-"Please use the CDR (Client Drive Redirection) solution to redirect the "
-"file systems on USB disk devices."
 
 #: diagnosis.py:151
 msgid ""
 "The CDR service is not running properly on your agent machine. Please "
 "check it with your IT administrator to restart the service."
 msgstr ""
-"The CDR service is not running properly on your agent machine. Please "
-"check it with your IT administrator to restart the service."
 
 #: diagnosis.py:154
 msgid ""
 "The CDR component is not installed on your agent machine correctly. "
 "Please check it with your IT administrator."
 msgstr ""
-"The CDR component is not installed on your agent machine correctly. "
-"Please check it with your IT administrator."
 
 #: diagnosis.py:164
 msgid ""
 "It is recommended to use printer redirection solution for this device in "
 "Horizon environment."
 msgstr ""
-"It is recommended to use printer redirection solution for this device in "
-"Horizon environment."
 
 #: diagnosis.py:168
 msgid ""
 "The print service(spooler) is not running on your client desktop. Please "
 "check it out and ensure it is running before printer redirection."
 msgstr ""
-"The print service(spooler) is not running on your client desktop. Please "
-"check it out and ensure it is running before printer redirection."
 
 #: diagnosis.py:172
 msgid ""
 "The print service(spooler) is not running on your agent desktop. Please "
 "check it out and ensure it is running before printer redirection."
 msgstr ""
-"The print service(spooler) is not running on your agent desktop. Please "
-"check it out and ensure it is running before printer redirection."
 
 #: diagnosis.py:177
 msgid ""
 "The VMware print service is not running on your agent desktop. Please "
 "check it out and ensure it is running before printer redirection."
 msgstr ""
-"The VMware print service is not running on your agent desktop. Please "
-"check it out and ensure it is running before printer redirection."
 
 #: diagnosis.py:182
 msgid ""
@@ -190,41 +149,32 @@ msgid ""
 "desktop. Please check it out and ensure it is running before printer "
 "redirection."
 msgstr ""
-"The Thinprint AutoConnection service is not running on your agent "
-"desktop. Please check it out and ensure it is running before printer "
-"redirection."
 
 #: diagnosis.py:185
 msgid ""
 "The Thinprint Gateway service is not running on your agent desktop. "
 "Please check it out and ensure it is running before printer redirection."
 msgstr ""
-"The Thinprint Gateway service is not running on your agent desktop. "
-"Please check it out and ensure it is running before printer redirection."
 
 #: diagnosis.py:189
 msgid ""
 "You are using USB redirection for printer devices. Please use printer "
 "redirection."
 msgstr ""
-"You are using USB redirection for printer devices. Please use printer "
-"redirection."
 
 #: diagnosis.py:193
 msgid ""
 "This printer is offline. Please check the device connection status "
 "firstly."
 msgstr ""
-"This printer is offline. Please check the device connection status "
-"firstly."
 
 #: diagnosis.py:200
 msgid "connection"
-msgstr "connection"
+msgstr ""
 
 #: diagnosis.py:202
 msgid "redirection"
-msgstr "redirection"
+msgstr ""
 
 #: diagnosis.py:203
 #, python-format
@@ -233,9 +183,6 @@ msgid ""
 "%(trs_conn)s. However, the device driver is not found in the machine. "
 "Please contact IT administrator to install the printer driver in it."
 msgstr ""
-"This printer is connected to the Horizon %(end)s machine via USB "
-"%(trs_conn)s. However, the device driver is not found in the machine. "
-"Please contact IT administrator to install the printer driver in it."
 
 #: diagnosis.py:213
 msgid ""
@@ -243,17 +190,12 @@ msgid ""
 "desktop. If you want to utilize Native Printing Driver(NPD), please "
 "install its native driver on the remote desktop."
 msgstr ""
-"VMware Universal Printing Driver(UPD) is used by this printer in remote "
-"desktop. If you want to utilize Native Printing Driver(NPD), please "
-"install its native driver on the remote desktop."
 
 #: diagnosis.py:226
 msgid ""
 "It is recommended to use scanner redirection solution for this device in "
 "Horizon environment."
 msgstr ""
-"It is recommended to use scanner redirection solution for this device in "
-"Horizon environment."
 
 #: diagnosis.py:230
 msgid ""
@@ -261,9 +203,6 @@ msgid ""
 "client desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your "
-"client desktop. Please check it out and ensure it is running before "
-"scanner redirection."
 
 #: diagnosis.py:234
 msgid ""
@@ -271,9 +210,6 @@ msgid ""
 " on your client desktop. Please check it out and ensure it is running "
 "before scanner redirection."
 msgstr ""
-"The VMware Scanner Redirection Client service(ftscanmgrhv) is not running"
-" on your client desktop. Please check it out and ensure it is running "
-"before scanner redirection."
 
 #: diagnosis.py:238
 msgid ""
@@ -281,9 +217,6 @@ msgid ""
 "agent desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your "
-"agent desktop. Please check it out and ensure it is running before "
-"scanner redirection."
 
 #: diagnosis.py:242
 msgid ""
@@ -291,9 +224,6 @@ msgid ""
 "on your agent desktop. Please check it out and ensure it is running "
 "before scanner redirection."
 msgstr ""
-"The VMware Scanner Redirection Agent service(ftscansvchv) is not running "
-"on your agent desktop. Please check it out and ensure it is running "
-"before scanner redirection."
 
 #: diagnosis.py:247
 msgid ""
@@ -301,25 +231,18 @@ msgid ""
 "agent desktop. Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr ""
-"The VMware Network Session service(ftnlses3hv) is not running on your "
-"agent desktop. Please check it out and ensure it is running before "
-"scanner redirection."
 
 #: diagnosis.py:251
 msgid ""
 "You are using USB redirection for scanner devices. Please use scanner "
 "redirection."
 msgstr ""
-"You are using USB redirection for scanner devices. Please use scanner "
-"redirection."
 
 #: diagnosis.py:259
 msgid ""
 "It is recommended to use RTAV redirection solution for this device in "
 "Horizon environment."
 msgstr ""
-"It is recommended to use RTAV redirection solution for this device in "
-"Horizon environment."
 
 #: diagnosis.py:263
 msgid ""
@@ -327,31 +250,22 @@ msgid ""
 "desktop. Please check it out and ensure it is running before RTAV "
 "redirection."
 msgstr ""
-"The Windows Audio service(Audiosrv) is not running on your client "
-"desktop. Please check it out and ensure it is running before RTAV "
-"redirection."
 
 #: diagnosis.py:267
 msgid ""
 "The Windows Audio service(Audiosrv) is not running on your agent desktop."
 " Please check it out and ensure it is running before RTAV redirection."
 msgstr ""
-"The Windows Audio service(Audiosrv) is not running on your agent desktop."
-" Please check it out and ensure it is running before RTAV redirection."
 
 #: diagnosis.py:271
 msgid ""
 "You are using USB redirection for camera devices. Please use RTAV "
 "redirection."
 msgstr ""
-"You are using USB redirection for camera devices. Please use RTAV "
-"redirection."
 
 #: diagnosis.py:296
 msgid ""
 "The driver is probably provided by Microsoft. Recommend to install the "
 "native driver provided by the device vendor."
 msgstr ""
-"The driver is probably provided by Microsoft. Recommend to install the "
-"native driver provided by the device vendor."
 

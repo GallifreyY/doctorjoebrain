@@ -25,7 +25,7 @@
       name: "ReportMenu",
       components: {rexpandRow},
       data () {
-        if(navigator.language!=="zh-CN"){
+        if (navigator.language === "zh-TW"){
           return {
               reportColumns: [
                     {
@@ -41,7 +41,7 @@
                         }
                     },
                     {
-                        title: 'DeviceName',
+                        title: '設備信息',
                         key: 'deviceName'
                     },
                   {
@@ -60,7 +60,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.warningLen + '  warning'),
+                        }, this.data9[params.index].infoLen.warningLen + '  警告'),
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
                         return h('div', [
@@ -73,7 +73,7 @@
                             marginRight: '5px',
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.errorLen + '  error'),
+                        }, this.reportData[params.index].infoLen.errorLen + '  錯誤'),
                          h('Button', {
                           props: {
                             type: 'warning',
@@ -83,7 +83,7 @@
                             marginRight: '5px',
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.warningLen + '  warning'),
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
                         h('Button', {
                           props: {
                             type: 'success',
@@ -92,7 +92,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建議')
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
                         return h('div', [
@@ -104,7 +104,7 @@
                          style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.errorLen + '  error'),
+                        }, this.reportData[params.index].infoLen.errorLen + '  錯誤'),
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
                         return h('div', [
@@ -116,7 +116,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建議')
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
                         return h('div', [
@@ -129,7 +129,7 @@
                             marginRight: '5px',
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.warningLen + '  warning'),
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
                         h('Button', {
                           props: {
                             type: 'error',
@@ -138,7 +138,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.errorLen + '  error')
+                        }, this.reportData[params.index].infoLen.errorLen + '  錯誤')
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
                         return h('div', [
@@ -151,7 +151,7 @@
                             marginRight: '5px',
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.errorLen + '  error'),
+                        }, this.reportData[params.index].infoLen.errorLen + '  錯誤'),
                         h('Button', {
                           props: {
                             type: 'success',
@@ -160,7 +160,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建議')
                       ]);
                       }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
                         return h('div', [
@@ -173,7 +173,7 @@
                             marginRight: '5px',
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.warningLen + '  warning'),
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
                         h('Button', {
                           props: {
                             type: 'success',
@@ -182,7 +182,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  建議')
                       ]);
                       }
 
@@ -194,7 +194,7 @@
               reportCategoryList : [],
               typeNum:[]
             }
-        }else{
+        } else if (navigator.language === "zh-CN"){
           return {
               reportColumns: [
                     {
@@ -352,6 +352,175 @@
                             width:'110px'
                           },
                         }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
+                      ]);
+                      }
+
+                    }
+                  }
+                ],
+                reportData: [],
+              filter:'all',
+              reportCategoryList : [],
+              typeNum:[]
+            }
+        }else{
+                    return {
+              reportColumns: [
+                    {
+                        type: 'expand',
+                        width: 50,
+                        render: (h, params) => {
+                            return h(rexpandRow, {
+                                props: {
+                                    row: params.row,
+                                    index: params.index
+                                }
+                            })
+                        }
+                    },
+                    {
+                        title: 'DeviceName',
+                        key: 'deviceName'
+                    },
+                  {
+                    title: ' ',
+                    key: 'infoLen',
+                    width: '400px',
+                    align: 'right',
+                    render: (h, params) => {
+                      if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.warningLen + '  warning'),
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  error'),
+                         h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.warningLen + '  warning'),
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                         style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  error'),
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.warningLen + '  warning'),
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  error')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.errorLen + '  error'),
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                           style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                      ]);
+                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.warningLen + '  warning'),
+                        h('Button', {
+                          props: {
+                            type: 'success',
+                            size: 'small'
+                          },
+                           style: {
+                            width:'110px'
+                          },
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
                       ]);
                       }
 
