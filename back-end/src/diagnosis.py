@@ -4,6 +4,8 @@ import json
 import re
 from flask_babel import _
 
+from util import _is_language_zh_cn, _is_language_zh_tw
+
 components = {
     "usbdisk": "ClientDriveRedirection",
     "virtualprinters": ["ThinPrint","PrintRedir"],
@@ -358,10 +360,3 @@ def _is_pr_installed(collected_data,pr):
                 return True
     return False
 
-def _is_language_zh_cn(language):
-    if language == 'zh-CN' or language == 'zh_Hans_CN':return True
-    return False
-
-def _is_language_zh_tw(language):
-    if language == 'zh-TW' or language == 'zh_Hant_TW':return True
-    return False

@@ -8,6 +8,8 @@ from sqlalchemy import and_, or_
 from flask_cors import cross_origin
 from flask import request
 
+from util import _is_language_zh_cn, _is_language_zh_tw
+
 app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object('db_info')
@@ -16,7 +18,7 @@ language = 'en-US'
 
 from models import *
 from util import *
-from diagnosis import diagnosis, diagnosis_general_issues,_is_language_zh_cn,_is_language_zh_tw
+from diagnosis import diagnosis, diagnosis_general_issues
 import json
 import locale
 import password_access
