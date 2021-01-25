@@ -8,7 +8,6 @@ import os
 import datetime
 import json
 import password_access
-from collections import OrderedDict
 
 
 def to_json(inst, cls):
@@ -22,11 +21,11 @@ def to_json(inst, cls):
 def to_json_join(items):
     return [dict(zip(item.keys(), item)) for item in items]
 
-def _is_language_zh_cn(language):
+def is_language_zh_cn(language):
     if language == 'zh-CN' or language == 'zh_Hans_CN':return True
     return False
 
-def _is_language_zh_tw(language):
+def is_language_zh_tw(language):
     if language == 'zh-TW' or language == 'zh_Hant_TW':return True
     return False
 

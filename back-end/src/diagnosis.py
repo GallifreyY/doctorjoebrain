@@ -4,7 +4,6 @@ import json
 import re
 from flask_babel import _
 
-from util import _is_language_zh_cn, _is_language_zh_tw
 
 components = {
     "usbdisk": "ClientDriveRedirection",
@@ -62,9 +61,9 @@ def diagnosis(collected_data, device,language):
     collected_data = collected_data
 
     # todo: general
-    if _is_language_zh_cn(language):
+    if is_language_zh_cn(language):
         device_type = TYPE_DICT[device.type]['zh_cn']
-    elif _is_language_zh_tw(language):
+    elif is_language_zh_tw(language):
         device_type = TYPE_DICT[device.type]['zh_tw']
     else:
         device_type = TYPE_DICT[device.type]['en']

@@ -3,12 +3,8 @@
 from flask import Flask
 from flask_babel import Babel
 from flask_sqlalchemy import SQLAlchemy
-
-from sqlalchemy import and_, or_
 from flask_cors import cross_origin
 from flask import request
-
-from util import _is_language_zh_cn, _is_language_zh_tw
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -20,7 +16,6 @@ from models import *
 from util import *
 from diagnosis import diagnosis, diagnosis_general_issues
 import json
-import locale
 import password_access
 import handleDB
 
@@ -28,9 +23,9 @@ import handleDB
 @babel.localeselector
 def get_locale():
     global language
-    if _is_language_zh_cn(language):
+    if is_language_zh_cn(language):
         language = 'zh_Hans_CN'
-    elif _is_language_zh_tw(language):
+    elif is_language_zh_tw(language):
         language = 'zh_Hant_TW'
     else:
         language = 'en_US'
@@ -145,7 +140,6 @@ def add_to_log_file():
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        # url = URL + uuid
 
     return {'code': code,
             'state': state,
@@ -335,9 +329,9 @@ def device_and_client_info():
         if trs_dict==None:
             pass
         else:
-            if _is_language_zh_cn(language):
+            if is_language_zh_cn(language):
                 item['deviceType']=TYPE_DICT[item['deviceType']]['zh_cn']
-            elif _is_language_zh_tw(language):
+            elif is_language_zh_tw(language):
                 item['deviceType']=TYPE_DICT[item['deviceType']]['zh_tw']
             else:
                 item['deviceType'] = TYPE_DICT[item['deviceType']]['en']
@@ -371,13 +365,13 @@ def matrix():
                                                ).all()
 
     matrix = to_json_join(matrix)
-    if _is_language_zh_cn(language):
+    if is_language_zh_cn(language):
         return {
             'code': 20022,
             'data': matrix,
             'cateList': TRS_CN_CATE_LIST
         }
-    elif _is_language_zh_tw(language):
+    elif is_language_zh_tw(language):
         return {
             'code': 20022,
             'data': matrix,
@@ -393,12 +387,12 @@ def matrix():
 @app.route('/matrix/categoryInfo', methods=['GET'])
 @cross_origin()
 def get_category_info():
-    if _is_language_zh_cn(language):
+    if is_language_zh_cn(language):
         return {
             'code': 20022,
             'data': TRS_CN_CATE_LIST
         }
-    elif _is_language_zh_tw(language):
+    elif is_language_zh_tw(language):
         return {
             'code': 20022,
             'data': TRS_TW_CATE_LIST
