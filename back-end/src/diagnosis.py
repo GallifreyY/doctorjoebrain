@@ -4,6 +4,7 @@ import json
 import re
 from flask_babel import _
 
+
 components = {
     "usbdisk": "ClientDriveRedirection",
     "virtualprinters": ["ThinPrint","PrintRedir"],
@@ -11,7 +12,17 @@ components = {
     "scanners": "ScannerRedirection",
     "cameras": "RTAV"
 }
-
+TYPE_DICT = {
+    "usbdisk": {"zh_cn": "USB硬盘", "en": "USB Disks","zh_tw":"USB磁盤"},
+    "usbprinters": {"zh_cn": "USB打印机", "en": "USB Printers","zh_tw":"USB打印機"},
+    "virtualprinters": {"zh_cn": "虚拟打印机", "en": "Virtual Printers","zh_tw":"虛擬打印機"},
+    "scanners": {"zh_cn": "扫描仪", "en": "Scanners","zh_tw":"掃描儀"},
+    "cameras": {"zh_cn": "摄像头", "en": "Cameras","zh_tw":"攝像頭"},
+    "signaturepad": {"zh_cn": "签名板", "en": "Signature Pads","zh_tw":"簽名板"},
+    "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
+    "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
+    "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
+}
 docGUIDlinks = {
     "CDR": "GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html",
     "usbdisk": "GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html",
@@ -43,13 +54,19 @@ def diagnosis_general_issues(collected_data):
         
     return {'error': error,'warning': warning}
 
-def diagnosis(collected_data, device):
+def diagnosis(collected_data, device,language):
     suggestion = []
     error = []
     warning = []
     collected_data = collected_data
 
     # todo: general
+    if is_language_zh_cn(language):
+        device_type = TYPE_DICT[device.type]['zh_cn']
+    elif is_language_zh_tw(language):
+        device_type = TYPE_DICT[device.type]['zh_tw']
+    else:
+        device_type = TYPE_DICT[device.type]['en']
     if device.problemcode!=None:
         if int(device.problemcode) > 0:
             trs_ss=_("This device has some configuration issues. The device problem code is %(problemcode)s. %(problemdesc)s",problemcode=device.problemcode,problemdesc=device.problemdesc)
@@ -74,7 +91,7 @@ def diagnosis(collected_data, device):
                 if _comp in collected_data['agent']['Horizoncomp']:
                     if collected_data['agent']['Horizoncomp'][_comp] == 1:
                         comp_installed = True
-                        trs_s=_("The VMware %(compstr)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",compstr=compstr,type=device.type)
+                        trs_s=_("The VMware %(compstr)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",compstr=compstr,type=device_type)
                         suggestion.append(_add_refers(trs_s,device.type,collected_data))
                         break
                 else:
@@ -88,7 +105,7 @@ def diagnosis(collected_data, device):
             trs_s=_("The VMware %(comp)s component is not installed on the Horizon agent desktop. Please check it with your IT administrator.",comp=comp)
             error.append(_add_refers(trs_s,device.type,collected_data))
         elif collected_data['agent']['Horizoncomp'][comp] == 1:
-            trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",comp=comp,type=device.type)
+            trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",comp=comp,type=device_type)
             suggestion.append(_add_refers(trs_s, device.type, collected_data))
         
     # todo: for different devices
@@ -97,15 +114,15 @@ def diagnosis(collected_data, device):
     elif device.type == 'virtualprinters' or device.type == 'usbprinters':
         error, warning, suggestion = _printer_diagnose(collected_data, device, error, warning, suggestion)
     elif device.type == 'scanners':
-        error, warning, suggestion = _scanner_diagnose(collected_data, device, error, warning, suggestion)
+        error, warning, suggestion = _scanner_diagnose(collected_data, device,error, warning, suggestion)
     elif device.type == 'cameras':
         error, warning, suggestion = _camera_diagnose(collected_data, device, error, warning, suggestion)
     elif device.type == 'signaturepad':
-        error, warning, suggestion = _signaturepad_diagnose(collected_data, device, error, warning, suggestion)
+        error, warning, suggestion = _signaturepad_diagnose(collected_data, device,error, warning, suggestion)
     elif device.type == 'speechmic':
         error, warning, suggestion = _speechmic_diagnose(collected_data, device, error, warning, suggestion)
     elif device.type == 'audio':
-        error, warning, suggestion = _audio_diagnose(collected_data, device, error, warning, suggestion)
+        error, warning, suggestion = _audio_diagnose(collected_data, device,error, warning, suggestion)
 
     # todo: final check
     error = list(filter(None, error))
@@ -115,7 +132,7 @@ def diagnosis(collected_data, device):
     return {'error': error,'warning': warning, 'suggestion': suggestion}
 
 
-def _usb_disk_diagnose(collected_data, device, error, warning, suggestion):
+def _usb_disk_diagnose(collected_data, device,error, warning, suggestion):
 
 
     # todo: USB Arbitrator
@@ -142,7 +159,7 @@ def _usb_disk_diagnose(collected_data, device, error, warning, suggestion):
 
     return error, warning, suggestion
 
-def _printer_diagnose(collected_data, device, error, warning, suggestion):
+def _printer_diagnose(collected_data, device,error, warning, suggestion):
 
     device_details = device.find_details()
 
@@ -206,7 +223,7 @@ def _printer_diagnose(collected_data, device, error, warning, suggestion):
 
     return error, warning, suggestion
 
-def _scanner_diagnose(collected_data, device, error, warning, suggestion):
+def _scanner_diagnose(collected_data, device,error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
     trs_s=_("It is recommended to use scanner redirection solution for this device in Horizon environment.")
@@ -258,18 +275,18 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion):
         error.append(trs_s)
     return error, warning, suggestion
 
-def _signaturepad_diagnose(collected_data, device, error, warning, suggestion):
+def _signaturepad_diagnose(collected_data, device,error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
     return error, warning, suggestion
 
-def _speechmic_diagnose(collected_data, device, error, warning, suggestion):
+def _speechmic_diagnose(collected_data, device,error, warning, suggestion):
     return error, warning, suggestion
 
 def _audio_diagnose(collected_data, device, error, warning, suggestion):
     return error, warning, suggestion
 
-def _other_diagnose(collected_data, device, error, warning, suggestion):
+def _other_diagnose(collected_data, device,error, warning, suggestion):
     return error, warning, suggestion
 
 def _judge_driver(device):
@@ -341,3 +358,4 @@ def _is_pr_installed(collected_data,pr):
             if int(prvalue) == 1:
                 return True
     return False
+

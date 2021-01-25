@@ -9,7 +9,7 @@
        name: "SuggestionTable",
         components: { suexpandRow },
         data () {
-         if (navigator.language !== "zh-CN") {
+         if (navigator.language === "zh-TW") {
             return {
                 columns10: [
                     {
@@ -25,7 +25,7 @@
                         }
                     },
                     {
-                        title: 'Peripherals Health',
+                        title: '外圍設備健康信息',
                         key: 'deviceName'
                     },
                   {
@@ -44,7 +44,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.errorLen + '  error')
+                        }, this.data9[params.index].infoLen.errorLen + '  錯誤')
                       ]);
                       }else if((this.data9[params.index].erroeType === 0) || (this.data9[params.index].errorType === 10)){
                         return h('div', [
@@ -56,7 +56,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.warningLen + '  warning')
+                        }, this.data9[params.index].infoLen.warningLen + '  警告')
                       ]);
                       }else if((this.data9[params.index].erroeType === 2) || (this.data9[params.index].errorType === 21)){
                         return h('div', [
@@ -69,7 +69,7 @@
                             marginRight: '5px',
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.warningLen + '  warning'),
+                        }, this.data9[params.index].infoLen.warningLen + '  警告'),
                         h('Button', {
                           props: {
                             type: 'error',
@@ -78,7 +78,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.errorLen + '  error')
+                        }, this.data9[params.index].infoLen.errorLen + '  錯誤')
                       ]);
                       }
 
@@ -88,7 +88,7 @@
                 data9: [],
                 errorType: 0
             };
-         }else{
+         }else if(navigator.language === "zh-CN"){
             return {
                 columns10: [
                     {
@@ -158,6 +158,85 @@
                             width:'110px'
                           },
                         }, this.data9[params.index].infoLen.errorLen + '  错误')
+                      ]);
+                      }
+
+                    }
+                  }
+                ],
+                data9: [],
+                errorType: 0
+            };
+         }else{
+            return {
+                columns10: [
+                    {
+                        type: 'expand',
+                        width: 50,
+                        render: (h, params) => {
+                            return h(suexpandRow, {
+                                props: {
+                                    row: params.row,
+                                    index: params.index
+                                }
+                            })
+                        }
+                    },
+                    {
+                        title: 'Peripherals Health',
+                        key: 'deviceName'
+                    },
+                  {
+                    title: ' ',
+                    key: 'infoLen',
+                    width: '400px',
+                    align: 'right',
+                    render: (h, params) => {
+                      if((this.data9[params.index].errorType === 1) || (this.data9[params.index].errorType === 11)){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.errorLen + '  error')
+                      ]);
+                      }else if((this.data9[params.index].erroeType === 0) || (this.data9[params.index].errorType === 10)){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.warningLen + '  warning')
+                      ]);
+                      }else if((this.data9[params.index].erroeType === 2) || (this.data9[params.index].errorType === 21)){
+                        return h('div', [
+                        h('Button', {
+                          props: {
+                            type: 'warning',
+                            size: 'small'
+                          },
+                          style: {
+                            marginRight: '5px',
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.warningLen + '  warning'),
+                        h('Button', {
+                          props: {
+                            type: 'error',
+                            size: 'small'
+                          },
+                           style: {
+                            width:'110px'
+                          },
+                        }, this.data9[params.index].infoLen.errorLen + '  error')
                       ]);
                       }
 

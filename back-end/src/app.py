@@ -3,11 +3,8 @@
 from flask import Flask
 from flask_babel import Babel
 from flask_sqlalchemy import SQLAlchemy
-
-from sqlalchemy import and_, or_
 from flask_cors import cross_origin
 from flask import request
-
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -19,19 +16,22 @@ from models import *
 from util import *
 from diagnosis import diagnosis, diagnosis_general_issues
 import json
-import locale
 import password_access
 import handleDB
+
 
 @babel.localeselector
 def get_locale():
     global language
-    if language=='zh-CN' or language=='zh_CN':
-        language='zh_CN'
+    if is_language_zh_cn(language):
+        language = 'zh_Hans_CN'
+    elif is_language_zh_tw(language):
+        language = 'zh_Hant_TW'
     else:
-        language='en_US'
-    print(language)
+        language = 'en_US'
     return language
+
+
 CATE_MAP = {
     "Other Devices": -1,
     "USB Disks": 0,
@@ -50,7 +50,7 @@ CATE_MAP = {
     "Barcode Scanners": 13,
     "Serial Port Devices": 14
 }
-TRS_CATE_MAP = {
+TRS_CN_CATE_MAP = {
     "其它设备": -1,
     "USB硬盘": 0,
     "虚拟打印机": 1,
@@ -68,14 +68,47 @@ TRS_CATE_MAP = {
     "条码扫描器": 13,
     "串口设备": 14
 }
+TRS_TW_CATE_MAP = {
+    "其他設備": -1,
+    "USB磁盤": 0,
+    "虛擬打印機": 1,
+    "USB打印機": 2,
+    "掃描儀": 3,
+    "攝像頭": 4,
+    "USB語音麥克風": 5,
+    "智能卡": 6,
+    "鍵盤": 7,
+    "鼠標": 8,
+    "簽名板": 9,
+    "PIN鍵盤": 10,
+    "信用卡": 11,
+    "指紋讀取器": 12,
+    "條碼掃描器": 13,
+    "串口設備": 14
+}
+TYPE_DICT = {
+    "usbdisk": {"zh_cn": "USB硬盘", "en": "USB Disks","zh_tw":"USB磁盤"},
+    "usbprinters": {"zh_cn": "USB打印机", "en": "USB Printers","zh_tw":"USB打印機"},
+    "virtualprinters": {"zh_cn": "虚拟打印机", "en": "Virtual Printers","zh_tw":"虛擬打印機"},
+    "scanners": {"zh_cn": "扫描仪", "en": "Scanners","zh_tw":"掃描儀"},
+    "cameras": {"zh_cn": "摄像头", "en": "Cameras","zh_tw":"攝像頭"},
+    "signaturepad": {"zh_cn": "签名板", "en": "Signature Pads","zh_tw":"簽名板"},
+    "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
+    "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
+    "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
+}
 CATE_LIST = []
-TRS_CATE_LIST = []
+TRS_CN_CATE_LIST = []
+TRS_TW_CATE_LIST = []
 for key in CATE_MAP:
     if CATE_MAP[key] == -1: continue
     CATE_LIST.insert(CATE_MAP[key], key)
-for key in TRS_CATE_MAP:
-    if TRS_CATE_MAP[key] == -1: continue
-    TRS_CATE_LIST.insert(TRS_CATE_MAP[key], key)
+for key in TRS_CN_CATE_MAP:
+    if TRS_CN_CATE_MAP[key] == -1: continue
+    TRS_CN_CATE_LIST.insert(TRS_CN_CATE_MAP[key], key)
+for key in TRS_TW_CATE_MAP:
+    if TRS_TW_CATE_MAP[key] == -1: continue
+    TRS_TW_CATE_LIST.insert(TRS_TW_CATE_MAP[key], key)
 
 @app.route('/test', methods=['GET'])
 @cross_origin()
@@ -107,7 +140,6 @@ def add_to_log_file():
     if collected_data['code'] == code:
         uuid = parse_collected_data(collected_data['data'])
         state = 'success'
-        # url = URL + uuid
 
     return {'code': code,
             'state': state,
@@ -146,6 +178,7 @@ def log_out():
         'data': 'successfully log out'
     }
 
+
 @app.route('/get_language', methods=['POST'])
 @cross_origin()
 def get_language():
@@ -153,8 +186,10 @@ def get_language():
     language = request.args.get('data')
     return {
         'code': 20022,
-        'language':language
+        'language': language
     }
+
+
 #
 ######## api: device_info
 @app.route('/device_and_client_info', methods=['GET'])
@@ -216,12 +251,12 @@ def device_and_client_info():
         devices_pics.append(device_info['details']['picture'])
         device_vendor_name.append(device_info['details']['vendor_name'])
         devices_info.append(device_info)
-        
+
     # todo: directly get info from collected_data
     client_column_data = get_client_info(collected_data)
     agent_column_data = get_agent_info(collected_data)
     client_detail_data = get_client_details_from_agent(collected_data)
-   
+
     basic_info = {
         'device': devices_info,
         'client': client_column_data,
@@ -233,45 +268,51 @@ def device_and_client_info():
     diagnosis_type_info = []
     for device_index in range(len(devices)):
         check_res = check_compatibility(collected_data, devices[device_index])
-        suggestions = diagnosis(collected_data, devices[device_index])
-        if(len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])==0):
+        suggestions = diagnosis(collected_data, devices[device_index],language)
+        if (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
+                len(suggestions['suggestion']) == 0):
             errorType = 1
-        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+        elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
+                len(suggestions['suggestion']) == 0):
             errorType = 0
-        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])==0):
+        elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
+                len(suggestions['suggestion']) == 0):
             errorType = 2
-        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])==0) and (len(suggestions['suggestion'])>0):
+        elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
+                len(suggestions['suggestion']) > 0):
             errorType = 11
-        elif (len(suggestions['error'])>0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+        elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
+                len(suggestions['suggestion']) > 0):
             errorType = 21
-        elif (len(suggestions['error'])==0) and (len(suggestions['warning'])>0) and (len(suggestions['suggestion'])>0):
+        elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
+                len(suggestions['suggestion']) > 0):
             errorType = 10
         else:
-            errorType =-1
+            errorType = -1
         diagnosis_info.append({
-            'deviceName':devices[device_index].name,
+            'deviceName': devices[device_index].name,
             'checkResult': check_res,
             'suggestions': suggestions
         })
         diagnosis_type_info.append({
             'deviceEnd': devices[device_index].default_info()['end'],
-            'deviceTag':devices[device_index].default_info()['tag'],
+            'deviceTag': devices[device_index].default_info()['tag'],
             'deviceHasProblem': devices[device_index].default_info()['hasProblem'],
-            'deviceDriverName':devices[device_index].default_info()['driverName'],
-            'driverVersion':devices[device_index].default_info()['driverVersion'],
+            'deviceDriverName': devices[device_index].default_info()['driverName'],
+            'driverVersion': devices[device_index].default_info()['driverVersion'],
             'deviceVendorName': device_vendor_name[device_index],
-            'devicePics':devices_pics[device_index],
+            'devicePics': devices_pics[device_index],
             'devicePid': devices[device_index].pid,
             'deviceVid': devices[device_index].vid,
-            'errorType':errorType,
+            'errorType': errorType,
             'deviceType': devices[device_index].type,
             'deviceName': devices[device_index].name,
             'suggestionInfo': suggestions['suggestion'],
-            'errorInfo':suggestions['error'],
-            'warningInfo':suggestions['warning'],
-            'infoLen':{'errorLen':len(suggestions['error']),'warningLen':len(suggestions['warning']),'suggestionLen':len(suggestions['suggestion'])}
+            'errorInfo': suggestions['error'],
+            'warningInfo': suggestions['warning'],
+            'infoLen': {'errorLen': len(suggestions['error']), 'warningLen': len(suggestions['warning']),
+                        'suggestionLen': len(suggestions['suggestion'])}
         })
-
 
     del_dup_diagnosis_type_info = []
     seen = set()
@@ -282,18 +323,27 @@ def device_and_client_info():
                 del_dup_diagnosis_type_info.append(item)
         else:
             del_dup_diagnosis_type_info.append(item)
-    
+
+    for item in del_dup_diagnosis_type_info:
+        trs_dict = TYPE_DICT.get(item['deviceType'],None)
+        if trs_dict==None:
+            pass
+        else:
+            if is_language_zh_cn(language):
+                item['deviceType']=TYPE_DICT[item['deviceType']]['zh_cn']
+            elif is_language_zh_tw(language):
+                item['deviceType']=TYPE_DICT[item['deviceType']]['zh_tw']
+            else:
+                item['deviceType'] = TYPE_DICT[item['deviceType']]['en']
     # Check the general issues from the collected_data
     general_issues_info = []
     general_issues_info = diagnosis_general_issues(collected_data)
-
-
     return {
         'code': 20022,
         'data': {
             'basicInfo': basic_info,
             'diagnosisInfo': diagnosis_info,
-            'diagnosisTypeInfo':del_dup_diagnosis_type_info,
+            'diagnosisTypeInfo': del_dup_diagnosis_type_info,
             'generalIssueInfo': general_issues_info
         }
 
@@ -315,12 +365,18 @@ def matrix():
                                                ).all()
 
     matrix = to_json_join(matrix)
-    if language=='zh-CN' or language=='zh_CN':
-       return {
-           'code':20022,
-           'data': matrix,
-           'cateList':TRS_CATE_LIST
-       }
+    if is_language_zh_cn(language):
+        return {
+            'code': 20022,
+            'data': matrix,
+            'cateList': TRS_CN_CATE_LIST
+        }
+    elif is_language_zh_tw(language):
+        return {
+            'code': 20022,
+            'data': matrix,
+            'cateList': TRS_TW_CATE_LIST
+        }
     return {
         'code': 20022,
         'data': matrix,
@@ -331,11 +387,16 @@ def matrix():
 @app.route('/matrix/categoryInfo', methods=['GET'])
 @cross_origin()
 def get_category_info():
-    if language=='zh-CN' or language=='zh_CN':
-       return {
-           'code':20022,
-           'data':TRS_CATE_LIST
-       }
+    if is_language_zh_cn(language):
+        return {
+            'code': 20022,
+            'data': TRS_CN_CATE_LIST
+        }
+    elif is_language_zh_tw(language):
+        return {
+            'code': 20022,
+            'data': TRS_TW_CATE_LIST
+        }
     return {
         'code': 20022,
         'data': CATE_LIST
@@ -423,10 +484,10 @@ def matrix_edit_data():
                                     Device.vendor_id == request.json["query"]["vendor_id"],
                                     Device.model == request.json["query"]["model"]).update(
         {'device_name': request.json["edit"]["device_name"]})
-    if request.json["Horizon_client_version"]!="":
+    if request.json["Horizon_client_version"] != "":
         edit_item.Horizon_client_version, edit_item.Horizon_agent_version = request.json["Horizon_client_version"], \
-                                                                        request.json["Horizon_agent_version"]
-    if request.json["category"]!="":
+                                                                            request.json["Horizon_agent_version"]
+    if request.json["category"] != "":
         db.session.query(Device).filter(Device.product_id == request.json["query"]["product_id"],
                                         Device.vendor_id == request.json["query"]["vendor_id"],
                                         Device.model == request.json["query"]["model"]).update(
