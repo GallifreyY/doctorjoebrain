@@ -42,6 +42,7 @@ KBlinkIDs = {
 def diagnosis_general_issues(collected_data):
     error = []
     warning = []
+    suggestion = []
     collected_data = collected_data
 
     if collected_data['client'].get('clientService',None) != 'Running':
@@ -58,7 +59,7 @@ def diagnosis_general_issues(collected_data):
             trs_s = _("The Desktop Experience component is not installed on your RDS desktop. The VMware Horizon agent functions (such as scanner redirection) may not work normally because of it. Please check it out and ensure it is installed.")
             warning.append(trs_s)
         
-    return {'error': error,'warning': warning}
+    return {'error': error,'warning': warning,'suggestion':suggestion}
 
 def diagnosis(collected_data, device,language):
     suggestion = []

@@ -269,26 +269,7 @@ def device_and_client_info():
     for device_index in range(len(devices)):
         check_res = check_compatibility(collected_data, devices[device_index])
         suggestions = diagnosis(collected_data, devices[device_index],language)
-        if (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
-                len(suggestions['suggestion']) == 0):
-            errorType = 1
-        elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
-                len(suggestions['suggestion']) == 0):
-            errorType = 0
-        elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
-                len(suggestions['suggestion']) == 0):
-            errorType = 2
-        elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
-                len(suggestions['suggestion']) > 0):
-            errorType = 11
-        elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
-                len(suggestions['suggestion']) > 0):
-            errorType = 21
-        elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
-                len(suggestions['suggestion']) > 0):
-            errorType = 10
-        else:
-            errorType = -1
+        errorType = suggestion_type_judge(suggestions)
         diagnosis_info.append({
             'deviceName': devices[device_index].name,
             'checkResult': check_res,
@@ -338,6 +319,17 @@ def device_and_client_info():
     # Check the general issues from the collected_data
     general_issues_info = []
     general_issues_info = diagnosis_general_issues(collected_data)
+    general_issues_info_error_type = suggestion_type_judge(general_issues_info)
+
+    del_dup_diagnosis_type_info.insert(0,{
+        'errorInfo': general_issues_info['error'],
+        'warningInfo': general_issues_info['warning'],
+        'suggestionInfo': general_issues_info['suggestion'],
+        'deviceName': 'General issue',
+        'errorType': general_issues_info_error_type,
+        'infoLen': {'errorLen': len(general_issues_info['error']), 'warningLen': len(general_issues_info['warning']),
+                    'suggestionLen': 0}
+    })
     return {
         'code': 20022,
         'data': {

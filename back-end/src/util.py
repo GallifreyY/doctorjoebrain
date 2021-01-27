@@ -403,3 +403,25 @@ def check_compatibility(collected_data, device):
         'agent': agent,
     }
     return res
+def suggestion_type_judge(suggestions):
+    if (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
+            len(suggestions['suggestion']) == 0):
+        errorType = 1
+    elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
+            len(suggestions['suggestion']) == 0):
+        errorType = 0
+    elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
+            len(suggestions['suggestion']) == 0):
+        errorType = 2
+    elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
+            len(suggestions['suggestion']) > 0):
+        errorType = 11
+    elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
+            len(suggestions['suggestion']) > 0):
+        errorType = 21
+    elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
+            len(suggestions['suggestion']) > 0):
+        errorType = 10
+    else:
+        errorType = -1
+    return errorType

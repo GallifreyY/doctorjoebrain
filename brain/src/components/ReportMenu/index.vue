@@ -546,6 +546,7 @@
         .then(response => {
           var infoDataSet = new Set();
           let infoData = response.data.diagnosisTypeInfo;
+          infoData.shift();
           infoData.forEach(function (value) {
               var copyValue = value;
              let errorRes = [];
@@ -623,6 +624,7 @@
             .then(response => {
               var categoryInfoDataSet = new Set();
               let categoryInfoData = response.data.diagnosisTypeInfo;
+              categoryInfoData.shift();
               categoryInfoData.forEach(function (value) {
                 categoryInfoDataSet.add(value.deviceType);
                 typeArray.push(value.deviceType);
