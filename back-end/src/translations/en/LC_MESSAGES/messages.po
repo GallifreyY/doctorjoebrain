@@ -329,8 +329,8 @@ msgid ""
 "It is recommended to use RTAV redirection solution for common camera "
 "devices in Horizon environment."
 msgstr ""
-"It is recommended to use printer redirection solution for this device in "
-"Horizon environment."
+"It is recommended to use RTAV redirection solution for common camera "
+"devices in Horizon environment."
 
 #: diagnosis.py:277 diagnosis.py:404
 msgid ""

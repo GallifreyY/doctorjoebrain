@@ -264,7 +264,7 @@ msgstr ""
 msgid ""
 "It is recommended to use RTAV redirection solution for common camera "
 "devices in Horizon environment."
-msgstr "建議在Horizon環境中為此設備使用打印機重定向解決方案。"
+msgstr "建議在Horizo​​n環境中用RTAV重定向的解決方案來使用普通攝像機設備。"
 
 #: diagnosis.py:277 diagnosis.py:404
 msgid ""
@@ -401,7 +401,7 @@ msgstr ""
 msgid ""
 "You are using pure USB redirection for this device. Please use Nuance "
 "extension solution or USB split with RTAV redirection solution."
-msgstr "您正在以USB重定向的方式使用此設備。請使用Nuance extension或者USB拆分和RTAV"
+msgstr "您正在以純USB重定向的方式使用此設備。請使用Nuance extension或者USB拆分和RTAV"
 "重定向的解決方案。"
 
 #: diagnosis.py:383 diagnosis.py:390
@@ -409,7 +409,7 @@ msgstr "您正在以USB重定向的方式使用此設備。請使用Nuance exten
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution for "
 "this device in Horizon environment."
-msgstr "建議在Horizon環境中為此設備使用打印機重定向解決方案。"
+msgstr "建議在Horizo​​n環境中以USB拆分和RTAV重定向的方式來使用此設備。"
 
 #: diagnosis.py:386
 msgid ""

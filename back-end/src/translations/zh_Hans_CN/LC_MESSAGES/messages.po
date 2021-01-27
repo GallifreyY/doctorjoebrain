@@ -265,7 +265,7 @@ msgstr "如果此摄像机是高分辨率复合设备（高分仪），则Horizo
 msgid ""
 "It is recommended to use RTAV redirection solution for common camera "
 "devices in Horizon environment."
-msgstr "建议在Horizon环境中以打印机重定向的方式来使用此设备。"
+msgstr "建议在Horizon环境中用RTAV重定向的解决方案来使用普通摄像机设备。"
 
 #: diagnosis.py:277 diagnosis.py:404
 msgid ""
@@ -311,14 +311,14 @@ msgstr "Horizon agent桌面已经安装VMware串口重定向组件。请使用�
 #: diagnosis.py:303
 #, fuzzy
 msgid ""
-"The VMware Serial COM redirection client service is not running on your "
+"The VMware Serial Port redirection client service is not running on your "
 "client desktop. Please check it out and ensure it is running."
 msgstr "VMware串口重定向客户端服务没有在客户端桌面上运行。请检查并确保它处于运行状态。"
 
 #: diagnosis.py:306
 #, fuzzy
 msgid ""
-"The VMware Serial COM redirection agent service is not running on your "
+"The VMware Serial Port redirection agent service is not running on your "
 "agent desktop. Please check it out and ensure it is running."
 msgstr "VMware串口重定向Agent端服务没有在Agent桌面上运行。请检查并确保它处于运行状态。"
 
@@ -403,7 +403,7 @@ msgstr ""
 msgid ""
 "You are using pure USB redirection for this device. Please use Nuance "
 "extension solution or USB split with RTAV redirection solution."
-msgstr "您正在以USB重定向的方式使用此设备。请使用Nuance extension或者USB拆分和RTAV"
+msgstr "您正在以纯USB重定向的方式使用此设备。请使用Nuance extension或者USB拆分和RTAV"
 "重定向的解决方案。"
 
 #: diagnosis.py:383 diagnosis.py:390
