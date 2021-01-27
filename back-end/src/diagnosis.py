@@ -306,7 +306,7 @@ def _signaturepad_diagnose(collected_data, device,error, warning, suggestion,lan
             trs_e=_("The VMware Serial COM redirection agent service is not running on your agent desktop. Please check it out and ensure it is running.")
             error.append(trs_e)
         if device.is_usb_redirect:
-            trs_e=_("You are using USB redirection for this device. Please use Serial Com redirection solution for it.")
+            trs_e=_("You are using USB redirection for this device. Please use Serial Port redirection solution for it.")
             error.append(trs_e) 
     else:
         # For Non Topaz BSB pad devices and Wacom devices
