@@ -270,26 +270,6 @@ def device_and_client_info():
         check_res = check_compatibility(collected_data, devices[device_index])
         suggestions = diagnosis(collected_data, devices[device_index],language)
         errorType = suggestion_type_judge(suggestions)
-        # if (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
-        #         len(suggestions['suggestion']) == 0):
-        #     errorType = 1
-        # elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
-        #         len(suggestions['suggestion']) == 0):
-        #     errorType = 0
-        # elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
-        #         len(suggestions['suggestion']) == 0):
-        #     errorType = 2
-        # elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) == 0) and (
-        #         len(suggestions['suggestion']) > 0):
-        #     errorType = 11
-        # elif (len(suggestions['error']) > 0) and (len(suggestions['warning']) > 0) and (
-        #         len(suggestions['suggestion']) > 0):
-        #     errorType = 21
-        # elif (len(suggestions['error']) == 0) and (len(suggestions['warning']) > 0) and (
-        #         len(suggestions['suggestion']) > 0):
-        #     errorType = 10
-        # else:
-        #     errorType = -1
         diagnosis_info.append({
             'deviceName': devices[device_index].name,
             'checkResult': check_res,
