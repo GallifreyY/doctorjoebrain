@@ -19,7 +19,13 @@ docGUIDlinks = {
     "usbprinters": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
     "scanners": "GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html",
     "cameras": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html",
-    "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"
+    "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html",
+    "SerialPort": "GUID-98B33D70-097E-419E-9B4D-7390E7CDF745.html",
+    "RDSHsupported" : "GUID-35B4D247-C972-4C8F-8B13-326A01C0A245.html"
+}
+
+KBlinkIDs = {
+    "CompositeSplit" : '2068447'
 }
 
 def diagnosis_general_issues(collected_data):
@@ -243,8 +249,11 @@ def _scanner_diagnose(collected_data, device, error, warning, suggestion):
 def _camera_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
+    
+    trs_s=_("If this camera is a high resolution composite device, please contact your IT administrator for other solutions for it is not supported in Horizon yet.")
+    suggestion.append(trs_s)
 
-    trs_s=_("It is recommended to use RTAV redirection solution for this device in Horizon environment.")
+    trs_s=_("It is recommended to use RTAV redirection solution for common camera devices in Horizon environment.")
     suggestion.append(_add_refers(trs_s,device.type,collected_data))
 
     if collected_data['client'].get('audioService',None) != 'Running':
@@ -263,10 +272,16 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion):
 def _signaturepad_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
-    if check Topaz BSB name in devicename:
-        # For Topaz BSB pad devices
-        trs_s=_("It is recommended to use Serial COM redirection solution for this device in Horizon environment.")
-        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+    if device.name == "FT232R USB UART":
+        # For Topaz BSB pad devices SerialPort
+        trs_s=_("It is recommended to use Serial Port redirection solution for this device in Horizon environment.")
+        suggestion.append(_add_refers(trs_s,'SerialPort',collected_data))
+        if collected_data['agent']['Horizoncomp']['SerialPortRedirection'] == 0:
+            trs_e=_("The VMware Serial Port redirection component is not installed on the Horizon agent desktop. Please check it with your IT administrator.")
+            error.append(trs_e)
+        elif collected_data['agent']['Horizoncomp']['SerialPortRedirection'] == 1:
+            trs_s = _("The VMware Serial Port redirection component is installed on the Horizon agent desktop. Please use it for Topaz BSB signaturepad device redirection.")
+            suggestion.append(trs_s)
         if collected_data['client'].get('serialClientService',None) != 'Running':
             trs_e=_("The VMware Serial COM redirection client service is not running on your client desktop. Please check it out and ensure it is running.")
             error.append(trs_e)
@@ -274,74 +289,87 @@ def _signaturepad_diagnose(collected_data, device, error, warning, suggestion):
             trs_e=_("The VMware Serial COM redirection agent service is not running on your agent desktop. Please check it out and ensure it is running.")
             error.append(trs_e)
         if device.is_usb_redirect:
-            trs_s=_("You are using USB redirection for this device. Please use Serial Com redirection solution.")
-            error.append(trs_s) 
+            trs_e=_("You are using USB redirection for this device. Please use Serial Com redirection solution for it.")
+            error.append(trs_e) 
     else:
         # For Non Topaz BSB pad devices and Wacom devices
         trs_s=_("It is recommended to use USB redirection solution for this device in Horizon environment.")
         suggestion.append(_add_refers(trs_s,device.type,collected_data))
-        if not Wacom STU-520 and _is_agent_RDS(collected_data):
-            trs_w=_("This device is not compatible with RDS desktop by default. Please check this doc link for all supported devices.")
-            warning.append(trs_w)            
+        if device.name != "STU-520" and _is_agent_RDS(collected_data):
+            # Wacom 520 is the only supported signaturePad in RDSH by default
+            trs_w=_("Horizon published RDS desktops and applications can only support \
+                    a few USB devices. This device may be not supported by default.")
+            warning.append(_add_refers(trs_w,"RDSHsupported",collected_data))            
     return error, warning, suggestion
+
+def _USB_split_inc_policy_configed(collected_data, device):
+    client_inc   = collected_data['client'].get('includVIDPID',None)
+    client_split = collected_data['client'].get('splitVIDPID',None)
+    agent_inc   = collected_data['agent'].get('includVIDPID',None)
+    agent_split = collected_data['agent'].get('splitVIDPID',None)
+    inc_pattern = "vid-" + str(device.vid) + "_pid-" + str(device.pid) 
+    split_pattern = inc_pattern + "\(exintf:00;exintf:01;exintf:02.*\)"
+    
+    if (client_inc != None and client_split != None):
+        if re.search(inc_pattern,client_inc) and re.search(split_pattern, client_split):
+            return True
+    elif (agent_inc != None and agent_split != None):
+        if re.search(inc_pattern,agent_inc) and re.search(split_pattern, agent_split):
+            return True
+    else:
+        return False
 
 def _speechmic_diagnose(collected_data, device, error, warning, suggestion):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
 
-    if isWinclient:
-        if NuancePowerMic device:
-            # Nuance Extensions fully installed on both client and agent sides
-            if NuanceClientExtension installed and NuanceAgentExtension installed:
-                if split key not configed:
-                    trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
-                    suggestion.append(_add_refers(trs_s,device.type,collected_data))
+    if "Windows" in collected_data['client'].get('OSname',None):
+        # it is windows client
+        if device.name == "PowerMicII-NS":
+            audioExt=collected_data['client'].get('NuanceAudioExt',None)
+            micExt=collected_data['client'].get('NuanceMicExt',None)
+            trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
+            powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
+            suggestion.append([trs_s,powermiclink])
+            if audioExt != None or micExt != None:
+                # Nuance Extensions are fully or partially installed on client
+                if audioExt != micExt:
+                    trs_e=_("The Nuance VMware Client Audio extension is %(audioExt)s while the Nuance PowerMic VMware client extension \
+                             is %(micExt)s. Please check and ensure they are of the same versions.",audioExt=audioExt,micExt=micExt)
+                    error.append(trs_e)
+                 
+                if False == _USB_split_inc_policy_configed(collected_data, device):
                     if device.is_usb_redirect:
-                        trs_e=_("You are using USB redirection for this device. Please use Nuance extension solution. No need to redirect the device.")
+                        trs_e=_("You are using USB redirection for this device. Please use Nuance extension solution. \
+                                 No need to redirect the device.")
                         error.append(trs_e)
                 else:
-                    trs_e=_("It is wrong to configure both USB split and  Nuance extension. Please correct it.")
+                    trs_e=_("It is wrong to configure both USB split settings and Nuance extensions. \
+                             Please contact your IT administrator to correct it.")
                     error.append(trs_e)
             else:
-                # Nuance Extensions partially installed on either client or agent sides
-                if NuanceClientExtension not installed and NuanceAgentExtension installed:
-                    if split key not configed:
-                        trs_w=_("The Nuance VMware client extension is not installed while agent extension is installed. Suggest to install it on client machine.")
-                        warning.append(trs_w)
-                    else:
-                        # USB split policy configured
-                        trs_e=_("It is wrong to configure both USB split and Nuance extension. Please correct it.")
-                        error.append(trs_e)
-                else if NuanceAgentExtension not installed and NuanceClientExtension installed:
-                    if split key not configed:
-                        trs_w=_("The Nuance VMware agent extension is not installed while client extension is installed. Suggest to install it on agent machine.")
-                        warning.append(trs_w)
-                    else:
-                        # USB split policy configured
-                        trs_e=_("It is wrong to configure both USB split and Nuance extension. Please correct it.")
-                        error.append(trs_e)
+                # Nuance Extensions are not installed on client and USB split policy configured
+                if True == _USB_split_inc_policy_configed(collected_data, device):
+                    trs_s=_("Nuance Extensions are not installed on client. Use USB split with RTAV redirection solution for this device in Horizon environment.")
+                    suggestion.append(_add_KB_refers(trs_s,'CompositeSplit'))
                 else:
-                    # Nuance extensions are NOT installed on either client or agent side
-                    if split key configed:
-                        trs_s=_("USB split policy is configured. Suggest to use it with RTAV redirection solution for this device in Horizon environment.")
-                        suggestion.append(_add_refers(trs_s,device.type,collected_data))
-                    else:
-                        trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
-                        suggestion.append(_add_refers(trs_s,device.type,collected_data))
-                        if device.is_usb_redirect:
-                            trs_s=_("You are using pure USB redirection for this device. Please use Nuance extension solution or USB split with RTAV redirection solution.")
-                            error.append(trs_s)
-        else：
+                    trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
+                    powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
+                    suggestion.append([trs_s,powermiclink])
+                    if device.is_usb_redirect:
+                        trs_s=_("You are using pure USB redirection for this device. Please use Nuance extension solution or USB split with RTAV redirection solution.")
+                        error.append(trs_s)
+        else:
             # For other speech devices - Philips SpeechMike
             trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
-            suggestion.append(_add_refers(trs_s,device.type,collected_data))
-            if split key not configed:
-                trs_w=_("The USB split registry or GPO is not configured. Please refer to the document to configure it correctly for this device.")
+            suggestion.append(_add_KB_refers(trs_s,'CompositeSplit'))
+            if False == _USB_split_inc_policy_configed(collected_data, device):
+                trs_w=_("The USB include and split policy is not configured. Please contact your IT administrator to configure it correctly.")
                 warning.append(trs_w)
     else:
         # For other horizon client platforms - linux client
         trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
-        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+        suggestion.append(_add_KB_refers(trs_s,'CompositeSplit'))
         # Todo: to check the USB split policies on other horizon client platforms - linux client
 
     return error, warning, suggestion
@@ -380,12 +408,28 @@ def _judge_driver(device):
         return trs_s
     return None
 
+def _add_KB_refers(suggestion,key):
+    if key not in KBlinkIDs.keys():
+        return None
+    prefix = "https://kb.vmware.com/s/article"
+    kbnumbers = KBlinkIDs[key]
+    #Todo: may need to handle multiple KB links in future
+    fulldoclink = prefix + kbnumbers
+    return [suggestion, fulldoclink]
+
 
 def _add_refers(suggestion,key,collected_data):
     if key not in docGUIDlinks.keys():
         return None
-    prefix7="https://docs.vmware.com/en/VMware-Horizon-7/"
-    prefix8="https://docs.vmware.com/en/VMware-Horizon/"
+    #Use the real language value
+    if language == "zh_CN" or language == "zh-CN":
+        lang = "cn"
+    elif language == "zh_TW" or language == "zh-TW":
+        lang = "tw"
+    else:
+        lang = "en"
+    prefix7="https://docs.vmware.com/"+lang+"/VMware-Horizon-7/"
+    prefix8="https://docs.vmware.com/"+lang+"/VMware-Horizon/"
     middle="/horizon-remote-desktop-features/"
     horizon_ver=_get_horizon_ver(collected_data)
     if horizon_ver.startswith('7'):
