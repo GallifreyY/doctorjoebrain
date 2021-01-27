@@ -106,7 +106,7 @@ export default {
     }
   },
   data() {
-    if (navigator.language !== "zh-CN") {
+    if (navigator.language !== "zh_cn-CN") {
          return {
       totalPage: [],
       pageSize:20,
