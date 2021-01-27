@@ -300,10 +300,10 @@ def _signaturepad_diagnose(collected_data, device,error, warning, suggestion,lan
             trs_s = _("The VMware Serial Port redirection component is installed on the Horizon agent desktop. Please use it for Topaz BSB signaturepad device redirection.")
             suggestion.append(trs_s)
         if collected_data['client'].get('serialClientService',None) != 'Running':
-            trs_e=_("The VMware Serial COM redirection client service is not running on your client desktop. Please check it out and ensure it is running.")
+            trs_e=_("The VMware Serial Port redirection client service is not running on your client desktop. Please check it out and ensure it is running.")
             error.append(trs_e)
         if collected_data['agent'].get('serialAgentService',None) != 'Running':
-            trs_e=_("The VMware Serial COM redirection agent service is not running on your agent desktop. Please check it out and ensure it is running.")
+            trs_e=_("The VMware Serial Port redirection agent service is not running on your agent desktop. Please check it out and ensure it is running.")
             error.append(trs_e)
         if device.is_usb_redirect:
             trs_e=_("You are using USB redirection for this device. Please use Serial Port redirection solution for it.")

@@ -389,19 +389,19 @@ msgstr ""
 #: diagnosis.py:303
 #, fuzzy
 msgid ""
-"The VMware Serial COM redirection client service is not running on your "
+"The VMware Serial Port redirection client service is not running on your "
 "client desktop. Please check it out and ensure it is running."
 msgstr ""
-"The VMware Serial COM redirection client service is not running on your  "
+"The VMware Serial Port redirection client service is not running on your  "
 "client desktop. Please check it out and ensure it is running."
 
 #: diagnosis.py:306
 #, fuzzy
 msgid ""
-"The VMware Serial COM redirection agent service is not running on your "
+"The VMware Serial Port redirection agent service is not running on your "
 "agent desktop. Please check it out and ensure it is running."
 msgstr ""
-"The VMware Serial COM redirection agent service is not running on your "
+"The VMware Serial Port redirection agent service is not running on your "
 "agent desktop. Please check it out and ensure it is running."
 
 #: diagnosis.py:309

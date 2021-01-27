@@ -310,14 +310,14 @@ msgstr "Horizo​​n agent桌面已經安裝VMware串口重定向組件。請�
 #: diagnosis.py:303
 #, fuzzy
 msgid ""
-"The VMware Serial COM redirection client service is not running on your "
+"The VMware Serial Port redirection client service is not running on your "
 "client desktop. Please check it out and ensure it is running."
 msgstr "VMware串口重定向客戶端服務沒有在客戶端桌面上運行。請檢查並確保它處於運行狀態。"
 
 #: diagnosis.py:306
 #, fuzzy
 msgid ""
-"The VMware Serial COM redirection agent service is not running on your "
+"The VMware Serial Port redirection agent service is not running on your "
 "agent desktop. Please check it out and ensure it is running."
 msgstr "VMware串口重定向Agent端服務沒有在Agent桌面上運行。請檢查並確保它處於運行狀態。"
 
