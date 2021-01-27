@@ -58,7 +58,8 @@ def recognize_devices(collected_data, uuid):
     :return: devices(on duplicated item)
     """
     res = []
-    recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', 'cameras','others','signaturepad', 'speechmic','audio']
+    recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', \
+                        'cameras','others','signaturepad', 'speechmic','audio']
     for end in collected_data.keys():  # agent or client
         for key in collected_data[end].keys():
             # todo: dimiss pritners check at agent end

@@ -30,7 +30,13 @@ docGUIDlinks = {
     "usbprinters": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
     "scanners": "GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html",
     "cameras": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html",
-    "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"
+    "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html",
+    "SerialPort": "GUID-98B33D70-097E-419E-9B4D-7390E7CDF745.html",
+    "RDSHsupported" : "GUID-35B4D247-C972-4C8F-8B13-326A01C0A245.html"
+}
+
+KBlinkIDs = {
+    "CompositeSplit" : '2068447'
 }
 
 def diagnosis_general_issues(collected_data):
@@ -92,37 +98,37 @@ def diagnosis(collected_data, device,language):
                     if collected_data['agent']['Horizoncomp'][_comp] == 1:
                         comp_installed = True
                         trs_s=_("The VMware %(compstr)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",compstr=compstr,type=device_type)
-                        suggestion.append(_add_refers(trs_s,device.type,collected_data))
+                        suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
                         break
                 else:
                     trs_s=_("The VMware %(compstr)s component is not available in the current Horizon agent product version.",compstr=compstr)
-                    suggestion.append(_add_refers(trs_s,device.type,collected_data))
+                    suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
             if comp_installed == False :
                 comp_string = " or ".join(comp)
                 trs_s=_("The VMware %(comp_string)s component is not installed on the Horizon agent desktop. Please check it with your IT administrator.",comp_string=comp_string)
-                error.append(_add_refers(trs_s,device.type,collected_data))
+                error.append(_add_refers(trs_s,device.type,collected_data,language))
         elif collected_data['agent']['Horizoncomp'][comp] == 0:
             trs_s=_("The VMware %(comp)s component is not installed on the Horizon agent desktop. Please check it with your IT administrator.",comp=comp)
-            error.append(_add_refers(trs_s,device.type,collected_data))
+            error.append(_add_refers(trs_s,device.type,collected_data,language))
         elif collected_data['agent']['Horizoncomp'][comp] == 1:
             trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",comp=comp,type=device_type)
-            suggestion.append(_add_refers(trs_s, device.type, collected_data))
+            suggestion.append(_add_refers(trs_s, device.type, collected_data,language))
         
     # todo: for different devices
     if device.type == 'usbdisk':
-        error, warning, suggestion = _usb_disk_diagnose(collected_data, device, error, warning, suggestion)
+        error, warning, suggestion = _usb_disk_diagnose(collected_data, device, error, warning, suggestion,language)
     elif device.type == 'virtualprinters' or device.type == 'usbprinters':
-        error, warning, suggestion = _printer_diagnose(collected_data, device, error, warning, suggestion)
+        error, warning, suggestion = _printer_diagnose(collected_data, device, error, warning, suggestion,language)
     elif device.type == 'scanners':
-        error, warning, suggestion = _scanner_diagnose(collected_data, device,error, warning, suggestion)
+        error, warning, suggestion = _scanner_diagnose(collected_data, device,error, warning, suggestion,language)
     elif device.type == 'cameras':
-        error, warning, suggestion = _camera_diagnose(collected_data, device, error, warning, suggestion)
+        error, warning, suggestion = _camera_diagnose(collected_data, device, error, warning, suggestion,language)
     elif device.type == 'signaturepad':
-        error, warning, suggestion = _signaturepad_diagnose(collected_data, device,error, warning, suggestion)
+        error, warning, suggestion = _signaturepad_diagnose(collected_data, device,error, warning, suggestion,language)
     elif device.type == 'speechmic':
-        error, warning, suggestion = _speechmic_diagnose(collected_data, device, error, warning, suggestion)
+        error, warning, suggestion = _speechmic_diagnose(collected_data, device, error, warning, suggestion,language)
     elif device.type == 'audio':
-        error, warning, suggestion = _audio_diagnose(collected_data, device,error, warning, suggestion)
+        error, warning, suggestion = _audio_diagnose(collected_data, device,error, warning, suggestion,language)
 
     # todo: final check
     error = list(filter(None, error))
@@ -132,7 +138,7 @@ def diagnosis(collected_data, device,language):
     return {'error': error,'warning': warning, 'suggestion': suggestion}
 
 
-def _usb_disk_diagnose(collected_data, device,error, warning, suggestion):
+def _usb_disk_diagnose(collected_data, device,error, warning, suggestion,language):
 
 
     # todo: USB Arbitrator
@@ -143,29 +149,29 @@ def _usb_disk_diagnose(collected_data, device,error, warning, suggestion):
     # todo: Redirection
     if device.is_usb_redirect:
         trs_s=_("You are using USB redirection for USB disk devices. Please use CDR redirection.")
-        error.append(_add_refers(trs_s,device.type,collected_data))
+        error.append(_add_refers(trs_s,device.type,collected_data,language))
 
     # todo: CDR Service
     if 'CDRservice' in collected_data['agent'].keys():
         if collected_data['agent']['CDRservice'] == 'Running':
             trs_s=_("Please use the CDR (Client Drive Redirection) solution to redirect the file systems on USB disk devices.")
-            suggestion.append(_add_refers(trs_s,'CDR',collected_data))
+            suggestion.append(_add_refers(trs_s,'CDR',collected_data,language))
         else:
             trs_s=_("The CDR service is not running properly on your agent machine. Please check it with your IT administrator to restart the service.")
-            error.append(_add_refers(trs_s,'CDR',collected_data))
+            error.append(_add_refers(trs_s,'CDR',collected_data,language))
     else:
         trs_s=_("The CDR component is not installed on your agent machine correctly. Please check it with your IT administrator.")
-        error.append(_add_refers(trs_s,'CDR',collected_data))
+        error.append(_add_refers(trs_s,'CDR',collected_data,language))
 
     return error, warning, suggestion
 
-def _printer_diagnose(collected_data, device,error, warning, suggestion):
+def _printer_diagnose(collected_data, device,error, warning, suggestion,language):
 
     device_details = device.find_details()
 
     # todo: PrinterService
     trs_s=_("It is recommended to use printer redirection solution for this device in Horizon environment.")
-    suggestion.append(_add_refers(trs_s,device.type,collected_data))
+    suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
     if collected_data['client'].get('PrinterService',None) != 'Running':
         trs_s=_("The print service(spooler) is not running on your client desktop. Please check it out and ensure it is running before printer redirection.")
@@ -174,7 +180,7 @@ def _printer_diagnose(collected_data, device,error, warning, suggestion):
     if collected_data['agent'].get('PrinterService',None) != 'Running':
         trs_s=_("The print service(spooler) is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
         error.append(trs_s)
-        # Check printer service status for VMware Integrated Printing
+    # Check printer service status for VMware Integrated Printing
     if _is_pr_installed(collected_data,"PrintRedir"):
         if collected_data['agent'].get('vmwareprintService',None) != 'Running':
                 trs_s=_("The VMware print service is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
@@ -223,11 +229,12 @@ def _printer_diagnose(collected_data, device,error, warning, suggestion):
 
     return error, warning, suggestion
 
-def _scanner_diagnose(collected_data, device,error, warning, suggestion):
+def _scanner_diagnose(collected_data, device,error, warning, suggestion,language):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
+
     trs_s=_("It is recommended to use scanner redirection solution for this device in Horizon environment.")
-    suggestion.append(_add_refers(trs_s,device.type,collected_data))
+    suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
     if collected_data['client'].get('netlinkClientService',None) != 'Running':
         trs_s=_("The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your client desktop. Please check it out and ensure it is running before scanner redirection.")
@@ -256,11 +263,15 @@ def _scanner_diagnose(collected_data, device,error, warning, suggestion):
     return error, warning, suggestion
 
 
-def _camera_diagnose(collected_data, device, error, warning, suggestion):
+def _camera_diagnose(collected_data, device, error, warning, suggestion,language):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
-    trs_s=_("It is recommended to use RTAV redirection solution for this device in Horizon environment.")
-    suggestion.append(_add_refers(trs_s,device.type,collected_data))
+    
+    trs_s=_("If this camera is a high resolution composite device, please contact your IT administrator for other solutions for it is not supported in Horizon yet.")
+    suggestion.append(trs_s)
+
+    trs_s=_("It is recommended to use RTAV redirection solution for common camera devices in Horizon environment.")
+    suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
     if collected_data['client'].get('audioService',None) != 'Running':
         trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
@@ -275,18 +286,134 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion):
         error.append(trs_s)
     return error, warning, suggestion
 
-def _signaturepad_diagnose(collected_data, device,error, warning, suggestion):
+def _signaturepad_diagnose(collected_data, device,error, warning, suggestion,language):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
+    if device.name == "FT232R USB UART":
+        # For Topaz BSB pad devices SerialPort
+        trs_s=_("It is recommended to use Serial Port redirection solution for this device in Horizon environment.")
+        suggestion.append(_add_refers(trs_s,'SerialPort',collected_data,language))
+        if collected_data['agent']['Horizoncomp']['SerialPortRedirection'] == 0:
+            trs_e=_("The VMware Serial Port redirection component is not installed on the Horizon agent desktop. Please check it with your IT administrator.")
+            error.append(trs_e)
+        elif collected_data['agent']['Horizoncomp']['SerialPortRedirection'] == 1:
+            trs_s = _("The VMware Serial Port redirection component is installed on the Horizon agent desktop. Please use it for Topaz BSB signaturepad device redirection.")
+            suggestion.append(trs_s)
+        if collected_data['client'].get('serialClientService',None) != 'Running':
+            trs_e=_("The VMware Serial COM redirection client service is not running on your client desktop. Please check it out and ensure it is running.")
+            error.append(trs_e)
+        if collected_data['agent'].get('serialAgentService',None) != 'Running':
+            trs_e=_("The VMware Serial COM redirection agent service is not running on your agent desktop. Please check it out and ensure it is running.")
+            error.append(trs_e)
+        if device.is_usb_redirect:
+            trs_e=_("You are using USB redirection for this device. Please use Serial Com redirection solution for it.")
+            error.append(trs_e) 
+    else:
+        # For Non Topaz BSB pad devices and Wacom devices
+        trs_s=_("It is recommended to use USB redirection solution for this device in Horizon environment.")
+        suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
+        if device.name != "STU-520" and _is_agent_RDS(collected_data):
+            # Wacom 520 is the only supported signaturePad in RDSH by default
+            trs_w=_("Horizon published RDS desktops and applications can only support \
+                    a few USB devices. This device may be not supported by default.")
+            warning.append(_add_refers(trs_w,"RDSHsupported",collected_data,language))            
     return error, warning, suggestion
 
-def _speechmic_diagnose(collected_data, device,error, warning, suggestion):
+def _USB_split_inc_policy_configed(collected_data, device):
+    client_inc   = collected_data['client'].get('includVIDPID',None)
+    client_split = collected_data['client'].get('splitVIDPID',None)
+    agent_inc   = collected_data['agent'].get('includVIDPID',None)
+    agent_split = collected_data['agent'].get('splitVIDPID',None)
+    inc_pattern = "vid-" + str(device.vid) + "_pid-" + str(device.pid) 
+    split_pattern = inc_pattern + "\(exintf:00;exintf:01;exintf:02.*\)"
+    
+    if (client_inc != None and client_split != None):
+        if re.search(inc_pattern,client_inc) and re.search(split_pattern, client_split):
+            return True
+    elif (agent_inc != None and agent_split != None):
+        if re.search(inc_pattern,agent_inc) and re.search(split_pattern, agent_split):
+            return True
+    else:
+        return False
+
+def _speechmic_diagnose(collected_data, device, error, warning, suggestion,language):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+
+    if "Windows" in collected_data['client'].get('OSname',None):
+        # it is windows client
+        if device.name == "PowerMicII-NS":
+            audioExt=collected_data['client'].get('NuanceAudioExt',None)
+            micExt=collected_data['client'].get('NuanceMicExt',None)
+            trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
+            powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
+            suggestion.append([trs_s,powermiclink])
+            if audioExt != None or micExt != None:
+                # Nuance Extensions are fully or partially installed on client
+                if audioExt != micExt:
+                    trs_e=_("The Nuance VMware Client Audio extension version is %(audioExt)s while the Nuance PowerMic VMware client extension \
+                            version is %(micExt)s. Please check and ensure they are of the same versions.",audioExt=audioExt,micExt=micExt)
+                    error.append(trs_e)
+                 
+                if False == _USB_split_inc_policy_configed(collected_data, device):
+                    if device.is_usb_redirect:
+                        trs_e=_("You are using USB redirection for this device. Please use Nuance extension solution. \
+                                 No need to redirect the device.")
+                        error.append(trs_e)
+                else:
+                    trs_e=_("It is wrong to configure both USB split settings and Nuance extensions. \
+                             Please contact your IT administrator to correct it.")
+                    error.append(trs_e)
+            else:
+                # Nuance Extensions are not installed on client and USB split policy configured
+                if True == _USB_split_inc_policy_configed(collected_data, device):
+                    trs_s=_("The USB include and split policy are configured. Nuance Extensions are not installed on client. \
+                             Use USB split with RTAV redirection solution for this device in Horizon environment.")
+                    suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
+                else:
+                    trs_s=_("The USB include and split policy are not configured. Nuance Extensions are not installed on client. \
+                            Please contact your IT administartor to configure Nuance extension solution for this device in Horizon environment.")
+                    powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
+                    suggestion.append([trs_s,powermiclink])
+                    if device.is_usb_redirect:
+                        trs_s=_("You are using pure USB redirection for this device. Please use Nuance extension solution or USB split with RTAV redirection solution.")
+                        error.append(trs_s)
+        else:
+            # For other speech devices - Philips SpeechMike
+            trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
+            suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
+            if False == _USB_split_inc_policy_configed(collected_data, device):
+                trs_w=_("The USB include and split policy is not configured. Please contact your IT administrator to configure it correctly.")
+                warning.append(trs_w)
+    else:
+        # For other horizon client platforms - linux client
+        trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
+        suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
+        # Todo: to check the USB split policies on other horizon client platforms - linux client
+
     return error, warning, suggestion
 
-def _audio_diagnose(collected_data, device, error, warning, suggestion):
+def _audio_diagnose(collected_data, device, error, warning, suggestion,language):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+    
+    trs_s=_("It is recommended to use RTAV redirection solution for this device in Horizon environment.")
+    suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
+
+    if collected_data['client'].get('audioService',None) != 'Running':
+        trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
+        error.append(trs_s)
+
+    if collected_data['agent'].get('audioService',None) != 'Running':
+        trs_s=_("The Windows Audio service(Audiosrv) is not running on your agent desktop. Please check it out and ensure it is running before RTAV redirection.")
+        error.append(trs_s)
+
+    if device.is_usb_redirect:
+        trs_s=_("You are using USB redirection for audio devices. Please use RTAV redirection solution.")
+        error.append(trs_s)
     return error, warning, suggestion
 
-def _other_diagnose(collected_data, device,error, warning, suggestion):
+def _other_diagnose(collected_data, device,error, warning, suggestion,language):
     return error, warning, suggestion
 
 def _judge_driver(device):
@@ -300,12 +427,33 @@ def _judge_driver(device):
         return trs_s
     return None
 
+def _add_KB_refers(suggestion,key,language):
+    if key not in KBlinkIDs.keys():
+        return None
+    prefix = "https://kb.vmware.com/s/article/"
+    kbnumbers = KBlinkIDs[key]
+    #Todo: may need to handle multiple KB links in future
+    #Use the real language value
+    if is_language_zh_cn(language) or is_language_zh_tw(language):
+        lang = "zh_cn"
+    else:
+        lang = "en_us"
+    fulldoclink = prefix + kbnumbers +"?lang=" + lang
+    return [suggestion, fulldoclink]
 
-def _add_refers(suggestion,key,collected_data):
+
+def _add_refers(suggestion,key,collected_data,language):
     if key not in docGUIDlinks.keys():
         return None
-    prefix7="https://docs.vmware.com/en/VMware-Horizon-7/"
-    prefix8="https://docs.vmware.com/en/VMware-Horizon/"
+    #Use the real language value
+    if is_language_zh_cn(language):
+        lang = "cn"
+    elif is_language_zh_tw(language):
+        lang = "tw"
+    else:
+        lang = "en"
+    prefix7="https://docs.vmware.com/"+lang+"/VMware-Horizon-7/"
+    prefix8="https://docs.vmware.com/"+lang+"/VMware-Horizon/"
     middle="/horizon-remote-desktop-features/"
     horizon_ver=_get_horizon_ver(collected_data)
     if horizon_ver.startswith('7'):
