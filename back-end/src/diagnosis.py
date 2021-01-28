@@ -21,6 +21,7 @@ TYPE_DICT = {
     "signaturepad": {"zh_cn": "签名板", "en": "Signature Pads","zh_tw":"簽名板"},
     "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
     "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
+    "barcodescanner": {"zh_cn": "USB扫码枪", "en": "USB Barcode Scanner","zh_tw":"USB掃碼槍"},
     "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 docGUIDlinks = {
@@ -130,6 +131,8 @@ def diagnosis(collected_data, device,language):
         error, warning, suggestion = _speechmic_diagnose(collected_data, device, error, warning, suggestion,language)
     elif device.type == 'audio':
         error, warning, suggestion = _audio_diagnose(collected_data, device,error, warning, suggestion,language)
+    elif device.type == 'barcodescanner':
+        error, warning, suggestion = _barcode_diagnose(collected_data, device,error, warning, suggestion,language)
 
     # todo: final check
     error = list(filter(None, error))
@@ -412,6 +415,9 @@ def _audio_diagnose(collected_data, device, error, warning, suggestion,language)
     if device.is_usb_redirect:
         trs_s=_("You are using USB redirection for audio devices. Please use RTAV redirection solution.")
         error.append(trs_s)
+    return error, warning, suggestion
+
+def _barcode_diagnose(collected_data, device,error, warning, suggestion,language):
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device,error, warning, suggestion,language):
