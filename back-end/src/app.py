@@ -95,6 +95,7 @@ TYPE_DICT = {
     "signaturepad": {"zh_cn": "签名板", "en": "Signature Pads","zh_tw":"簽名板"},
     "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
     "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
+    "barcodescanner": {"zh_cn": "USB扫码枪", "en": "Barcode Scanner","zh_tw":"USB掃碼槍"},
     "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 CATE_LIST = []
