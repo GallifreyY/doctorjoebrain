@@ -418,6 +418,12 @@ def _audio_diagnose(collected_data, device, error, warning, suggestion,language)
     return error, warning, suggestion
 
 def _barcode_diagnose(collected_data, device,error, warning, suggestion,language):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+    if device.is_usb_redirect:
+        trs_s=_("You are using USB redirection for this device. Please leave it at client side. \
+                 No need to do the USB redirection.")
+        error.append(trs_s)
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device,error, warning, suggestion,language):
