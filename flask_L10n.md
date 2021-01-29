@@ -71,7 +71,8 @@
 >
 1.  run the commands
 
-    ```powershell
+   ```powershell
+   ```cd to the back-end\src directory
     $ pybabel extract -F babel.cfg -o messages.pot .
     $ pybabel update -i messages.pot -d translations
     ```
