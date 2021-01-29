@@ -430,7 +430,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
                       }else if(this.reportData[params.index].errorType===1){
                         return h('div', [
@@ -454,7 +454,7 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
                       }else if(this.reportData[params.index].errorType=== 2){
                         return h('div', [
@@ -498,7 +498,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
                       }else if(this.reportData[params.index].errorType=== 10){
                         return h('div', [
@@ -520,7 +520,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
                       }
 
