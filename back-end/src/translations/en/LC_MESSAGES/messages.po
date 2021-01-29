@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-01-28 18:55+0800\n"
+"POT-Creation-Date: 2021-01-29 10:39+0800\n"
 "PO-Revision-Date: 2021-01-19 16:42+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -428,8 +428,8 @@ msgid ""
 "                     a few USB devices. This device may be not supported "
 "by default."
 msgstr ""
-"Horizon published RDS desktops and applications can only supporta few USB"
-" devices. This device may be not supported by default."
+"Horizon published RDS desktops and applications can only support a few "
+"USB devices. This device may be not supported by default."
 
 #: diagnosis.py:352
 #, fuzzy
@@ -535,7 +535,16 @@ msgstr ""
 "You are using USB redirection for audio devices. Please use RTAV "
 "redirection solution."
 
-#: diagnosis.py:424
+#: diagnosis.py:423
+#, fuzzy
+msgid ""
+"It is recommended to not do any redirection for this device in Horizon "
+"environment."
+msgstr ""
+"It is recommended to not do any redirection for this device in Horizon "
+"environment."
+
+#: diagnosis.py:426
 #, fuzzy
 msgid ""
 "You are using USB redirection for this device. Please leave it at client "
@@ -544,7 +553,7 @@ msgstr ""
 "You are using USB redirection for this device. Please leave it at client "
 "side. No need to do the USB redirection."
 
-#: diagnosis.py:439
+#: diagnosis.py:441
 msgid ""
 "The driver is probably provided by Microsoft. Recommend to install the "
 "native driver provided by the device vendor."

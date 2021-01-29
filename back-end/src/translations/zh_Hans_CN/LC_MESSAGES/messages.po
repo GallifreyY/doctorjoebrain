@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-01-28 18:55+0800\n"
+"POT-Creation-Date: 2021-01-29 10:39+0800\n"
 "PO-Revision-Date: 2021-01-21 16:13+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -423,14 +423,21 @@ msgid ""
 "redirection solution."
 msgstr "您在用USB重定向的方式使用音频设备。请使用RTAV重定向的解决方案。"
 
-#: diagnosis.py:424
+#: diagnosis.py:423
+#, fuzzy
+msgid ""
+"It is recommended to not do any redirection for this device in Horizon "
+"environment."
+msgstr "建议不要在Horizon环境中对此设备进行任何重定向。"
+
+#: diagnosis.py:426
 #, fuzzy
 msgid ""
 "You are using USB redirection for this device. Please leave it at client "
 "side.                  No need to do the USB redirection."
 msgstr "您正在使用USB重定向此设备。请使用Nuance extension解决方案，无需USB重定向此设备。"
 
-#: diagnosis.py:439
+#: diagnosis.py:441
 msgid ""
 "The driver is probably provided by Microsoft. Recommend to install the "
 "native driver provided by the device vendor."
