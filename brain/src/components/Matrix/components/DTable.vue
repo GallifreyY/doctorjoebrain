@@ -455,11 +455,9 @@ export default {
       if (this.filter === "all") return items;
       console.log(this.otherIndex)
       if(this.filter === 'other'){
-        this.currentPage=0;
         return items.filter(this._other_filter)
       }
       else{
-      this.currentPage=0;
       return items.filter(item => item.category === filter);
       }
     },
@@ -521,6 +519,14 @@ export default {
   },
   created() {
     this.fetchMatrix();
+  },
+  watch: {
+    pageNum: {
+      handler(){
+        this.currentPage = 0;
+      },
+      deep: true
+    }
   }
 };
 </script>

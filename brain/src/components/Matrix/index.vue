@@ -15,7 +15,7 @@
       </Menu>
     </Sider>
     <div class="matrixcontent">
-      <d-table :filter='filter' :otherIndex='14' ></d-table>
+      <d-table :filter='filter' :otherIndex='16' ></d-table>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     return {
       filter:'all',
       categoryList : [],
-      otherIndex :14
+      otherIndex :16
     };
   },
   methods:{

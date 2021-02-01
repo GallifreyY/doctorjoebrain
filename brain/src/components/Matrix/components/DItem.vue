@@ -107,7 +107,6 @@ export default {
         ],
         categoryList: [
           {label: "USB Disks", value: "USB Disks"},
-          {label: "Virtual Printers", value: "Virtual Printers"},
           {label: "USB Printers", value: "USB Printers"},
           {label: "Scanners", value: "Scanners"},
           {label: "Cameras", value: "Cameras"},
