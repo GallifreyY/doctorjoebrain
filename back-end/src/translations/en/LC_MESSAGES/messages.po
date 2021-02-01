@@ -324,7 +324,6 @@ msgstr ""
 "yet."
 
 #: diagnosis.py:282
-#, fuzzy
 msgid ""
 "It is recommended to use RTAV redirection solution for common camera "
 "devices in Horizon environment."
@@ -359,7 +358,6 @@ msgstr ""
 "redirection."
 
 #: diagnosis.py:303
-#, fuzzy
 msgid ""
 "It is recommended to use Serial Port redirection solution for this device"
 " in Horizon environment."
@@ -368,7 +366,6 @@ msgstr ""
 " in Horizon environment."
 
 #: diagnosis.py:306
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection component is not installed on the "
 "Horizon agent desktop. Please check it with your IT administrator."
@@ -377,7 +374,6 @@ msgstr ""
 "Horizon agent desktop. Please check it with your IT administrator."
 
 #: diagnosis.py:309
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection component is installed on the Horizon "
 "agent desktop. Please use it for Topaz BSB signaturepad device "
@@ -387,7 +383,6 @@ msgstr ""
 "agent desktop. Please use it for Topaz BSB signaturepad device"
 
 #: diagnosis.py:312
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection client service is not running on your "
 "client desktop. Please check it out and ensure it is running."
@@ -396,7 +391,6 @@ msgstr ""
 "  client desktop. Please check it out and ensure it is running."
 
 #: diagnosis.py:315
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection agent service is not running on your "
 "agent desktop. Please check it out and ensure it is running."
@@ -405,7 +399,6 @@ msgstr ""
 "agent desktop. Please check it out and ensure it is running."
 
 #: diagnosis.py:318
-#, fuzzy
 msgid ""
 "You are using USB redirection for this device. Please use Serial Port "
 "redirection solution for it."
@@ -414,7 +407,6 @@ msgstr ""
 "redirection solution for it."
 
 #: diagnosis.py:322
-#, fuzzy
 msgid ""
 "It is recommended to use USB redirection solution for this device in "
 "Horizon environment."
@@ -432,7 +424,6 @@ msgstr ""
 "USB devices. This device may be not supported by default."
 
 #: diagnosis.py:357
-#, fuzzy
 msgid ""
 "It is recommended to use Nuance extension solution for this device in "
 "Horizon environment."
@@ -493,7 +484,6 @@ msgstr ""
 "environment."
 
 #: diagnosis.py:388
-#, fuzzy
 msgid ""
 "You are using pure USB redirection for this device. Please use Nuance "
 "extension solution or USB split with RTAV redirection solution."
@@ -502,7 +492,6 @@ msgstr ""
 "extension solution or USB split with RTAV redirection solution."
 
 #: diagnosis.py:392 diagnosis.py:399
-#, fuzzy
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution for "
 "this device in Horizon environment."
@@ -527,7 +516,6 @@ msgstr ""
 "Horizon environment."
 
 #: diagnosis.py:421
-#, fuzzy
 msgid ""
 "You are using USB redirection for audio devices. Please use RTAV "
 "redirection solution."
@@ -536,7 +524,6 @@ msgstr ""
 "redirection solution."
 
 #: diagnosis.py:428
-#, fuzzy
 msgid ""
 "It is recommended to not do any redirection for this device in Horizon "
 "environment."
@@ -545,7 +532,6 @@ msgstr ""
 "environment."
 
 #: diagnosis.py:431
-#, fuzzy
 msgid ""
 "You are using USB redirection for this device. Please leave it at client "
 "side.                  No need to do the USB redirection."
