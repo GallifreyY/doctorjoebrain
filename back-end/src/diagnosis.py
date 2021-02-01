@@ -49,10 +49,16 @@ def diagnosis_general_issues(collected_data):
     if collected_data['client'].get('clientService',None) != 'Running':
         trs_s=_("The VMware Horizon client service is not running on your client desktop. Please check it out and ensure it is running.")
         error.append(trs_s)
-
     if collected_data['agent'].get('agentService',None) != 'Running':
         trs_s=_("The VMware Horizon agent service is not running on your agent desktop. Please check it out and ensure it is running.")
         error.append(trs_s)
+    if collected_data['client'].get('PrinterService',None) != 'Running':
+        trs_s=_("The print service(spooler) is not running on your client desktop. Please check it out and ensure it is running before printer redirection.")
+        error.append(trs_s)
+    if collected_data['agent'].get('PrinterService',None) != 'Running':
+        trs_s=_("The print service(spooler) is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
+        error.append(trs_s)
+    
 
     # Check the Desktop Experience component installation status on RDS
     if _is_agent_RDS(collected_data):
@@ -173,7 +179,6 @@ def _printer_diagnose(collected_data, device,error, warning, suggestion,language
 
     device_details = device.find_details()
 
-    # todo: PrinterService
     trs_s=_("It is recommended to use printer redirection solution for this device in Horizon environment.")
     suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
