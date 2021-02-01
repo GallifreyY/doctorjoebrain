@@ -257,7 +257,6 @@ msgid ""
 msgstr "如果此摄像机是高分辨率复合设备（高分仪），则Horizon还不支持这种设备。请与您的IT管理员联系以获取其他解决方案。"
 
 #: diagnosis.py:282
-#, fuzzy
 msgid ""
 "It is recommended to use RTAV redirection solution for common camera "
 "devices in Horizon environment."
@@ -283,21 +282,19 @@ msgid ""
 msgstr "您正在以USB重定向的方式使用相机设备。请使用RTAV重定向解决方案。"
 
 #: diagnosis.py:303
-#, fuzzy
+
 msgid ""
 "It is recommended to use Serial Port redirection solution for this device"
 " in Horizon environment."
 msgstr "建议在Horizon环境中以串口重定向的方式来使用此设备。"
 
 #: diagnosis.py:306
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection component is not installed on the "
 "Horizon agent desktop. Please check it with your IT administrator."
 msgstr "Horizon agent桌面没有安装VMware串口重定向组件，请联系您的IT管理员进行检查。"
 
 #: diagnosis.py:309
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection component is installed on the Horizon "
 "agent desktop. Please use it for Topaz BSB signaturepad device "
@@ -305,28 +302,24 @@ msgid ""
 msgstr "Horizon agent桌面已经安装VMware串口重定向组件。请使用它做Topaz BSB签字板的重定向。"
 
 #: diagnosis.py:312
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection client service is not running on your "
 "client desktop. Please check it out and ensure it is running."
 msgstr "VMware串口重定向客户端服务没有在客户端桌面上运行。请检查并确保它处于运行状态。"
 
 #: diagnosis.py:315
-#, fuzzy
 msgid ""
 "The VMware Serial Port redirection agent service is not running on your "
 "agent desktop. Please check it out and ensure it is running."
 msgstr "VMware串口重定向Agent端服务没有在Agent桌面上运行。请检查并确保它处于运行状态。"
 
 #: diagnosis.py:318
-#, fuzzy
 msgid ""
 "You are using USB redirection for this device. Please use Serial Port "
 "redirection solution for it."
 msgstr "您正在以USB重定向的方式使用此设备。请使用串口重定向解决方案。"
 
 #: diagnosis.py:322
-#, fuzzy
 msgid ""
 "It is recommended to use USB redirection solution for this device in "
 "Horizon environment."
@@ -340,7 +333,6 @@ msgid ""
 msgstr "Horizon发布的RDS桌面和应用程序仅支持一些USB设备。默认情况下Horizon可能不支持此设备。"
 
 #: diagnosis.py:357
-#, fuzzy
 msgid ""
 "It is recommended to use Nuance extension solution for this device in "
 "Horizon environment."
@@ -391,14 +383,12 @@ msgstr ""
 "extension解决方案，以使用此设备。"
 
 #: diagnosis.py:388
-#, fuzzy
 msgid ""
 "You are using pure USB redirection for this device. Please use Nuance "
 "extension solution or USB split with RTAV redirection solution."
 msgstr "您正在以纯USB重定向的方式使用此设备。请使用Nuance extension或者USB拆分和RTAV重定向的解决方案。"
 
 #: diagnosis.py:392 diagnosis.py:399
-#, fuzzy
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution for "
 "this device in Horizon environment."
@@ -417,21 +407,18 @@ msgid ""
 msgstr "建议在Horizon环境中以RTAV（实时音频视频重定向）的方式来使用此设备。"
 
 #: diagnosis.py:421
-#, fuzzy
 msgid ""
 "You are using USB redirection for audio devices. Please use RTAV "
 "redirection solution."
 msgstr "您在用USB重定向的方式使用音频设备。请使用RTAV重定向的解决方案。"
 
 #: diagnosis.py:428
-#, fuzzy
 msgid ""
 "It is recommended to not do any redirection for this device in Horizon "
 "environment."
 msgstr "建议不要在Horizon环境中对此设备进行任何重定向。"
 
 #: diagnosis.py:431
-#, fuzzy
 msgid ""
 "You are using USB redirection for this device. Please leave it at client "
 "side.                  No need to do the USB redirection."
