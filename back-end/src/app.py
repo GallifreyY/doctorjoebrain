@@ -31,7 +31,23 @@ def get_locale():
         language = 'en_US'
     return language
 
-
+MTX_MAP = {
+    "Other Devices": -1,
+    "USB Disks": 0,
+    "USB Printers": 1,
+    "Scanners": 2,
+    "Cameras": 3,
+    "USB Speech Mics": 4,
+    "Smart Cards": 5,
+    "Key Boards": 6,
+    "Mouses": 7,
+    "Signature Pads": 8,
+    "PIN Pads": 9,
+    "Credit Cards": 10,
+    "Fingerprint Readers": 11,
+    "Barcode Scanners": 12,
+    "Serial Port Devices": 13
+}
 CATE_MAP = {
     "Other Devices": -1,
     "USB Disks": 0,
@@ -110,6 +126,12 @@ for key in TRS_CN_CATE_MAP:
 for key in TRS_TW_CATE_MAP:
     if TRS_TW_CATE_MAP[key] == -1: continue
     TRS_TW_CATE_LIST.insert(TRS_TW_CATE_MAP[key], key)
+MTX_CATE = CATE_LIST[:]
+del MTX_CATE[1]
+MTX_CN_CATE = TRS_CN_CATE_LIST[:]
+del MTX_CN_CATE[1]
+MTX_TW_CATE = TRS_TW_CATE_LIST[:]
+del MTX_TW_CATE[1]
 
 @app.route('/test', methods=['GET'])
 @cross_origin()
@@ -362,18 +384,18 @@ def matrix():
         return {
             'code': 20022,
             'data': matrix,
-            'cateList': TRS_CN_CATE_LIST
+            'cateList': MTX_CN_CATE
         }
     elif is_language_zh_tw(language):
         return {
             'code': 20022,
             'data': matrix,
-            'cateList': TRS_TW_CATE_LIST
+            'cateList': MTX_TW_CATE
         }
     return {
         'code': 20022,
         'data': matrix,
-        'cateList': CATE_LIST
+        'cateList': MTX_CATE
     }
 
 
@@ -383,16 +405,16 @@ def get_category_info():
     if is_language_zh_cn(language):
         return {
             'code': 20022,
-            'data': TRS_CN_CATE_LIST
+            'data': MTX_CN_CATE
         }
     elif is_language_zh_tw(language):
         return {
             'code': 20022,
-            'data': TRS_TW_CATE_LIST
+            'data': MTX_TW_CATE
         }
     return {
         'code': 20022,
-        'data': CATE_LIST
+        'data': MTX_CATE
     }
 
 
@@ -408,7 +430,7 @@ def matrix_new_data():
 
     # todo: extract device info
     new_device = {'vendor_id': res['vid'], 'product_id': res['pid'], 'device_name': res['deviceName'],
-                  "category": CATE_MAP.get(res["category"], -1),
+                  "category": MTX_MAP.get(res["category"], -1),
                   "model": None if res["model"] is None or len(res["model"]) == 0 else res["model"]}
     query_res = Device.query.filter(
         and_(Device.vendor_id == res["vid"], Device.product_id == res["pid"],
@@ -484,7 +506,7 @@ def matrix_edit_data():
         db.session.query(Device).filter(Device.product_id == request.json["query"]["product_id"],
                                         Device.vendor_id == request.json["query"]["vendor_id"],
                                         Device.model == request.json["query"]["model"]).update(
-            {'category': CATE_MAP.get(request.json["category"], -1)})
+            {'category': MTX_MAP.get(request.json["category"], -1)})
     # device_item.device_name = request.json["edit"]["device_name"]
     # device_item.category = CATE_MAP.get(request.json["edit"]["category"], -1)
 
