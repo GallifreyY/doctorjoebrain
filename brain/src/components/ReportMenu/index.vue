@@ -50,7 +50,7 @@
                     width: '400px',
                     align: 'right',
                     render: (h, params) => {
-                      if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      if (this.reportData[params.index].errorType===0) {
                       return h('div', [
                         h('Button', {
                           props: {
@@ -60,9 +60,9 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.warningLen + '  警告'),
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType===21){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -94,7 +94,7 @@
                           },
                         }, this.reportData[params.index].infoLen.suggestionLen + '  建議')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      }else if(this.reportData[params.index].errorType===1){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -106,7 +106,7 @@
                           },
                         }, this.reportData[params.index].infoLen.errorLen + '  錯誤'),
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType=== -1){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -118,7 +118,7 @@
                           },
                         }, this.reportData[params.index].infoLen.suggestionLen + '  建議')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      }else if(this.reportData[params.index].errorType===2){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -140,7 +140,7 @@
                           },
                         }, this.reportData[params.index].infoLen.errorLen + '  錯誤')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType===11){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -162,7 +162,7 @@
                           },
                         }, this.reportData[params.index].infoLen.suggestionLen + '  建議')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType===10){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -219,7 +219,7 @@
                     width: '400px',
                     align: 'right',
                     render: (h, params) => {
-                      if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      if(this.reportData[params.index].errorType===0){
                       return h('div', [
                         h('Button', {
                           props: {
@@ -229,9 +229,9 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.warningLen + '  警告'),
+                        }, this.reportData[params.index].infoLen.warningLen + '  警告'),
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType===21){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -263,7 +263,7 @@
                           },
                         }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      }else if(this.reportData[params.index].errorType===1){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -275,7 +275,7 @@
                           },
                         }, this.reportData[params.index].infoLen.errorLen + '  错误'),
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType=== -1){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -287,7 +287,7 @@
                           },
                         }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      }else if(this.reportData[params.index].errorType=== 2){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -309,7 +309,7 @@
                           },
                         }, this.reportData[params.index].infoLen.errorLen + '  错误')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType=== 11){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -331,7 +331,7 @@
                           },
                         }, this.reportData[params.index].infoLen.suggestionLen + '  建议')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType=== 10){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -388,7 +388,7 @@
                     width: '400px',
                     align: 'right',
                     render: (h, params) => {
-                      if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      if(this.reportData[params.index].errorType===0){
                       return h('div', [
                         h('Button', {
                           props: {
@@ -398,9 +398,9 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.data9[params.index].infoLen.warningLen + '  warning'),
+                        }, this.reportData[params.index].infoLen.warningLen + '  warning'),
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType===21){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -430,9 +430,9 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      }else if(this.reportData[params.index].errorType===1){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -444,7 +444,7 @@
                           },
                         }, this.reportData[params.index].infoLen.errorLen + '  error'),
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType=== -1){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -454,9 +454,9 @@
                           style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen===0){
+                      }else if(this.reportData[params.index].errorType=== 2){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -478,7 +478,7 @@
                           },
                         }, this.reportData[params.index].infoLen.errorLen + '  error')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen === 0 && this.reportData[params.index].infoLen.errorLen!=0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType=== 11){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -498,9 +498,9 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
-                      }else if(this.reportData[params.index].infoLen.warningLen != 0 && this.reportData[params.index].infoLen.errorLen===0 && this.reportData[params.index].infoLen.suggestionLen!=0){
+                      }else if(this.reportData[params.index].errorType=== 10){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -520,7 +520,7 @@
                            style: {
                             width:'110px'
                           },
-                        }, this.reportData[params.index].infoLen.suggestionLen + '  suggestions')
+                        }, this.reportData[params.index].infoLen.suggestionLen + '  information')
                       ]);
                       }
 
@@ -605,6 +605,8 @@
           } else {
             this.reportData = requestDataArray;
           }
+          console.log("report:")
+          console.log(this.reportData)
         //  this.reportData = response.data.diagnosisTypeInfo; //array
 
         })

@@ -8,7 +8,7 @@
           <div style="margin-top: 50px">
                 <Button type="error">{{errorLen}}  {{$t("Error")}}</Button>
             <Button type="warning">{{warningLen}}  {{$t("Warning")}}</Button>
-        <Button type="info">{{suggestionLen}} {{$t("Suggestion")}}</Button>
+        <Button type="info">{{suggestionLen}} {{$t("Information")}}</Button>
             </div>
         </Col>
         <Col span="16" style="margin-top: 80px;padding-right: 15px;">

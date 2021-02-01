@@ -46,7 +46,7 @@
                           },
                         }, this.data9[params.index].infoLen.errorLen + '  錯誤')
                       ]);
-                      }else if((this.data9[params.index].erroeType === 0) || (this.data9[params.index].errorType === 10)){
+                      }else if((this.data9[params.index].errorType === 0) || (this.data9[params.index].errorType === 10)){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -58,7 +58,7 @@
                           },
                         }, this.data9[params.index].infoLen.warningLen + '  警告')
                       ]);
-                      }else if((this.data9[params.index].erroeType === 2) || (this.data9[params.index].errorType === 21)){
+                      }else if((this.data9[params.index].errorType === 2) || (this.data9[params.index].errorType === 21)){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -125,7 +125,7 @@
                           },
                         }, this.data9[params.index].infoLen.errorLen + '  错误')
                       ]);
-                      }else if((this.data9[params.index].erroeType === 0) || (this.data9[params.index].errorType === 10)){
+                      }else if((this.data9[params.index].errorType === 0) || (this.data9[params.index].errorType === 10)){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -137,7 +137,7 @@
                           },
                         }, this.data9[params.index].infoLen.warningLen + '  警告')
                       ]);
-                      }else if((this.data9[params.index].erroeType === 2) || (this.data9[params.index].errorType === 21)){
+                      }else if((this.data9[params.index].errorType === 2) || (this.data9[params.index].errorType === 21)){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -204,7 +204,7 @@
                           },
                         }, this.data9[params.index].infoLen.errorLen + '  error')
                       ]);
-                      }else if((this.data9[params.index].erroeType === 0) || (this.data9[params.index].errorType === 10)){
+                      }else if((this.data9[params.index].errorType === 0) || (this.data9[params.index].errorType === 10)){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -216,7 +216,7 @@
                           },
                         }, this.data9[params.index].infoLen.warningLen + '  warning')
                       ]);
-                      }else if((this.data9[params.index].erroeType === 2) || (this.data9[params.index].errorType === 21)){
+                      }else if((this.data9[params.index].errorType === 2) || (this.data9[params.index].errorType === 21)){
                         return h('div', [
                         h('Button', {
                           props: {
@@ -322,6 +322,8 @@
 
           })
           this.data9 = infoDataArray;
+          console.log("!!")
+          console.log(this.data9)
           this.$Message.success("Successfully get the report of this device");
         })
         .catch(() => {
