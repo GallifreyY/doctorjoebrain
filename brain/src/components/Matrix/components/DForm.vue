@@ -136,7 +136,9 @@ export default {
           { label: "5.2.0", value: "5.2.0" },
           { label: "5.3.0", value: "5.3.0" },
           { label: "5.4.0", value: "5.4.0" },
-          { label: "2006", value: "2006" }
+          { label: "5.5.0", value: "5.5.0" },
+          { label: "2006", value: "2006" },
+          { label: "2012", value: "2012" }
         ],
         agent: [
           { label: "7.8.0", value: "7.8.0" },
@@ -144,7 +146,9 @@ export default {
           { label: "7.10.0", value: "7.10.0" },
           { label: "7.11.0", value: "7.11.0" },
           { label: "7.12.0", value: "7.12.0" },
-          { label: "8.0.0", value: "8.0.0" }
+          { label: "7.13.0", value: "7.13.0" },
+          { label: "8.0.0", value: "8.0.0" },
+          { label: "8.1.0", value: "8.1.0" }
         ]
       },
       rulesV: {
