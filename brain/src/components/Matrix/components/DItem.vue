@@ -90,20 +90,24 @@ export default {
       formItem: undefined,
       HorizonVersionsList: {
         client: [
-          {label: "5.0.0", value: "5.0.0"},
-          {label: "5.1.0", value: "5.1.0"},
-          {label: "5.2.0", value: "5.2.0"},
-          {label: "5.3.0", value: "5.3.0"},
-          {label: "5.4.0", value: "5.4.0"},
-          {label: "2006", value: "2006"}
+          { label: "5.0.0", value: "5.0.0" },
+          { label: "5.1.0", value: "5.1.0" },
+          { label: "5.2.0", value: "5.2.0" },
+          { label: "5.3.0", value: "5.3.0" },
+          { label: "5.4.0", value: "5.4.0" },
+          { label: "5.5.0", value: "5.5.0" },
+          { label: "2006", value: "2006" },
+          { label: "2012", value: "2012" }
         ],
         agent: [
-          {label: "7.8.0", value: "7.8.0"},
-          {label: "7.9.0", value: "7.9.0"},
-          {label: "7.10.0", value: "7.10.0"},
-          {label: "7.11.0", value: "7.11.0"},
-          {label: "7.12.0", value: "7.12.0"},
-          {label: "8.0.0", value: "8.0.0"}
+          { label: "7.8.0", value: "7.8.0" },
+          { label: "7.9.0", value: "7.9.0" },
+          { label: "7.10.0", value: "7.10.0" },
+          { label: "7.11.0", value: "7.11.0" },
+          { label: "7.12.0", value: "7.12.0" },
+          { label: "7.13.0", value: "7.13.0" },
+          { label: "8.0.0", value: "8.0.0" },
+          { label: "8.1.0", value: "8.1.0" }
         ],
         categoryList: [
           {label: "USB Disks", value: "USB Disks"},
