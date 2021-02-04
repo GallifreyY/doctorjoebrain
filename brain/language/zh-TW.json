@@ -48,7 +48,7 @@
   "Follow": "點擊",
   "this link": "此鏈接",
   "to find more guidance.": "尋求更多幫助信息。",
-  "Detected in ": "端檢測到 ",
+  "Detected in ": "在",
   "Virtual Printer": "虛擬打印機",
   "Connected": "已連接",
   "Has problem": "有問題",
@@ -61,5 +61,6 @@
   "Vendor Name": "供應商名稱",
   "DeviceInfomation": "設備信息",
   "CompatibilityInfomation": "兼容性信息",
-  "MoreInfomation": "更多信息"
+  "MoreInfomation": "更多信息",
+  " end": "端檢測到"
 }
