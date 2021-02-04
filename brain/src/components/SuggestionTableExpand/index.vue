@@ -31,7 +31,7 @@
                 color="success"
                 type="border"
                 size="default"
-              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}{{$t(" end")}}</Tag>
               <Tag
                 v-if="row.deviceTag.isVirtualPrinter"
                 color="warning"
@@ -122,7 +122,7 @@
                 color="success"
                 type="border"
                 size="default"
-              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}{{$t(" end")}}</Tag>
               <Tag
                 v-if="row.deviceTag.isVirtualPrinter"
                 color="warning"
@@ -226,7 +226,7 @@
                 color="success"
                 type="border"
                 size="default"
-              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}</Tag>
+              >{{$t("Detected in ")}}{{row.deviceEnd.replace(/^\S/,s =>s.toUpperCase())}}{{$t(" end")}}</Tag>
               <Tag
                 v-if="row.deviceTag.isVirtualPrinter"
                 color="warning"
