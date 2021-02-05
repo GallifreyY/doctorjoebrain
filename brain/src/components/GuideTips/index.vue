@@ -1,6 +1,6 @@
 <template>
    <div class="tips">
-   <Sider id="sider" style="overflow:scroll" width="380px">
+   <Sider id="sider" style="overflow-y:scroll" width="380px" >
        <Menu active-name="1-4" :open-names="['1']" width="380px">
         <Submenu name="1">
             <template slot="title">

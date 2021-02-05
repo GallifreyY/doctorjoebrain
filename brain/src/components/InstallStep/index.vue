@@ -1,7 +1,7 @@
 <template>
    <div class="step">
-    <Sider id="sider" style="overflow:scroll" width="380px">
-       <Menu active-name="1-3" :open-names="['1']" width="380px">
+    <Sider id="sider" style="overflow-y:scroll" width="380px" >
+       <Menu active-name="1-3" :open-names="['1']" width="380px" >
         <Submenu name="1">
             <template slot="title">
                 <Icon type="ios-analytics" />
@@ -91,6 +91,7 @@ name:"InstallStep",
   position: fixed;
   height: 100vh;
   left: 0;
+  width: 380px;
   /* overflow: auto; */
   top: 70px;
   background: #fff;
