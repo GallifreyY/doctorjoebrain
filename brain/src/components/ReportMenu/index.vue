@@ -536,15 +536,26 @@
 
         },
       methods:{
-          handleClick(Category){
-      this.filter = Category
-            this.fetchInfoTable();
+            fetchLanguageInfo() {
+      let language = navigator.language
+      console.log(language)
+      getLanguageInfo(language)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(() => {
+          this.$Loading.error();
+          this.$Message.error(
+            "Sorry, could not get your language information..."
+          );
+        });
     },
-        fetchInfoTable() {
-          let uid = this.$route.params.id;
+          handleClick(Category){
+              this.fetchLanguageInfo();
+            let uid = this.$route.params.id;
+            var infoDataSet = new Set();
       getBasicInfo(uid)
         .then(response => {
-          var infoDataSet = new Set();
           let infoData = response.data.diagnosisTypeInfo;
           infoData.shift();
           infoData.forEach(function (value) {
@@ -592,10 +603,11 @@
         sugRes.push(sugSug);});
               copyValue.suggestionInfo = sugRes;
               infoDataSet.add(value);
-          })
-          let requestDataArray = []
+
+          });
+           this.filter = Category;
+              let requestDataArray = []
           infoDataSet.forEach(item => {
-            console.log(item.deviceType)
             if (item.deviceType === this.filter) {
                requestDataArray.push(item);
             }
@@ -605,11 +617,72 @@
           } else {
             this.reportData = requestDataArray;
           }
-          console.log("report:")
-          console.log(this.reportData)
-        //  this.reportData = response.data.diagnosisTypeInfo; //array
-
         })
+        .catch(() => {
+          this.$Loading.error();
+          this.$Message.error(
+            "Sorry, could not get your diagnosis information..."
+          );
+        });
+
+
+
+    },
+        fetchInfoTable() {
+          let uid = this.$route.params.id;
+      getBasicInfo(uid)
+        .then(response => {
+          var allInfoDataSet = new Set();
+          let infoData = response.data.diagnosisTypeInfo;
+          infoData.shift();
+          infoData.forEach(function (value) {
+              var copyValue = value;
+             let errorRes = [];
+          value.errorInfo.forEach(item => {
+
+          let errorSug = {};
+          if (item instanceof Array) {
+            errorSug["rcontext"] = item[0];
+            errorSug["rhasDetail"] = true;
+            errorSug["rdetail"] = item[1];
+          } else {
+            errorSug["rcontext"] = item;
+            errorSug["rhasDetail"] = false;
+          }
+          errorRes.push(errorSug);
+        });
+              copyValue.errorInfo = errorRes;
+
+            let warnRes = [];
+        value.warningInfo.forEach(item => {
+        let warnSug = {};
+        if (item instanceof Array) {
+          warnSug["rcontext"] = item[0];
+          warnSug["rhasDetail"] = true;
+          warnSug["rdetail"] = item[1];
+        } else {
+          warnSug["rcontext"] = item;
+          warnSug["rhasDetail"] = false;
+        }
+        warnRes.push(warnSug);});
+        copyValue.warningInfo = warnRes;
+        let sugRes = [];
+        value.suggestionInfo.forEach(item => {
+        let sugSug = {};
+        if (item instanceof Array) {
+          sugSug["rcontext"] = item[0];
+          sugSug["rhasDetail"] = true;
+          sugSug["rdetail"] = item[1];
+        } else {
+          sugSug["rcontext"] = item;
+          sugSug["rhasDetail"] = false;
+        }
+        sugRes.push(sugSug);});
+              copyValue.suggestionInfo = sugRes;
+              allInfoDataSet.add(value);
+        })
+            this.reportData = Array.from(allInfoDataSet);
+          })
         .catch(() => {
           this.$Loading.error();
           this.$Message.error(
@@ -621,7 +694,6 @@
           let uid = this.$route.params.id;
           let counts = (arr, value) => arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
           var typeArray = new Array();
-          console.log(this.$route.params.id)
           getBasicInfo(uid)
             .then(response => {
               var categoryInfoDataSet = new Set();
