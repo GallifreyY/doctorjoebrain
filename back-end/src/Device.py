@@ -43,15 +43,7 @@ class Device:
         return util.read_data(self.uuid)
 
     def _is_usb_redirect(self):
-        # todo:details
-
-        if self.type == 'usbdisk' or self.type == 'scanners' or self.type == 'cameras' or self.type == 'others' :
-            if self.end == 'agent':
-                return True
-            else:
-                return False
-
-        elif self.type == 'usbprinters' and self.end == 'agent':
+        if self.type == 'usbprinters' and self.end == 'agent':
             if self.vid is not None and self.pid is not None:
                 return True
             else:
@@ -78,7 +70,9 @@ class Device:
                     # elif device_r.get('vendor') == self.name.replace(" ", ""):
                     #     self.vid, self.pid = device_r['VID'], device_r['PID']
                     #     return True
-
+        elif self.type != 'virtualprinters':
+            if self.end == 'agent':
+                return True
         return False
 
     def find_details(self):
