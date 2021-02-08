@@ -320,8 +320,8 @@ def _signaturepad_diagnose(collected_data, device,error, warning, suggestion,lan
     else:
         # For Non Topaz BSB pad devices and Wacom devices
         trs_s=_("It is recommended to use USB redirection solution for this device in Horizon environment.")
-        suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
-        if device.name != "STU-520" and _is_agent_RDS(collected_data):
+        suggestion.append(trs_s)
+        if "STU-520" not in device.name  and _is_agent_RDS(collected_data):
             # Wacom 520 is the only supported signaturePad in RDSH by default
             trs_w=_("Horizon published RDS desktops and applications can only support \
                     a few USB devices. This device may be not supported by default.")
