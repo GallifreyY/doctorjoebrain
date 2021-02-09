@@ -49,11 +49,12 @@
       <h4>&nbsp;&nbsp;&nbsp;&nbsp;A report link message will pop up promptly. If the network connection with Horizon Peripherals Intelligence server is not very good, it may take a while.</h4>
       <img class="dj-installer-pic" src="../../assets/userguide_step3.png">
       <h3>Step 4.</h3><br />
-      <h4>&nbsp;&nbsp;&nbsp;&nbsp;Click the link message to use the default browser to open the device diagnosis report . Then select which device you want to diagnose from the device tree in the left navigator.</h4>
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;Click the link message to use the default browser to open the device diagnosis report . Here you can browse the overall peripherals health on the upper part of the web page. On the left is the score circle, which gives you an first impression of all your peripherals devices situation. On the right are all the devices that went wrong. You can click it for details. Devices that only have information wouldn’t appear on this part.</h4>
       <img class="dj-installer-pic" src="../../assets/userguide_step4.png">
       <h3>Step 5.</h3><br />
-      <h4>Check and browse the device details, Horizon services details and the suggestions for device redirection on the same page.</h4>
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;Scroll down, you can browse all your devices information.</h4>
       <img class="dj-installer-pic" src="../../assets/userguide_step5.png">
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;Click on different category to view the details. Also you can check the client/agent and more information under the corresponding tab.</h4>
       <img class="dj-installer-pic" src="../../assets/userguide_step6.png">
     </div>
   </div>
