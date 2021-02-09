@@ -3,7 +3,7 @@
     <nav-bar></nav-bar>
     <div>
       <div class="titles">
-        <h1 class="title">'{{$t('Horizon Peripherals Intelligence')}}</h1>
+        <h1 class="title">{{$t("Horizon Peripherals Intelligence")}}</h1>
         <h2 class="subtitle">{{$t("Device Intelligence Diagnosis Service for VMware Horizon")}}</h2>
       </div>
     </div>
