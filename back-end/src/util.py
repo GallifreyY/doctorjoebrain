@@ -60,12 +60,8 @@ def recognize_devices(collected_data, uuid):
     res = []
     recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', \
                         'cameras','others','signaturepad', 'speechmic','audio','barcodescanner']
-    for end in collected_data.keys():  # agent or client
+    for end in collected_data.keys():
         for key in collected_data[end].keys():
-            # todo: dimiss pritners check at agent end
-            #if key == 'printers' and end == 'agent':
-                #continue
-
             if collected_data[end][key] is None:
                 continue
             if key in recorded_devices:
@@ -78,33 +74,13 @@ def recognize_devices(collected_data, uuid):
                 if isinstance(devices, dict):
                     devices = [devices]
                     collected_data[end][device_type] = devices
-                    save_data(collected_data, uuid, 'user', 'json')
+                # Todo: Not sure what the save_data is for. Will remove it if no issues.
+                #   save_data(collected_data, uuid, 'user', 'json')
 
                 if device_type == 'virtualprinters' or device_type == 'usbprinters':
-                    for key in collected_data[end][device_type]:
-                        for k, v in dict.items(key):
-                            if k == 'DriverName':
-                                for index, device in enumerate(devices):
-                                    res.append(_Device(index,
-                                                device_type,
-                                                end,
-                                                uuid,
-                                                device.get("VID", None),
-                                                device.get("PID", None),
-                                                device.get('Name', None),
-                                                device.get('hasProblem', None),
-                                                device.get('problemCode',None),
-                                                device.get('problemdesc',None),
-                                                device.get('isRebootNeeded', None),
-                                                device.get('isPresent', None),
-                                                device.get('WorkOffline', None),
-                                                v.get('Name', None),
-                                                v.get('DriverVersion', None),
-                                                device.get('vendor', None),
-                                                v.get('Manufacturer', None)))
-
-                else:
                     for index, device in enumerate(devices):
+                        for k,v in dict.items(device):
+                            if k == 'DriverName':
                                 res.append(_Device(index,
                                             device_type,
                                             end,
@@ -118,10 +94,29 @@ def recognize_devices(collected_data, uuid):
                                             device.get('isRebootNeeded', None),
                                             device.get('isPresent', None),
                                             device.get('WorkOffline', None),
-                                            device.get('driverdesc', None),
-                                            device.get('driverver', None),
+                                            v.get('Name', None),
+                                            v.get('DriverVersion', None),
                                             device.get('vendor', None),
-                                            device.get('driverprovider',None)))
+                                            v.get('Manufacturer', None)))
+                else:
+                    for index, device in enumerate(devices):
+                        res.append(_Device(index,
+                                    device_type,
+                                    end,
+                                    uuid,
+                                    device.get("VID", None),
+                                    device.get("PID", None),
+                                    device.get('Name', None),
+                                    device.get('hasProblem', None),
+                                    device.get('problemCode',None),
+                                    device.get('problemdesc',None),
+                                    device.get('isRebootNeeded', None),
+                                    device.get('isPresent', None),
+                                    device.get('WorkOffline', None),
+                                    device.get('driverdesc', None),
+                                    device.get('driverver', None),
+                                    device.get('vendor', None),
+                                    device.get('driverprovider',None)))
 
     return res
 
