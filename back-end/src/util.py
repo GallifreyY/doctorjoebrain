@@ -98,8 +98,10 @@ def recognize_devices(collected_data, uuid):
                                                 device.get('isRebootNeeded', None),
                                                 device.get('isPresent', None),
                                                 device.get('WorkOffline', None),
+                                                v.get('Manufacturer', None),
                                                 v.get('Name', None),
-                                                v.get('DriverVersion', None)))
+                                                v.get('DriverVersion', None),
+                                                v.get('Manufacturer', None)))
 
                 else:
                     for index, device in enumerate(devices):
@@ -116,8 +118,10 @@ def recognize_devices(collected_data, uuid):
                                             device.get('isRebootNeeded', None),
                                             device.get('isPresent', None),
                                             device.get('WorkOffline', None),
-                                            device.get('driverprovider', None),
-                                            device.get('driverver', None)))
+                                            device.get('vendor', None),
+                                            device.get('driverdesc', None),
+                                            device.get('driverver', None),
+                                            device.get('driverprovider', None)))
 
     return res
 
