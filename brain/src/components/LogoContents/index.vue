@@ -11,7 +11,8 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>{{$t("Download")}}</h1>
-                <h2>{{$t("HorizonPeripheralsClient installer")}}</h2>
+                <h2>{{$t("HorizonPeripheralsClient 64bits 1.0")}}</h2>
+                <h2>{{$t("Installer")}}</h2>
                 </div>
               </Col>
             </Row>
@@ -26,7 +27,46 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>{{$t("Download")}}</h1>
-                <h2>{{$t("HorizonPeripheralsAgent installer")}}</h2>
+                <h2>{{$t("HorizonPeripheralsAgent 64bits 1.0")}}</h2>
+                <h2>{{$t("Installer")}}</h2>
+               </div>
+              </Col>
+            </Row>
+          </Button>
+        </div>
+        </Col>
+      </Row>
+    </div>
+
+    <div class="install-content">
+      <Row>
+        <Col span="12">
+          <div class="djclient-install">
+            <Button class="dj-client-button" @click="download32_client">
+              <Row>
+              <Col span="8"><img class="diagnose-logo" src="../../assets/logo.png">
+              </Col>
+              <Col span="16">
+                <div class="dj-install-des">
+                <h1>{{$t("Download")}}</h1>
+                <h2>{{$t("HorizonPeripheralsClient 32bits 1.0")}}</h2>
+                <h2>{{$t("Installer")}}</h2>
+                </div>
+              </Col>
+            </Row>
+            </Button>
+          </div>
+        </Col>
+        <Col span="12"><div class="djagent-install">
+         <Button class="dj-agent-button"  @click="download32_agent">
+            <Row>
+              <Col span="8"><img class="diagnose-logo" src="../../assets/logo.png">
+              </Col>
+              <Col span="16">
+                <div class="dj-install-des">
+                <h1>{{$t("Download")}}</h1>
+                <h2>{{$t("HorizonPeripheralsAgent 32bits 1.0")}}</h2>
+                <h2>{{$t("Installer")}}</h2>
                </div>
               </Col>
             </Row>
@@ -56,6 +96,14 @@
           },
           download_agent(){
             var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent.zip';
+            window.open(url,'_blank');
+          },
+          download32_client(){
+            var url = 'https://'+window.location.host+'/download/32bits/HorizonPeripheralsClient.msi';
+            window.open(url,'_blank');
+          },
+          download32_agent(){
+            var url = 'https://'+window.location.host+'/download/32bits/HorizonPeripheralsAgent.zip';
             window.open(url,'_blank');
           }
      }
