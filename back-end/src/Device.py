@@ -102,6 +102,9 @@ class Device:
         return None
 
     def _find_suspected_vendor(self):
+        if self.type != 'virtualprinters' and self.type != 'usbprinters':
+            if self.vendor != None:
+                return self.vendor
         if self.name == None: return None
         return self.manufacturer
 
@@ -130,8 +133,6 @@ class Device:
             }
         }
         # todo:
-        if self.type != 'virtualprinters' and  self.type != 'usbprinters' and self.vendor != None:
-            default_info['driverName'] = self.vendor
         if self.type == 'usbdisk':
             default_info['details']['picture'] = 'defaultUSB.jpg'
             default_info['details']['description'] = 'This device is an USB disk'
