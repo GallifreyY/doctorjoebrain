@@ -101,10 +101,10 @@ class Device:
         return None
 
     def _find_suspected_vendor(self):
-        if self.type != 'virtualprinters' and self.type != 'usbprinters':
-            if self.vendor != None:
-                return self.vendor
-        return self.manufacturer
+        if self.vendor != None:
+            return self.vendor
+        else:
+            return self.manufacturer
 
     def default_info(self):
         default_info = {
