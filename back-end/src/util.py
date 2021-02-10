@@ -299,17 +299,17 @@ def check_compatibility(collected_data, device):
             'key': "VMware Netlink Supervisor service",
             'value': dict_list['netlinkClientService'],
             'check': collected_data['client'].get('netlinkClientService', None) == 'Running'
-        }, 
+        },
         {
             'key': "VMware Horizon Client Service",
             'value': dict_list['clientService'],
             'check': collected_data['client'].get('clientService', None) == 'Running'
-        }, 
+        },
         {
             'key': "VMware Serial Com Redirection Client Service",
             'value': dict_list['serialClientService'],
             'check': collected_data['client'].get('serialClientService', None) == 'Running'
-        }, 
+        },
         {
             'key': "",
             'value': None,
@@ -368,10 +368,10 @@ def check_compatibility(collected_data, device):
         agent.append({
             'key': "VMware Netlink Session service",
             'value': dict_list['netlinkSessionService'],
-            'check': collected_data['agent'].get('netlinkSessionService', None) == 'Running' 
+            'check': collected_data['agent'].get('netlinkSessionService', None) == 'Running'
         })
 
-    #check thinprint/vmwareprint 
+    #check thinprint/vmwareprint
     details = collected_data['agent'].get('Horizoncomp', None)
     if details != None:
         printRedir = details.get('PrintRedir', None)
