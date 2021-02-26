@@ -148,7 +148,7 @@ def read_data(file_name, dir='user', mode='json'):
         dir_path = os.path.join(path, list_dir)
         for file in os.listdir(dir_path):
             if str(file) == file_name + '.' + mode:
-                with open(os.path.join(dir_path, file), file_mode) as f:
+                with open(os.path.join(dir_path, file), file_mode, encoding='utf-8-sig') as f:
                     if mode == 'pickle':
                         data = pickle.load(f)
                     elif mode == 'json':

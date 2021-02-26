@@ -127,7 +127,7 @@ def add_to_log_file():
     code = 20022
     state = 'failed'
     url = ''
-
+    
     if not request.is_json:
         # Fixme: please update a more strong method to pare String data from collector
         form = request.form.to_dict()
@@ -137,6 +137,7 @@ def add_to_log_file():
                 json_section = json_section.replace("\n", "").replace("\'", "\"")
                 collected_json += json_section
 
+        collected_json = collected_json.replace("\ufeff", "")  
         collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)
