@@ -22,6 +22,7 @@ TYPE_DICT = {
     "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
     "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
     "barcodescanner": {"zh_cn": "USB扫码枪", "en": "USB Barcode Scanner","zh_tw":"USB掃碼槍"},
+    "smartcardreader": {"zh_cn": "USB读卡器", "en": "Smartcard Reader","zh_tw":"USB讀卡器"},
     "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 docGUIDlinks = {
@@ -139,6 +140,8 @@ def diagnosis(collected_data, device,language):
         error, warning, suggestion = _audio_diagnose(collected_data, device,error, warning, suggestion,language)
     elif device.type == 'barcodescanner':
         error, warning, suggestion = _barcode_diagnose(collected_data, device,error, warning, suggestion,language)
+    elif device.type == 'smartcardreader':
+        error, warning, suggestion = _smartcard_diagnose(collected_data, device,error, warning, suggestion,language)
 
     # todo: final check
     error = list(filter(None, error))
@@ -431,6 +434,9 @@ def _barcode_diagnose(collected_data, device,error, warning, suggestion,language
         trs_e=_("You are using USB redirection for this device. Please leave it at client side. \
                  No need to do the USB redirection.")
         error.append(trs_e)
+    return error, warning, suggestion
+
+def  _smartcard_diagnose(collected_data, device,error, warning, suggestion,language):
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device,error, warning, suggestion,language):
