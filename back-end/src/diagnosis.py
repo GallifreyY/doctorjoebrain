@@ -437,6 +437,14 @@ def _barcode_diagnose(collected_data, device,error, warning, suggestion,language
     return error, warning, suggestion
 
 def  _smartcard_diagnose(collected_data, device,error, warning, suggestion,language):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+    trs_s=_("It is recommended to not do any redirection for this device in Horizon environment.")
+    suggestion.append(trs_s)
+    if device.is_usb_redirect:
+        trs_e=_("You are using USB redirection for this device. Please leave it at client side. \
+                 No need to do the USB redirection.")
+        error.append(trs_e)
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device,error, warning, suggestion,language):
@@ -448,6 +456,7 @@ def _judge_driver(device):
     provider = device.find_details()['driverprovider']
     if provider == 'Microsoft' \
         and re.search(r'.crosoft*',str(device.name)) is None \
+        # This line is incorrect logic. 'is not' is not equal to !=.
         and device.suspected_vendor is not 'Microsoft':
         trs_s=_("The driver is probably provided by Microsoft. Recommend to install the native driver provided by the device vendor.")
         return trs_s
