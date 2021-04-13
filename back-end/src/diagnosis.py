@@ -10,7 +10,9 @@ components = {
     "virtualprinters": ["ThinPrint","PrintRedir"],
     "usbprinters": ["ThinPrint","PrintRedir"],
     "scanners": "ScannerRedirection",
-    "cameras": "RTAV"
+    "cameras": "RTAV",
+    "audio" : "RTAV",
+    "smartcardreader" : "SmartCard"
 }
 TYPE_DICT = {
     "usbdisk": {"zh_cn": "USB硬盘", "en": "USB Disks","zh_tw":"USB磁盤"},
@@ -38,7 +40,8 @@ docGUIDlinks = {
 }
 
 KBlinkIDs = {
-    "CompositeSplit" : '2068447'
+    "CompositeSplit" : '2068447',
+    'RDSH_RTAV' : '2148202'
 }
 
 def diagnosis_general_issues(collected_data):
@@ -122,6 +125,10 @@ def diagnosis(collected_data, device,language):
         elif collected_data['agent']['Horizoncomp'][comp] == 1:
             trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",comp=comp,type=device_type)
             suggestion.append(_add_refers(trs_s, device.type, collected_data,language))
+            if comp == "RTAV" and _is_agent_RDS(collected_data):
+                trs_s=_("Please refer to this KB link for RTAV limitations on Windows Server OS.")
+                suggestion.append(_add_KB_refers(trs_s,'RDSH_RTAV',language))
+                
         
     # todo: for different devices
     if device.type == 'usbdisk':
@@ -282,17 +289,6 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion,language
     trs_s=_("If this camera is a high resolution composite device, please contact your IT administrator for other solutions for it is not supported in Horizon yet.")
     suggestion.append(trs_s)
 
-    trs_s=_("It is recommended to use RTAV redirection solution for common camera devices in Horizon environment.")
-    suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
-
-    if collected_data['client'].get('audioService',None) != 'Running':
-        trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
-        error.append(trs_s)
-
-    if collected_data['agent'].get('audioService',None) != 'Running':
-        trs_s=_("The Windows Audio service(Audiosrv) is not running on your agent desktop. Please check it out and ensure it is running before RTAV redirection.")
-        error.append(trs_s)
-
     if device.is_usb_redirect:
         trs_s=_("You are using USB redirection for camera devices. Please use RTAV redirection.")
         error.append(trs_s)
@@ -408,9 +404,6 @@ def _speechmic_diagnose(collected_data, device, error, warning, suggestion,langu
 def _audio_diagnose(collected_data, device, error, warning, suggestion,language):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
-    
-    trs_s=_("It is recommended to use RTAV redirection solution for this device in Horizon environment.")
-    suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
     if collected_data['client'].get('audioService',None) != 'Running':
         trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
@@ -436,7 +429,15 @@ def _barcode_diagnose(collected_data, device,error, warning, suggestion,language
         error.append(trs_e)
     return error, warning, suggestion
 
-def  _smartcard_diagnose(collected_data, device,error, warning, suggestion,language):
+def _smartcard_diagnose(collected_data, device,error, warning, suggestion,language):
+    if _judge_driver(device) is not None:
+        warning.append(_judge_driver(device))
+    trs_s=_("It is recommended to not do any redirection for this device in Horizon environment.")
+    suggestion.append(trs_s)
+    if device.is_usb_redirect:
+        trs_e=_("You are using USB redirection for this device. Please leave it at client side. \
+                 No need to do the USB redirection.")
+        error.append(trs_e)
     return error, warning, suggestion
 
 def _other_diagnose(collected_data, device,error, warning, suggestion,language):
@@ -448,8 +449,9 @@ def _judge_driver(device):
     provider = device.find_details()['driverprovider']
     if provider == 'Microsoft' \
         and re.search(r'.crosoft*',str(device.name)) is None \
-        and device.suspected_vendor is not 'Microsoft':
-        trs_s=_("The driver is probably provided by Microsoft. Recommend to install the native driver provided by the device vendor.")
+        and device.suspected_vendor != 'Microsoft':
+        trs_s=_("The driver is probably provided by Microsoft. Recommend to install \
+                 the native driver provided by the device vendor.")
         return trs_s
     return None
 
