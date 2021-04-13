@@ -40,7 +40,8 @@ docGUIDlinks = {
 }
 
 KBlinkIDs = {
-    "CompositeSplit" : '2068447'
+    "CompositeSplit" : '2068447',
+    'RDSH_RTAV' : '2148202'
 }
 
 def diagnosis_general_issues(collected_data):
@@ -124,6 +125,10 @@ def diagnosis(collected_data, device,language):
         elif collected_data['agent']['Horizoncomp'][comp] == 1:
             trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",comp=comp,type=device_type)
             suggestion.append(_add_refers(trs_s, device.type, collected_data,language))
+            if comp == "RTAV" and _is_agent_RDS(collected_data):
+                trs_s=_("Please refer to this KB link for RTAV limitations on Windows Server OS.")
+                suggestion.append(_add_KB_refers(trs_s,'RDSH_RTAV',language))
+                
         
     # todo: for different devices
     if device.type == 'usbdisk':
