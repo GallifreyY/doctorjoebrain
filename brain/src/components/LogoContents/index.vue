@@ -76,6 +76,28 @@
       </Row>
     </div>
 
+    <div class="install-content">
+      <Row>
+        <Col span="12">
+          <div class="djclient-install">
+            <Button class="dj-client-button" @click="download_client_linux">
+              <Row>
+              <Col span="8"><img class="diagnose-logo" src="../../assets/logo.png">
+              </Col>
+              <Col span="16">
+                <div class="dj-install-des">
+                <h1>{{$t("Download")}}</h1>
+                <h2>{{$t("HorizonPeripheralsClient Linux")}}</h2>
+                <h2>{{$t("Installer")}} {{version}}</h2>
+                </div>
+              </Col>
+            </Row>
+            </Button>
+          </div>
+        </Col>
+        </Row>
+        </div>
+
   </div>
 
 
@@ -105,6 +127,10 @@
           },
           download32_agent(){
             var url = 'https://'+window.location.host+'/download/32bits/HorizonPeripheralsAgent.zip';
+            window.open(url,'_blank');
+          },
+          download_client_linux(){
+            var url = 'https://'+window.location.host+'/download/linux/HorizonPeripheralsClient.zip';
             window.open(url,'_blank');
           }
      }
