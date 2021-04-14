@@ -11,8 +11,8 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>{{$t("Download")}}</h1>
-                <h2>{{$t("HorizonPeripheralsClient 64bits")}}</h2>
-                <h2>{{$t("Installer")}} {{version}}</h2>
+                <h2>{{$t("HorizonPeripheralsClient Windows")}}</h2>
+                <h2>{{$t("64bits Installer")}} {{version}}</h2>
                 </div>
               </Col>
             </Row>
@@ -27,8 +27,8 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>{{$t("Download")}}</h1>
-                <h2>{{$t("HorizonPeripheralsAgent 64bits")}}</h2>
-                <h2>{{$t("Installer")}} {{version}}</h2>
+                <h2>{{$t("HorizonPeripheralsAgent Windows")}}</h2>
+                <h2>{{$t("64bits Installer")}} {{version}}</h2>
                </div>
               </Col>
             </Row>
@@ -49,8 +49,8 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>{{$t("Download")}}</h1>
-                <h2>{{$t("HorizonPeripheralsClient 32bits")}}</h2>
-                <h2>{{$t("Installer")}} {{version}}</h2>
+                <h2>{{$t("HorizonPeripheralsClient Windows")}}</h2>
+                <h2>{{$t("32bits Installer")}} {{version}}</h2>
                 </div>
               </Col>
             </Row>
@@ -65,8 +65,8 @@
               <Col span="16">
                 <div class="dj-install-des">
                 <h1>{{$t("Download")}}</h1>
-                <h2>{{$t("HorizonPeripheralsAgent 32bits")}}</h2>
-                <h2>{{$t("Installer")}} {{version}}</h2>
+                <h2>{{$t("HorizonPeripheralsAgent Windows")}}</h2>
+                <h2>{{$t("32bits Installer")}} {{version}}</h2>
                </div>
               </Col>
             </Row>
