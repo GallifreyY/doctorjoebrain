@@ -28,15 +28,16 @@ TYPE_DICT = {
     "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 docGUIDlinks = {
-    "CDR": "GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html",
-    "usbdisk": "GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html",
-    "virtualprinters": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
-    "usbprinters": "GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html",
-    "scanners": "GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html",
-    "cameras": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html",
-    "RTAV": "GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html",
-    "SerialPort": "GUID-98B33D70-097E-419E-9B4D-7390E7CDF745.html",
-    "RDSHsupported" : "GUID-35B4D247-C972-4C8F-8B13-326A01C0A245.html"
+    "CDR": ["/horizon-remote-desktop-features/","GUID-25820640-60C2-4B7D-AE3F-F023E32B3DAE.html"],
+    "usbdisk": ["/horizon-remote-desktop-features/","GUID-777D266A-52C7-4C53-BAE2-BD514F4A800F.html"],
+    "virtualprinters": ["/horizon-remote-desktop-features/","GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"],
+    "usbprinters": ["/horizon-remote-desktop-features/","GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"],
+    "scanners": ["/horizon-remote-desktop-features/","GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html"],
+    "cameras": ["/horizon-remote-desktop-features/","GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"],
+    "RTAV": ["/horizon-remote-desktop-features/","GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"],
+    "SerialPort": ["/horizon-remote-desktop-features/","GUID-98B33D70-097E-419E-9B4D-7390E7CDF745.html"],
+    "smartcardreader" : ["/horizon-console-administration/","GUID-2A035E01-599A-4A2E-8265-2DE014AB7244.html"],
+    "RDSHsupported" : ["/horizon-remote-desktop-features/","GUID-35B4D247-C972-4C8F-8B13-326A01C0A245.html"]
 }
 
 KBlinkIDs = {
@@ -67,7 +68,9 @@ def diagnosis_general_issues(collected_data):
     # Check the Desktop Experience component installation status on RDS
     if _is_agent_RDS(collected_data):
         if collected_data['agent'].get('DesktopExpInstalled',None) != True:
-            trs_s = _("The Desktop Experience component is not installed on your RDS desktop. The VMware Horizon agent functions (such as scanner redirection) may not work normally because of it. Please check it out and ensure it is installed.")
+            trs_s = _("The Desktop Experience component is not installed on your RDS desktop. \
+                       The VMware Horizon agent functions (such as scanner redirection) may \
+                       not work normally because of it. Please check it out and ensure it is installed.")
             warning.append(trs_s)
         
     return {'error': error,'warning': warning,'suggestion':suggestion}
@@ -80,11 +83,11 @@ def diagnosis(collected_data, device,language):
 
     # todo: general
     if is_language_zh_cn(language):
-        device_type = TYPE_DICT[device.type]['zh_cn']
+        device_type_l10n = TYPE_DICT[device.type]['zh_cn']
     elif is_language_zh_tw(language):
-        device_type = TYPE_DICT[device.type]['zh_tw']
+        device_type_l10n = TYPE_DICT[device.type]['zh_tw']
     else:
-        device_type = TYPE_DICT[device.type]['en']
+        device_type_l10n = TYPE_DICT[device.type]['en']
     if device.problemcode!=None:
         if int(device.problemcode) > 0:
             trs_ss=_("This device has some configuration issues. The device problem code is %(problemcode)s. %(problemdesc)s",problemcode=device.problemcode,problemdesc=device.problemdesc)
@@ -109,27 +112,31 @@ def diagnosis(collected_data, device,language):
                 if _comp in collected_data['agent']['Horizoncomp']:
                     if collected_data['agent']['Horizoncomp'][_comp] == 1:
                         comp_installed = True
-                        trs_s=_("The VMware %(compstr)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",compstr=compstr,type=device_type)
+                        trs_s=_("The VMware %(compstr)s component is installed on the Horizon agent desktop. \
+                                 Please use it for %(type)s redirection.",compstr=compstr,type=device_type_l10n)
                         suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
                         break
                 else:
-                    trs_s=_("The VMware %(compstr)s component is not available in the current Horizon agent product version.",compstr=compstr)
+                    trs_s=_("The VMware %(compstr)s component is not available in the current Horizon agent \
+                             product version." ,compstr=compstr)
                     suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
             if comp_installed == False :
                 comp_string = " or ".join(comp)
-                trs_s=_("The VMware %(comp_string)s component is not installed on the Horizon agent desktop. Please check it with your IT administrator.",comp_string=comp_string)
+                trs_s=_("The VMware %(comp_string)s component is not installed on the Horizon agent desktop. \
+                         Please check it with your IT administrator.",comp_string=comp_string)
                 error.append(_add_refers(trs_s,device.type,collected_data,language))
         elif collected_data['agent']['Horizoncomp'][comp] == 0:
-            trs_s=_("The VMware %(comp)s component is not installed on the Horizon agent desktop. Please check it with your IT administrator.",comp=comp)
+            trs_s=_("The VMware %(comp)s component is not installed on the Horizon agent desktop. Please \
+                     check it with your IT administrator.",comp=comp)
             error.append(_add_refers(trs_s,device.type,collected_data,language))
         elif collected_data['agent']['Horizoncomp'][comp] == 1:
-            trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use it for %(type)s redirection.",comp=comp,type=device_type)
+            trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use \
+                       it for %(type)s redirection.",comp=comp,type=device_type_l10n)
             suggestion.append(_add_refers(trs_s, device.type, collected_data,language))
             if comp == "RTAV" and _is_agent_RDS(collected_data):
                 trs_s=_("Please refer to this KB link for RTAV limitations on Windows Server OS.")
-                suggestion.append(_add_KB_refers(trs_s,'RDSH_RTAV',language))
-                
-        
+                suggestion.append(_add_KB_refers(trs_s,'RDSH_RTAV',language))             
+
     # todo: for different devices
     if device.type == 'usbdisk':
         error, warning, suggestion = _usb_disk_diagnose(collected_data, device, error, warning, suggestion,language)
@@ -421,7 +428,7 @@ def _audio_diagnose(collected_data, device, error, warning, suggestion,language)
 def _barcode_diagnose(collected_data, device,error, warning, suggestion,language):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
-    trs_s=_("It is recommended to not do any redirection for this device in Horizon environment.")
+    trs_s=_("It is recommended to not do any USB redirection for this device in Horizon environment.")
     suggestion.append(trs_s)
     if device.is_usb_redirect:
         trs_e=_("You are using USB redirection for this device. Please leave it at client side. \
@@ -432,7 +439,7 @@ def _barcode_diagnose(collected_data, device,error, warning, suggestion,language
 def _smartcard_diagnose(collected_data, device,error, warning, suggestion,language):
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
-    trs_s=_("It is recommended to not do any redirection for this device in Horizon environment.")
+    trs_s=_("It is recommended to not do any USB redirection for this device in Horizon environment.")
     suggestion.append(trs_s)
     if device.is_usb_redirect:
         trs_e=_("You are using USB redirection for this device. Please leave it at client side. \
@@ -482,7 +489,9 @@ def _add_refers(suggestion,key,collected_data,language):
         lang = "en"
     prefix7="https://docs.vmware.com/"+lang+"/VMware-Horizon-7/"
     prefix8="https://docs.vmware.com/"+lang+"/VMware-Horizon/"
-    middle="/horizon-remote-desktop-features/"
+    # For smartcard component, it is in horizon-console-administration
+    # For other components, they are in horizon-remote-desktop-features
+    middle= docGUIDlinks[key][0]
     horizon_ver=_get_horizon_ver(collected_data)
     if horizon_ver.startswith('7'):
         prefix= prefix7
@@ -497,7 +506,7 @@ def _add_refers(suggestion,key,collected_data,language):
                 docver = "2006" # Add a default value as Horizon 8.0(2006)
         else:
             docver = "2006" # Add a default value as Horizon 8.0(2006)
-    fulldoclink= prefix + docver  + middle + docGUIDlinks[key]
+    fulldoclink= prefix + docver  + middle + docGUIDlinks[key][1]
     return [suggestion, fulldoclink]
 
 # Get the 7.13 as return value from agent version 7.13.0
