@@ -88,7 +88,7 @@
                 <div class="dj-install-des">
                 <h1>{{$t("Download")}}</h1>
                 <h2>{{$t("HorizonPeripheralsClient Linux")}}</h2>
-                <h2>{{$t("Installer")}} {{version}}</h2>
+                <h2>{{$t("64bits Installer")}} {{version}}</h2>
                 </div>
               </Col>
             </Row>

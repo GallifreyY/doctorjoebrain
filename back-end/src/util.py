@@ -9,7 +9,7 @@ import datetime
 import json
 import password_access
 
-def isWin(collected_data):
+def isWinClient(collected_data):
     if "Windows" in collected_data['client'].get('OSname',None):
         return True
     else:
@@ -321,7 +321,7 @@ def check_compatibility(collected_data, device):
             'check': 'null'
         }
     ]
-    if isWin(collected_data) == False:
+    if isWinClient(collected_data) == False:
         for item in client:
             if item['key'] == "Windows Audio Service":
                 client.remove(item)
