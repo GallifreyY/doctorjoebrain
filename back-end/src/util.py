@@ -321,7 +321,7 @@ def check_compatibility(collected_data, device):
             'check': 'null'
         }
     ]
-    if isWinClient(collected_data) == False:
+    if not isWinClient(collected_data):
         for item in client:
             if item['key'] == "Windows Audio Service":
                 client.remove(item)
