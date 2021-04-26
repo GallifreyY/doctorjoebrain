@@ -412,9 +412,10 @@ def _audio_diagnose(collected_data, device, error, warning, suggestion,language)
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
 
-    if collected_data['client'].get('audioService',None) != 'Running':
-        trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
-        error.append(trs_s)
+    if "Windows" in collected_data['client'].get('OSname',None):
+        if collected_data['client'].get('audioService',None) != 'Running':
+            trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
+            error.append(trs_s)
 
     if collected_data['agent'].get('audioService',None) != 'Running':
         trs_s=_("The Windows Audio service(Audiosrv) is not running on your agent desktop. Please check it out and ensure it is running before RTAV redirection.")

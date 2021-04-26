@@ -316,7 +316,10 @@ def check_compatibility(collected_data, device):
             'check': 'null'
         }
     ]
-
+    if "Ubuntu" in collected_data['client'].get('OSname',None):
+        for item in client:
+            if item['key'] == "Windows Audio Service":
+                client.remove(item)
     agent = [
         {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
         {
