@@ -320,6 +320,8 @@ def check_compatibility(collected_data, device):
         for item in client:
             if item['key'] == "Windows Audio Service":
                 client.remove(item)
+            elif item['key'] == "Windows Print Spooler Service":
+                item['key'] = "Linux Print Service"
     agent = [
         {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
         {
