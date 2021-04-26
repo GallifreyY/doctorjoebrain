@@ -325,6 +325,8 @@ def check_compatibility(collected_data, device):
         for item in client:
             if item['key'] == "Windows Audio Service":
                 client.remove(item)
+            elif item['key'] == "VMware Serial Com Redirection Client Service":
+                client.remove(item)
             elif item['key'] == "Windows Print Spooler Service":
                 item['key'] = "Linux Print Service"
     agent = [
