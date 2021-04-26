@@ -263,11 +263,11 @@ def _scanner_diagnose(collected_data, device,error, warning, suggestion,language
     suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
     if collected_data['client'].get('netlinkClientService',None) != 'Running':
-        trs_s=_("The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your client desktop. Please check it out and ensure it is running before scanner redirection.")
+        trs_s=_("The VMware Netlink Supervisor service is not running on your client desktop. Please check it out and ensure it is running before scanner redirection.")
         error.append(trs_s)
 
     if collected_data['client'].get('scannerClientService',None) != 'Running':
-        trs_s=_("The VMware Scanner Redirection Client service(ftscanmgrhv) is not running on your client desktop. Please check it out and ensure it is running before scanner redirection.")
+        trs_s=_("The VMware Scanner Redirection Client service is not running on your client desktop. Please check it out and ensure it is running before scanner redirection.")
         error.append(trs_s)
 
     if collected_data['agent'].get('netlinkAgentService',None) != 'Running':
@@ -412,9 +412,10 @@ def _audio_diagnose(collected_data, device, error, warning, suggestion,language)
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
 
-    if collected_data['client'].get('audioService',None) != 'Running':
-        trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
-        error.append(trs_s)
+    if isWinClient(collected_data):
+        if collected_data['client'].get('audioService',None) != 'Running':
+            trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
+            error.append(trs_s)
 
     if collected_data['agent'].get('audioService',None) != 'Running':
         trs_s=_("The Windows Audio service(Audiosrv) is not running on your agent desktop. Please check it out and ensure it is running before RTAV redirection.")

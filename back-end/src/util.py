@@ -9,6 +9,11 @@ import datetime
 import json
 import password_access
 
+def isWinClient(collected_data):
+    if "Windows" in collected_data['client'].get('OSname',None):
+        return True
+    else:
+        return False
 
 def to_json(inst, cls):
     d = dict()
@@ -316,7 +321,12 @@ def check_compatibility(collected_data, device):
             'check': 'null'
         }
     ]
-
+    if not isWinClient(collected_data):
+        for item in client:
+            if item['key'] == "Windows Audio Service":
+                client.remove(item)
+            elif item['key'] == "Windows Print Spooler Service":
+                item['key'] = "Linux Print Service"
     agent = [
         {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
         {
