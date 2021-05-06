@@ -99,6 +99,7 @@ TYPE_DICT = {
     "audio": {"zh_cn": "USB音箱", "en": "USB Audio","zh_tw":"USB音箱"},
     "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
     "barcodescanner": {"zh_cn": "USB扫码枪", "en": "Barcode Scanner","zh_tw":"USB掃碼槍"},
+    "smartcardreader": {"zh_cn": "智能卡读卡器", "en": "Smartcard Reader","zh_tw":"智能卡讀卡器"},
     "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 CATE_LIST = []
@@ -127,7 +128,7 @@ def add_to_log_file():
     code = 20022
     state = 'failed'
     url = ''
-
+    
     if not request.is_json:
         # Fixme: please update a more strong method to pare String data from collector
         form = request.form.to_dict()
@@ -137,6 +138,7 @@ def add_to_log_file():
                 json_section = json_section.replace("\n", "").replace("\'", "\"")
                 collected_json += json_section
 
+        collected_json = collected_json.replace("\ufeff", "")  
         collected_data = json.loads(collected_json)
     else:
         collected_data = json.loads(request.json)

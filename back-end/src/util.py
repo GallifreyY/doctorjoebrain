@@ -9,6 +9,11 @@ import datetime
 import json
 import password_access
 
+def isWinClient(collected_data):
+    if "Windows" in collected_data['client'].get('OSname',None):
+        return True
+    else:
+        return False
 
 def to_json(inst, cls):
     d = dict()
@@ -59,7 +64,7 @@ def recognize_devices(collected_data, uuid):
     """
     res = []
     recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', \
-                        'cameras','others','signaturepad', 'speechmic','audio','barcodescanner']
+                        'cameras','others','signaturepad', 'speechmic','audio','barcodescanner','smartcardreader']
     for end in collected_data.keys():
         for key in collected_data[end].keys():
             if collected_data[end][key] is None:
@@ -148,7 +153,7 @@ def read_data(file_name, dir='user', mode='json'):
         dir_path = os.path.join(path, list_dir)
         for file in os.listdir(dir_path):
             if str(file) == file_name + '.' + mode:
-                with open(os.path.join(dir_path, file), file_mode) as f:
+                with open(os.path.join(dir_path, file), file_mode, encoding='utf-8-sig') as f:
                     if mode == 'pickle':
                         data = pickle.load(f)
                     elif mode == 'json':
@@ -316,7 +321,14 @@ def check_compatibility(collected_data, device):
             'check': 'null'
         }
     ]
-
+    if not isWinClient(collected_data):
+        for item in client:
+            if item['key'] == "Windows Audio Service":
+                client.remove(item)
+            elif item['key'] == "VMware Serial Com Redirection Client Service":
+                client.remove(item)
+            elif item['key'] == "Windows Print Spooler Service":
+                item['key'] = "Linux Print Service"
     agent = [
         {'key': "Agent OS Name", 'value': collected_data['agent']['OSname'], 'check': True},
         {
