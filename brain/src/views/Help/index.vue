@@ -1,8 +1,7 @@
 <template>
-  <div class="help" style="overflow-y: hidden;overflow-x: hidden">
+  <div class="help" >
     <nav-bar style="margin-left: 15px"></nav-bar>
-    <iframe id="iframeId" src="https://marketplace.cloud.vmware.com/vmware-validated-peripherals" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>
-<!--    <guide-content></guide-content>-->
+    <guide-content></guide-content>
     </div>
 </template>
 
@@ -16,16 +15,5 @@
 </script>
 
 <style scoped>
-.iframe {
-    position: absolute;
-    left: 15px;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    width: 99%;
-    height: 100%;
-    background: #fff;
-    overflow-y: hidden;
-    overflow-x: hidden;
-}
+
 </style>
