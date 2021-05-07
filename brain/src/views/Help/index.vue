@@ -1,5 +1,5 @@
 <template>
-  <div class="help">
+  <div class="help" >
     <nav-bar style="margin-left: 15px"></nav-bar>
     <guide-content></guide-content>
     </div>
