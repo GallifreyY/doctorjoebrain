@@ -43,7 +43,8 @@ docGUIDlinks = {
 KBlinkIDs = {
     "CompositeSplit" : '2068447',
     "RTAV_reconnect_delay" : '70706',
-    'RDSH_RTAV' : '2148202'
+    'RDSH_RTAV' : '2148202',
+    'WAN_Opt_SignPad': '70733'
 }
 
 def diagnosis_general_issues(collected_data):
@@ -328,6 +329,8 @@ def _signaturepad_diagnose(collected_data, device,error, warning, suggestion,lan
         # For Non Topaz BSB pad devices and Wacom devices
         trs_s=_("It is recommended to use USB redirection solution for this device in Horizon environment.")
         suggestion.append(trs_s)
+        trs_d=_("Your signature pad device may not work well under WAN network.")
+        suggestion.append(_add_KB_refers(trs_d,'WAN_Opt_SignPad',language))
         if "STU-520" not in device.name  and _is_agent_RDS(collected_data):
             # Wacom 520 is the only supported signaturePad in RDSH by default
             trs_w=_("Horizon published RDS desktops and applications can only support \
