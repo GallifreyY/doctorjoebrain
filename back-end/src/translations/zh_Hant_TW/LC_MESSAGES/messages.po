@@ -385,7 +385,7 @@ msgid ""
 "You are using pure USB redirection for this device. Please use Nuance"
 "                         extension solution or USB split with RTAV "
 "redirection solution."
-msgstr "您正在以純USB重定向的方式使用此設備。請使用Nuance extension或者USB拆分和RTAV重定向的解決方案。"
+msgstr "您正在以純USB重定向的方式使用此設備。請使用Nuance extension或者USB split和RTAV重定向的解決方案。"
 
 #: diagnosis.py:442
 msgid ""
@@ -403,7 +403,7 @@ msgstr "未配置USB include和split。請與您的IT管理員聯繫以正確配
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution for"
 "         this device in Horizon environment."
-msgstr "建議在Horizo​​n環境中以USB拆分和RTAV重定向的方式來使用此設備。"
+msgstr "建議在Horizo​​n環境中以USB split和RTAV重定向的方式來使用此設備。"
 
 #: diagnosis.py:468
 msgid ""
