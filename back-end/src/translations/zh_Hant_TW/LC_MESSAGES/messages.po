@@ -352,7 +352,7 @@ msgid ""
 "It is wrong to configure both USB split settings and Nuance extensions."
 "                              Please contact your IT administrator to "
 "correct it."
-msgstr "同時配置USB split設置和Nuance extension是錯誤的。請與您的IT管理員聯繫以更正它。"
+msgstr "同時配置USB拆分設置和Nuance extension是錯誤的。請與您的IT管理員聯繫以更正它。"
 
 #: diagnosis.py:424
 msgid ""
@@ -362,13 +362,13 @@ msgid ""
 "environment."
 msgstr ""
 "USB include和split已配置。 Nuance "
-"extensions未安裝在客戶端計算機。請在Horizo​​n環境中用USB split和RTAV重定向的解決方案來使用此設備。"
+"extensions未安裝在客戶端計算機。請在Horizo​​n環境中用USB拆分加RTAV重定向的解決方案來使用此設備。"
 
 #: diagnosis.py:428 diagnosis.py:445 diagnosis.py:456
 msgid ""
 "Your PowerMic device may not work by VMware USB split when session "
 "reconnects."
-msgstr "會話重新連接時，您的PowerMic設備可能無法通過VMware USB split正常工作。"
+msgstr "會話重新連接時，您的PowerMic設備可能無法通過VMware USB拆分正常工作。"
 
 #: diagnosis.py:431
 msgid ""
@@ -385,25 +385,25 @@ msgid ""
 "You are using pure USB redirection for this device. Please use Nuance"
 "                         extension solution or USB split with RTAV "
 "redirection solution."
-msgstr "您正在以純USB重定向的方式使用此設備。請使用Nuance extension或者USB split和RTAV重定向的解決方案。"
+msgstr "您正在以純USB重定向的方式使用此設備。請使用Nuance extension或者USB拆分加RTAV重定向的解決方案。"
 
 #: diagnosis.py:442
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution"
 "             for this device in Horizon environment."
-msgstr "建議在Horizo​​n環境中以USB split和RTAV重定向的方式來使用此設備。"
+msgstr "建議在Horizo​​n環境中以USB拆分加RTAV重定向的方式來使用此設備。"
 
 #: diagnosis.py:448
 msgid ""
 "The USB include and split policy is not configured. Please contact your"
 "                 IT administrator to configure it correctly."
-msgstr "未配置USB include和split。請與您的IT管理員聯繫以正確配置它。"
+msgstr "未配置USB包含和拆分。請與您的IT管理員聯繫以正確配置它。"
 
 #: diagnosis.py:453
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution for"
 "         this device in Horizon environment."
-msgstr "建議在Horizo​​n環境中以USB split和RTAV重定向的方式來使用此設備。"
+msgstr "建議在Horizo​​n環境中以USB拆分加RTAV重定向的方式來使用此設備。"
 
 #: diagnosis.py:468
 msgid ""
