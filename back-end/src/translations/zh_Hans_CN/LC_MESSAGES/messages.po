@@ -35,13 +35,13 @@ msgid ""
 "The print service(spooler) is not running on your client desktop."
 "         Please check it out and ensure it is running before printer "
 "redirection."
-msgstr "打印服务没有在客户端机器上运行。请检查并确保它在打印机重定向之前处于运行状态。"
+msgstr "打印服务(spooler)没有在客户端机器上运行。请检查并确保它在打印机重定向之前处于运行状态。"
 
 #: diagnosis.py:69 diagnosis.py:220
 msgid ""
 "The print service(spooler) is not running on your agent desktop.         "
 "Please check it out and ensure it is running before printer redirection."
-msgstr "打印服务没有在agent机器上运行。请检查并确保它在打印机重定向之前处于运行状态。"
+msgstr "打印服务(spooler)没有在agent机器上运行。请检查并确保它在打印机重定向之前处于运行状态。"
 
 #: diagnosis.py:77
 msgid ""
@@ -231,21 +231,21 @@ msgid ""
 "The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your"
 "         agent desktop. Please check it out and ensure it is running "
 "before scanner redirection."
-msgstr "VMware Netlink Supervisor服务没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr "VMware Netlink Supervisor(ftnlsv3hv)服务没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:302
 msgid ""
 "The VMware Scanner Redirection Agent service(ftscansvchv) is not         "
 "running on your agent desktop. Please check it out and ensure it is "
 "running         before scanner redirection."
-msgstr "VMware扫描仪重定向Agent端服务没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr "VMware扫描仪重定向Agent端服务(ftscansvchv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:309
 msgid ""
 "The VMware Network Session service(ftnlses3hv) is not running on"
 "             your agent desktop. Please check it out and ensure it is "
 "running before scanner redirection."
-msgstr "VMware Network Session服务没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr "VMware Network Session服务(ftnlses3hv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
 #: diagnosis.py:314
 msgid ""
@@ -389,7 +389,7 @@ msgstr "您正在以纯USB重定向的方式使用此设备。请使用Nuance ex
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution"
 "             for this device in Horizon environment."
-msgstr "建议在Horizon环境中以打印机重定向的方式来使用此设备。"
+msgstr "建议在Horizon环境中使用带有RTAV重定向的USB split的方式来使用此设备。"
 
 #: diagnosis.py:448
 msgid ""
@@ -401,21 +401,21 @@ msgstr "未配置USB include和split。请与您的IT管理员联系以正确配
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution for"
 "         this device in Horizon environment."
-msgstr "建议在Horizon环境中以打印机重定向的方式来使用此设备。"
+msgstr "建议在Horizon环境中使用带有RTAV重定向的USB split的的方式来使用此设备。"
 
 #: diagnosis.py:468
 msgid ""
 "The Windows Audio service(Audiosrv) is not running on your client "
 "desktop.             Please check it out and ensure it is running before "
 "RTAV redirection."
-msgstr "Windows音频服务未在客户端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
+msgstr "Windows音频服务(Audiosrv)未在客户端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
 
 #: diagnosis.py:473
 msgid ""
 "The Windows Audio service(Audiosrv) is not running on your agent desktop."
 "         Please check it out and ensure it is running before RTAV "
 "redirection."
-msgstr "Windows音频服务未在agent端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
+msgstr "Windows音频服务(Audiosrv)未在agent端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
 
 #: diagnosis.py:478
 msgid ""

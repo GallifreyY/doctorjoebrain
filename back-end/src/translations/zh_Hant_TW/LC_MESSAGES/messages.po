@@ -35,13 +35,13 @@ msgid ""
 "The print service(spooler) is not running on your client desktop."
 "         Please check it out and ensure it is running before printer "
 "redirection."
-msgstr "打印服務未在客戶端桌面上運行。請檢查並確保它在打印機重定向之前處於運行狀態。"
+msgstr "打印服務(spooler)未在客戶端桌面上運行。請檢查並確保它在打印機重定向之前處於運行狀態。"
 
 #: diagnosis.py:69 diagnosis.py:220
 msgid ""
 "The print service(spooler) is not running on your agent desktop.         "
 "Please check it out and ensure it is running before printer redirection."
-msgstr "打印服務未在Agent桌面上運行。請檢查並確保它在打印機重定向之前處於運行狀態。"
+msgstr "打印服務(spooler)未在Agent桌面上運行。請檢查並確保它在打印機重定向之前處於運行狀態。"
 
 #: diagnosis.py:77
 msgid ""
@@ -233,21 +233,21 @@ msgid ""
 "before scanner redirection."
 msgstr ""
 "VMware Netlink "
-"Supervisor服務未在Agent桌面上運行。請檢查並確保它在掃描儀重定向之前已經處於運行狀態。"
+"Supervisor服務(ftnlsv3hv)未在Agent桌面上運行。請檢查並確保它在掃描儀重定向之前已經處於運行狀態。"
 
 #: diagnosis.py:302
 msgid ""
 "The VMware Scanner Redirection Agent service(ftscansvchv) is not         "
 "running on your agent desktop. Please check it out and ensure it is "
 "running         before scanner redirection."
-msgstr "VMware 掃描儀重定向服務未在Agent桌面上運行。請檢查並確保它在掃描儀重定向之前已經處於運行狀態。"
+msgstr "VMware 掃描儀重定向服務(ftscansvchv)未在Agent桌面上運行。請檢查並確保它在掃描儀重定向之前已經處於運行狀態。"
 
 #: diagnosis.py:309
 msgid ""
 "The VMware Network Session service(ftnlses3hv) is not running on"
 "             your agent desktop. Please check it out and ensure it is "
 "running before scanner redirection."
-msgstr "VMware Network Session服務未在Agent桌面上運行。請檢查並確保它在掃描儀重定向之前已經處於運行狀態。"
+msgstr "VMware Network Session服務(ftnlses3hv)未在Agent桌面上運行。請檢查並確保它在掃描儀重定向之前已經處於運行狀態。"
 
 #: diagnosis.py:314
 msgid ""
@@ -362,7 +362,7 @@ msgid ""
 "environment."
 msgstr ""
 "USB include和split已配置。 Nuance "
-"extensions未安裝在客戶端計算機。請在Horizo​​n環境中用USB拆分和RTAV重定向的解決方案來使用此設備。"
+"extensions未安裝在客戶端計算機。請在Horizo​​n環境中用USB split和RTAV重定向的解決方案來使用此設備。"
 
 #: diagnosis.py:428 diagnosis.py:445 diagnosis.py:456
 msgid ""
@@ -410,14 +410,14 @@ msgid ""
 "The Windows Audio service(Audiosrv) is not running on your client "
 "desktop.             Please check it out and ensure it is running before "
 "RTAV redirection."
-msgstr "Windows音頻服務未在客戶端桌面上運行。請檢查並確保它在RTAV重定向之前已經處於運行狀態。"
+msgstr "Windows音頻服務(Audiosrv)未在客戶端桌面上運行。請檢查並確保它在RTAV重定向之前已經處於運行狀態。"
 
 #: diagnosis.py:473
 msgid ""
 "The Windows Audio service(Audiosrv) is not running on your agent desktop."
 "         Please check it out and ensure it is running before RTAV "
 "redirection."
-msgstr "Windows音頻服務未在Agent桌面上運行。請檢查並確保它在RTAV重定向之前已經處於運行狀態。"
+msgstr "Windows音頻服務(Audiosrv)未在Agent桌面上運行。請檢查並確保它在RTAV重定向之前已經處於運行狀態。"
 
 #: diagnosis.py:478
 msgid ""
@@ -429,7 +429,7 @@ msgstr "您在用USB重定向的方式使用音頻設備。請使用RTAV重定�
 msgid ""
 "It is recommended to not do any USB redirection for this device in "
 "Horizon environment."
-msgstr "建議不要在Horizon環境中對此設備進行任何重定向。"
+msgstr "建議不要在Horizon環境中對此設備進行任何USB重定向。"
 
 #: diagnosis.py:488 diagnosis.py:499
 msgid ""
