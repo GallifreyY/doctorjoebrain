@@ -54,25 +54,29 @@ def diagnosis_general_issues(collected_data):
     collected_data = collected_data
 
     if collected_data['client'].get('clientService',None) != 'Running':
-        trs_s=_("The VMware Horizon client service is not running on your client desktop. Please check it out and ensure it is running.")
+        trs_s=_("The VMware Horizon client service is not running on your client desktop. \
+        Please check it out and ensure it is running.")
         error.append(trs_s)
     if collected_data['agent'].get('agentService',None) != 'Running':
-        trs_s=_("The VMware Horizon agent service is not running on your agent desktop. Please check it out and ensure it is running.")
+        trs_s=_("The VMware Horizon agent service is not running on your agent desktop. \
+        Please check it out and ensure it is running.")
         error.append(trs_s)
     if collected_data['client'].get('PrinterService',None) != 'Running':
-        trs_s=_("The print service(spooler) is not running on your client desktop. Please check it out and ensure it is running before printer redirection.")
+        trs_s=_("The print service(spooler) is not running on your client desktop. \
+        Please check it out and ensure it is running before printer redirection.")
         error.append(trs_s)
     if collected_data['agent'].get('PrinterService',None) != 'Running':
-        trs_s=_("The print service(spooler) is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
+        trs_s=_("The print service(spooler) is not running on your agent desktop. \
+        Please check it out and ensure it is running before printer redirection.")
         error.append(trs_s)
     
 
     # Check the Desktop Experience component installation status on RDS
     if _is_agent_RDS(collected_data):
         if collected_data['agent'].get('DesktopExpInstalled',None) != True:
-            trs_s = _("The Desktop Experience component is not installed on your RDS desktop. \
-                       The VMware Horizon agent functions (such as scanner redirection) may \
-                       not work normally because of it. Please check it out and ensure it is installed.")
+            trs_s = _("The Desktop Experience component is not installed on your RDS desktop.\
+             The VMware Horizon agent functions (such as scanner redirection) may not work \
+             normally because of it. Please check it out and ensure it is installed.")
             warning.append(trs_s)
         
     return {'error': error,'warning': warning,'suggestion':suggestion}
@@ -92,7 +96,8 @@ def diagnosis(collected_data, device,language):
         device_type_l10n = TYPE_DICT[device.type]['en']
     if device.problemcode!=None:
         if int(device.problemcode) > 0:
-            trs_ss=_("This device has some configuration issues. The device problem code is %(problemcode)s. %(problemdesc)s",problemcode=device.problemcode,problemdesc=device.problemdesc)
+            trs_ss=_("This device has some configuration issues. The device problem code \
+            is %(problemcode)s. %(problemdesc)s",problemcode=device.problemcode,problemdesc=device.problemdesc)
             sslink = "https://support.microsoft.com/en-us/help/310123/error-codes-in-device-manager-in-windows"
             error.append([trs_ss,sslink])
     if device.is_present == False:
@@ -114,26 +119,26 @@ def diagnosis(collected_data, device,language):
                 if _comp in collected_data['agent']['Horizoncomp']:
                     if collected_data['agent']['Horizoncomp'][_comp] == 1:
                         comp_installed = True
-                        trs_s=_("The VMware %(compstr)s component is installed on the Horizon agent desktop. \
-                                 Please use it for %(type)s redirection.",compstr=compstr,type=device_type_l10n)
+                        trs_s=_("The VMware %(compstr)s component is installed on the Horizon agent desktop. Please use it for \
+                        %(type)s redirection.",compstr=compstr,type=device_type_l10n)
                         suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
                         break
                 else:
-                    trs_s=_("The VMware %(compstr)s component is not available in the current Horizon agent \
-                             product version." ,compstr=compstr)
+                    trs_s=_("The VMware %(compstr)s component is not available \
+                    in the current Horizon agent product version." ,compstr=compstr)
                     suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
             if comp_installed == False :
                 comp_string = " or ".join(comp)
-                trs_s=_("The VMware %(comp_string)s component is not installed on the Horizon agent desktop. \
-                         Please check it with your IT administrator.",comp_string=comp_string)
+                trs_s=_("The VMware %(comp_string)s component is not installed on \
+                the Horizon agent desktop. Please check it with your IT administrator.",comp_string=comp_string)
                 error.append(_add_refers(trs_s,device.type,collected_data,language))
         elif collected_data['agent']['Horizoncomp'][comp] == 0:
-            trs_s=_("The VMware %(comp)s component is not installed on the Horizon agent desktop. Please \
-                     check it with your IT administrator.",comp=comp)
+            trs_s=_("The VMware %(comp)s component is not installed on the Horizon \
+            agent desktop. Please check it with your IT administrator.",comp=comp)
             error.append(_add_refers(trs_s,device.type,collected_data,language))
         elif collected_data['agent']['Horizoncomp'][comp] == 1:
-            trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. Please use \
-                       it for %(type)s redirection.",comp=comp,type=device_type_l10n)
+            trs_s = _("The VMware %(comp)s component is installed on the Horizon agent desktop. \
+            Please use it for %(type)s redirection.",comp=comp,type=device_type_l10n)
             suggestion.append(_add_refers(trs_s, device.type, collected_data,language))
             if comp == "RTAV" and _is_agent_RDS(collected_data):
                 trs_s=_("Please refer to this KB link for RTAV limitations on Windows Server OS.")
@@ -172,24 +177,29 @@ def _usb_disk_diagnose(collected_data, device,error, warning, suggestion,languag
 
     # todo: USB Arbitrator
     if collected_data['client'].get('USBArbitrator',None) == 'Stopped':
-        trs_s=_("Please check and ensure the USB arbitrator service is in running status on your client machine.")
+        trs_s=_("Please check and ensure the USB arbitrator service is in running \
+        status on your client machine.")
         error.append(trs_s)
 
     # todo: Redirection
     if device.is_usb_redirect:
-        trs_s=_("You are using USB redirection for USB disk devices. Please use CDR redirection.")
+        trs_s=_("You are using USB redirection for USB disk devices. \
+        Please use CDR redirection.")
         error.append(_add_refers(trs_s,device.type,collected_data,language))
 
     # todo: CDR Service
     if 'CDRservice' in collected_data['agent'].keys():
         if collected_data['agent']['CDRservice'] == 'Running':
-            trs_s=_("Please use the CDR (Client Drive Redirection) solution to redirect the file systems on USB disk devices.")
+            trs_s=_("Please use the CDR (Client Drive Redirection) solution to \
+            redirect the file systems on USB disk devices.")
             suggestion.append(_add_refers(trs_s,'CDR',collected_data,language))
         else:
-            trs_s=_("The CDR service is not running properly on your agent machine. Please check it with your IT administrator to restart the service.")
+            trs_s=_("The CDR service is not running properly on your agent machine. \
+            Please check it with your IT administrator to restart the service.")
             error.append(_add_refers(trs_s,'CDR',collected_data,language))
     else:
-        trs_s=_("The CDR component is not installed on your agent machine correctly. Please check it with your IT administrator.")
+        trs_s=_("The CDR component is not installed on your agent machine correctly. \
+        Please check it with your IT administrator.")
         error.append(_add_refers(trs_s,'CDR',collected_data,language))
 
     return error, warning, suggestion
@@ -202,24 +212,29 @@ def _printer_diagnose(collected_data, device,error, warning, suggestion,language
     suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
     if collected_data['client'].get('PrinterService',None) != 'Running':
-        trs_s=_("The print service(spooler) is not running on your client desktop. Please check it out and ensure it is running before printer redirection.")
+        trs_s=_("The print service(spooler) is not running on your client desktop. \
+        Please check it out and ensure it is running before printer redirection.")
         error.append(trs_s)
 
     if collected_data['agent'].get('PrinterService',None) != 'Running':
-        trs_s=_("The print service(spooler) is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
+        trs_s=_("The print service(spooler) is not running on your agent desktop. \
+        Please check it out and ensure it is running before printer redirection.")
         error.append(trs_s)
     # Check printer service status for VMware Integrated Printing
     if _is_pr_installed(collected_data,"PrintRedir"):
         if collected_data['agent'].get('vmwareprintService',None) != 'Running':
-                trs_s=_("The VMware print service is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
+                trs_s=_("The VMware print service is not running on your agent desktop. \
+                Please check it out and ensure it is running before printer redirection.")
                 error.append(trs_s)
     # Check printer service status for VMware ThinPrint
     if _is_pr_installed(collected_data,"ThinPrint"):
         if collected_data['agent'].get('thinprintAutoConn',None) != 'Running':
-                trs_s=_("The Thinprint AutoConnection service is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
+                trs_s=_("The Thinprint AutoConnection service is not running on your agent \
+                desktop. Please check it out and ensure it is running before printer redirection.")
                 error.append(trs_s)
         if collected_data['agent'].get('thinprintGateway',None) != 'Running':
-                trs_s=_("The Thinprint Gateway service is not running on your agent desktop. Please check it out and ensure it is running before printer redirection.")
+                trs_s=_("The Thinprint Gateway service is not running on your agent desktop. \
+                Please check it out and ensure it is running before printer redirection.")
                 error.append(trs_s)
 
     if device.is_usb_redirect:
@@ -237,7 +252,9 @@ def _printer_diagnose(collected_data, device,error, warning, suggestion,language
             trs_conn=_("connection")
         elif device.end == "agent":
             trs_conn=_("redirection")
-        trs_s=_("This printer is connected to the Horizon %(end)s machine via USB %(trs_conn)s. However, the device driver is not found in the machine. Please contact IT administrator to install the printer driver in it.",\
+        trs_s=_("This printer is connected to the Horizon %(end)s machine via USB %(trs_conn)s. \
+        However, the device driver is not found in the machine. Please contact IT \
+        administrator to install the printer driver in it.",\
                 end=device.end,trs_conn=trs_conn)
         warning.append(trs_s)
 
@@ -247,7 +264,9 @@ def _printer_diagnose(collected_data, device,error, warning, suggestion,language
         if major_version == 3: # NPD
             agent_redirect =  device.find_redirection_in_agent()
             if agent_redirect is not None and agent_redirect['DriverName']['Name'] == 'VMware Universal EMF Driver':
-                trs_s=_("VMware Universal Printing Driver(UPD) is used by this printer in remote desktop. If you want to utilize Native Printing Driver(NPD), please install its native driver on the remote desktop.")
+                trs_s=_("VMware Universal Printing Driver(UPD) is used by this printer in \
+                remote desktop. If you want to utilize Native Printing Driver(NPD), please \
+                install its native driver on the remote desktop.")
                 suggestion.append(trs_s)
                 # todo: update!
 
@@ -265,24 +284,30 @@ def _scanner_diagnose(collected_data, device,error, warning, suggestion,language
     suggestion.append(_add_refers(trs_s,device.type,collected_data,language))
 
     if collected_data['client'].get('netlinkClientService',None) != 'Running':
-        trs_s=_("The VMware Netlink Supervisor service is not running on your client desktop. Please check it out and ensure it is running before scanner redirection.")
+        trs_s=_("The VMware Netlink Supervisor service is not running on your client desktop. \
+        Please check it out and ensure it is running before scanner redirection.")
         error.append(trs_s)
 
     if collected_data['client'].get('scannerClientService',None) != 'Running':
-        trs_s=_("The VMware Scanner Redirection Client service is not running on your client desktop. Please check it out and ensure it is running before scanner redirection.")
+        trs_s=_("The VMware Scanner Redirection Client service is not running on your client desktop. \
+        Please check it out and ensure it is running before scanner redirection.")
         error.append(trs_s)
 
     if collected_data['agent'].get('netlinkAgentService',None) != 'Running':
-        trs_s=_("The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your agent desktop. Please check it out and ensure it is running before scanner redirection.")
+        trs_s=_("The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your \
+        agent desktop. Please check it out and ensure it is running before scanner redirection.")
         error.append(trs_s)
 
     if collected_data['agent'].get('scannerAgentService',None) != 'Running':
-        trs_s=_("The VMware Scanner Redirection Agent service(ftscansvchv) is not running on your agent desktop. Please check it out and ensure it is running before scanner redirection.")
+        trs_s=_("The VMware Scanner Redirection Agent service(ftscansvchv) is not \
+        running on your agent desktop. Please check it out and ensure it is running \
+        before scanner redirection.")
         error.append(trs_s)
 
     if _is_below_HZN81(collected_data):
         if collected_data['agent'].get('netlinkSessionService',None) != 'Running':
-            trs_s=_("The VMware Network Session service(ftnlses3hv) is not running on your agent desktop. Please check it out and ensure it is running before scanner redirection.")
+            trs_s=_("The VMware Network Session service(ftnlses3hv) is not running on \
+            your agent desktop. Please check it out and ensure it is running before scanner redirection.")
             error.append(trs_s)
 
     if device.is_usb_redirect:
@@ -295,7 +320,8 @@ def _camera_diagnose(collected_data, device, error, warning, suggestion,language
     if _judge_driver(device) is not None:
         warning.append(_judge_driver(device))
     
-    trs_s=_("If this camera is a high resolution composite device, please contact your IT administrator for other solutions for it is not supported in Horizon yet.")
+    trs_s=_("If this camera is a high resolution composite device, please contact your \
+    IT administrator for other solutions for it is not supported in Horizon yet.")
     suggestion.append(trs_s)
 
     if device.is_usb_redirect:
@@ -308,22 +334,28 @@ def _signaturepad_diagnose(collected_data, device,error, warning, suggestion,lan
         warning.append(_judge_driver(device))
     if device.name == "FT232R USB UART":
         # For Topaz BSB pad devices SerialPort
-        trs_s=_("It is recommended to use Serial Port redirection solution for this device in Horizon environment.")
+        trs_s=_("It is recommended to use Serial Port redirection solution for this device \
+        in Horizon environment.")
         suggestion.append(_add_refers(trs_s,'SerialPort',collected_data,language))
         if collected_data['agent']['Horizoncomp']['SerialPortRedirection'] == 0:
-            trs_e=_("The VMware Serial Port redirection component is not installed on the Horizon agent desktop. Please check it with your IT administrator.")
+            trs_e=_("The VMware Serial Port redirection component is not installed on \
+            the Horizon agent desktop. Please check it with your IT administrator.")
             error.append(trs_e)
         elif collected_data['agent']['Horizoncomp']['SerialPortRedirection'] == 1:
-            trs_s = _("The VMware Serial Port redirection component is installed on the Horizon agent desktop. Please use it for Topaz BSB signaturepad device redirection.")
+            trs_s = _("The VMware Serial Port redirection component is installed on the \
+            Horizon agent desktop. Please use it for Topaz BSB signaturepad device redirection.")
             suggestion.append(trs_s)
         if collected_data['client'].get('serialClientService',None) != 'Running':
-            trs_e=_("The VMware Serial Port redirection client service is not running on your client desktop. Please check it out and ensure it is running.")
+            trs_e=_("The VMware Serial Port redirection client service is not running \
+            on your client desktop. Please check it out and ensure it is running.")
             error.append(trs_e)
         if collected_data['agent'].get('serialAgentService',None) != 'Running':
-            trs_e=_("The VMware Serial Port redirection agent service is not running on your agent desktop. Please check it out and ensure it is running.")
+            trs_e=_("The VMware Serial Port redirection agent service is not running \
+            on your agent desktop. Please check it out and ensure it is running.")
             error.append(trs_e)
         if device.is_usb_redirect:
-            trs_e=_("You are using USB redirection for this device. Please use Serial Port redirection solution for it.")
+            trs_e=_("You are using USB redirection for this device. Please use Serial Port \
+            redirection solution for it.")
             error.append(trs_e) 
     else:
         # For Non Topaz BSB pad devices and Wacom devices
@@ -364,20 +396,23 @@ def _speechmic_diagnose(collected_data, device, error, warning, suggestion,langu
         if device.name == "PowerMicII-NS":
             audioExt=collected_data['client'].get('NuanceAudioExt',None)
             micExt=collected_data['client'].get('NuanceMicExt',None)
-            trs_s=_("It is recommended to use Nuance extension solution for this device in Horizon environment.")
+            trs_s=_("It is recommended to use Nuance extension solution for this device \
+            in Horizon environment.")
             powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
             suggestion.append([trs_s,powermiclink])
             if audioExt != None or micExt != None:
                 # Nuance Extensions are fully or partially installed on client
                 if audioExt != micExt:
-                    trs_e=_("The Nuance VMware Client Audio extension version is %(audioExt)s while the Nuance PowerMic VMware client extension \
-                            version is %(micExt)s. Please check and ensure they are of the same versions.",audioExt=audioExt,micExt=micExt)
+                    trs_e=_("The Nuance VMware Client Audio extension version is %(audioExt)s \
+                    while the Nuance PowerMic VMware client extension \
+                    version is %(micExt)s. Please check and ensure they are of the same versions.",audioExt=audioExt,micExt=micExt)
                     error.append(trs_e)
                  
                 if False == _USB_split_inc_policy_configed(collected_data, device):
                     if device.is_usb_redirect:
-                        trs_e=_("You are using USB redirection for this device. Please use Nuance extension solution. \
-                                 No need to redirect the device.")
+                        trs_e=_("You are using USB redirection for this device. Please use \
+                        Nuance extension solution. \
+                        No need to redirect the device.")
                         error.append(trs_e)
                 else:
                     trs_e=_("It is wrong to configure both USB split settings and Nuance extensions. \
@@ -386,31 +421,37 @@ def _speechmic_diagnose(collected_data, device, error, warning, suggestion,langu
             else:
                 # Nuance Extensions are not installed on client and USB split policy configured
                 if True == _USB_split_inc_policy_configed(collected_data, device):
-                    trs_s=_("The USB include and split policy are configured. Nuance Extensions are not installed on client. \
-                             Use USB split with RTAV redirection solution for this device in Horizon environment.")
+                    trs_s=_("The USB include and split policy are configured. Nuance Extensions \
+                    are not installed on client. Use USB split with RTAV redirection \
+                    solution for this device in Horizon environment.")
                     suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
                     trs_d=_("Your PowerMic device may not work by VMware USB split when session reconnects.")
                     suggestion.append(_add_KB_refers(trs_d,'RTAV_reconnect_delay',language))
                 else:
-                    trs_s=_("The USB include and split policy are not configured. Nuance Extensions are not installed on client. \
-                            Please contact your IT administartor to configure Nuance extension solution for this device in Horizon environment.")
+                    trs_s=_("The USB include and split policy are not configured. Nuance Extensions \
+                    are not installed on client. Please contact your IT administartor to \
+                    configure Nuance extension solution for this device in Horizon environment.")
                     powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
                     suggestion.append([trs_s,powermiclink])
                     if device.is_usb_redirect:
-                        trs_s=_("You are using pure USB redirection for this device. Please use Nuance extension solution or USB split with RTAV redirection solution.")
+                        trs_s=_("You are using pure USB redirection for this device. Please use Nuance \
+                        extension solution or USB split with RTAV redirection solution.")
                         error.append(trs_s)
         else:
             # For other speech devices - Philips SpeechMike
-            trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
+            trs_s=_("It is recommended to use USB Split with RTAV redirection solution \
+            for this device in Horizon environment.")
             suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
             trs_d=_("Your PowerMic device may not work by VMware USB split when session reconnects.")
             suggestion.append(_add_KB_refers(trs_d,'RTAV_reconnect_delay',language))
             if False == _USB_split_inc_policy_configed(collected_data, device):
-                trs_w=_("The USB include and split policy is not configured. Please contact your IT administrator to configure it correctly.")
+                trs_w=_("The USB include and split policy is not configured. Please contact your \
+                IT administrator to configure it correctly.")
                 warning.append(trs_w)
     else:
         # For other horizon client platforms - linux client
-        trs_s=_("It is recommended to use USB Split with RTAV redirection solution for this device in Horizon environment.")
+        trs_s=_("It is recommended to use USB Split with RTAV redirection solution for \
+        this device in Horizon environment.")
         suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
         trs_d=_("Your PowerMic device may not work by VMware USB split when session reconnects.")
         suggestion.append(_add_KB_refers(trs_d,'RTAV_reconnect_delay',language))
@@ -424,11 +465,13 @@ def _audio_diagnose(collected_data, device, error, warning, suggestion,language)
 
     if isWinClient(collected_data):
         if collected_data['client'].get('audioService',None) != 'Running':
-            trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. Please check it out and ensure it is running before RTAV redirection.")
+            trs_s=_("The Windows Audio service(Audiosrv) is not running on your client desktop. \
+            Please check it out and ensure it is running before RTAV redirection.")
             error.append(trs_s)
 
     if collected_data['agent'].get('audioService',None) != 'Running':
-        trs_s=_("The Windows Audio service(Audiosrv) is not running on your agent desktop. Please check it out and ensure it is running before RTAV redirection.")
+        trs_s=_("The Windows Audio service(Audiosrv) is not running on your agent desktop. \
+        Please check it out and ensure it is running before RTAV redirection.")
         error.append(trs_s)
 
     if device.is_usb_redirect:
