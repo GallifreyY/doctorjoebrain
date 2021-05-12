@@ -347,7 +347,7 @@ msgstr "您正在使用USB重定向此设备。请使用Nuance extension解决�
 
 #: diagnosis.py:418
 msgid ""
-"It is wrong to configure both  USB 拆分 settings and Nuance extensions."
+"It is wrong to configure both USB split settings and Nuance extensions."
 "                              Please contact your IT administrator to "
 "correct it."
 msgstr "同时配置USB拆分设置和Nuance extension是错误的。请与您的IT管理员联系以更正它。"
@@ -389,7 +389,7 @@ msgstr "您正在以纯USB重定向的方式使用此设备。请使用Nuance ex
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution"
 "             for this device in Horizon environment."
-msgstr "建议在Horizon环境中使用带有RTAV重定向的USB拆分的方式来使用此设备。"
+msgstr "建议在Horizon环境中使用USB拆分加RTAV重定向的方式来使用此设备。"
 
 #: diagnosis.py:448
 msgid ""
