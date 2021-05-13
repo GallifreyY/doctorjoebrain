@@ -65,7 +65,7 @@ def recognize_devices(collected_data, uuid):
     res = []
     recorded_devices = ['usbdisk', 'virtualprinters','usbprinters', 'scanners', \
                         'cameras','others','signaturepad', 'speechmic','audio', \
-                        'barcodescanner','smartcardreader','wirelessmouse','wirelesskeyboard']
+                        'barcodescanner','smartcardreader','mouse','keyboard']
     for end in collected_data.keys():
         for key in collected_data[end].keys():
             if collected_data[end][key] is None:

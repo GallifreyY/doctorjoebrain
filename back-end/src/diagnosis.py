@@ -25,8 +25,8 @@ TYPE_DICT = {
     "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
     "barcodescanner": {"zh_cn": "USB扫码枪", "en": "USB Barcode Scanner","zh_tw":"USB掃碼槍"},
     "smartcardreader": {"zh_cn": "智能卡读卡器", "en": "Smartcard Reader","zh_tw":"智能卡讀卡器"},
-    "wirelessmouse": {"zh_cn": "无线鼠标", "en": "Wireless Mouse","zh_tw":"無綫鼠標"},
-    "wirelesskeyboard": {"zh_cn": "无线键盘", "en": "Wireless Keyboard","zh_tw":"無綫鍵盤"},
+    "mouse": {"zh_cn": "鼠标", "en": "Mouse","zh_tw":"鼠標"},
+    "keyboard": {"zh_cn": "键盘", "en": "Keyboard","zh_tw":"鍵盤"},
     "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 docGUIDlinks = {
