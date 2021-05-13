@@ -344,7 +344,6 @@ def device_and_client_info():
         'infoLen': {'errorLen': len(general_issues_info['error']), 'warningLen': len(general_issues_info['warning']),
                     'suggestionLen': 0}
     })
-    print(diagnosis_type_info)
     return {
         'code': 20022,
         'data': {
