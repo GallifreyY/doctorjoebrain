@@ -48,7 +48,9 @@ CATE_MAP = {
     "Barcode Scanners": 12,
     "Serial Port Devices": 13,
     "Audio": 14,
-    "Foot Pedal": 15
+    "Foot Pedal": 15,
+    "Mouse": 16,
+    "Keyboard": 17
 }
 
 TRS_CN_CATE_MAP = {
@@ -68,7 +70,9 @@ TRS_CN_CATE_MAP = {
     "条码扫描器": 12,
     "串口设备": 13,
     "音频设备": 14,
-    "脚踏板": 15
+    "脚踏板": 15,
+    "鼠标": 16,
+    "键盘": 17
 }
 TRS_TW_CATE_MAP = {
     "其他設備": -1,
@@ -87,7 +91,9 @@ TRS_TW_CATE_MAP = {
     "條碼掃描器": 12,
     "串口設備": 13,
     "音頻設備": 14,
-    "腳踏板": 15
+    "腳踏板": 15,
+    "鼠標": 16,
+    "鍵盤": 17
 }
 TYPE_DICT = {
     "usbdisk": {"zh_cn": "USB硬盘", "en": "USB Disks","zh_tw":"USB磁盤"},
@@ -100,6 +106,8 @@ TYPE_DICT = {
     "speechmic": {"zh_cn": "USB语音麦克风", "en": "USB Speech Mics","zh_tw":"USB語音麥克風"},
     "barcodescanner": {"zh_cn": "USB扫码枪", "en": "Barcode Scanner","zh_tw":"USB掃碼槍"},
     "smartcardreader": {"zh_cn": "智能卡读卡器", "en": "Smartcard Reader","zh_tw":"智能卡讀卡器"},
+    "mouse": {"zh_cn": "鼠标", "en": "Mouse","zh_tw":"鼠標"},
+    "keyboard": {"zh_cn": "键盘", "en": "Keyboard","zh_tw":"鍵盤"},
     "others": {"zh_cn": "其它设备", "en": "Other Devices","zh_tw":"其他設備"}
 }
 CATE_LIST = []
