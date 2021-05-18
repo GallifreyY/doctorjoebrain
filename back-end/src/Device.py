@@ -145,6 +145,12 @@ class Device:
         elif self.type == 'signaturepad':
             default_info['details']['picture'] = 'defaultSignaturepad.jpg'
             default_info['details']['description'] = 'This device is a signaturepad'
+        elif self.type == 'mouse':
+            default_info['details']['picture'] = 'defaultMouse.jpg'
+            default_info['details']['description'] = 'This device is a mouse'
+        elif self.type == 'keyboard':
+            default_info['details']['picture'] = 'defaultKeyboard.jpg'
+            default_info['details']['description'] = 'This device is a keyboard'
         elif self.type == 'speechmic':
             default_info['details']['picture'] = 'defaultSpeechmic.jpg'
             default_info['details']['description'] = 'This device is a speechmic'
