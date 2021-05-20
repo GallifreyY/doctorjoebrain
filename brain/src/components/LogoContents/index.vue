@@ -114,23 +114,23 @@
         },
      methods: {
       download_client(){
-            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsClient.msi';
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsClient_Win64.msi';
             window.open(url,'_blank');
           },
           download_agent(){
-            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent.zip';
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent_Win64.zip';
             window.open(url,'_blank');
           },
           download32_client(){
-            var url = 'https://'+window.location.host+'/download/32bits/HorizonPeripheralsClient.msi';
+            var url = 'https://'+window.location.host+'/download/32bits/HorizonPeripheralsClient_Win32.msi';
             window.open(url,'_blank');
           },
           download32_agent(){
-            var url = 'https://'+window.location.host+'/download/32bits/HorizonPeripheralsAgent.zip';
+            var url = 'https://'+window.location.host+'/download/32bits/HorizonPeripheralsAgent_Win32.zip';
             window.open(url,'_blank');
           },
           download_client_linux(){
-            var url = 'https://'+window.location.host+'/download/linux/HorizonPeripheralsClient.zip';
+            var url = 'https://'+window.location.host+'/download/linux/HorizonPeripheralsClient_Lin64.zip';
             window.open(url,'_blank');
           }
      }
