@@ -1,7 +1,7 @@
 <template>
 <div class="page">
     <nav-bar style="margin-left: 15px"></nav-bar>
-  <iframe id="iframeId" src="https://marketplace.cloud.vmware.com/vmware-validated-peripherals" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>
+  <iframe sandbox="allow-forms allow-same-origin allow-scripts" id="iframeId" src="https://marketplace.cloud.vmware.com/vmware-validated-peripherals" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>
     <!-- <device-table></device-table> -->
 <!--    <Matrix></Matrix>-->
   </div>
@@ -17,7 +17,22 @@
             return {
 
             }
-        }
+        },
+        methods:{
+          securityProtection(){
+            if(window != window.top){
+                window.top.location.href = "https://marketplace.cloud.vmware.com/vmware-validated-peripherals";
+            }
+            if (top.location.host != window.location.host) {
+　　              top.location.href = window.location.href;
+              }
+          }
+        },
+        created(){
+    this.securityProtection()
+
+
+  }
     }
 </script>
 
