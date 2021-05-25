@@ -38,12 +38,12 @@
 
 <style lang="" scoped>
 .iframe {
-    position: absolute;
+    position: fixed;
     left: 15px;
     right: 10px;
-    top: 0;
+    top: 67px;
     bottom: 0;
-    width: 99%;
+    width: 97.6%;
     height: 100%;
     background: #fff;
     overflow-y: hidden;
