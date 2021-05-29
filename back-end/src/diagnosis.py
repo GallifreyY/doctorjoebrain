@@ -431,14 +431,13 @@ def _speechmic_diagnose(collected_data, device, error, warning, suggestion,langu
                     are not installed on client. Use USB split with RTAV redirection \
                     solution for this device in Horizon environment.")
                     suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
-                    trs_d=_("Your PowerMic device may not work by VMware USB split when session reconnects.")
+                    trs_d=_("Your SpeechMic device may not work by VMware USB split when session reconnects.")
                     suggestion.append(_add_KB_refers(trs_d,'RTAV_reconnect_delay',language))
                 else:
                     trs_s=_("The USB include and split policy are not configured. Nuance Extensions \
                     are not installed on client. Please contact your IT administartor to \
                     configure Nuance extension solution for this device in Horizon environment.")
-                    powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
-                    suggestion.append([trs_s,powermiclink])
+                    suggestion.append(trs_s)
                     if device.is_usb_redirect:
                         trs_s=_("You are using pure USB redirection for this device. Please use Nuance \
                         extension solution or USB split with RTAV redirection solution.")
@@ -448,7 +447,7 @@ def _speechmic_diagnose(collected_data, device, error, warning, suggestion,langu
             trs_s=_("It is recommended to use USB Split with RTAV redirection solution \
             for this device in Horizon environment.")
             suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
-            trs_d=_("Your PowerMic device may not work by VMware USB split when session reconnects.")
+            trs_d=_("Your SpeechMic device may not work by VMware USB split when session reconnects.")
             suggestion.append(_add_KB_refers(trs_d,'RTAV_reconnect_delay',language))
             if False == _USB_split_inc_policy_configed(collected_data, device):
                 trs_w=_("The USB include and split policy is not configured. Please contact your \
@@ -459,7 +458,7 @@ def _speechmic_diagnose(collected_data, device, error, warning, suggestion,langu
         trs_s=_("It is recommended to use USB Split with RTAV redirection solution for \
         this device in Horizon environment.")
         suggestion.append(_add_KB_refers(trs_s,'CompositeSplit',language))
-        trs_d=_("Your PowerMic device may not work by VMware USB split when session reconnects.")
+        trs_d=_("Your SpeechMic device may not work by VMware USB split when session reconnects.")
         suggestion.append(_add_KB_refers(trs_d,'RTAV_reconnect_delay',language))
         # Todo: to check the USB split policies on other horizon client platforms - linux client
 
