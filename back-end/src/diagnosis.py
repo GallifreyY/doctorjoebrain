@@ -404,7 +404,7 @@ def _speechmic_diagnose(collected_data, device, error, warning, suggestion,langu
             micExt=collected_data['client'].get('NuanceMicExt',None)
             trs_s=_("It is recommended to use Nuance extension solution for this device \
             in Horizon environment.")
-            powermiclink="https://dragonmedicalone.nuance.com/StandAlone/Production/DMO_AudioRouting_EN.pdf"
+            powermiclink="https://dragonmedicalone.nuance.com/StandAlone/#pills-virtual"
             suggestion.append([trs_s,powermiclink])
             if audioExt != None or micExt != None:
                 # Nuance Extensions are fully or partially installed on client
