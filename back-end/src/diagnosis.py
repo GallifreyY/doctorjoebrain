@@ -36,6 +36,7 @@ docGUIDlinks = {
     "usbprinters": ["/horizon-remote-desktop-features/","GUID-39C87770-69C9-4EEF-BBDB-8ED5C0705611.html"],
     "scanners": ["/horizon-remote-desktop-features/","GUID-303F68FD-0CC1-4C9E-81ED-10C274669B93.html"],
     "cameras": ["/horizon-remote-desktop-features/","GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"],
+    "audio": ["/horizon-remote-desktop-features/","GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"],
     "RTAV": ["/horizon-remote-desktop-features/","GUID-D6FD6AD1-D326-4387-A6F0-152C7D844AA0.html"],
     "SerialPort": ["/horizon-remote-desktop-features/","GUID-98B33D70-097E-419E-9B4D-7390E7CDF745.html"],
     "smartcardreader" : ["/horizon-console-administration/","GUID-2A035E01-599A-4A2E-8265-2DE014AB7244.html"],
