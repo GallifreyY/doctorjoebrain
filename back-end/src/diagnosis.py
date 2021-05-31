@@ -390,8 +390,7 @@ def _USB_split_inc_policy_configed(collected_data, device):
     elif (agent_inc != None and agent_split != None):
         if re.search(inc_pattern,agent_inc) and re.search(split_pattern, agent_split):
             return True
-    else:
-        return False
+    return False
 
 def _speechmic_diagnose(collected_data, device, error, warning, suggestion,language):
     if _judge_driver(device) is not None:
