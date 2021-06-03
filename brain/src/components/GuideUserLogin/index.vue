@@ -27,7 +27,6 @@
             </template>
                 <a name="3-1" @click="handleuserprocess" class="linka">How to start a diagnosis process?</a>
                 <a class="linka" @click="handleusermatrix" name="3-2">How to check the device support matrix?</a>
-                <a class="active" @click="handleuserlogin" name="3-3">How to login as Admin to maintain and edit the device support matrix?</a>
 
         </Submenu>
 

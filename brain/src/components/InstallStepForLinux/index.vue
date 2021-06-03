@@ -1,7 +1,7 @@
 <template>
-   <div class="step">
+   <div class="stepforlinux">
     <Sider id="sider" style="overflow-y:scroll" width="380px" >
-       <Menu active-name="2-1" :open-names="['2']" width="380px">
+       <Menu active-name="2-2" :open-names="['2']" width="380px" >
         <Submenu name="1">
             <template slot="title">
                 <Icon type="ios-analytics" />
@@ -12,15 +12,14 @@
                 <a class="linka" @click="handlemsi" name="1-2">HorizonPeripheralsAgent.msi</a>
                 <a class="linka" @click="handlestep" name="1-3">Installation steps</a>
                 <a class="linka" @click="handlemod" name="1-4">Web server configuration</a>
-
         </Submenu>
         <Submenu name="2">
             <template slot="title">
                 <Icon type="ios-filing" />
                 HorizonPeripheralsClient Installer Guide
             </template>
-           <a class="active" @click="handleclient" name="2-1">Installation steps for Windows</a>
-          <a class="linka" @click="handleclientlinux" name="2-2">Installation steps for Linux</a>
+          <a class="linka" @click="handleclient" name="2-1">Installation steps for Windows</a>
+          <a class="active" @click="handleclientlinux" name="2-2">Installation steps for Linux</a>
         </Submenu>
 <Submenu name="3">
             <template slot="title">
@@ -34,19 +33,27 @@
     </Menu>
     </Sider>
     <div class="content">
+      <h2>Before Installation</h2><br />
+      <ul>
+       <li style="margin-left: 50px">The script is based on Python3.6 or Python3.6+</li>
+        <li style="margin-left: 50px">The pyusb package is needed, install it by the following command:
+          <code>sudo pip3 install pyusb</code></li>
+        <li style="margin-left: 50px">The distro package is needed, install it by the following command:
+          <code>sudo pip3 install distro</code></li>
+      </ul><br /><br />
       <h2>Cmdline Installation</h2><br />
-      <h4>Run the following command in your command line: </h4>
-      <pre>msiexec /i  C:/YourMsiLocation  /quiet /qn APPDIR="C:/Program Files/HorizonPeripheralsClient" </pre>
-      <h2>Normal Installation</h2><br />
-      <h4>HorizonPeripheralsClient.msi is the installer to be run on your Horizon client machine. It requires the administrator privilege to run. </h4>
-      <h4>You can choose the installation directory for HorizonPeripheralsClient. By default, it is <strong>C:\Program Files\HorizonPeripheralsClient\</strong> directory. </h4>
-      <img class="dj-client-pic" src="../../assets/dj-client-installer.png">
+      <h4>&nbsp;&nbsp;&nbsp;&nbsp;Download HorizonPeripheralsClient Linux 64bits Installer 1.0 from Fling website or the home page of your web OVA server. </h4><br />
+      <img style="width: 800px;height: 250px" src="../../assets/dj-client-install-linux1.png">
+       <h4>&nbsp;&nbsp;&nbsp;&nbsp;Extract the zip file and run the following command in file path with root privilege or sudo.
+         <code>sudo ./hpilinux_install.sh</code></h4><br />
+      <img style="width: 800px;height: 250px" src="../../assets/dj-client-install-linux2.png">
+
     </div>
   </div>
 </template>
 <script>
     export default {
-name:"GuideStep",
+name:"InstallStepForLinux",
       methods:{
   handlezip(){
     this.$router.replace("/help");
@@ -63,7 +70,7 @@ name:"GuideStep",
   handleclient(){
     this.$router.replace("/step");
   },
-         handleclientlinux(){
+  handleclientlinux(){
     this.$router.replace("/stepforlinux");
   },
         handleuserprocess(){
@@ -91,16 +98,17 @@ name:"GuideStep",
   position: fixed;
   height: 100vh;
   left: 0;
+  width: 380px;
   /* overflow: auto; */
   top: 70px;
   background: #fff;
   z-index: 25;
 }
-  .dj-client-pic{
+  .dj-installer-pic{
     margin-top: 50px;
     margin-left: 100px;
     margin-bottom: 50px;
-    width: 600px;
+    width: 500px;
     height: 400px;
   }
    .link{
