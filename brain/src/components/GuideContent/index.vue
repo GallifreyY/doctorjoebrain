@@ -18,7 +18,8 @@
                 <Icon type="ios-filing" />
                 HorizonPeripheralsClient Installer Guide
             </template>
-            <a class="linka" @click="handleclient" name="2-1">Installation steps</a>
+            <a class="linka" @click="handleclient" name="2-1">Installation steps for Windows</a>
+          <a class="linka" @click="handleclientlinux" name="2-2">Installation steps for Linux</a>
         </Submenu>
          <Submenu name="3">
             <template slot="title">
@@ -27,7 +28,6 @@
             </template>
                 <a name="3-1" @click="handleuserprocess" class="linka">How to start a diagnosis process?</a>
                 <a class="linka" @click="handleusermatrix" name="3-2">How to check the device support matrix?</a>
-                <a class="linka" @click="handleuserlogin" name="3-3">How to login as Admin to maintain and edit the device support matrix?</a>
 
         </Submenu>
 
@@ -59,6 +59,9 @@ methods:{
   },
   handleclient(){
     this.$router.replace("/step");
+  },
+    handleclientlinux(){
+    this.$router.replace("/stepforlinux");
   },
   handleuserprocess(){
     this.$router.replace("/userprocess");
