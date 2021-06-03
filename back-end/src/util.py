@@ -56,6 +56,12 @@ def parse_collected_data(data):
 def _generate_uuid():
     return str(uuid.uuid4())
 
+def is_json(json_data):
+    try:
+        json_object = json.loads(json_data)
+    except Exception as err:
+        return False
+    return True
 
 def recognize_devices(collected_data, uuid):
     """
