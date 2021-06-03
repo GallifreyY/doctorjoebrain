@@ -146,8 +146,14 @@ def add_to_log_file():
                 json_section = json_section.replace("\n", "").replace("\'", "\"")
                 collected_json += json_section
 
-        collected_json = collected_json.replace("\ufeff", "")  
-        collected_data = json.loads(collected_json)
+        collected_json = collected_json.replace("\ufeff", "")
+        if util.is_json(collected_json):
+            collected_data = json.loads(collected_json)
+        else:
+            return {
+                'state':state,
+                'code': code
+            }
     else:
         collected_data = json.loads(request.json)
 

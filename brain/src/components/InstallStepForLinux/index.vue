@@ -45,7 +45,8 @@
       <h4>&nbsp;&nbsp;&nbsp;&nbsp;Download HorizonPeripheralsClient Linux 64bits Installer 1.0 from Fling website or the home page of your web OVA server. </h4><br />
       <img style="width: 800px;height: 250px" src="../../assets/dj-client-install-linux1.png">
        <h4>&nbsp;&nbsp;&nbsp;&nbsp;Extract the zip file and run the following command in file path with root privilege or sudo.
-         <code>sudo ./hpilinux_install.sh</code></h4><br />
+        </h4>
+      <pre>&nbsp;&nbsp;&nbsp;sudo ./hpilinux_install.sh</pre><br />
       <img style="width: 800px;height: 250px" src="../../assets/dj-client-install-linux2.png">
 
     </div>
