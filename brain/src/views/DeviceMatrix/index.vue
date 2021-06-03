@@ -1,8 +1,10 @@
 <template>
 <div class="page">
     <nav-bar style="margin-left: 15px"></nav-bar>
-  <iframe sandbox="allow-forms allow-same-origin allow-scripts" id="iframeId" src="https://marketplace.cloud.vmware.com/vmware-validated-peripherals" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>
-    <!-- <device-table></device-table> -->
+
+  <iframe sandbox="allow-forms allow-same-origin allow-scripts" id="iframeId" src="https://marketplace.cloud.vmware.com/vmware-validated-peripherals" frameborder="0" class="pc iframe"  scrolling="no"></iframe>
+
+   <!-- <device-table></device-table> -->
 <!--    <Matrix></Matrix>-->
   </div>
 </template>
@@ -49,4 +51,5 @@
     overflow-y: hidden;
     overflow-x: hidden;
 }
+
 </style>
