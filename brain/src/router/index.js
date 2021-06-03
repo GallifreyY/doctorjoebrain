@@ -40,6 +40,10 @@ export default new Router({
       component: () => import('@/views/Step')
     },
     {
+      path: '/stepforlinux',
+      component: () => import('@/views/InstallStepForLinux')
+    },
+    {
       path: '/options',
       component: () => import('@/views/Options')
     },
