@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-12 08:04+0800\n"
+"POT-Creation-Date: 2021-06-02 09:27+0800\n"
 "PO-Revision-Date: 2021-01-21 16:13+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -18,32 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: diagnosis.py:57
+#: diagnosis.py:60
 msgid ""
 "The VMware Horizon client service is not running on your client desktop."
 "         Please check it out and ensure it is running."
 msgstr "VMware Horizon客户端服务没有在客户端桌面上运行。请检查并确保它处于运行状态。"
 
-#: diagnosis.py:61
+#: diagnosis.py:64
 msgid ""
 "The VMware Horizon agent service is not running on your agent desktop."
 "         Please check it out and ensure it is running."
 msgstr "VMware Horizon agent服务没有在agent桌面上运行。请检查并确保它处于运行状态。"
 
-#: diagnosis.py:65 diagnosis.py:215
+#: diagnosis.py:68 diagnosis.py:222
 msgid ""
 "The print service(spooler) is not running on your client desktop."
 "         Please check it out and ensure it is running before printer "
 "redirection."
 msgstr "打印服务(spooler)没有在客户端机器上运行。请检查并确保它在打印机重定向之前处于运行状态。"
 
-#: diagnosis.py:69 diagnosis.py:220
+#: diagnosis.py:72 diagnosis.py:227
 msgid ""
 "The print service(spooler) is not running on your agent desktop.         "
 "Please check it out and ensure it is running before printer redirection."
 msgstr "打印服务(spooler)没有在agent机器上运行。请检查并确保它在打印机重定向之前处于运行状态。"
 
-#: diagnosis.py:77
+#: diagnosis.py:80
 msgid ""
 "The Desktop Experience component is not installed on your RDS desktop."
 "             The VMware Horizon agent functions (such as scanner "
@@ -53,141 +53,141 @@ msgstr ""
 "RDS桌面上未安装Desktop Experience组件。 因此VMware Horizon "
 "agent的功能（例如扫描仪重定向）可能无法正常工作。请检查并确保Desktop Experience组件已安装。"
 
-#: diagnosis.py:99
+#: diagnosis.py:102
 #, python-format
 msgid ""
 "This device has some configuration issues. The device problem code"
 "             is %(problemcode)s. %(problemdesc)s"
 msgstr "此设备有一些配置问题。设备问题代码是%(problemcode)s。%(problemdesc)s"
 
-#: diagnosis.py:104
+#: diagnosis.py:107
 msgid ""
 "Please make sure this device is connected to your client machine by USB "
 "physically."
 msgstr "请确保该设备已通过USB物理连接到您的客户端机器。"
 
-#: diagnosis.py:107
+#: diagnosis.py:110
 msgid "Please reboot your client machine OS to make this device work properly."
 msgstr "请重新启动您的客户端机器操作系统，以使该设备正常工作。"
 
-#: diagnosis.py:122
+#: diagnosis.py:125
 #, python-format
 msgid ""
 "The VMware %(compstr)s component is installed on the Horizon agent "
 "desktop. Please use it for                         %(type)s redirection."
 msgstr "Horizon agent桌面已安装VMware %(compstr)s组件。请使用它做%(type)s的重定向。"
 
-#: diagnosis.py:127
+#: diagnosis.py:130
 #, python-format
 msgid ""
 "The VMware %(compstr)s component is not available                     in "
 "the current Horizon agent product version."
 msgstr "VMware %(compstr)s组件在当前Horizon Agent产品版本中没有了。"
 
-#: diagnosis.py:132
+#: diagnosis.py:135
 #, python-format
 msgid ""
 "The VMware %(comp_string)s component is not installed on                 "
 "the Horizon agent desktop. Please check it with your IT administrator."
 msgstr "Horizon agent桌面没有安装VMware %(comp_string)s组件。请联系您的IT管理员进行检查。"
 
-#: diagnosis.py:136
+#: diagnosis.py:139
 #, python-format
 msgid ""
 "The VMware %(comp)s component is not installed on the Horizon"
 "             agent desktop. Please check it with your IT administrator."
 msgstr "Horizon agent桌面未安装VMware %(comp)s组件。请联系您的IT管理员进行检查。"
 
-#: diagnosis.py:140
+#: diagnosis.py:143
 #, python-format
 msgid ""
 "The VMware %(comp)s component is installed on the Horizon agent desktop."
 "             Please use it for %(type)s redirection."
 msgstr "Horizon agent桌面已安装VMware %(comp)s组件。请使用它做%(type)s的重定向。"
 
-#: diagnosis.py:144
+#: diagnosis.py:147
 msgid "Please refer to this KB link for RTAV limitations on Windows Server OS."
 msgstr "有关Windows Server OS上RTAV的限制，请参考此KB链接。"
 
-#: diagnosis.py:180
+#: diagnosis.py:187
 msgid ""
 "Please check and ensure the USB arbitrator service is in running         "
 "status on your client machine."
 msgstr "请检查并确保客户端机器上的USB仲裁服务处于运行状态。"
 
-#: diagnosis.py:186
+#: diagnosis.py:193
 msgid ""
 "You are using USB redirection for USB disk devices.         Please use "
 "CDR redirection."
 msgstr "您在以USB重定向的方式使用USB磁盘设备。请使用CDR(客户端驱动器)重定向。"
 
-#: diagnosis.py:193
+#: diagnosis.py:200
 msgid ""
 "Please use the CDR (Client Drive Redirection) solution to             "
 "redirect the file systems on USB disk devices."
 msgstr "请使用CDR(客户端驱动器重定向)解决方案重定向USB磁盘设备上的文件系统。"
 
-#: diagnosis.py:197
+#: diagnosis.py:204
 msgid ""
 "The CDR service is not running properly on your agent machine."
 "             Please check it with your IT administrator to restart the "
 "service."
 msgstr "CDR服务在Agent机器上无法正常运行。请与您的IT管理员联系，以重新启动该服务。"
 
-#: diagnosis.py:201
+#: diagnosis.py:208
 msgid ""
 "The CDR component is not installed on your agent machine correctly."
 "         Please check it with your IT administrator."
 msgstr "CDR组件未正确安装在Agent计算机上。请联系您的IT管理员进行检查。"
 
-#: diagnosis.py:211
+#: diagnosis.py:218
 msgid ""
 "It is recommended to use printer redirection solution for this device in "
 "Horizon environment."
 msgstr "建议在Horizo​​n环境中为此设备使用打印机重定向解决方案。"
 
-#: diagnosis.py:226
+#: diagnosis.py:233
 msgid ""
 "The VMware print service is not running on your agent desktop."
 "                 Please check it out and ensure it is running before "
 "printer redirection."
 msgstr "VMware打印服务没有在agent桌面上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
-#: diagnosis.py:232
+#: diagnosis.py:239
 msgid ""
 "The Thinprint AutoConnection service is not running on your agent"
 "                 desktop. Please check it out and ensure it is running "
 "before printer redirection."
 msgstr "Thinprint自动连接服务没有在agent桌面上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
-#: diagnosis.py:236
+#: diagnosis.py:243
 msgid ""
 "The Thinprint Gateway service is not running on your agent desktop."
 "                 Please check it out and ensure it is running before "
 "printer redirection."
 msgstr "Thinprint网关服务没有在agent桌面上运行。请检查并确保它在打印机重定向之前已经处于运行状态。"
 
-#: diagnosis.py:241
+#: diagnosis.py:248
 msgid ""
 "You are using USB redirection for printer devices. Please use printer "
 "redirection."
 msgstr "您正在以USB重定向的方式使用打印机设备。请使用打印机重定向解决方案。"
 
-#: diagnosis.py:245
+#: diagnosis.py:252
 msgid ""
 "This printer is offline. Please check the device connection status "
 "firstly."
 msgstr "此打印机处于离线状态。请先检查设备连接状态。"
 
-#: diagnosis.py:252
+#: diagnosis.py:259
 msgid "connection"
 msgstr "直连"
 
-#: diagnosis.py:254
+#: diagnosis.py:261
 msgid "redirection"
 msgstr "重定向"
 
-#: diagnosis.py:255
+#: diagnosis.py:262
 #, python-format
 msgid ""
 "This printer is connected to the Horizon %(end)s machine via USB "
@@ -198,7 +198,7 @@ msgstr ""
 "此打印机通过USB %(trs_conn)s的方式连接到Horizon "
 "%(end)s的计算机，可是在机器中找不到设备驱动程序。请与IT管理员联系，以安装相应的打印机驱动程序。"
 
-#: diagnosis.py:267
+#: diagnosis.py:274
 msgid ""
 "VMware Universal Printing Driver(UPD) is used by this printer in"
 "                 remote desktop. If you want to utilize Native Printing "
@@ -206,130 +206,134 @@ msgid ""
 "remote desktop."
 msgstr "此打印机在远程桌面中使用VMware通用打印驱动程序(UPD)。如果您想使用原生打印驱动程序(NPD)，请在远程桌面里安装此打印机的原生驱动。"
 
-#: diagnosis.py:283
+#: diagnosis.py:290
 msgid ""
 "It is recommended to use scanner redirection solution for this device in "
 "Horizon environment."
 msgstr "建议在Horizon环境中以扫描仪重定向的方式来使用此设备。"
 
-#: diagnosis.py:287
+#: diagnosis.py:294
 msgid ""
 "The VMware Netlink Supervisor service is not running on your client "
 "desktop.         Please check it out and ensure it is running before "
 "scanner redirection."
 msgstr "VMware Netlink Supervisor服务没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
-#: diagnosis.py:292
+#: diagnosis.py:299
 msgid ""
 "The VMware Scanner Redirection Client service is not running on your "
 "client desktop.         Please check it out and ensure it is running "
 "before scanner redirection."
 msgstr "VMware扫描仪重定向客户端服务没有在您的客户端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
-#: diagnosis.py:297
+#: diagnosis.py:304
 msgid ""
 "The VMware Netlink Supervisor service(ftnlsv3hv) is not running on your"
 "         agent desktop. Please check it out and ensure it is running "
 "before scanner redirection."
-msgstr "VMware Netlink Supervisor(ftnlsv3hv)服务没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr ""
+"VMware Netlink "
+"Supervisor(ftnlsv3hv)服务没有在您的agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
-#: diagnosis.py:302
+#: diagnosis.py:309
 msgid ""
 "The VMware Scanner Redirection Agent service(ftscansvchv) is not         "
 "running on your agent desktop. Please check it out and ensure it is "
 "running         before scanner redirection."
 msgstr "VMware扫描仪重定向Agent端服务(ftscansvchv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
-#: diagnosis.py:309
+#: diagnosis.py:316
 msgid ""
 "The VMware Network Session service(ftnlses3hv) is not running on"
 "             your agent desktop. Please check it out and ensure it is "
 "running before scanner redirection."
-msgstr "VMware Network Session服务(ftnlses3hv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
+msgstr ""
+"VMware Network "
+"Session服务(ftnlses3hv)没有在您的Agent端桌面上运行。请检查并确保它在扫描仪重定向之前已经处于运行状态。"
 
-#: diagnosis.py:314
+#: diagnosis.py:321
 msgid ""
 "You are using USB redirection for scanner devices. Please use scanner "
 "redirection."
 msgstr "您正在为以USB重定向的方式使用扫描仪设备。请使用扫描仪重定向解决方案。"
 
-#: diagnosis.py:323
+#: diagnosis.py:330
 msgid ""
 "If this camera is a high resolution composite device, please contact your"
 "     IT administrator for other solutions for it is not supported in "
 "Horizon yet."
 msgstr "如果此摄像机是高分辨率复合设备（高分仪），则Horizon还不支持这种设备。请与您的IT管理员联系以获取其他解决方案。"
 
-#: diagnosis.py:328
+#: diagnosis.py:335
 msgid ""
 "You are using USB redirection for camera devices. Please use RTAV "
 "redirection."
 msgstr "您正在以USB重定向的方式使用相机设备。请使用RTAV重定向解决方案。"
 
-#: diagnosis.py:337
+#: diagnosis.py:344
 msgid ""
 "It is recommended to use Serial Port redirection solution for this device"
 "         in Horizon environment."
 msgstr "建议在Horizon环境中以串口重定向的方式来使用此设备。"
 
-#: diagnosis.py:341
+#: diagnosis.py:348
 msgid ""
 "The VMware Serial Port redirection component is not installed on"
 "             the Horizon agent desktop. Please check it with your IT "
 "administrator."
 msgstr "Horizon agent桌面没有安装VMware串口重定向组件，请联系您的IT管理员进行检查。"
 
-#: diagnosis.py:345
+#: diagnosis.py:352
 msgid ""
 "The VMware Serial Port redirection component is installed on the"
 "             Horizon agent desktop. Please use it for Topaz BSB "
 "signaturepad device redirection."
 msgstr "Horizon agent桌面已经安装VMware串口重定向组件。请使用它做Topaz BSB签字板的重定向。"
 
-#: diagnosis.py:349
+#: diagnosis.py:356
 msgid ""
 "The VMware Serial Port redirection client service is not running"
 "             on your client desktop. Please check it out and ensure it is"
 " running."
 msgstr "VMware串口重定向客户端服务没有在客户端桌面上运行。请检查并确保它处于运行状态。"
 
-#: diagnosis.py:353
+#: diagnosis.py:360
 msgid ""
 "The VMware Serial Port redirection agent service is not running"
 "             on your agent desktop. Please check it out and ensure it is "
 "running."
 msgstr "VMware串口重定向Agent端服务没有在Agent桌面上运行。请检查并确保它处于运行状态。"
 
-#: diagnosis.py:357
+#: diagnosis.py:364
 msgid ""
 "You are using USB redirection for this device. Please use Serial Port"
 "             redirection solution for it."
 msgstr "您正在以USB重定向的方式使用此设备。请使用串口重定向解决方案。"
 
-#: diagnosis.py:362
+#: diagnosis.py:369
 msgid ""
 "It is recommended to use USB redirection solution for this device in "
 "Horizon environment."
 msgstr "建议在Horizon环境中以USB重定向的方式来使用此设备。"
 
-#: diagnosis.py:364
+#: diagnosis.py:371
 msgid "Your signature pad device may not work well under WAN network."
 msgstr "您的签字板设备在WAN网络下可能无法正常工作。"
 
-#: diagnosis.py:368
+#: diagnosis.py:375
 msgid ""
 "Horizon published RDS desktops and applications can only support"
 "                     a few USB devices. This device may be not supported "
 "by default."
 msgstr "Horizon发布的RDS桌面和应用程序仅支持一些USB设备。默认情况下Horizon可能不支持此设备。"
 
-#: diagnosis.py:399
+#: diagnosis.py:405
 msgid ""
 "It is recommended to use Nuance extension solution for this device"
 "             in Horizon environment."
 msgstr "建议在Horizon环境中用Nuance extension的解决方案来使用此设备。"
 
-#: diagnosis.py:406
+#: diagnosis.py:412
 #, python-format
 msgid ""
 "The Nuance VMware Client Audio extension version is %(audioExt)s"
@@ -338,21 +342,21 @@ msgid ""
 "are of the same versions."
 msgstr "Nuance VMware Client 音频扩展版本为%(audioExt)s，麦克风扩展版本为%(micExt)s。请检查并确保它们为同一版本。"
 
-#: diagnosis.py:413
+#: diagnosis.py:419
 msgid ""
 "You are using USB redirection for this device. Please use"
 "                         Nuance extension solution."
 "                         No need to redirect the device."
 msgstr "您正在使用USB重定向此设备。请使用Nuance extension解决方案，无需USB重定向此设备。"
 
-#: diagnosis.py:418
+#: diagnosis.py:424
 msgid ""
 "It is wrong to configure both USB split settings and Nuance extensions."
 "                              Please contact your IT administrator to "
 "correct it."
 msgstr "同时配置USB拆分设置和Nuance extension是错误的。请与您的IT管理员联系以更正它。"
 
-#: diagnosis.py:424
+#: diagnosis.py:430
 msgid ""
 "The USB include and split policy are configured. Nuance Extensions"
 "                     are not installed on client. Use USB split with RTAV"
@@ -362,13 +366,14 @@ msgstr ""
 "USB include和split已配置。Nuance "
 "extensions未在客户端计算机安装。请在Horizon环境中使用USB拆分加RTAV重定向的解决方案来使用此设备。"
 
-#: diagnosis.py:428 diagnosis.py:445 diagnosis.py:456
+#: diagnosis.py:434 diagnosis.py:450 diagnosis.py:461
+#, fuzzy
 msgid ""
-"Your PowerMic device may not work by VMware USB split when session "
+"Your SpeechMic device may not work by VMware USB split when session "
 "reconnects."
-msgstr "会话重新连接时，您的PowerMic设备可能无法通过VMware USB拆分正常工作。"
+msgstr "会话重新连接时，您的SpeechMic设备可能无法通过VMware USB拆分正常工作。"
 
-#: diagnosis.py:431
+#: diagnosis.py:437
 msgid ""
 "The USB include and split policy are not configured. Nuance Extensions"
 "                     are not installed on client. Please contact your IT "
@@ -378,64 +383,64 @@ msgstr ""
 "未配置USB包含和拆分。Nuance extensions未在客户端计算机安装。请联系您的IT管理员在Horizon环境中配置Nuance "
 "extension解决方案，以使用此设备。"
 
-#: diagnosis.py:437
+#: diagnosis.py:442
 msgid ""
 "You are using pure USB redirection for this device. Please use Nuance"
 "                         extension solution or USB split with RTAV "
 "redirection solution."
 msgstr "您正在以纯USB重定向的方式使用此设备。请使用Nuance extension或者USB拆分加RTAV重定向的解决方案。"
 
-#: diagnosis.py:442
+#: diagnosis.py:447
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution"
 "             for this device in Horizon environment."
 msgstr "建议在Horizon环境中使用USB拆分加RTAV重定向的方式来使用此设备。"
 
-#: diagnosis.py:448
+#: diagnosis.py:453
 msgid ""
 "The USB include and split policy is not configured. Please contact your"
 "                 IT administrator to configure it correctly."
 msgstr "未配置USB包含和拆分。请与您的IT管理员联系以正确配置它。"
 
-#: diagnosis.py:453
+#: diagnosis.py:458
 msgid ""
 "It is recommended to use USB Split with RTAV redirection solution for"
 "         this device in Horizon environment."
 msgstr "建议在Horizon环境中使用USB拆分加RTAV重定向的的方式来使用此设备。"
 
-#: diagnosis.py:468
+#: diagnosis.py:473
 msgid ""
 "The Windows Audio service(Audiosrv) is not running on your client "
 "desktop.             Please check it out and ensure it is running before "
 "RTAV redirection."
 msgstr "Windows音频服务(Audiosrv)未在客户端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
 
-#: diagnosis.py:473
+#: diagnosis.py:478
 msgid ""
 "The Windows Audio service(Audiosrv) is not running on your agent desktop."
 "         Please check it out and ensure it is running before RTAV "
 "redirection."
 msgstr "Windows音频服务(Audiosrv)未在agent端桌面上运行。请检查并确保它在RTAV重定向之前已经处于运行状态。"
 
-#: diagnosis.py:478
+#: diagnosis.py:483
 msgid ""
 "You are using USB redirection for audio devices. Please use RTAV "
 "redirection solution."
 msgstr "您在用USB重定向的方式使用音频设备。请使用RTAV重定向的解决方案。"
 
-#: diagnosis.py:485 diagnosis.py:496
+#: diagnosis.py:490 diagnosis.py:501 diagnosis.py:512 diagnosis.py:523
 msgid ""
 "It is recommended to not do any USB redirection for this device in "
 "Horizon environment."
 msgstr "建议不要在Horizon环境中对此设备进行任何USB重定向。"
 
-#: diagnosis.py:488 diagnosis.py:499
+#: diagnosis.py:493 diagnosis.py:504 diagnosis.py:515 diagnosis.py:526
 msgid ""
 "You are using USB redirection for this device. Please leave it at client "
 "side.                  No need to do the USB redirection."
 msgstr "您正在使用USB重定向此设备。请使用Nuance extension解决方案，无需USB重定向此设备。"
 
-#: diagnosis.py:514
+#: diagnosis.py:541
 msgid ""
 "The driver is probably provided by Microsoft. Recommend to install"
 "                  the native driver provided by the device vendor."
