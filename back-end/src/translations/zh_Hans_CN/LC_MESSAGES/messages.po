@@ -363,7 +363,7 @@ msgid ""
 " redirection                     solution for this device in Horizon "
 "environment."
 msgstr ""
-"USB include和split已配置。Nuance "
+"已配置USB包含和拆分策略。Nuance "
 "extensions未在客户端计算机安装。请在Horizon环境中使用USB拆分加RTAV重定向的解决方案来使用此设备。"
 
 #: diagnosis.py:434 diagnosis.py:450 diagnosis.py:461
@@ -380,7 +380,7 @@ msgid ""
 "administartor to                     configure Nuance extension solution "
 "for this device in Horizon environment."
 msgstr ""
-"未配置USB包含和拆分。Nuance extensions未在客户端计算机安装。请联系您的IT管理员在Horizon环境中配置Nuance "
+"未配置USB包含和拆分策略。Nuance extensions未在客户端计算机安装。请联系您的IT管理员在Horizon环境中配置Nuance "
 "extension解决方案，以使用此设备。"
 
 #: diagnosis.py:442
@@ -400,7 +400,7 @@ msgstr "建议在Horizon环境中使用USB拆分加RTAV重定向的方式来使�
 msgid ""
 "The USB include and split policy is not configured. Please contact your"
 "                 IT administrator to configure it correctly."
-msgstr "未配置USB包含和拆分。请与您的IT管理员联系以正确配置它。"
+msgstr "未配置USB包含和拆分策略。请与您的IT管理员联系以正确配置它。"
 
 #: diagnosis.py:458
 msgid ""
