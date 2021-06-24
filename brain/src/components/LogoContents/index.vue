@@ -109,7 +109,7 @@
      data () {
             return {
                 buttonSize: 'large',
-                version: '1.0'
+                version: '2.0'
             }
         },
      methods: {
