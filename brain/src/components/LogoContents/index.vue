@@ -118,7 +118,7 @@
             window.open(url,'_blank');
           },
           download_agent(){
-            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent_Win64.zip';
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent_Win64.msi';
             window.open(url,'_blank');
           },
           download32_client(){
