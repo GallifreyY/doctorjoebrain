@@ -95,6 +95,22 @@
             </Button>
           </div>
         </Col>
+        <Col span="12"><div class="djagent-install">
+         <Button class="dj-agent-button"  @click="download_agent_wpf">
+            <Row>
+              <Col span="8"><img class="diagnose-logo" src="../../assets/logo.png">
+              </Col>
+              <Col span="16">
+                <div class="dj-install-des">
+                <h1>{{$t("Download")}}</h1>
+                <h2>{{$t("HorizonPeripheralsAgent WPF")}}</h2>
+                <h2>{{$t("Windows 64bits Installer")}} {{version}}</h2>
+               </div>
+              </Col>
+            </Row>
+          </Button>
+        </div>
+        </Col>
         </Row>
         </div>
 
@@ -118,7 +134,7 @@
             window.open(url,'_blank');
           },
           download_agent(){
-            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent_Win64.msi';
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent_Win64.zip';
             window.open(url,'_blank');
           },
           download32_client(){
@@ -131,6 +147,10 @@
           },
           download_client_linux(){
             var url = 'https://'+window.location.host+'/download/linux/HorizonPeripheralsClient_Lin64.zip';
+            window.open(url,'_blank');
+          },
+          download_agent_wpf(){
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent_Win64.msi';
             window.open(url,'_blank');
           }
      }
