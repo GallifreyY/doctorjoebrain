@@ -114,6 +114,28 @@
         </Row>
         </div>
 
+      <div class="install-content">
+      <Row>
+        <Col span="24">
+          <div class="djagent-install">
+            <Button class="dj-agent-button" @click="download_agent_mvvm">
+              <Row>
+              <Col span="8"><img class="diagnose-logo" src="../../assets/logo.png">
+              </Col>
+              <Col span="16">
+                <div class="dj-install-des">
+                <h1>{{$t("Download")}}</h1>
+                <h2>{{$t("HorizonPeripheralsAgent MVVM")}}</h2>
+                <h2>{{$t("64bits Installer")}} {{version}}</h2>
+                </div>
+              </Col>
+            </Row>
+            </Button>
+          </div>
+        </Col>
+        </Row>
+        </div>
+
   </div>
 
 
@@ -151,6 +173,10 @@
           },
           download_agent_wpf(){
             var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent_Win64.msi';
+            window.open(url,'_blank');
+          },
+          download_agent_mvvm(){
+            var url = 'https://'+window.location.host+'/download/HorizonPeripheralsAgent.mvvm_Win64.msi';
             window.open(url,'_blank');
           }
      }
